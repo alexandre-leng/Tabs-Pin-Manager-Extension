@@ -12,19 +12,22 @@ Tabs Pin helps you organize your pinned tabs in both Firefox and Google Chrome. 
 
 - **Manifest V3**: Modern, secure, and compatible with the latest browser standards.
 - **Quick Launch**: Open all your pinned tabs in one click.
-- **Anti-Duplicate**: Prevents opening tabs that are already present.
+- **Anti-Duplicate**: Smart detection prevents opening tabs already open.
 - **Simplified Management**: Easily add, modify, and delete your tabs.
-- **Direct Pinning**: A button to instantly pin the current tab.
-- **Categories**: Organize your tabs with 6 customizable categories (Work, Personal, Dev, etc.).
-- **Multi-language**: Supports 14+ languages including Arabic, German, English, Spanish, French, Hindi, Italian, Japanese, Korean, etc.
-- **Import/Export**: Save and share your configurations.
-- **Adaptive Theme**: Dark/Light mode support.
+- **Direct Pinning**: Instantly pin the current tab from the popup.
+- **Categories**: Organize tabs with fully customizable categories and emoji icon picker.
+- **Drag & Drop**: Reorder tabs intuitively by dragging.
+- **Firefox Multi-Account Containers**: Open tabs in specific containers (Firefox).
+- **Multi-language**: Supports 14 languages including Arabic, German, English, Spanish, French, Hindi, Indonesian, Italian, Japanese, Korean, Dutch, Portuguese, Russian, Chinese.
+- **Import/Export**: Save, restore, and share your configurations as JSON.
+- **Adaptive Theme**: Automatic dark/light mode based on system preference.
+- **Resilient Storage**: Built-in retry, caching, and health checks for reliable data persistence.
 
 ## 🛠️ Installation
 
 ### Recommended
 - **Firefox**: [Download from Firefox Add-ons](https://addons.mozilla.org/fr/firefox/addon/tabs-pin-pin-tabs-manager/)
-- **Chrome**: Soon available on the Chrome Web Store (or load manually as an unpacked extension).
+- **Chrome**: Load manually as an unpacked extension (Chrome Web Store listing coming soon).
 
 ### For Developers
 
@@ -41,21 +44,23 @@ npm install
 
 3. Useful commands:
 - **Development (Firefox)**: `npm run dev:firefox` (launch Firefox with auto-reload)
-- **Preparation (Chrome)**: `npm run dev:chrome` (prepare manifest for Chrome manual loading)
+- **Development (Chrome)**: `npm run dev:chrome` (prepare manifest for Chrome manual loading)
 - **Build (All)**: `npm run build` (generate both .zip packages in `web-ext-artifacts/`)
-- **Build (Specific)**: `npm run build:chrome` or `npm run build:firefox`
-- **Lint**: `npm run lint` (verify extension compliance)
+- **Build (Single)**: `npm run build:chrome` or `npm run build:firefox`
+- **Lint**: `npm run lint` (verify extension compliance via web-ext)
+- **Test**: `npm test` (run unit tests with Jest)
 
 ## 🚀 Quick Start
 
-1. **Click the Tabs Pin icon.**
-2. **Add your sites**: Use "Pin current tab" or go to "Options".
-3. **Organize**: Assign categories if needed.
-4. **Launch all**: Click "Open X tabs".
+1. **Click the Tabs Pin icon** in your browser toolbar.
+2. **Add your sites**: Use "Pin current tab" from the popup or open the Options page.
+3. **Organize**: Assign categories and reorder tabs via drag & drop in Options.
+4. **Launch all**: Click "Open X tabs" to open every configured tab at once.
+5. **Containers** (Firefox): Assign a container to any tab in Options; it will open in that container automatically.
 
 ## 🔒 Security & Privacy
 
-- **Minimal Permissions**: Uses `tabs`, `storage`, `activeTab`.
+- **Minimal Permissions**: Uses `tabs`, `storage`, `activeTab` (+ `contextualIdentities` for Firefox Container support).
 - **Manifest V3**: Enhanced security and privacy.
 - **100% Local**: No data is transmitted externally.
 - **Privacy-First & Open Source**.
