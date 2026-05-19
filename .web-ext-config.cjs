@@ -9,6 +9,7 @@ module.exports = {
     'scripts/',
     'build/',
     'dist/',
+    'tests/',
     '.vscode/',
     '.cursor/',
     '*.md',
