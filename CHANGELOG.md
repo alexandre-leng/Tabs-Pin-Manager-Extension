@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.1] - 2026-05-19
+
+### 🛠️ Corrections
+- **Pipeline de release** : Automatisation du build, tag et publication GitHub pour Firefox et Chrome.
+
 ## [1.3.0] - 2026-04-08
 
 ### 🛠️ Corrections
