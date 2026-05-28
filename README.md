@@ -27,7 +27,7 @@ Tabs Pin helps you organize your pinned tabs in both Firefox and Google Chrome. 
 
 ### Recommended
 - **Firefox**: [Download from Firefox Add-ons](https://addons.mozilla.org/fr/firefox/addon/tabs-pin-pin-tabs-manager/)
-- **Chrome**: Load manually as an unpacked extension (Chrome Web Store listing coming soon).
+- **Chrome**: [![Available on Chrome Web Store](https://img.shields.io/badge/Chrome-Web%20Store-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/tabs-pin-pin-tabs-manager)
 
 ### For Developers
 
@@ -82,7 +82,7 @@ Distributed under the GNU License. See [GPL-3.0 License](https://github.com/alex
 ### 🚀 **Tabs Pin - Transform your workflow!**
 
 [![Install for Firefox](https://img.shields.io/badge/Firefox-Install%20Now-FF7139?style=for-the-badge&logo=firefox)](https://addons.mozilla.org/fr/firefox/addon/tabs-pin-pin-tabs-manager/)
-[![Install for Chrome](https://img.shields.io/badge/Chrome-Compatible-4285F4?style=for-the-badge&logo=google-chrome)](https://github.com/alexandre-leng/Tabs-Pin-Firefox-Extension/)
+[![Available on Chrome Web Store](https://img.shields.io/badge/Chrome-Web%20Store-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/tabs-pin-pin-tabs-manager)
 
 **Developed with ❤️ by Alexandre**
 
