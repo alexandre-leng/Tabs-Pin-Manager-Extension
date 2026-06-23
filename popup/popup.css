@@ -892,6 +892,61 @@ body {
   min-width: 0;
 }
 
+.category-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 72px;
+  max-width: 92px;
+  height: 32px;
+  padding: 0 10px;
+  flex-shrink: 0;
+  background: rgba(255, 79, 79, 0.18);
+  border: 2px solid var(--error-color);
+  border-radius: 7px;
+  color: var(--error-color);
+  cursor: pointer;
+  opacity: 1;
+  transition: all 0.15s ease-in-out;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(255, 79, 79, 0.2);
+}
+
+.category-close-btn:hover,
+.category-close-btn:focus-visible {
+  background: var(--error-color);
+  border-color: var(--error-color);
+  color: white;
+  box-shadow: 0 0 0 2px rgba(255, 79, 79, 0.28), 0 2px 8px rgba(255, 79, 79, 0.28);
+  outline: none;
+}
+
+.category-close-btn:active {
+  background: #d73535;
+  border-color: #d73535;
+  transform: scale(0.98);
+}
+
+.category-close-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.category-close-icon svg {
+  display: block;
+}
+
+.category-close-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .category-name {
   font-size: 15px;
   font-weight: 600;
@@ -1786,6 +1841,19 @@ button:focus-visible,
   
   .categories-list .category-count {
     font-size: 11px;
+  }
+
+  .categories-list .category-close-btn {
+    min-width: 34px;
+    width: 34px;
+    max-width: 34px;
+    padding: 0;
+    background: rgba(255, 79, 79, 0.22);
+    border-color: var(--error-color);
+  }
+
+  .categories-list .category-close-text {
+    display: none;
   }
 }
 

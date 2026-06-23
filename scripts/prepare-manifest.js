@@ -20,6 +20,7 @@ if (target === 'firefox') {
     "lib/default-categories.js",
     "lib/storage-manager.js",
     "lib/container-utils.js",
+    "lib/domain-utils.js",
     "background/background.js"
   ];
   

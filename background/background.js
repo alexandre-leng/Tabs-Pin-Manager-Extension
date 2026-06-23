@@ -12,7 +12,8 @@ if (typeof importScripts === 'function') {
     '../lib/browser-polyfill.js',
     '../lib/default-categories.js',
     '../lib/storage-manager.js',
-    '../lib/container-utils.js'
+    '../lib/container-utils.js',
+    '../lib/domain-utils.js'
   );
 }
 
@@ -35,6 +36,7 @@ class TabsPinBackground {
     // Locks to prevent concurrent tab opening operations
     this.isOpeningAllTabsInProgress = false;
     this.isOpeningCategoryTabsInProgress = false;
+    this.isClosingCategoryTabsInProgress = false;
     
     // Cache for URLs recently decided to be opened/pinned to handle rapid successive calls
     this.recentlyOpenedUrls = new Map(); // Stores normalizedUrl -> timestamp
@@ -233,6 +235,10 @@ class TabsPinBackground {
           
         case 'openCategoryTabs':
           result = await this.openCategoryTabs(request.categoryId, request.windowId);
+          break;
+
+        case 'closeCategoryTabs':
+          result = await this.closeCategoryTabs(request.categoryId, request.windowId);
           break;
           
         case 'updateSettings':
@@ -715,6 +721,85 @@ class TabsPinBackground {
     } finally {
       this.isOpeningCategoryTabsInProgress = false;
       console.log('🔑 openCategoryTabs: Operation lock released.');
+    }
+  }
+
+  async closeCategoryTabs(categoryId, windowId = null) {
+    if (this.isClosingCategoryTabsInProgress) {
+      console.warn('🔒 closeCategoryTabs: Call rejected, operation already in progress.');
+      return { success: false, error: 'Tab closing (category) is already in progress. Please wait.', alreadyInProgress: true };
+    }
+    this.isClosingCategoryTabsInProgress = true;
+    console.log('🔑 closeCategoryTabs: Operation lock acquired.');
+
+    try {
+      const categoryTabsConfig = this.tabs.filter(tab =>
+        tab.category === categoryId && tab.enabled !== false
+      );
+
+      if (categoryTabsConfig.length === 0) {
+        return { success: false, error: 'No tabs in this category' };
+      }
+
+      const domainKeys = new Set(
+        categoryTabsConfig
+          .map(tab => DomainUtils.getDomainMatchKey(tab.url))
+          .filter(Boolean)
+      );
+
+      if (domainKeys.size === 0) {
+        return { success: false, error: 'No valid domains in this category' };
+      }
+
+      const queryOptions = windowId ? { windowId: windowId } : {};
+      const existingTabsFromQuery = await browser.tabs.query(queryOptions);
+      const tabsToClose = existingTabsFromQuery.filter(tab =>
+        tab &&
+        tab.id &&
+        tab.pinned === true &&
+        DomainUtils.isSameDomainOrSubdomain(tab.url, domainKeys)
+      );
+
+      if (tabsToClose.length === 0) {
+        return {
+          success: true,
+          closed: 0,
+          failed: 0,
+          skipped: existingTabsFromQuery.length,
+          message: 'noOpenCategoryPinnedTabs'
+        };
+      }
+
+      const results = [];
+      for (const tab of tabsToClose) {
+        try {
+          await browser.tabs.remove(tab.id);
+          this.cleanupInvalidTab(tab.id);
+          results.push({ success: true, tabId: tab.id, url: tab.url });
+          console.log(`Closed pinned category tab: ${tab.url} (ID: ${tab.id})`);
+        } catch (error) {
+          results.push({ success: false, tabId: tab.id, url: tab.url, error: error.message });
+          console.error(`Failed to close pinned category tab ${tab.url}:`, error);
+        }
+      }
+
+      const closedCount = results.filter(result => result.success).length;
+      const failedCount = results.filter(result => !result.success).length;
+
+      return {
+        success: failedCount === 0,
+        results: results,
+        closed: closedCount,
+        failed: failedCount,
+        skipped: existingTabsFromQuery.length - tabsToClose.length,
+        message: closedCount > 0 ? 'categoryPinnedTabsClosed' : 'noOpenCategoryPinnedTabs'
+      };
+    } catch (error) {
+      console.error('❌ Error in closeCategoryTabs:', error);
+      return { success: false, error: error.message };
+    } finally {
+      this.isClosingCategoryTabsInProgress = false;
+      console.log('🔑 closeCategoryTabs: Operation lock released.');
     }
   }
 

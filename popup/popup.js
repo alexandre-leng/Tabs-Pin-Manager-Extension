@@ -525,12 +525,43 @@ class PopupManager {
     const countDiv = document.createElement('div');
     countDiv.className = 'category-count';
     countDiv.textContent = `${count} ${tabWord}`;
+
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'category-close-btn';
+    const closeLabel = browser.i18n.getMessage('closeCategoryTabsTooltip') || 'Close this category';
+    const closeButtonText = browser.i18n.getMessage('closeCategoryTabs') || 'Close';
+    closeButton.title = closeLabel;
+    closeButton.setAttribute('aria-label', closeLabel);
+
+    const closeIcon = document.createElement('span');
+    closeIcon.className = 'category-close-icon';
+    closeIcon.setAttribute('aria-hidden', 'true');
+
+    const closeSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    closeSvg.setAttribute('width', '14');
+    closeSvg.setAttribute('height', '14');
+    closeSvg.setAttribute('viewBox', '0 0 24 24');
+    closeSvg.setAttribute('fill', 'currentColor');
+
+    const closePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    closePath.setAttribute('d', 'M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z');
+    closeSvg.appendChild(closePath);
+    closeIcon.appendChild(closeSvg);
+
+    const closeText = document.createElement('span');
+    closeText.className = 'category-close-text';
+    closeText.textContent = closeButtonText;
+
+    closeButton.appendChild(closeIcon);
+    closeButton.appendChild(closeText);
     
     // Assemble the structure
     infoDiv.appendChild(nameDiv);
     infoDiv.appendChild(countDiv);
     element.appendChild(iconDiv);
     element.appendChild(infoDiv);
+    element.appendChild(closeButton);
     
     // Add click event with feedback
     element.addEventListener('click', async () => {
@@ -540,6 +571,12 @@ class PopupManager {
       }, 150);
       
       await this.openCategoryTabs(category.id);
+    });
+
+    closeButton.addEventListener('click', async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      await this.closeCategoryTabs(category.id, category.name, count);
     });
     
     // Add hover animations
@@ -727,6 +764,52 @@ class PopupManager {
     } catch (error) {
       console.error('Error opening category tabs:', error);
       this.showToast('error', '❌', browser.i18n.getMessage('errorOpeningCategoryTabs') || 'Error opening category tabs');
+    } finally {
+      this.isOpeningTabs = false;
+    }
+  }
+
+  async closeCategoryTabs(categoryId, categoryName, count) {
+    if (this.isOpeningTabs) return;
+
+    const confirmMessage = browser.i18n.getMessage('closeCategoryConfirm', [
+      categoryName,
+      count.toString()
+    ]) || `Close pinned tabs from "${categoryName}" in this window?`;
+
+    if (!window.confirm(confirmMessage)) {
+      return;
+    }
+
+    this.isOpeningTabs = true;
+
+    try {
+      const currentWindow = await browser.windows.getCurrent();
+
+      const response = await this.sendMessageWithRetry({
+        action: 'closeCategoryTabs',
+        categoryId: categoryId,
+        windowId: currentWindow.id
+      });
+
+      if (response.success) {
+        if (response.closed > 0) {
+          const message = browser.i18n.getMessage('categoryPinnedTabsClosed', [
+            response.closed.toString(),
+            categoryName
+          ]) || `Closed ${response.closed} pinned tab(s) from ${categoryName}`;
+          this.showToast('success', '✅', message);
+        } else {
+          const message = browser.i18n.getMessage('noOpenCategoryPinnedTabs', [categoryName]) ||
+            `No open pinned tabs found for ${categoryName}`;
+          this.showToast('info', 'ℹ️', message);
+        }
+      } else {
+        throw new Error(response.error || browser.i18n.getMessage('errorClosingCategoryTabs'));
+      }
+    } catch (error) {
+      console.error('Error closing category tabs:', error);
+      this.showToast('error', '❌', browser.i18n.getMessage('errorClosingCategoryTabs') || 'Error closing category tabs');
     } finally {
       this.isOpeningTabs = false;
     }

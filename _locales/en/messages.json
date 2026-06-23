@@ -605,5 +605,55 @@
   "dataRefreshed": {
     "message": "Data refreshed successfully!",
     "description": "Message shown when data is refreshed successfully"
+  },
+  "closeCategoryTabs": {
+    "message": "Close",
+    "description": "Button text for closing open pinned tabs from a category"
+  },
+  "closeCategoryTabsTooltip": {
+    "message": "Close this category",
+    "description": "Tooltip for closing open pinned tabs from a category"
+  },
+  "closeCategoryConfirm": {
+    "message": "Close pinned tabs from \"$CATEGORY_NAME$\" in this window? This matches pinned tabs from the same domains as the $COUNT$ saved tab(s) in this category.",
+    "description": "Confirmation before closing category tabs",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "categoryPinnedTabsClosed": {
+    "message": "Closed $COUNT$ pinned tab(s) from $CATEGORY_NAME$",
+    "description": "Success message when closing category tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "category_name": {
+        "content": "$2",
+        "example": "Work"
+      }
+    }
+  },
+  "noOpenCategoryPinnedTabs": {
+    "message": "No open pinned tabs found for $CATEGORY_NAME$",
+    "description": "Info message when no matching category tabs are open",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "errorClosingCategoryTabs": {
+    "message": "Error closing category tabs",
+    "description": "Error message when closing category tabs fails"
   }
 }
