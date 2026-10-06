@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.5] - 2026-10-06
+
+### 🛠️ Corrections
+- **Glisser-déposer dans la grille** : Déplacer un onglet du haut tout en bas le plaçait en deuxième position. La position de dépôt tient désormais compte des colonnes (ligne puis colonne), et la carte se déplace directement pendant le glissement au lieu d'un emplacement « Drop here » qui décalait toute la grille.
+- **Annulation du déplacement** : Annuler un glisser-déposer (Échap ou lâcher hors de la grille) rétablit l'ordre d'origine.
+
+### ✨ Nouvelles Fonctionnalités
+- **Boutons Monter / Descendre** : Chaque onglet épinglé a des flèches ↑ / ↓ pour le réorganiser sans glisser-déposer.
+- **Liens GitHub** : Liens « Signaler un bug » et « Demande de fonctionnalité » dans le popup et la page d'options, traduits dans toutes les langues.
+
 ## [1.3.4] - 2026-10-06
 
 ### 🛠️ Corrections
