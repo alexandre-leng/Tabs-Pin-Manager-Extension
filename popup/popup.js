@@ -62,8 +62,13 @@ class PopupManager {
 
   async init() {
     try {
-      // Check connection with background script first
-      await this.checkBackgroundConnection();
+      // Check connection with background script first. Not fatal: loadData() falls back
+      // to direct storage access, and the popup must still render and be usable.
+      try {
+        await this.checkBackgroundConnection();
+      } catch (error) {
+        console.warn(error.message);
+      }
       
       await this.getCurrentTab();
       await this.loadData();
@@ -610,8 +615,9 @@ class PopupManager {
       });
       
       if (response.success) {
+        // The background script already persisted lastOpened; writing this possibly
+        // stale settings copy to storage would overwrite newer settings
         this.settings.lastOpened = new Date().toISOString();
-        await this.storage.set({ settings: this.settings });
         this.updateStatusInfo();
         
         // Handle different response scenarios with better logic
@@ -855,10 +861,9 @@ class PopupManager {
       ];
       
       let currentServiceIndex = 0;
-      this.elements.previewFavicon.src = services[0];
       
-      // Create fallback handler
-      const handleFaviconError = () => {
+      // Assign handlers as properties so reopening the modal replaces them instead of stacking them
+      this.elements.previewFavicon.onerror = () => {
         currentServiceIndex++;
         if (currentServiceIndex < services.length) {
           console.log(`Trying fallback favicon service ${currentServiceIndex} for ${domain}: ${services[currentServiceIndex]}`);
@@ -869,14 +874,12 @@ class PopupManager {
         }
       };
       
-      // Remove any existing error listeners to prevent duplicates
-      this.elements.previewFavicon.removeEventListener('error', handleFaviconError);
-      this.elements.previewFavicon.addEventListener('error', handleFaviconError);
-      
       // Show favicon when it loads successfully
-      this.elements.previewFavicon.addEventListener('load', function() {
-        this.style.display = 'inline-block';
-      });
+      this.elements.previewFavicon.onload = () => {
+        this.elements.previewFavicon.style.display = 'inline-block';
+      };
+      
+      this.elements.previewFavicon.src = services[0];
     }
     
     // Populate categories list
@@ -1132,8 +1135,9 @@ class PopupManager {
     this.elements.toast.className = `toast ${type}`;
     this.elements.toast.classList.add('show');
     
-    // Auto-hide after 3 seconds
-    setTimeout(() => this.hideToast(), 3000);
+    // Auto-hide after 3 seconds (restart the timer for each new toast)
+    clearTimeout(this.toastTimer);
+    this.toastTimer = setTimeout(() => this.hideToast(), 3000);
   }
 
   hideToast() {

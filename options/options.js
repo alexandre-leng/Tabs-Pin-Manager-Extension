@@ -583,12 +583,21 @@ class OptionsManager {
     this.elements.tabUrl.focus();
   }
 
+  // Hide an overlay once its fade-out is done. A timer is used instead of a one-shot
+  // 'transitionend' listener: that event bubbles up from child elements, and a listener
+  // left behind when closing an already-closed modal would hide the modal on its next opening.
+  hideOverlay(overlay) {
+    if (!overlay) return;
+    overlay.classList.remove('show');
+    setTimeout(() => {
+      if (!overlay.classList.contains('show')) {
+        overlay.style.display = 'none';
+      }
+    }, 350);
+  }
+
   closeTabModal() {
-    this.elements.tabModalOverlay.classList.remove('show');
-    // Wait for animation to complete before hiding
-    this.elements.tabModalOverlay.addEventListener('transitionend', () => {
-    this.elements.tabModalOverlay.style.display = 'none';
-    }, { once: true });
+    this.hideOverlay(this.elements.tabModalOverlay);
 
     this.currentEditingTab = null;
     this.elements.tabForm.reset();
@@ -629,7 +638,7 @@ class OptionsManager {
       url: url,
       title: title || this.extractDomain(url),
       category: category,
-      enabled: true,
+      enabled: this.currentEditingTab ? this.currentEditingTab.enabled !== false : true,
       dateAdded: this.currentEditingTab?.dateAdded || new Date().toISOString()
     };
     
@@ -640,14 +649,14 @@ class OptionsManager {
       });
       
       if (response && response.success) {
+        const message = this.currentEditingTab ? 
+          (browser.i18n.getMessage('tabsSaved') || 'Tab updated successfully!') :
+          (browser.i18n.getMessage('tabsSaved') || 'Tab saved successfully!');
+        
         await this.loadData();
         this.renderTabs();
         this.renderCategories();
         this.closeTabModal();
-        
-        const message = this.currentEditingTab ? 
-          (browser.i18n.getMessage('tabsSaved') || 'Tab updated successfully!') :
-          (browser.i18n.getMessage('tabsSaved') || 'Tab saved successfully!');
         
         this.showToast('success', '✅', message);
     } else {
@@ -730,13 +739,7 @@ class OptionsManager {
   }
 
   closeCategoryModal() {
-    if (this.elements.categoryModalOverlay) {
-      this.elements.categoryModalOverlay.classList.remove('show');
-      // Wait for animation to complete before hiding
-      this.elements.categoryModalOverlay.addEventListener('transitionend', () => {
-        this.elements.categoryModalOverlay.style.display = 'none';
-      }, { once: true });
-    }
+    this.hideOverlay(this.elements.categoryModalOverlay);
     
     this.currentEditingCategory = null;
     
@@ -762,19 +765,16 @@ class OptionsManager {
     }
     
     // Update the category in the categories array
-    const categoryIndex = this.categories.findIndex(c => c.id === this.currentEditingCategory.id);
-    if (categoryIndex >= 0) {
-      this.categories[categoryIndex] = {
-        ...this.categories[categoryIndex],
-        name: name,
-        icon: icon
-      };
-    }
+    if (!this.currentEditingCategory) return;
+    
+    const updatedCategories = this.categories.map(c =>
+      c.id === this.currentEditingCategory.id ? { ...c, name: name, icon: icon } : c
+    );
     
     try {
       const response = await this.sendMessageWithRetry({
         action: 'saveCategories',
-        categories: this.categories
+        categories: updatedCategories
       });
       
       if (response && response.success) {
@@ -837,9 +837,11 @@ class OptionsManager {
       const link = document.createElement('a');
       link.href = URL.createObjectURL(dataBlob);
       link.download = `tabsflow-settings-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(link);
       link.click();
+      link.remove();
       
-      URL.revokeObjectURL(link.href);
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
       
       this.showToast('success', '✅', browser.i18n.getMessage('settingsExported') || 'Settings exported successfully!');
     } catch (error) {
@@ -862,7 +864,7 @@ class OptionsManager {
       const importData = JSON.parse(text);
       
       // Validate import data
-      if (!importData.tabs || !importData.categories || !importData.settings) {
+      if (!Array.isArray(importData.tabs) || !Array.isArray(importData.categories) || !importData.settings) {
         throw new Error('Invalid file format');
       }
       
@@ -1005,8 +1007,9 @@ class OptionsManager {
     this.elements.toast.className = `toast ${type}`;
     this.elements.toast.classList.add('show');
     
-    // Auto-hide after 4 seconds
-    setTimeout(() => this.hideToast(), 4000);
+    // Auto-hide after 4 seconds (restart the timer for each new toast)
+    clearTimeout(this.toastTimer);
+    this.toastTimer = setTimeout(() => this.hideToast(), 4000);
   }
 
   hideToast() {
@@ -1345,12 +1348,11 @@ class OptionsManager {
   }
 
   closeCategoryQuickEdit() {
-    if (this.activeQuickEditPopover) {
-      this.activeQuickEditPopover.classList.remove('show');
-      this.activeQuickEditPopover.addEventListener('transitionend', () => {
-        this.activeQuickEditPopover.remove();
-        this.activeQuickEditPopover = null;
-      }, { once: true });
+    const popover = this.activeQuickEditPopover;
+    if (popover) {
+      this.activeQuickEditPopover = null;
+      popover.classList.remove('show');
+      setTimeout(() => popover.remove(), 350);
     }
   }
 }
@@ -1586,13 +1588,8 @@ OptionsManager.prototype.openIconPicker = function() {
 };
 
 OptionsManager.prototype.closeIconPicker = function() {
-  this.elements.iconPickerOverlay.classList.remove('show');
   this.elements.iconSelectorBtn.classList.remove('active');
-  
-  // Wait for animation to complete before hiding
-  this.elements.iconPickerOverlay.addEventListener('transitionend', () => {
-    this.elements.iconPickerOverlay.style.display = 'none';
-  }, { once: true });
+  this.hideOverlay(this.elements.iconPickerOverlay);
 };
 
 OptionsManager.prototype.switchIconCategory = function(category) {

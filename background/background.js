@@ -41,7 +41,14 @@ class TabsPinBackground {
     // Cache for URLs recently decided to be opened/pinned to handle rapid successive calls
     this.recentlyOpenedUrls = new Map(); // Stores normalizedUrl -> timestamp
     
-    this.init();
+    // Listeners must be registered synchronously: a MV3 service worker woken up by an
+    // event (message, install, startup) only dispatches it to listeners that exist
+    // after the first run of the script. Handlers wait for initialization themselves.
+    this.setupEventListeners();
+    
+    this.init().catch(() => {
+      // Already logged in init(); handleMessage reports the failure to callers
+    });
   }
 
   async init() {
@@ -72,9 +79,6 @@ class TabsPinBackground {
     
     // Load initial data
     await this.loadData();
-    
-    // Setup event listeners
-    this.setupEventListeners();
     
     console.log('Storage system:', healthCheck.healthy ? '✅ Healthy' : '❌ Issues detected');
 
@@ -299,6 +303,9 @@ class TabsPinBackground {
   }
       
   normalizeUrl(url) {
+        if (typeof url !== 'string' || !url) {
+          return '';
+        }
         try {
           const urlObj = new URL(url);
           const host = urlObj.hostname.toLowerCase(); // Get hostname once
@@ -963,7 +970,7 @@ class TabsPinBackground {
    */
   async importAllData(data) {
     try {
-      if (!data || !data.tabs || !data.categories || !data.settings) {
+      if (!data || !Array.isArray(data.tabs) || !Array.isArray(data.categories) || !data.settings) {
         throw new Error('Invalid import data format');
       }
 
@@ -998,6 +1005,7 @@ class TabsPinBackground {
 
   async handleInstalled(details) {
     try {
+      await this.initializationPromise;
       console.log('Extension installed/updated:', details.reason);
       
       if (details.reason === 'install') {
@@ -1015,6 +1023,7 @@ class TabsPinBackground {
   async handleStartup() {
     try {
       console.log('Extension startup');
+      await this.initializationPromise;
       await this.loadData();
     } catch (error) {
       console.error('Error handling startup:', error);
@@ -1023,14 +1032,21 @@ class TabsPinBackground {
 
   async initializeDefaultData() {
     try {
-      // Initialize with translated categories
-      const defaultData = {
-        pinnedTabs: [],
-        categories: this.getDefaultCategories(),
-        settings: {}
-      };
+      // Never overwrite data that already exists (e.g. restored or synced storage)
+      const existing = await this.storage.get(['pinnedTabs', 'categories', 'settings'], false);
+      const defaultData = {};
+      if (!Array.isArray(existing.pinnedTabs)) defaultData.pinnedTabs = [];
+      if (!Array.isArray(existing.categories) || existing.categories.length === 0) {
+        defaultData.categories = this.getDefaultCategories();
+      }
+      if (!existing.settings) defaultData.settings = {};
+
+      if (Object.keys(defaultData).length === 0) {
+        return;
+      }
 
       await this.storage.set(defaultData);
+      await this.loadData(false);
       console.log('Default data initialized with translations');
     } catch (error) {
       console.error('Error initializing default data:', error);
@@ -1047,10 +1063,16 @@ class TabsPinBackground {
       // Update categories with translations if they exist
       let needsCategoryUpdate = false;
       const defaultCategories = this.getDefaultCategories();
+      // Untranslated (English) default names: only those get translated, so names
+      // customized by the user are not reset on every extension update
+      const fallbackCategories = DefaultCategories.getDefaultCategories(null);
       
       this.categories = this.categories.map(category => {
         const defaultCategory = defaultCategories.find(dc => dc.id === category.id);
-        if (defaultCategory && category.name !== defaultCategory.name) {
+        const fallbackCategory = fallbackCategories.find(fc => fc.id === category.id);
+        if (defaultCategory && fallbackCategory &&
+            category.name === fallbackCategory.name &&
+            category.name !== defaultCategory.name) {
           needsCategoryUpdate = true;
           return { ...category, name: defaultCategory.name };
         }
