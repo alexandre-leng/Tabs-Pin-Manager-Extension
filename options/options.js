@@ -323,15 +323,7 @@ class OptionsManager {
       this.elements.tabsGrid.removeChild(this.elements.tabsGrid.firstChild);
     }
     
-    // Sort tabs by order (if exists) or by dateAdded
-    const sortedTabs = [...this.tabs].sort((a, b) => {
-      if (a.order !== undefined && b.order !== undefined) {
-        return a.order - b.order;
-      }
-      if (a.order !== undefined) return -1;
-      if (b.order !== undefined) return 1;
-      return new Date(a.dateAdded || 0) - new Date(b.dateAdded || 0);
-    });
+    const sortedTabs = this.getSortedTabs();
     
     sortedTabs.forEach((tab, index) => {
       const tabCard = this.createTabCard(tab, index);
@@ -1032,18 +1024,30 @@ class OptionsManager {
   }
 
   enableDragAndDrop() {
-    const tabItems = this.elements.tabsGrid.querySelectorAll('.tab-item');
-    let draggedElement = null;
-    let placeholder = null;
+    const grid = this.elements.tabsGrid;
+    const tabItems = grid.querySelectorAll('.tab-item');
+    
+    // Drag state lives on the instance so the grid-level listeners (registered once)
+    // and the per-card listeners (re-registered on every render) share it.
+    if (!this.dragState) {
+      this.dragState = { draggedElement: null, placeholder: null };
+    }
+    const state = this.dragState;
+    
+    const removePlaceholder = () => {
+      if (state.placeholder && state.placeholder.parentNode) {
+        state.placeholder.parentNode.removeChild(state.placeholder);
+      }
+    };
     
     tabItems.forEach(item => {
       // Drag start
       item.addEventListener('dragstart', (e) => {
-        draggedElement = item;
+        state.draggedElement = item;
         item.classList.add('dragging');
         
         // Create placeholder
-        placeholder = document.createElement('div');
+        const placeholder = document.createElement('div');
         placeholder.className = 'tab-item-placeholder';
         
         const placeholderContent = document.createElement('div');
@@ -1060,22 +1064,21 @@ class OptionsManager {
         placeholderContent.appendChild(placeholderIcon);
         placeholderContent.appendChild(placeholderText);
         placeholder.appendChild(placeholderContent);
+        state.placeholder = placeholder;
         
         e.dataTransfer.effectAllowed = 'move';
-        e.dataTransfer.setData('text/html', item.outerHTML);
+        e.dataTransfer.setData('text/plain', item.dataset.tabId);
       });
       
-      // Drag end
-      item.addEventListener('dragend', (e) => {
+      // Drag end (fires after drop, or when the drag is cancelled)
+      item.addEventListener('dragend', () => {
         item.classList.remove('dragging');
-        if (placeholder && placeholder.parentNode) {
-          placeholder.parentNode.removeChild(placeholder);
-        }
-        draggedElement = null;
-        placeholder = null;
+        removePlaceholder();
+        state.draggedElement = null;
+        state.placeholder = null;
         
         // Remove all drag-over classes
-        tabItems.forEach(el => el.classList.remove('drag-over'));
+        grid.querySelectorAll('.tab-item').forEach(el => el.classList.remove('drag-over'));
       });
       
       // Drag over
@@ -1083,9 +1086,9 @@ class OptionsManager {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'move';
         
-        if (item !== draggedElement && placeholder) {
+        if (state.draggedElement && item !== state.draggedElement && state.placeholder) {
           // Remove drag-over from all items
-          tabItems.forEach(el => el.classList.remove('drag-over'));
+          grid.querySelectorAll('.tab-item').forEach(el => el.classList.remove('drag-over'));
           item.classList.add('drag-over');
           
           // Insert placeholder
@@ -1093,15 +1096,9 @@ class OptionsManager {
           const midpoint = rect.top + rect.height / 2;
           
           if (e.clientY < midpoint) {
-            // Insert before current item
-            if (item.parentNode) {
-              item.parentNode.insertBefore(placeholder, item);
-            }
+            item.parentNode.insertBefore(state.placeholder, item);
           } else {
-            // Insert after current item
-            if (item.parentNode) {
-              item.parentNode.insertBefore(placeholder, item.nextSibling);
-            }
+            item.parentNode.insertBefore(state.placeholder, item.nextSibling);
           }
         }
       });
@@ -1113,103 +1110,85 @@ class OptionsManager {
           item.classList.remove('drag-over');
         }
       });
-      
-      // Drop
-      item.addEventListener('drop', (e) => {
-        e.preventDefault();
-        
-        if (item !== draggedElement && placeholder && placeholder.parentNode) {
-          // Get new order
-          const newOrder = this.calculateNewOrder(placeholder);
-          if (newOrder !== null) {
-            this.reorderTab(draggedElement.dataset.tabId, newOrder);
-          }
-        }
-        
-        // Clean up
-        item.classList.remove('drag-over');
-        if (placeholder && placeholder.parentNode) {
-          placeholder.parentNode.removeChild(placeholder);
-        }
-      });
     });
     
-    // Handle drop on grid itself
-    this.elements.tabsGrid.addEventListener('dragover', (e) => {
+    // The grid element persists across renders: only register its listeners once,
+    // otherwise every render stacks another drop handler.
+    if (this.gridDragListenersBound) return;
+    this.gridDragListenersBound = true;
+    
+    grid.addEventListener('dragover', (e) => {
       e.preventDefault();
     });
     
-    this.elements.tabsGrid.addEventListener('drop', (e) => {
+    // Single drop handler for drops on cards (bubbled), on the placeholder or on the grid
+    grid.addEventListener('drop', (e) => {
       e.preventDefault();
       
-      if (placeholder && draggedElement && placeholder.parentNode) {
-        const newOrder = this.calculateNewOrder(placeholder);
-        if (newOrder !== null) {
-          this.reorderTab(draggedElement.dataset.tabId, newOrder);
-        }
+      const { draggedElement, placeholder } = state;
+      if (!draggedElement || !placeholder || !placeholder.parentNode) return;
+      
+      const orderedIds = this.calculateNewOrder(draggedElement, placeholder);
+      removePlaceholder();
+      
+      if (orderedIds) {
+        this.reorderTabs(orderedIds);
       }
     });
   }
 
-  calculateNewOrder(placeholder) {
-    // Guard: check if placeholder has a parent
+  // Returns the full list of tab IDs in their new visual order, or null if nothing changed
+  calculateNewOrder(draggedElement, placeholder) {
     if (!placeholder || !placeholder.parentNode) {
       console.warn('Placeholder element has no parent');
       return null;
     }
     
-    const items = Array.from(this.elements.tabsGrid.querySelectorAll('.tab-item:not(.dragging)'));
-    const placeholderIndex = Array.from(placeholder.parentNode.children).indexOf(placeholder);
+    const draggedId = draggedElement.dataset.tabId;
+    const orderedIds = [];
     
-    if (placeholderIndex === 0) {
-      // First position
-      return 0;
-    } else if (placeholderIndex >= items.length) {
-      // Last position
-      const lastItem = items[items.length - 1];
-      const lastTabId = lastItem?.dataset.tabId;
-      const lastTab = this.tabs.find(t => t.id === lastTabId);
-      return (lastTab?.order || items.length - 1) + 1;
-    } else {
-      // Between items
-      const prevItem = items[placeholderIndex - 1];
-      const nextItem = items[placeholderIndex];
-      
-      const prevTabId = prevItem?.dataset.tabId;
-      const nextTabId = nextItem?.dataset.tabId;
-      
-      const prevTab = this.tabs.find(t => t.id === prevTabId);
-      const nextTab = this.tabs.find(t => t.id === nextTabId);
-      
-      const prevOrder = prevTab?.order || 0;
-      const nextOrder = nextTab?.order || 1;
-      
-      return (prevOrder + nextOrder) / 2;
-    }
+    Array.from(this.elements.tabsGrid.children).forEach(child => {
+      if (child === placeholder) {
+        orderedIds.push(draggedId);
+      } else if (child !== draggedElement && child.classList.contains('tab-item')) {
+        orderedIds.push(child.dataset.tabId);
+      }
+    });
+    
+    const currentIds = this.getSortedTabs().map(t => t.id);
+    const unchanged = orderedIds.length === currentIds.length &&
+      orderedIds.every((id, i) => id === currentIds[i]);
+    
+    return unchanged ? null : orderedIds;
   }
 
-  async reorderTab(tabId, newOrder) {
+  getSortedTabs() {
+    // Sort tabs by order (if exists) or by dateAdded
+    return [...this.tabs].sort((a, b) => {
+      if (a.order !== undefined && b.order !== undefined) {
+        return a.order - b.order;
+      }
+      if (a.order !== undefined) return -1;
+      if (b.order !== undefined) return 1;
+      return new Date(a.dateAdded || 0) - new Date(b.dateAdded || 0);
+    });
+  }
+
+  async reorderTabs(orderedIds) {
     try {
-      // Find the tab and update its order
-      const tabIndex = this.tabs.findIndex(t => t.id === tabId);
-      if (tabIndex === -1) return;
-      
-      const tab = { ...this.tabs[tabIndex], order: newOrder };
-      
       const response = await this.sendMessageWithRetry({
-        action: 'updateTab',
-        tab: tab
+        action: 'reorderTabs',
+        tabIds: orderedIds
       });
       
       if (response && response.success) {
-        // Update local data
-        this.tabs[tabIndex] = tab;
+        // Update local data with the normalized orders from the background
+        if (Array.isArray(response.tabs)) {
+          this.tabs = response.tabs;
+        }
         
-        // Show success message
         this.showToast('success', '↕️', browser.i18n.getMessage('tabReordered') || 'Tab order updated!');
-        
-        // Re-render tabs WITHOUT calling enableDragAndDrop again to avoid infinite loop
-        this.renderTabsWithoutDragDrop();
+        this.renderTabs();
       } else {
         throw new Error(response?.error || browser.i18n.getMessage('failedToReorderTab'));
       }
@@ -1222,45 +1201,6 @@ class OptionsManager {
       this.renderTabs();
     }
   }
-
-  renderTabsWithoutDragDrop() {
-    if (!this.elements.tabsGrid || !this.elements.emptyTabs) return;
-    
-    if (this.tabs.length === 0) {
-      this.elements.tabsGrid.style.display = 'none';
-      this.elements.emptyTabs.style.display = 'flex';
-      return;
-    }
-    
-    this.elements.tabsGrid.style.display = 'grid';
-    this.elements.emptyTabs.style.display = 'none';
-    
-    // Clear existing content safely
-    while (this.elements.tabsGrid.firstChild) {
-      this.elements.tabsGrid.removeChild(this.elements.tabsGrid.firstChild);
-    }
-    
-    // Sort tabs by order (if exists) or by dateAdded
-    const sortedTabs = [...this.tabs].sort((a, b) => {
-      if (a.order !== undefined && b.order !== undefined) {
-        return a.order - b.order;
-      }
-      if (a.order !== undefined) return -1;
-      if (b.order !== undefined) return 1;
-      return new Date(a.dateAdded || 0) - new Date(b.dateAdded || 0);
-    });
-    
-    sortedTabs.forEach((tab, index) => {
-      const tabCard = this.createTabCard(tab, index);
-      this.elements.tabsGrid.appendChild(tabCard);
-    });
-    
-    // Re-enable drag and drop after a small delay to ensure DOM is stable
-    setTimeout(() => {
-      this.enableDragAndDrop();
-    }, 100);
-  }
-
 
 
   getSelectedIcon() {

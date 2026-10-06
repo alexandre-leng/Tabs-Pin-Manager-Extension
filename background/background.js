@@ -272,6 +272,10 @@ class TabsPinBackground {
         case 'updateTab':
           result = await this.updateTab(request.tab);
           break;
+
+        case 'reorderTabs':
+          result = await this.reorderTabs(request.tabIds);
+          break;
           
         case 'saveCategories':
           result = await this.saveCategories(request.categories);
@@ -866,6 +870,48 @@ class TabsPinBackground {
 
   async updateTab(tab) {
     return await this.saveTab(tab);
+  }
+
+  // Assign a contiguous order (0..n-1) to every tab following the given ID list.
+  // Tabs missing from the list keep their relative position after the listed ones.
+  async reorderTabs(tabIds) {
+    try {
+      if (!Array.isArray(tabIds)) {
+        throw new Error('tabIds must be an array');
+      }
+
+      const byId = new Map(this.tabs.map(tab => [tab.id, tab]));
+      const ordered = [];
+      const seen = new Set();
+      for (const id of tabIds) {
+        const tab = byId.get(id);
+        if (tab && !seen.has(id)) {
+          ordered.push(tab);
+          seen.add(id);
+        }
+      }
+
+      const remaining = this.tabs
+        .filter(tab => !seen.has(tab.id))
+        .sort((a, b) => {
+          if (a.order !== undefined && b.order !== undefined) return a.order - b.order;
+          if (a.order !== undefined) return -1;
+          if (b.order !== undefined) return 1;
+          return new Date(a.dateAdded || 0) - new Date(b.dateAdded || 0);
+        });
+
+      const orderById = new Map();
+      [...ordered, ...remaining].forEach((tab, index) => orderById.set(tab.id, index));
+      this.tabs = this.tabs.map(tab => ({ ...tab, order: orderById.get(tab.id) }));
+
+      await this.storage.set({ pinnedTabs: this.tabs });
+      this.notifyDataChange('tabsChanged');
+
+      return { success: true, tabs: this.tabs };
+    } catch (error) {
+      console.error('Error reordering tabs:', error);
+      return { success: false, error: error.message };
+    }
   }
 
   async saveCategories(categories) {
