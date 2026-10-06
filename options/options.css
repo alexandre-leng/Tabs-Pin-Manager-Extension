@@ -322,12 +322,20 @@ body {
   box-shadow: var(--shadow-large);
 }
 
+/* While dragging, the dragged card stays in the grid and shows where it will land */
 .tab-item.dragging {
-  opacity: 0.6;
-  transform: rotate(3deg) scale(1.02);
+  opacity: 0.5;
+  border: 2px dashed var(--primary-color);
+  background: rgba(0, 96, 223, 0.08);
   cursor: grabbing;
-  z-index: 1000;
-  box-shadow: var(--shadow-elevated);
+  box-shadow: none;
+}
+
+/* No hover lift/animation while dragging: transforms would skew drop position detection */
+.tabs-grid.is-dragging .tab-item,
+.tabs-grid.is-dragging .tab-item:hover {
+  transform: none;
+  transition: none;
 }
 
 .tab-item.drag-over {
@@ -492,6 +500,12 @@ body {
   border-color: var(--primary-color);
   color: var(--primary-color);
   transform: scale(1.05);
+}
+
+.icon-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
 }
 
 .icon-btn.danger:hover {
@@ -801,6 +815,26 @@ input:checked + .toggle-slider:before {
   color: var(--text-secondary);
   font-weight: 500;
   letter-spacing: 0.3px;
+}
+
+.footer-links {
+  margin: var(--spacing-sm) 0 0;
+  font-size: var(--font-size-small);
+  color: var(--text-muted);
+}
+
+.footer-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.footer-separator {
+  margin: 0 var(--spacing-sm);
 }
 
 .heart {

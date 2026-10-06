@@ -498,5 +498,21 @@
   "dataRefreshed": {
     "message": "데이터가 성공적으로 새로고침되었습니다!",
     "description": "Message shown when data is refreshed successfully"
+  },
+  "reportBug": {
+    "message": "버그 신고",
+    "description": "Link to report a bug on GitHub"
+  },
+  "featureRequest": {
+    "message": "기능 요청",
+    "description": "Link to request a feature on GitHub"
+  },
+  "moveUp": {
+    "message": "위로 이동",
+    "description": "Button to move a pinned tab up"
+  },
+  "moveDown": {
+    "message": "아래로 이동",
+    "description": "Button to move a pinned tab down"
   }
 }

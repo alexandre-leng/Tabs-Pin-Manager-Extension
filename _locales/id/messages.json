@@ -498,5 +498,21 @@
   "dataRefreshed": {
     "message": "Data berhasil disegarkan!",
     "description": "Message shown when data is refreshed successfully"
+  },
+  "reportBug": {
+    "message": "Laporkan bug",
+    "description": "Link to report a bug on GitHub"
+  },
+  "featureRequest": {
+    "message": "Minta fitur",
+    "description": "Link to request a feature on GitHub"
+  },
+  "moveUp": {
+    "message": "Pindah ke atas",
+    "description": "Button to move a pinned tab up"
+  },
+  "moveDown": {
+    "message": "Pindah ke bawah",
+    "description": "Button to move a pinned tab down"
   }
 }

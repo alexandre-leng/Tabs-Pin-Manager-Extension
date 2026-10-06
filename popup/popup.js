@@ -240,6 +240,15 @@ class PopupManager {
     // Refresh button
     this.elements.refreshBtn?.addEventListener('click', () => this.refresh());
     
+    // Footer links (bug report / feature request): open in a new tab, then close the popup
+    document.querySelectorAll('.footer-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        browser.tabs.create({ url: link.href });
+        window.close();
+      });
+    });
+    
     // Category Selection Modal events
     if (this.elements.closeCategorySelection) {
       this.elements.closeCategorySelection.addEventListener('click', () => this.closeCategorySelectionModal());

@@ -633,5 +633,21 @@
   "errorClosingCategoryTabs": {
     "message": "Erreur lors de la fermeture des onglets de la catégorie",
     "description": "Error message when closing category tabs fails"
+  },
+  "reportBug": {
+    "message": "Signaler un bug",
+    "description": "Link to report a bug on GitHub"
+  },
+  "featureRequest": {
+    "message": "Demande de fonctionnalité",
+    "description": "Link to request a feature on GitHub"
+  },
+  "moveUp": {
+    "message": "Monter",
+    "description": "Button to move a pinned tab up"
+  },
+  "moveDown": {
+    "message": "Descendre",
+    "description": "Button to move a pinned tab down"
   }
 }

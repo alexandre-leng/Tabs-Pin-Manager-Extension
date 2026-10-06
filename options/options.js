@@ -326,7 +326,7 @@ class OptionsManager {
     const sortedTabs = this.getSortedTabs();
     
     sortedTabs.forEach((tab, index) => {
-      const tabCard = this.createTabCard(tab, index);
+      const tabCard = this.createTabCard(tab, index, sortedTabs.length);
       this.elements.tabsGrid.appendChild(tabCard);
     });
     
@@ -334,7 +334,7 @@ class OptionsManager {
     this.enableDragAndDrop();
   }
 
-  createTabCard(tab, index) {
+  createTabCard(tab, index, total) {
     const card = document.createElement('div');
     card.className = 'tab-item';
     card.dataset.tabId = tab.id;
@@ -437,6 +437,40 @@ class OptionsManager {
     deleteSvg.appendChild(deletePath);
     deleteBtn.appendChild(deleteSvg);
     
+    // Move up / move down buttons: simple alternative to drag and drop
+    const createMoveButton = (direction, label, pathData, disabled) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `icon-btn move-${direction}`;
+      btn.title = label;
+      btn.setAttribute('aria-label', label);
+      btn.disabled = disabled;
+      
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('width', '12');
+      svg.setAttribute('height', '12');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('fill', 'currentColor');
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', pathData);
+      svg.appendChild(path);
+      btn.appendChild(svg);
+      
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.moveTab(tab.id, direction === 'up' ? -1 : 1);
+      });
+      return btn;
+    };
+    
+    const moveUpBtn = createMoveButton('up', browser.i18n.getMessage('moveUp') || 'Move up',
+      'M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z', index === 0);
+    const moveDownBtn = createMoveButton('down', browser.i18n.getMessage('moveDown') || 'Move down',
+      'M7.41,8.59L12,13.17L16.59,8.59L18,10L12,16L6,10L7.41,8.59Z', index === total - 1);
+    
+    tabActions.appendChild(moveUpBtn);
+    tabActions.appendChild(moveDownBtn);
     tabActions.appendChild(editBtn);
     tabActions.appendChild(deleteBtn);
     
@@ -1033,130 +1067,93 @@ class OptionsManager {
     // Drag state lives on the instance so the grid-level listeners (registered once)
     // and the per-card listeners (re-registered on every render) share it.
     if (!this.dragState) {
-      this.dragState = { draggedElement: null, placeholder: null };
+      this.dragState = { draggedElement: null, dropped: false };
     }
     const state = this.dragState;
     
-    const removePlaceholder = () => {
-      if (state.placeholder && state.placeholder.parentNode) {
-        state.placeholder.parentNode.removeChild(state.placeholder);
-      }
-    };
-    
     tabItems.forEach(item => {
-      // Drag start
       item.addEventListener('dragstart', (e) => {
         state.draggedElement = item;
-        item.classList.add('dragging');
-        
-        // Create placeholder
-        const placeholder = document.createElement('div');
-        placeholder.className = 'tab-item-placeholder';
-        
-        const placeholderContent = document.createElement('div');
-        placeholderContent.className = 'placeholder-content';
-        
-        const placeholderIcon = document.createElement('div');
-        placeholderIcon.className = 'placeholder-icon';
-        placeholderIcon.textContent = '📁';
-        
-        const placeholderText = document.createElement('div');
-        placeholderText.className = 'placeholder-text';
-        placeholderText.textContent = browser.i18n.getMessage('dropHere') || 'Drop here';
-        
-        placeholderContent.appendChild(placeholderIcon);
-        placeholderContent.appendChild(placeholderText);
-        placeholder.appendChild(placeholderContent);
-        state.placeholder = placeholder;
-        
+        state.dropped = false;
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/plain', item.dataset.tabId);
+        // Add the classes after the browser captured the drag image
+        requestAnimationFrame(() => {
+          item.classList.add('dragging');
+          grid.classList.add('is-dragging');
+        });
       });
       
-      // Drag end (fires after drop, or when the drag is cancelled)
       item.addEventListener('dragend', () => {
         item.classList.remove('dragging');
-        removePlaceholder();
+        grid.classList.remove('is-dragging');
+        const cancelled = !state.dropped;
         state.draggedElement = null;
-        state.placeholder = null;
+        state.dropped = false;
         
-        // Remove all drag-over classes
-        grid.querySelectorAll('.tab-item').forEach(el => el.classList.remove('drag-over'));
-      });
-      
-      // Drag over
-      item.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        e.dataTransfer.dropEffect = 'move';
-        
-        if (state.draggedElement && item !== state.draggedElement && state.placeholder) {
-          // Remove drag-over from all items
-          grid.querySelectorAll('.tab-item').forEach(el => el.classList.remove('drag-over'));
-          item.classList.add('drag-over');
-          
-          // Insert placeholder
-          const rect = item.getBoundingClientRect();
-          const midpoint = rect.top + rect.height / 2;
-          
-          if (e.clientY < midpoint) {
-            item.parentNode.insertBefore(state.placeholder, item);
-          } else {
-            item.parentNode.insertBefore(state.placeholder, item.nextSibling);
-          }
-        }
-      });
-      
-      // Drag leave
-      item.addEventListener('dragleave', (e) => {
-        // Only remove drag-over if we're not entering a child element
-        if (!item.contains(e.relatedTarget)) {
-          item.classList.remove('drag-over');
+        // Drag cancelled (Escape, dropped outside the grid): restore the saved order
+        if (cancelled) {
+          this.renderTabs();
         }
       });
     });
     
     // The grid element persists across renders: only register its listeners once,
-    // otherwise every render stacks another drop handler.
+    // otherwise every render stacks another handler.
     if (this.gridDragListenersBound) return;
     this.gridDragListenersBound = true;
     
+    // The dragged card itself is moved live in the grid (no placeholder): a placeholder
+    // adds an extra grid cell, which shifts every card while dragging.
     grid.addEventListener('dragover', (e) => {
+      const dragged = state.draggedElement;
+      if (!dragged) return;
       e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      
+      const target = this.getDropTarget(e.clientX, e.clientY, dragged);
+      if (target !== dragged.nextElementSibling) {
+        grid.insertBefore(dragged, target);
+      }
     });
     
-    // Single drop handler for drops on cards (bubbled), on the placeholder or on the grid
     grid.addEventListener('drop', (e) => {
+      const dragged = state.draggedElement;
+      if (!dragged) return;
       e.preventDefault();
+      state.dropped = true;
       
-      const { draggedElement, placeholder } = state;
-      if (!draggedElement || !placeholder || !placeholder.parentNode) return;
-      
-      const orderedIds = this.calculateNewOrder(draggedElement, placeholder);
-      removePlaceholder();
-      
+      const orderedIds = this.calculateNewOrder();
       if (orderedIds) {
         this.reorderTabs(orderedIds);
       }
     });
   }
 
-  // Returns the full list of tab IDs in their new visual order, or null if nothing changed
-  calculateNewOrder(draggedElement, placeholder) {
-    if (!placeholder || !placeholder.parentNode) {
-      console.warn('Placeholder element has no parent');
-      return null;
-    }
+  // Returns the card the dragged card must be inserted before (null = at the end),
+  // following the grid reading order: rows top to bottom, then columns left to right.
+  getDropTarget(x, y, dragged) {
+    const cards = Array.from(this.elements.tabsGrid.querySelectorAll('.tab-item'))
+      .filter(card => card !== dragged);
     
-    const draggedId = draggedElement.dataset.tabId;
-    const orderedIds = [];
-    
-    Array.from(this.elements.tabsGrid.children).forEach(child => {
-      if (child === placeholder) {
-        orderedIds.push(draggedId);
-      } else if (child !== draggedElement && child.classList.contains('tab-item')) {
-        orderedIds.push(child.dataset.tabId);
+    for (const card of cards) {
+      const rect = card.getBoundingClientRect();
+      // Pointer above this card's row
+      if (y < rect.top) {
+        return card;
       }
-    });
+      // Pointer in this card's row, on its left half
+      if (y <= rect.bottom && x < rect.left + rect.width / 2) {
+        return card;
+      }
+    }
+    return null;
+  }
+
+  // Returns the tab IDs in their new visual order, or null if nothing changed
+  calculateNewOrder() {
+    const orderedIds = Array.from(this.elements.tabsGrid.querySelectorAll('.tab-item'))
+      .map(card => card.dataset.tabId);
     
     const currentIds = this.getSortedTabs().map(t => t.id);
     const unchanged = orderedIds.length === currentIds.length &&
@@ -1175,6 +1172,17 @@ class OptionsManager {
       if (b.order !== undefined) return 1;
       return new Date(a.dateAdded || 0) - new Date(b.dateAdded || 0);
     });
+  }
+
+  // Move a tab one position up (delta = -1) or down (delta = 1)
+  moveTab(tabId, delta) {
+    const orderedIds = this.getSortedTabs().map(t => t.id);
+    const index = orderedIds.indexOf(tabId);
+    const newIndex = index + delta;
+    if (index === -1 || newIndex < 0 || newIndex >= orderedIds.length) return;
+    
+    [orderedIds[index], orderedIds[newIndex]] = [orderedIds[newIndex], orderedIds[index]];
+    this.reorderTabs(orderedIds);
   }
 
   async reorderTabs(orderedIds) {

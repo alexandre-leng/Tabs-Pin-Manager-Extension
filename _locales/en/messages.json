@@ -655,5 +655,21 @@
   "errorClosingCategoryTabs": {
     "message": "Error closing category tabs",
     "description": "Error message when closing category tabs fails"
+  },
+  "reportBug": {
+    "message": "Report a bug",
+    "description": "Link to report a bug on GitHub"
+  },
+  "featureRequest": {
+    "message": "Feature request",
+    "description": "Link to request a feature on GitHub"
+  },
+  "moveUp": {
+    "message": "Move up",
+    "description": "Button to move a pinned tab up"
+  },
+  "moveDown": {
+    "message": "Move down",
+    "description": "Button to move a pinned tab down"
   }
 }

@@ -498,5 +498,21 @@
   "dataRefreshed": {
     "message": "数据刷新成功！",
     "description": "Message shown when data is refreshed successfully"
+  },
+  "reportBug": {
+    "message": "报告错误",
+    "description": "Link to report a bug on GitHub"
+  },
+  "featureRequest": {
+    "message": "功能请求",
+    "description": "Link to request a feature on GitHub"
+  },
+  "moveUp": {
+    "message": "上移",
+    "description": "Button to move a pinned tab up"
+  },
+  "moveDown": {
+    "message": "下移",
+    "description": "Button to move a pinned tab down"
   }
 }

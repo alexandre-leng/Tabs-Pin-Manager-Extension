@@ -498,5 +498,21 @@
   "dataRefreshed": {
     "message": "डेटा सफलतापूर्वक ताज़ा किया गया!",
     "description": "Message shown when data is refreshed successfully"
+  },
+  "reportBug": {
+    "message": "बग की रिपोर्ट करें",
+    "description": "Link to report a bug on GitHub"
+  },
+  "featureRequest": {
+    "message": "सुविधा का अनुरोध करें",
+    "description": "Link to request a feature on GitHub"
+  },
+  "moveUp": {
+    "message": "ऊपर ले जाएँ",
+    "description": "Button to move a pinned tab up"
+  },
+  "moveDown": {
+    "message": "नीचे ले जाएँ",
+    "description": "Button to move a pinned tab down"
   }
 }

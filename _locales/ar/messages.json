@@ -498,5 +498,21 @@
   "dataRefreshed": {
     "message": "تم تحديث البيانات بنجاح!",
     "description": "Message shown when data is refreshed successfully"
+  },
+  "reportBug": {
+    "message": "الإبلاغ عن خطأ",
+    "description": "Link to report a bug on GitHub"
+  },
+  "featureRequest": {
+    "message": "طلب ميزة",
+    "description": "Link to request a feature on GitHub"
+  },
+  "moveUp": {
+    "message": "نقل لأعلى",
+    "description": "Button to move a pinned tab up"
+  },
+  "moveDown": {
+    "message": "نقل لأسفل",
+    "description": "Button to move a pinned tab down"
   }
 }

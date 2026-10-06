@@ -599,5 +599,21 @@
   "dataRefreshed": {
     "message": "¡Datos actualizados correctamente!",
     "description": "Message shown when data is refreshed successfully"
+  },
+  "reportBug": {
+    "message": "Informar de un error",
+    "description": "Link to report a bug on GitHub"
+  },
+  "featureRequest": {
+    "message": "Solicitar una función",
+    "description": "Link to request a feature on GitHub"
+  },
+  "moveUp": {
+    "message": "Subir",
+    "description": "Button to move a pinned tab up"
+  },
+  "moveDown": {
+    "message": "Bajar",
+    "description": "Button to move a pinned tab down"
   }
 }

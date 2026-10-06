@@ -579,5 +579,21 @@
   "dataRefreshed": {
     "message": "Gegevens succesvol vernieuwd!",
     "description": "Message shown when data is refreshed successfully"
+  },
+  "reportBug": {
+    "message": "Bug melden",
+    "description": "Link to report a bug on GitHub"
+  },
+  "featureRequest": {
+    "message": "Functie aanvragen",
+    "description": "Link to request a feature on GitHub"
+  },
+  "moveUp": {
+    "message": "Omhoog",
+    "description": "Button to move a pinned tab up"
+  },
+  "moveDown": {
+    "message": "Omlaag",
+    "description": "Button to move a pinned tab down"
   }
 }

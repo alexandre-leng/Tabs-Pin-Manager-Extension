@@ -498,5 +498,21 @@
   "dataRefreshed": {
     "message": "データが正常に更新されました！",
     "description": "Message shown when data is refreshed successfully"
+  },
+  "reportBug": {
+    "message": "バグを報告",
+    "description": "Link to report a bug on GitHub"
+  },
+  "featureRequest": {
+    "message": "機能をリクエスト",
+    "description": "Link to request a feature on GitHub"
+  },
+  "moveUp": {
+    "message": "上へ移動",
+    "description": "Button to move a pinned tab up"
+  },
+  "moveDown": {
+    "message": "下へ移動",
+    "description": "Button to move a pinned tab down"
   }
 }

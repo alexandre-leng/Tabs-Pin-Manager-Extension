@@ -1128,6 +1128,26 @@ body {
   border: 1px solid var(--border-color);
 }
 
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-link {
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.footer-link:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
 /* Buttons */
 .primary-btn {
   display: inline-flex;
