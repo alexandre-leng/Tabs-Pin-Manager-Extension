@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.4] - 2026-10-06
+
+### 🛠️ Corrections
+- **Réorganisation des onglets** : Le glisser-déposer place désormais l'onglet à la bonne position. Le message « Tab order updated! » s'affichait mais l'ordre enregistré était faux (mauvais calcul de position, onglet déplacé renvoyé en tête de liste).
+- **Ordre complet enregistré** : Tous les onglets reçoivent un ordre explicite lors d'un déplacement, via une nouvelle action `reorderTabs`.
+- **Modales qui disparaissaient** : Les fenêtres de la page d'options ne se ferment plus toutes seules juste après leur ouverture (par exemple après un appui sur Échap).
+- **Service Worker Chrome** : Les écouteurs d'événements sont enregistrés immédiatement, pour ne plus perdre de messages ni l'événement d'installation au réveil du service worker.
+- **Catégories renommées** : Les noms de catégories personnalisés ne sont plus réinitialisés à chaque mise à jour de l'extension.
+- **Installation** : Les données existantes ne sont plus écrasées à l'installation.
+- **Popup** : Le popup reste utilisable si le script d'arrière-plan ne répond pas, et n'écrase plus les réglages avec une copie périmée.
+- **Sélecteur de catégorie** : Ouvrir le sélecteur rapide de catégorie pendant la fermeture d'un autre ne supprime plus le mauvais.
+- **Édition d'un onglet** : Modifier un onglet ne le réactive plus s'il était désactivé.
+- **Export** : Le téléchargement de l'export n'est plus annulé sous Firefox.
+- **Notifications** : Un nouveau message n'est plus masqué trop tôt par le précédent.
+- **Cache de stockage** : Le cache est invalidé dès qu'une autre partie de l'extension modifie les données.
+- **Import** : Les fichiers d'import mal formés sont rejetés.
+
 ## [1.3.1] - 2026-05-19
 
 ### 🛠️ Corrections
