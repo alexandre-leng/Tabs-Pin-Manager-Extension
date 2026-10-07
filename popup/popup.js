@@ -82,7 +82,6 @@ class PopupManager {
       // Setup data change listener
       this.setupDataChangeListener();
       
-      console.log('Popup initialized successfully');
     } catch (error) {
       console.error('Failed to initialize popup:', error);
       this.showToast('error', '❌', browser.i18n.getMessage('failedToInitialize') || 'Failed to initialize popup');
@@ -97,10 +96,8 @@ class PopupManager {
     const maxAttempts = 5;
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       try {
-        console.log(`🔍 Checking background script connection (attempt ${attempt}/${maxAttempts})...`);
         const response = await browser.runtime.sendMessage({ action: 'ping' });
         if (response && response.success && response.message === 'pong') {
-          console.log('✅ Background script connection verified');
           return true;
         } else {
           throw new Error('Invalid ping response');
@@ -126,7 +123,6 @@ class PopupManager {
   async sendMessageWithRetry(message, retries = 2) {
     for (let attempt = 0; attempt <= retries; attempt++) {
       try {
-        console.log(`📤 Sending message (attempt ${attempt + 1}/${retries + 1}):`, message.action);
         const response = await browser.runtime.sendMessage(message);
         
         if (!response) {
@@ -140,7 +136,6 @@ class PopupManager {
           throw new Error(response.error || 'Background script operation failed');
         }
         
-        console.log(`✅ Message sent successfully:`, message.action);
         return response;
       } catch (error) {
         console.warn(`❌ Message attempt ${attempt + 1} failed:`, {
@@ -161,7 +156,6 @@ class PopupManager {
         
         // Wait before retry with exponential backoff
         const delay = 100 * Math.pow(2, attempt);
-        console.log(`⏳ Waiting ${delay}ms before retry...`);
         await new Promise(resolve => setTimeout(resolve, delay));
       }
     }
@@ -185,7 +179,6 @@ class PopupManager {
           this.tabs = response.data.tabs || [];
           this.categories = response.data.categories || this.getDefaultCategories();
           this.settings = response.data.settings || {};
-          console.log('✅ Data loaded from background script');
           return;
         }
       } catch (error) {
@@ -197,7 +190,6 @@ class PopupManager {
       this.tabs = result.pinnedTabs || [];
       this.categories = result.categories || this.getDefaultCategories();
       this.settings = result.settings || {};
-      console.log('📦 Data loaded from storage fallback');
     } catch (error) {
       console.error('Error loading data:', error);
       // Initialize with defaults if all else fails
@@ -847,7 +839,6 @@ class PopupManager {
 
   showCategorySelectionModal() {
     if (!this.currentTab || !this.elements.categorySelectionOverlay) {
-      console.log('❌ showCategorySelectionModal: Missing currentTab or modal overlay');
       return;
     }
     
@@ -862,33 +853,11 @@ class PopupManager {
     }
     
     if (this.elements.previewFavicon) {
-      const domain = this.extractDomainFromUrl(this.currentTab.url);
-      const services = [
-        `https://www.google.com/s2/favicons?domain=${domain}&sz=16`,
-        `https://icons.duckduckgo.com/ip3/${domain}.ico`,
-        `https://${domain}/favicon.ico`
-      ];
-      
-      let currentServiceIndex = 0;
-      
-      // Assign handlers as properties so reopening the modal replaces them instead of stacking them
-      this.elements.previewFavicon.onerror = () => {
-        currentServiceIndex++;
-        if (currentServiceIndex < services.length) {
-          console.log(`Trying fallback favicon service ${currentServiceIndex} for ${domain}: ${services[currentServiceIndex]}`);
-          this.elements.previewFavicon.src = services[currentServiceIndex];
-        } else {
-          console.log(`All favicon services failed for ${domain}, hiding favicon`);
-          this.elements.previewFavicon.style.display = 'none';
-        }
-      };
-      
-      // Show favicon when it loads successfully
-      this.elements.previewFavicon.onload = () => {
-        this.elements.previewFavicon.style.display = 'inline-block';
-      };
-      
-      this.elements.previewFavicon.src = services[0];
+      const favicon = this.elements.previewFavicon;
+      UiUtils.loadFavicon(favicon, UiUtils.extractDomain(this.currentTab.url), {
+        onLoad: () => { favicon.style.display = 'inline-block'; },
+        onFail: () => { favicon.style.display = 'none'; }
+      });
     }
     
     // Populate categories list
@@ -1003,7 +972,6 @@ class PopupManager {
 
   async pinCurrentTabInCategory(categoryId) {
     if (!this.currentTab) {
-      console.log('❌ No current tab available');
       return;
     }
     
@@ -1023,7 +991,6 @@ class PopupManager {
       });
       
       if (response && response.success) {
-        console.log('✅ Tab saved successfully via background script');
         
         // Update local data
         this.tabs = response.tab ? [...this.tabs.filter(t => t.id !== response.tab.id), response.tab] : this.tabs;
@@ -1068,8 +1035,7 @@ class PopupManager {
 
   // Utility functions
   isValidUrl(url) {
-    if (!url) return false;
-    return url.startsWith('http://') || url.startsWith('https://');
+    return UiUtils.isValidUrl(url);
   }
 
   isTabAlreadyPinned(url) {
@@ -1097,11 +1063,7 @@ class PopupManager {
   }
 
   extractDomainFromUrl(url) {
-    try {
-      return new URL(url).hostname;
-    } catch (error) {
-      return url;
-    }
+    return UiUtils.extractDomain(url);
   }
 
   getTimeAgo(date) {
@@ -1130,38 +1092,17 @@ class PopupManager {
   }
 
   showToast(type, icon, message) {
-    if (!this.elements.toast) return;
-    
-    // Set content
-    if (this.elements.toastIcon) {
-      this.elements.toastIcon.textContent = icon;
-    }
-    if (this.elements.toastMessage) {
-      this.elements.toastMessage.textContent = message;
-    }
-    
-    // Clear existing classes and add new ones
-    this.elements.toast.className = `toast ${type}`;
-    this.elements.toast.classList.add('show');
-    
-    // Auto-hide after 3 seconds (restart the timer for each new toast)
-    clearTimeout(this.toastTimer);
-    this.toastTimer = setTimeout(() => this.hideToast(), 3000);
+    UiUtils.showToast(this, type, icon, message, 3000);
   }
 
   hideToast() {
-    if (this.elements.toast) {
-      this.elements.toast.classList.remove('show');
-    }
+    UiUtils.hideToast(this);
   }
-
-
 
   setupDataChangeListener() {
     // Listen for data changes from background script
     browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
       if (message.action === 'dataChanged') {
-        console.log('Popup received data change notification:', message.changeType);
         // Update local data and re-render
         this.tabs = message.data.tabs || [];
         this.categories = message.data.categories || [];
@@ -1179,7 +1120,6 @@ class PopupManager {
         this.elements.categorySelectionOverlay.style.display = 'none';
       }, 200);
     } else {
-      console.log('❌ Modal overlay element not found');
     }
   }
 

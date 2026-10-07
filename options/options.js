@@ -580,7 +580,6 @@ class OptionsManager {
     
     // Add click event to edit category
     card.addEventListener('click', (e) => {
-      console.log('Category clicked:', category.name, category.id);
       this.editCategory(category);
     });
     
@@ -735,14 +734,6 @@ class OptionsManager {
 
   // Category management methods
   editCategory(category) {
-    console.log('editCategory called with:', category);
-    console.log('Modal elements:', {
-      categoryModalOverlay: this.elements.categoryModalOverlay ? 'found' : 'not found',
-      categoryModalTitle: this.elements.categoryModalTitle ? 'found' : 'not found',
-      categoryName: this.elements.categoryName ? 'found' : 'not found',
-      selectedIcon: this.elements.selectedIcon ? 'found' : 'not found'
-    });
-    
     this.currentEditingCategory = category;
     
     if (this.elements.categoryModalTitle) {
@@ -769,7 +760,6 @@ class OptionsManager {
       this.elements.categoryName.focus();
     }
     
-    console.log('Modal should be visible now');
   }
 
   closeCategoryModal() {
@@ -928,20 +918,11 @@ class OptionsManager {
 
   // Utility methods
   isValidUrl(url) {
-    try {
-      new URL(url);
-      return url.startsWith('http://') || url.startsWith('https://');
-    } catch {
-      return false;
-    }
+    return UiUtils.isValidUrl(url);
   }
 
   extractDomain(url) {
-    try {
-      return new URL(url).hostname;
-    } catch {
-      return url;
-    }
+    return UiUtils.extractDomain(url);
   }
 
   getFaviconUrl(domain, fallbackIcon = '🌐') {
@@ -954,14 +935,7 @@ class OptionsManager {
       `)}`;
     }
     
-    // Try multiple favicon services in order of preference
-    const services = [
-      `https://www.google.com/s2/favicons?domain=${domain}&sz=16`,
-      `https://icons.duckduckgo.com/ip3/${domain}.ico`,
-      `https://${domain}/favicon.ico`
-    ];
-    
-    return services[0]; // Start with Google's service
+    return UiUtils.getFaviconServices(domain)[0];
   }
 
   createFaviconElement(url, fallbackIcon = '🌐') {
@@ -971,7 +945,6 @@ class OptionsManager {
     const favicon = document.createElement('img');
     favicon.className = 'tab-favicon';
     favicon.alt = 'Favicon';
-    favicon.src = this.getFaviconUrl(domain);
     
     // Create fallback element
     const fallback = document.createElement('span');
@@ -984,32 +957,18 @@ class OptionsManager {
     fallback.style.height = '16px';
     fallback.style.textAlign = 'center';
     
-    // Add error handling with multiple fallbacks
-    let currentServiceIndex = 0;
-    const services = [
-      `https://www.google.com/s2/favicons?domain=${domain}&sz=16`,
-      `https://icons.duckduckgo.com/ip3/${domain}.ico`,
-      `https://${domain}/favicon.ico`
-    ];
-    
-    favicon.addEventListener('error', function() {
-      currentServiceIndex++;
-      if (currentServiceIndex < services.length) {
-        // Try next service
-        console.log(`Trying fallback favicon service ${currentServiceIndex} for ${domain}: ${services[currentServiceIndex]}`);
-        this.src = services[currentServiceIndex];
-      } else {
-        // All services failed, show fallback
-        console.log(`All favicon services failed for ${domain}, showing fallback icon: ${fallbackIcon}`);
-        this.style.display = 'none';
+    if (!domain) {
+      favicon.src = this.getFaviconUrl(domain);
+    }
+    UiUtils.loadFavicon(favicon, domain, {
+      onLoad: () => {
+        fallback.style.display = 'none';
+        favicon.style.display = 'inline-block';
+      },
+      onFail: () => {
+        favicon.style.display = 'none';
         fallback.style.display = 'inline-block';
       }
-    });
-    
-    // Add load success handler
-    favicon.addEventListener('load', function() {
-      fallback.style.display = 'none';
-      this.style.display = 'inline-block';
     });
     
     // Create a fragment to return both elements
@@ -1027,34 +986,15 @@ class OptionsManager {
 
 
   showToast(type, icon, message) {
-    if (!this.elements.toast) return;
-    
-    // Set content
-    if (this.elements.toastIcon) {
-      this.elements.toastIcon.textContent = icon;
-    }
-    if (this.elements.toastMessage) {
-      this.elements.toastMessage.textContent = message;
-    }
-    
-    // Clear existing classes and add new ones
-    this.elements.toast.className = `toast ${type}`;
-    this.elements.toast.classList.add('show');
-    
-    // Auto-hide after 4 seconds (restart the timer for each new toast)
-    clearTimeout(this.toastTimer);
-    this.toastTimer = setTimeout(() => this.hideToast(), 4000);
+    UiUtils.showToast(this, type, icon, message, 4000);
   }
 
   hideToast() {
-    if (this.elements.toast) {
-      this.elements.toast.classList.remove('show');
-    }
+    UiUtils.hideToast(this);
   }
 
   // Force refresh of all data
   async forceRefresh() {
-    console.log('Force refreshing options page...');
     await this.loadData(true);
     this.render();
     this.showToast('success', '✅', browser.i18n.getMessage('dataRefreshed'));
