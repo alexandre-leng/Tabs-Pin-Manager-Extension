@@ -3,38 +3,15 @@
  * Handles options page functionality and user interactions
  */
 
-'use strict';
-
-// Enhanced animations
-function animateElements() {
-  // Animate sections with stagger effect
-  const sections = document.querySelectorAll('.section');
-  sections.forEach((section, index) => {
-    section.style.animationDelay = `${index * 0.1}s`;
-    section.classList.add('fade-in-up');
-  });
-
-  // Animate cards with stagger
-  const cards = document.querySelectorAll('.tab-item, .category-item');
-  cards.forEach((card, index) => {
-    card.style.animationDelay = `${0.3 + (index * 0.05)}s`;
-    card.classList.add('fade-in-up');
-  });
-}
-
-// Page load handler
-document.addEventListener('DOMContentLoaded', () => {
-  // Start initialization
-  setTimeout(() => {
-    // Initialize the options manager
-    window.optionsManager = new OptionsManager();
-    
-    // Animate elements after initialization
-    setTimeout(() => {
-      animateElements();
-    }, 100);
-  }, 50);
-});
+import { browser } from '../lib/browser-api.js';
+import { I18nHelper } from '../lib/i18n-helper.js';
+import { UiUtils } from '../lib/ui-utils.js';
+import { mixin } from '../lib/mixins.js';
+import { categoryEditor } from './category-editor.js';
+import { iconPicker } from './icon-picker.js';
+import { importExport } from './import-export.js';
+import { tabEditor } from './tab-editor.js';
+import { tabOrdering } from './tab-ordering.js';
 
 // SVG paths of the tab card icons (24x24 viewBox)
 const TAB_CARD_ICONS = {
@@ -45,7 +22,7 @@ const TAB_CARD_ICONS = {
   down: 'M7.41,8.59L12,13.17L16.59,8.59L18,10L12,16L6,10L7.41,8.59Z'
 };
 
-class OptionsManager {
+export class OptionsManager {
   constructor() {
     this.tabs = [];
     this.categories = [];
@@ -562,3 +539,5 @@ class OptionsManager {
     this.showToast('success', '✅', browser.i18n.getMessage('dataRefreshed'));
   }
 }
+
+mixin(OptionsManager.prototype, tabEditor, tabOrdering, categoryEditor, iconPicker, importExport);

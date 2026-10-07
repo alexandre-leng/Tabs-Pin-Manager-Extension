@@ -478,10 +478,6 @@
   "orDivider": {
     "message": "o"
   },
-  "someTabsPinned": {
-    "message": "Alcune schede esistenti sono state fissate",
-    "description": "Messaggio quando alcune schede esistenti sono state fissate"
-  },
   "someTabsPinnedAndOpened": {
     "message": "Alcune schede sono state fissate e altre aperte",
     "description": "Messaggio quando alcune schede sono state fissate e altre aperte"

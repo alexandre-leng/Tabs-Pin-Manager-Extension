@@ -2,7 +2,7 @@
  * Tests for category domain matching.
  */
 
-const DomainUtils = require('../lib/domain-utils.js');
+import * as DomainUtils from '../lib/domain-utils.js';
 
 describe('DomainUtils', () => {
   test('matches same domain with different paths and queries', () => {

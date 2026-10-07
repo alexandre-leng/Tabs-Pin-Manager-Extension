@@ -1,11 +1,11 @@
 /**
  * Tab reordering: drag and drop in the grid and the up/down buttons.
- * Mixed into OptionsManager.prototype; loaded after the class definition.
+ * Methods mixed into OptionsManager (see options.js).
  */
 
-'use strict';
+import { browser } from '../lib/browser-api.js';
 
-Object.assign(OptionsManager.prototype, {
+export const tabOrdering = {
   enableDragAndDrop() {
     const grid = this.elements.tabsGrid;
     const tabItems = grid.querySelectorAll('.tab-item');
@@ -158,4 +158,4 @@ Object.assign(OptionsManager.prototype, {
       this.renderTabs();
     }
   }
-});
+};

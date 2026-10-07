@@ -1,4 +1,5 @@
-const UiUtils = require('../lib/ui-utils.js');
+import { jest } from '@jest/globals';
+import { UiUtils } from '../lib/ui-utils.js';
 
 describe('UiUtils', () => {
   test('isValidUrl accepts only well-formed http(s) URLs', () => {

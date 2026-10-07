@@ -1,35 +1,23 @@
 /**
- * Tests for the manifest preparation and staging used by build, lint and dev.
+ * Tests for the manifest preparation used by build, lint and dev.
  */
 
-const fs = require('fs');
-const path = require('path');
-const { buildManifest, getBackgroundLibraries } = require('../scripts/prepare-manifest');
+import fs from 'node:fs';
+import path from 'node:path';
+import { buildManifest } from '../scripts/prepare-manifest.js';
 
-const ROOT = path.join(__dirname, '..');
-
-describe('getBackgroundLibraries', () => {
-  test('lists the files loaded by importScripts in background.js, and they exist', () => {
-    const libraries = getBackgroundLibraries();
-    expect(libraries).toContain('lib/storage-manager.js');
-    for (const file of libraries) {
-      expect(fs.existsSync(path.join(ROOT, file))).toBe(true);
-    }
-  });
-});
+const ROOT = path.join(import.meta.dirname, '..');
 
 describe('buildManifest', () => {
-  test('firefox runs the libraries then background.js as background scripts', () => {
+  test('firefox runs background.js as a module event page', () => {
     const manifest = buildManifest('firefox');
-    expect(manifest.background).toEqual({
-      scripts: [...getBackgroundLibraries(), 'background/background.js']
-    });
+    expect(manifest.background).toEqual({ scripts: ['background/background.js'], type: 'module' });
     expect(manifest.browser_specific_settings.gecko.id).toBe('tabspin@firefox.extension');
   });
 
-  test('chrome uses the service worker and no Firefox settings', () => {
+  test('chrome runs background.js as a module service worker, without Firefox settings', () => {
     const manifest = buildManifest('chrome');
-    expect(manifest.background).toEqual({ service_worker: 'background/background.js' });
+    expect(manifest.background).toEqual({ service_worker: 'background/background.js', type: 'module' });
     expect(manifest).not.toHaveProperty('browser_specific_settings');
   });
 

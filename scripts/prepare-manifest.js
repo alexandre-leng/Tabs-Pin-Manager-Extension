@@ -3,31 +3,18 @@
  * The source manifest is never modified: callers write the result into a staging dir.
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
 
-const ROOT = path.join(__dirname, '..');
+const ROOT = path.join(import.meta.dirname, '..');
+const BACKGROUND_ENTRY = 'background/background.js';
 
-/**
- * Library scripts the background loads, read from the importScripts() call in
- * background.js so the Firefox (background.scripts) and Chrome (service worker)
- * setups cannot drift apart.
- */
-function getBackgroundLibraries() {
-  const source = fs.readFileSync(path.join(ROOT, 'background/background.js'), 'utf8');
-  const call = source.match(/importScripts\(([\s\S]*?)\);/);
-  if (!call) throw new Error('importScripts() call not found in background/background.js');
-  return [...call[1].matchAll(/'\.\.\/([^']+)'/g)].map(m => m[1]);
-}
-
-function buildManifest(target) {
+export function buildManifest(target) {
   const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest.json'), 'utf8'));
 
   if (target === 'firefox') {
-    // Firefox MV3 runs the background as event-page scripts rather than a service worker
-    manifest.background = {
-      scripts: [...getBackgroundLibraries(), 'background/background.js']
-    };
+    // Firefox MV3 runs the background as an event page (module script)
+    manifest.background = { scripts: [BACKGROUND_ENTRY], type: 'module' };
     manifest.browser_specific_settings = {
       gecko: {
         id: 'tabspin@firefox.extension',
@@ -35,7 +22,7 @@ function buildManifest(target) {
       }
     };
   } else if (target === 'chrome') {
-    manifest.background = { service_worker: 'background/background.js' };
+    manifest.background = { service_worker: BACKGROUND_ENTRY, type: 'module' };
     delete manifest.browser_specific_settings;
   } else {
     throw new Error(`Unknown target "${target}" (expected firefox or chrome)`);
@@ -43,5 +30,3 @@ function buildManifest(target) {
 
   return manifest;
 }
-
-module.exports = { buildManifest, getBackgroundLibraries };

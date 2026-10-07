@@ -1,0 +1,56 @@
+import { DataStore } from '../background/data-store.js';
+import { installFakeBrowser, uninstallFakeBrowser } from './helpers/fake-browser.js';
+
+let fake;
+let store;
+
+beforeEach(async () => {
+  fake = installFakeBrowser();
+  fake.store.pinnedTabs = [
+    { id: 'a', url: 'https://a.com/', order: 0 },
+    { id: 'b', url: 'https://b.com/', order: 1 },
+    { id: 'c', url: 'https://c.com/', order: 2 }
+  ];
+  fake.store.categories = [{ id: 'work', name: 'Work', icon: '💼' }];
+  store = new DataStore();
+  await store.load(false);
+});
+
+afterEach(uninstallFakeBrowser);
+
+test('reorderTabs assigns a contiguous order and persists it', async () => {
+  await store.reorderTabs(['c', 'a']);
+  const order = Object.fromEntries(fake.store.pinnedTabs.map(t => [t.id, t.order]));
+  expect(order).toEqual({ c: 0, a: 1, b: 2 });
+});
+
+test('saveTab adds a tab with defaults and notifies the pages', async () => {
+  const saved = await store.saveTab({ url: 'https://d.com/', title: 'D' });
+  expect(saved).toMatchObject({ category: 'work', enabled: true });
+  expect(saved.id).toMatch(/^tab_/);
+  expect(fake.store.pinnedTabs).toHaveLength(4);
+  expect(fake.sentMessages.at(-1)).toMatchObject({ action: 'dataChanged', changeType: 'tabsChanged' });
+});
+
+test('saveTab rejects non-http URLs', async () => {
+  await expect(store.saveTab({ url: 'javascript:alert(1)' })).rejects.toThrow('Invalid');
+});
+
+test('deleteTab removes the tab, and fails for an unknown ID', async () => {
+  await store.deleteTab('b');
+  expect(fake.store.pinnedTabs.map(t => t.id)).toEqual(['a', 'c']);
+  await expect(store.deleteTab('zzz')).rejects.toThrow('Tab not found');
+});
+
+test('initializeDefaults keeps existing data', async () => {
+  await store.initializeDefaults();
+  expect(fake.store.pinnedTabs).toHaveLength(3);
+  expect(fake.store.categories).toEqual([{ id: 'work', name: 'Work', icon: '💼' }]);
+});
+
+test('migrate translates untouched default category names only', async () => {
+  fake.store.categories = [{ id: 'work', name: 'Work', icon: '💼' }, { id: 'tools', name: 'My tools', icon: '🔧' }];
+  fake.i18n.getMessage = key => ({ work: 'Travail', tools: 'Outils' })[key] || '';
+  await new DataStore().migrate();
+  expect(fake.store.categories.map(c => c.name)).toEqual(['Travail', 'My tools']);
+});

@@ -2,23 +2,23 @@
  * Tests for the toast shown after opening tabs from the popup.
  */
 
-const fs = require('fs');
-const path = require('path');
-const vm = require('vm');
+import { tabActions } from '../popup/tab-actions.js';
 
-function loadReporter() {
+function makePopup() {
   const toasts = [];
-  class PopupManager {
+  const popup = Object.assign(Object.create(tabActions), {
     showToast(type, icon, message) { toasts.push({ type, message }); }
-  }
-  const context = vm.createContext({
-    PopupManager,
-    browser: { i18n: { getMessage: (key) => key } },
-    console
   });
-  vm.runInContext(fs.readFileSync(path.join(__dirname, '../popup/tab-actions.js'), 'utf8'), context);
-  return { popup: new PopupManager(), toasts };
+  return { popup, toasts };
 }
+
+beforeAll(() => {
+  globalThis.browser = { i18n: { getMessage: key => key } };
+});
+
+afterAll(() => {
+  delete globalThis.browser;
+});
 
 describe('reportOpenResult', () => {
   test.each([
@@ -30,13 +30,13 @@ describe('reportOpenResult', () => {
     [{ failed: 2 }, 'error', 'failedToOpenTabs', false],
     [{ failed: 1, skipped: 1 }, 'error', 'failedToOpenTabs', false]
   ])('%o shows %s "%s"', (response, type, message, opened) => {
-    const { popup, toasts } = loadReporter();
+    const { popup, toasts } = makePopup();
     expect(popup.reportOpenResult(response)).toBe(opened);
     expect(toasts).toEqual([{ type, message }]);
   });
 
   test('uses the caller failure message', () => {
-    const { popup, toasts } = loadReporter();
+    const { popup, toasts } = makePopup();
     popup.reportOpenResult({ failed: 1 }, 'failedToOpenCategoryTabs');
     expect(toasts[0].message).toBe('failedToOpenCategoryTabs');
   });

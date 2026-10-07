@@ -1,11 +1,12 @@
 /**
  * Category selection modal used when pinning the current tab.
- * Mixed into PopupManager.prototype; loaded after the class definition.
+ * Methods mixed into PopupManager (see popup.js).
  */
 
-'use strict';
+import { browser } from '../lib/browser-api.js';
+import { UiUtils } from '../lib/ui-utils.js';
 
-Object.assign(PopupManager.prototype, {
+export const categorySelection = {
   showCategorySelectionModal() {
     if (!this.currentTab || !this.elements.categorySelectionOverlay) {
       return;
@@ -167,4 +168,4 @@ Object.assign(PopupManager.prototype, {
       return a.name.localeCompare(b.name);
     });
   }
-});
+};

@@ -3,10 +3,10 @@
  * styles do not pile up again.
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
 
-const ROOT = path.join(__dirname, '..');
+const ROOT = path.join(import.meta.dirname, '..');
 const read = file => fs.readFileSync(path.join(ROOT, file), 'utf8');
 const source = ['background', 'lib', 'popup', 'options']
   .flatMap(dir => fs.readdirSync(path.join(ROOT, dir))

@@ -1,11 +1,11 @@
 /**
  * Tab editing: add/edit modal, save and delete.
- * Mixed into OptionsManager.prototype; loaded after the class definition.
+ * Methods mixed into OptionsManager (see options.js).
  */
 
-'use strict';
+import { browser } from '../lib/browser-api.js';
 
-Object.assign(OptionsManager.prototype, {
+export const tabEditor = {
   openTabModal(tab = null) {
     this.currentEditingTab = tab;
     
@@ -141,4 +141,4 @@ Object.assign(OptionsManager.prototype, {
   generateTabId() {
     return 'tab_' + Date.now() + '_' + Math.random().toString(36).slice(2, 11);
   }
-});
+};

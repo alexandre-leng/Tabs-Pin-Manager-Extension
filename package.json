@@ -26,5 +26,6 @@
     "testMatch": [
       "**/tests/**/*.test.js"
     ]
-  }
+  },
+  "type": "module"
 }

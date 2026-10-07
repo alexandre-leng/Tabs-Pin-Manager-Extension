@@ -2,10 +2,11 @@
  * Every locale must define the same message keys, with the same placeholders, as English.
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
+import { CATEGORY_DEFINITIONS } from '../lib/default-categories.js';
 
-const LOCALES_DIR = path.join(__dirname, '../_locales');
+const LOCALES_DIR = path.join(import.meta.dirname, '../_locales');
 const load = (lang) => JSON.parse(fs.readFileSync(path.join(LOCALES_DIR, lang, 'messages.json'), 'utf8'));
 // Placeholder names are local to each message; the positional arguments ($1, $2...) must match
 const placeholders = (entry) => Object.values(entry.placeholders || {}).map(p => p.content).sort();
@@ -15,16 +16,13 @@ const languages = fs.readdirSync(LOCALES_DIR).filter(lang => lang !== 'en');
 
 const SOURCE_DIRS = ['background', 'lib', 'popup', 'options'];
 const source = SOURCE_DIRS
-  .flatMap(dir => fs.readdirSync(path.join(__dirname, '..', dir))
+  .flatMap(dir => fs.readdirSync(path.join(import.meta.dirname, '..', dir))
     .filter(file => /\.(js|html)$/.test(file))
-    .map(file => fs.readFileSync(path.join(__dirname, '..', dir, file), 'utf8')))
-  .concat(fs.readFileSync(path.join(__dirname, '../manifest.json'), 'utf8'))
+    .map(file => fs.readFileSync(path.join(import.meta.dirname, '..', dir, file), 'utf8')))
+  .concat(fs.readFileSync(path.join(import.meta.dirname, '../manifest.json'), 'utf8'))
   .join('\n');
 // Default category names are looked up dynamically by category ID
-require('../lib/default-categories.js');
-const dynamicKeys = new Set(
-  globalThis.DefaultCategories.getDefaultCategories({ getMessage: () => '' }).map(category => category.id)
-);
+const dynamicKeys = new Set(CATEGORY_DEFINITIONS.map(category => category.id));
 
 describe('locales', () => {
   test('every message requested by the extension exists in English', () => {

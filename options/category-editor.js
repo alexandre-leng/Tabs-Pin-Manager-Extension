@@ -1,11 +1,12 @@
 /**
  * Category editing: edit modal, reset, and the quick category switcher on tab cards.
- * Mixed into OptionsManager.prototype; loaded after the class definition.
+ * Methods mixed into OptionsManager (see options.js).
  */
 
-'use strict';
+import { browser } from '../lib/browser-api.js';
+import { getDefaultCategories } from '../lib/default-categories.js';
 
-Object.assign(OptionsManager.prototype, {
+export const categoryEditor = {
   // Category management methods
   editCategory(category) {
     this.currentEditingCategory = category;
@@ -96,7 +97,7 @@ Object.assign(OptionsManager.prototype, {
     if (!confirmed) return;
     
     try {
-      const defaultCategories = DefaultCategories.getDefaultCategories(browser.i18n);
+      const defaultCategories = getDefaultCategories(browser.i18n);
       
       const response = await this.sendMessageWithRetry({
         action: 'saveCategories',
@@ -261,4 +262,4 @@ Object.assign(OptionsManager.prototype, {
       setTimeout(() => popover.remove(), 350);
     }
   }
-});
+};

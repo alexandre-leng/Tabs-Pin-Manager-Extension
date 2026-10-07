@@ -4,20 +4,16 @@
  * Usage: node scripts/stage.js [firefox|chrome]
  */
 
-const fs = require('fs');
-const path = require('path');
-const { buildManifest } = require('./prepare-manifest');
+import fs from 'node:fs';
+import path from 'node:path';
+import { buildManifest } from './prepare-manifest.js';
 
-const ROOT = path.join(__dirname, '..');
-const SHIPPED_PATHS = ['_locales', 'assets', 'background', 'lib', 'options', 'popup', 'shared.css', 'LICENSE'];
+const ROOT = path.join(import.meta.dirname, '..');
+export const SHIPPED_PATHS = ['_locales', 'assets', 'background', 'lib', 'options', 'popup', 'shared.css', 'LICENSE'];
 
-function stageDir(target) {
-  return path.join(ROOT, 'build', target);
-}
-
-function stage(target) {
+export function stage(target) {
   const manifest = buildManifest(target);
-  const dir = stageDir(target);
+  const dir = path.join(ROOT, 'build', target);
   fs.rmSync(dir, { recursive: true, force: true });
   fs.mkdirSync(dir, { recursive: true });
   for (const entry of SHIPPED_PATHS) {
@@ -27,9 +23,7 @@ function stage(target) {
   return dir;
 }
 
-if (require.main === module) {
+if (import.meta.filename === process.argv[1]) {
   const target = process.argv[2] || 'firefox';
   console.log(`Staged ${target} extension in ${path.relative(ROOT, stage(target))}/`);
 }
-
-module.exports = { stage, stageDir, SHIPPED_PATHS };

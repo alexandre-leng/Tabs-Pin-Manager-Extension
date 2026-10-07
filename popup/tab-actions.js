@@ -1,11 +1,11 @@
 /**
  * Popup actions: open, close and pin tabs.
- * Mixed into PopupManager.prototype; loaded after the class definition.
+ * Methods mixed into PopupManager (see popup.js).
  */
 
-'use strict';
+import { browser } from '../lib/browser-api.js';
 
-Object.assign(PopupManager.prototype, {
+export const tabActions = {
   async openAllTabs() {
     if (this.isOpeningTabs) return;
     
@@ -250,4 +250,4 @@ Object.assign(PopupManager.prototype, {
       this.showToast('error', '❌', browser.i18n.getMessage('failedToPinTab') || 'Failed to pin tab');
     }
   }
-});
+};

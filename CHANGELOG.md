@@ -17,6 +17,8 @@ All notable changes to this project will be documented in this file.
 - **Liens du dépôt** : Les liens du manifeste, du README et du changelog pointent vers le bon dépôt.
 
 ### 🧹 Qualité
+- **Modules ES** : tout le code (arrière-plan, popup, options, `lib/`) est passé en modules ES natifs avec des imports explicites. Il n'y a plus de variables globales partagées ni de dépendance à l'ordre des balises `<script>` : chaque page charge un seul module d'entrée, et l'arrière-plan est déclaré `type: module` (Firefox et Chrome).
+- **Arrière-plan découpé** : la classe unique d'environ 1000 lignes devient 7 modules (contrôleur des messages, stockage des données, actions sur les onglets, validation de l'import, utilitaires), le plus gros faisant 177 lignes ; un état jamais lu (`tabUrlsById`) est supprimé. Chaque module a ses propres tests.
 - Envoi de messages au script d'arrière-plan centralisé dans `UiUtils.sendMessage` (deux variantes divergentes auparavant) ; le popup ne relance plus une action que le script d'arrière-plan a refusée.
 - CSS : 29 règles jamais utilisées et 55 variables recopiées à l'identique de `shared.css` supprimées (≈ 280 lignes), sans aucun changement visuel (16 captures clair/sombre comparées pixel par pixel) ; un test empêche de réintroduire des styles morts.
 - Messages d'ouverture d'onglets du popup regroupés dans `reportOpenResult` ; carte d'onglet des options et validation de l'import découpées en petites fonctions ; ESLint limite la complexité et la longueur des fonctions, sans avertissement toléré en CI.

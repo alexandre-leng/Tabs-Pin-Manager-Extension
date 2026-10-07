@@ -458,10 +458,6 @@
   "orDivider": {
     "message": "oder"
   },
-  "someTabsPinned": {
-    "message": "Einige vorhandene Tabs wurden angeheftet",
-    "description": "Message when some existing tabs were pinned"
-  },
   "someTabsPinnedAndOpened": {
     "message": "Einige Tabs wurden angeheftet und andere geöffnet",
     "description": "Message when some tabs were pinned and others opened"

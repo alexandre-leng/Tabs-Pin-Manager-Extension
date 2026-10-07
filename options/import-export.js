@@ -1,11 +1,11 @@
 /**
  * Settings import and export.
- * Mixed into OptionsManager.prototype; loaded after the class definition.
+ * Methods mixed into OptionsManager (see options.js).
  */
 
-'use strict';
+import { browser } from '../lib/browser-api.js';
 
-Object.assign(OptionsManager.prototype, {
+export const importExport = {
   // Import/Export functionality
   exportSettings() {
     try {
@@ -77,4 +77,4 @@ Object.assign(OptionsManager.prototype, {
     // Clear file input
     event.target.value = '';
   }
-});
+};

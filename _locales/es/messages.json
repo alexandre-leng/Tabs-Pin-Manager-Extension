@@ -478,10 +478,6 @@
   "orDivider": {
     "message": "o"
   },
-  "someTabsPinned": {
-    "message": "Algunas pestañas existentes han sido fijadas",
-    "description": "Mensaje cuando algunas pestañas existentes fueron fijadas"
-  },
   "someTabsPinnedAndOpened": {
     "message": "Algunas pestañas fueron fijadas y otras abiertas",
     "description": "Mensaje cuando algunas pestañas fueron fijadas y otras abiertas"

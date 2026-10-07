@@ -3,9 +3,16 @@
  * Handles popup interface and user interactions
  */
 
-'use strict';
+import { browser } from '../lib/browser-api.js';
+import { getDefaultCategories } from '../lib/default-categories.js';
+import { I18nHelper } from '../lib/i18n-helper.js';
+import { StorageManager } from '../lib/storage-manager.js';
+import { UiUtils } from '../lib/ui-utils.js';
+import { mixin } from '../lib/mixins.js';
+import { categorySelection } from './category-selection.js';
+import { tabActions } from './tab-actions.js';
 
-class PopupManager {
+export class PopupManager {
   constructor() {
     this.tabs = [];
     this.categories = [];
@@ -168,7 +175,7 @@ class PopupManager {
   }
 
   getDefaultCategories() {
-    return DefaultCategories.getDefaultCategories(browser.i18n);
+    return getDefaultCategories(browser.i18n);
   }
 
   setupEventListeners() {
@@ -672,7 +679,4 @@ class PopupManager {
   }
 }
 
-// Initialize popup when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-  new PopupManager();
-});
+mixin(PopupManager.prototype, tabActions, categorySelection);

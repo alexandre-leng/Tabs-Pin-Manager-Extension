@@ -484,10 +484,6 @@
     "message": "or",
     "description": "Text divider between primary and secondary actions"
   },
-  "someTabsPinned": {
-    "message": "Some existing tabs have been pinned",
-    "description": "Message when some existing tabs were pinned"
-  },
   "someTabsPinnedAndOpened": {
     "message": "Some tabs were pinned and others opened",
     "description": "Message when some tabs were pinned and others opened"

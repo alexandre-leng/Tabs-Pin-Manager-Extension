@@ -4,12 +4,12 @@
  * Usage: node scripts/dev.js
  */
 
-const { spawn } = require('child_process');
-const fs = require('fs');
-const path = require('path');
-const { stage, SHIPPED_PATHS } = require('./stage');
+import { spawn } from 'node:child_process';
+import fs from 'node:fs';
+import path from 'node:path';
+import { stage, SHIPPED_PATHS } from './stage.js';
 
-const ROOT = path.join(__dirname, '..');
+const ROOT = path.join(import.meta.dirname, '..');
 const sourceDir = stage('firefox');
 
 let timer = null;

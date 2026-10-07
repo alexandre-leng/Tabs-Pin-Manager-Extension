@@ -3,10 +3,12 @@
  * Usage: node scripts/build.js [chrome|firefox]
  */
 
-const { execFileSync } = require('child_process');
-const path = require('path');
-const { stage } = require('./stage');
-const { version } = require('../package.json');
+import { execFileSync } from 'node:child_process';
+import fs from 'node:fs';
+import path from 'node:path';
+import { stage } from './stage.js';
+
+const { version } = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, '..', 'package.json'), 'utf8'));
 
 const target = process.argv[2] || 'chrome';
 const filename = `tabs-pin-${target}-v${version}.zip`;
@@ -16,7 +18,7 @@ try {
   execFileSync('npx', [
     'web-ext', 'build',
     '--source-dir', sourceDir,
-    '--artifacts-dir', path.join(__dirname, '..', 'web-ext-artifacts'),
+    '--artifacts-dir', path.join(import.meta.dirname, '..', 'web-ext-artifacts'),
     '--filename', filename,
     '--overwrite-dest'
   ], { stdio: 'inherit' });

@@ -1,3 +1,5 @@
+import { I18nHelper } from '../lib/i18n-helper.js';
+
 /**
  * Tests for i18n-helper.js
  * Uses a mock browser.i18n API for testing outside Firefox.
@@ -24,7 +26,7 @@ function setMessage(key, value) {
   i18nMessages[key] = value;
 }
 
-const I18nHelper = require('../lib/i18n-helper.js');
+
 
 describe('I18nHelper', () => {
   describe('localizePage', () => {

@@ -385,10 +385,6 @@
   "configureManually": {
     "message": "수동으로 구성"
   },
-  "someTabsPinned": {
-    "message": "Some existing tabs have been pinned",
-    "description": "Message when some existing tabs were pinned"
-  },
   "someTabsPinnedAndOpened": {
     "message": "Some tabs were pinned and others opened",
     "description": "Message when some tabs were pinned and others opened"

@@ -1,10 +1,12 @@
-/* global browser */
+import { StorageManager } from '../lib/storage-manager.js';
+
 /**
  * Tests for StorageManager
  * Verifies core logic without browser.storage API.
  */
 
-global.browser = global.browser || {};
+globalThis.browser = {};
+const browser = globalThis.browser;
 browser.storage = {
   local: {
     _store: {},
@@ -23,7 +25,6 @@ browser.storage = {
   },
 };
 
-const StorageManager = require('../lib/storage-manager.js');
 
 describe('StorageManager', () => {
   let storage;

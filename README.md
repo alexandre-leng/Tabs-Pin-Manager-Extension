@@ -52,6 +52,23 @@ npm install
 The shared `manifest.json` is never modified: each command copies the extension into
 `build/<browser>/` with the browser-specific manifest (`scripts/prepare-manifest.js`).
 
+## 🧱 Architecture
+
+The extension is written as native **ES modules** (no bundler): each context has a single
+entry module, and every dependency is an explicit `import`.
+
+| Context | Entry | Modules |
+|---|---|---|
+| Background (Firefox event page / Chrome service worker) | `background/background.js` | `controller.js` (events and messages), `data-store.js` (saved tabs, categories, settings), `tab-actions.js` (open / pin / close browser tabs), `import-sanitizer.js`, `tab-utils.js` |
+| Popup | `popup/main.js` | `popup.js` (`PopupManager`), `tab-actions.js`, `category-selection.js` |
+| Options page | `options/main.js` | `options.js` (`OptionsManager`), `tab-editor.js`, `tab-ordering.js`, `category-editor.js`, `icon-picker.js`, `import-export.js` |
+| Shared | `lib/` | `browser-api.js` (WebExtension namespace), `storage-manager.js`, `ui-utils.js`, `i18n-helper.js`, `domain-utils.js`, `default-categories.js`, `mixins.js` |
+
+Page features are plain objects of methods composed into the page class with
+`mixin()`, which throws if two features define the same method.
+`tests/module-graph.test.js` checks that every import resolves and that no module is
+left unreachable.
+
 ## 🚀 Quick Start
 
 1. **Click the Tabs Pin icon** in your browser toolbar.

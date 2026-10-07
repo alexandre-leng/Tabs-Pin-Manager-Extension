@@ -1,9 +1,9 @@
 /**
  * Icon picker used by the category editor.
- * Extends OptionsManager.prototype; loaded after the class definition.
+ * Methods mixed into OptionsManager (see options.js).
  */
 
-'use strict';
+import { browser } from '../lib/browser-api.js';
 
 // Icon data for the picker
 const ICON_DATA = {
@@ -193,169 +193,172 @@ const ICON_DATA = {
 };
 
 // Initialize icon picker functionality
-OptionsManager.prototype.initIconData = function() {
-  // Load recent icons from storage
-  const recentIcons = JSON.parse(localStorage.getItem('recentIcons') || '[]');
-  ICON_DATA.recent = recentIcons.slice(0, 16).map(icon => ({ icon, keywords: [] }));
-};
 
-OptionsManager.prototype.openIconPicker = function() {
-  this.initIconData();
-  this.elements.iconPickerOverlay.style.display = 'flex'; // Ensure it is display:flex before adding show
-  this.elements.iconSelectorBtn.classList.add('active');
-  
-  requestAnimationFrame(() => {
-    this.elements.iconPickerOverlay.classList.add('show');
-  });
-  
-  // Show recent icons by default
-  this.switchIconCategory('objects');
-  
-  // Focus search input
-  setTimeout(() => {
-    this.elements.iconSearchInput?.focus();
-  }, 200);
-};
+export const iconPicker = {
+  initIconData() {
+    // Load recent icons from storage
+    const recentIcons = JSON.parse(localStorage.getItem('recentIcons') || '[]');
+    ICON_DATA.recent = recentIcons.slice(0, 16).map(icon => ({ icon, keywords: [] }));
+  },
 
-OptionsManager.prototype.closeIconPicker = function() {
-  this.elements.iconSelectorBtn.classList.remove('active');
-  this.hideOverlay(this.elements.iconPickerOverlay);
-};
+  openIconPicker() {
+    this.initIconData();
+    this.elements.iconPickerOverlay.style.display = 'flex'; // Ensure it is display:flex before adding show
+    this.elements.iconSelectorBtn.classList.add('active');
+    
+    requestAnimationFrame(() => {
+      this.elements.iconPickerOverlay.classList.add('show');
+    });
+    
+    // Show recent icons by default
+    this.switchIconCategory('objects');
+    
+    // Focus search input
+    setTimeout(() => {
+      this.elements.iconSearchInput?.focus();
+    }, 200);
+  },
 
-OptionsManager.prototype.switchIconCategory = function(category) {
-  // Update active category button
-  document.querySelectorAll('.icon-category-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  document.querySelector(`[data-category="${category}"]`)?.classList.add('active');
-  
-  // Clear search
-  if (this.elements.iconSearchInput) {
-    this.elements.iconSearchInput.value = '';
-  }
-  
-  // Render icons for the selected category
-  this.renderIconGrid(ICON_DATA[category] || [], category);
-};
+  closeIconPicker() {
+    this.elements.iconSelectorBtn.classList.remove('active');
+    this.hideOverlay(this.elements.iconPickerOverlay);
+  },
 
-OptionsManager.prototype.searchIcons = function(query) {
-  if (!query.trim()) {
-    // If search is empty, show current category
-    const activeCategory = document.querySelector('.icon-category-btn.active')?.dataset.category || 'recent';
-    this.renderIconGrid(ICON_DATA[activeCategory] || [], activeCategory);
-    return;
-  }
-  
-  // Normalize query for better matching
-  const normalizedQuery = query.toLowerCase().trim();
-  
-  // Search through all categories
-  const allIconsData = [
-    ...ICON_DATA.objects,
-    ...ICON_DATA.symbols,
-    ...ICON_DATA.activities,
-    ...ICON_DATA.nature,
-    ...ICON_DATA.food
-  ];
-  
-  // Filter icons based on keywords
-  const filteredIcons = allIconsData.filter(iconData => {
-    // Check if query matches any keyword
-    return iconData.keywords.some(keyword => 
-      keyword.toLowerCase().includes(normalizedQuery)
-    );
-  });
-  
-  // Render filtered results
-  this.renderIconGrid(filteredIcons, 'search');
-};
+  switchIconCategory(category) {
+    // Update active category button
+    document.querySelectorAll('.icon-category-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    document.querySelector(`[data-category="${category}"]`)?.classList.add('active');
+    
+    // Clear search
+    if (this.elements.iconSearchInput) {
+      this.elements.iconSearchInput.value = '';
+    }
+    
+    // Render icons for the selected category
+    this.renderIconGrid(ICON_DATA[category] || [], category);
+  },
 
-OptionsManager.prototype.renderIconGrid = function(iconsData, category) {
-  if (!this.elements.iconGrid) return;
-  
-  if (iconsData.length === 0) {
+  searchIcons(query) {
+    if (!query.trim()) {
+      // If search is empty, show current category
+      const activeCategory = document.querySelector('.icon-category-btn.active')?.dataset.category || 'recent';
+      this.renderIconGrid(ICON_DATA[activeCategory] || [], activeCategory);
+      return;
+    }
+    
+    // Normalize query for better matching
+    const normalizedQuery = query.toLowerCase().trim();
+    
+    // Search through all categories
+    const allIconsData = [
+      ...ICON_DATA.objects,
+      ...ICON_DATA.symbols,
+      ...ICON_DATA.activities,
+      ...ICON_DATA.nature,
+      ...ICON_DATA.food
+    ];
+    
+    // Filter icons based on keywords
+    const filteredIcons = allIconsData.filter(iconData => {
+      // Check if query matches any keyword
+      return iconData.keywords.some(keyword => 
+        keyword.toLowerCase().includes(normalizedQuery)
+      );
+    });
+    
+    // Render filtered results
+    this.renderIconGrid(filteredIcons, 'search');
+  },
+
+  renderIconGrid(iconsData, category) {
+    if (!this.elements.iconGrid) return;
+    
+    if (iconsData.length === 0) {
+      // Clear existing content safely
+      while (this.elements.iconGrid.firstChild) {
+        this.elements.iconGrid.removeChild(this.elements.iconGrid.firstChild);
+      }
+      
+      // Create empty state container
+      const emptyContainer = document.createElement('div');
+      emptyContainer.className = 'icon-grid empty';
+      
+      const emptyText = document.createElement('div');
+      emptyText.className = 'icon-empty-text';
+      emptyText.textContent = category === 'recent' ? 
+              (browser.i18n.getMessage('noRecentIcons') || 'No recent icons') : 
+              category === 'search' ?
+              (browser.i18n.getMessage('noIconsFound') || 'No icons found') :
+        (browser.i18n.getMessage('noIconsFound') || 'No icons found');
+      
+      emptyContainer.appendChild(emptyText);
+      this.elements.iconGrid.appendChild(emptyContainer);
+      return;
+    }
+    
     // Clear existing content safely
     while (this.elements.iconGrid.firstChild) {
       this.elements.iconGrid.removeChild(this.elements.iconGrid.firstChild);
     }
     
-    // Create empty state container
-    const emptyContainer = document.createElement('div');
-    emptyContainer.className = 'icon-grid empty';
-    
-    const emptyText = document.createElement('div');
-    emptyText.className = 'icon-empty-text';
-    emptyText.textContent = category === 'recent' ? 
-            (browser.i18n.getMessage('noRecentIcons') || 'No recent icons') : 
-            category === 'search' ?
-            (browser.i18n.getMessage('noIconsFound') || 'No icons found') :
-      (browser.i18n.getMessage('noIconsFound') || 'No icons found');
-    
-    emptyContainer.appendChild(emptyText);
-    this.elements.iconGrid.appendChild(emptyContainer);
-    return;
-  }
-  
-  // Clear existing content safely
-  while (this.elements.iconGrid.firstChild) {
-    this.elements.iconGrid.removeChild(this.elements.iconGrid.firstChild);
-  }
-  
-  iconsData.forEach(iconData => {
-    const icon = iconData.icon || iconData; // Support both formats
-    const iconElement = document.createElement('button');
-    iconElement.className = 'icon-item';
-    iconElement.textContent = icon;
-    iconElement.type = 'button';
-    iconElement.addEventListener('click', () => this.selectIcon(icon));
-    
-    // Mark recent icons
-    if (category !== 'recent' && ICON_DATA.recent.some(recentData => (recentData.icon || recentData) === icon)) {
-      iconElement.classList.add('recent');
+    iconsData.forEach(iconData => {
+      const icon = iconData.icon || iconData; // Support both formats
+      const iconElement = document.createElement('button');
+      iconElement.className = 'icon-item';
+      iconElement.textContent = icon;
+      iconElement.type = 'button';
+      iconElement.addEventListener('click', () => this.selectIcon(icon));
+      
+      // Mark recent icons
+      if (category !== 'recent' && ICON_DATA.recent.some(recentData => (recentData.icon || recentData) === icon)) {
+        iconElement.classList.add('recent');
+      }
+      
+      this.elements.iconGrid.appendChild(iconElement);
+    });
+  },
+
+  selectIcon(icon) {
+    // Update the selected icon display
+    if (this.elements.selectedIcon) {
+      this.elements.selectedIcon.textContent = icon;
     }
     
-    this.elements.iconGrid.appendChild(iconElement);
-  });
-};
+    // Add to recent icons
+    this.addToRecentIcons(icon);
+    
+    // Close the picker
+    this.closeIconPicker();
+    
+    // Visual feedback
+    this.elements.iconSelectorBtn.style.transform = 'scale(1.05)';
+    setTimeout(() => {
+      this.elements.iconSelectorBtn.style.transform = '';
+    }, 150);
+  },
 
-OptionsManager.prototype.selectIcon = function(icon) {
-  // Update the selected icon display
-  if (this.elements.selectedIcon) {
-    this.elements.selectedIcon.textContent = icon;
+  addToRecentIcons(icon) {
+    let recentIcons = JSON.parse(localStorage.getItem('recentIcons') || '[]');
+    
+    // Remove if already exists
+    recentIcons = recentIcons.filter(i => i !== icon);
+    
+    // Add to beginning
+    recentIcons.unshift(icon);
+    
+    // Limit to 16 icons
+    recentIcons = recentIcons.slice(0, 16);
+    
+    // Save to localStorage
+    localStorage.setItem('recentIcons', JSON.stringify(recentIcons));
+    
+    // Update in memory
+    ICON_DATA.recent = recentIcons.map(recent => ({ icon: recent, keywords: [] }));
+  },
+
+  getSelectedIcon() {
+    return this.elements.selectedIcon?.textContent || '📁';
   }
-  
-  // Add to recent icons
-  this.addToRecentIcons(icon);
-  
-  // Close the picker
-  this.closeIconPicker();
-  
-  // Visual feedback
-  this.elements.iconSelectorBtn.style.transform = 'scale(1.05)';
-  setTimeout(() => {
-    this.elements.iconSelectorBtn.style.transform = '';
-  }, 150);
-};
-
-OptionsManager.prototype.addToRecentIcons = function(icon) {
-  let recentIcons = JSON.parse(localStorage.getItem('recentIcons') || '[]');
-  
-  // Remove if already exists
-  recentIcons = recentIcons.filter(i => i !== icon);
-  
-  // Add to beginning
-  recentIcons.unshift(icon);
-  
-  // Limit to 16 icons
-  recentIcons = recentIcons.slice(0, 16);
-  
-  // Save to localStorage
-  localStorage.setItem('recentIcons', JSON.stringify(recentIcons));
-  
-  // Update in memory
-  ICON_DATA.recent = recentIcons.map(recent => ({ icon: recent, keywords: [] }));
-};
-
-OptionsManager.prototype.getSelectedIcon = function() {
-  return this.elements.selectedIcon?.textContent || '📁';
 };

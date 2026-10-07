@@ -385,10 +385,6 @@
   "configureManually": {
     "message": "تكوين يدوي"
   },
-  "someTabsPinned": {
-    "message": "تم تثبيت بعض علامات التبويب الموجودة",
-    "description": "Message when some existing tabs were pinned"
-  },
   "someTabsPinnedAndOpened": {
     "message": "تم تثبيت بعض علامات التبويب وفتح أخرى",
     "description": "Message when some tabs were pinned and others opened"

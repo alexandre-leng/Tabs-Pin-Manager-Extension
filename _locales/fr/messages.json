@@ -488,10 +488,6 @@
       }
     }
   },
-  "someTabsPinned": {
-    "message": "Certains onglets ont été épinglés",
-    "description": "Message quand certains onglets existants ont été épinglés"
-  },
   "someTabsPinnedAndOpened": {
     "message": "Certains onglets ont été épinglés et d'autres ouverts",
     "description": "Message quand certains onglets ont été épinglés et d'autres ouverts"
