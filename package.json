@@ -12,14 +12,19 @@
     "start": "npm run dev",
     "lint": "node scripts/prepare-manifest.js firefox && web-ext lint",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --passWithNoTests",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "npm test -- --watch",
+    "lint:js": "eslint ."
   },
   "devDependencies": {
+    "eslint": "^9.39.5",
+    "globals": "^17.13.0",
     "jest": "^30.2.0",
     "web-ext": "^10.1.0"
   },
   "jest": {
     "testEnvironment": "node",
-    "testMatch": ["**/tests/**/*.test.js"]
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
   }
 }

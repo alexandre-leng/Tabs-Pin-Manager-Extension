@@ -615,5 +615,55 @@
   "moveDown": {
     "message": "Bajar",
     "description": "Button to move a pinned tab down"
+  },
+  "closeCategoryTabs": {
+    "message": "Cerrar",
+    "description": "Button text for closing open pinned tabs from a category"
+  },
+  "closeCategoryTabsTooltip": {
+    "message": "Cerrar esta categoría",
+    "description": "Tooltip for closing open pinned tabs from a category"
+  },
+  "closeCategoryConfirm": {
+    "message": "¿Cerrar las pestañas fijadas de \"$CATEGORY_NAME$\" en esta ventana? Se aplica a las pestañas fijadas de los mismos dominios que las $COUNT$ pestañas guardadas en esta categoría.",
+    "description": "Confirmation before closing category tabs",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "categoryPinnedTabsClosed": {
+    "message": "$COUNT$ pestaña(s) fijada(s) cerrada(s) de $CATEGORY_NAME$",
+    "description": "Success message when closing category tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "category_name": {
+        "content": "$2",
+        "example": "Work"
+      }
+    }
+  },
+  "noOpenCategoryPinnedTabs": {
+    "message": "No se encontraron pestañas fijadas abiertas para $CATEGORY_NAME$",
+    "description": "Info message when no matching category tabs are open",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "errorClosingCategoryTabs": {
+    "message": "Error al cerrar las pestañas de la categoría",
+    "description": "Error message when closing category tabs fails"
   }
 }

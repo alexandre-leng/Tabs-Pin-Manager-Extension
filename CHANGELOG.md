@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### 🛠️ Corrections
+- **Traductions manquantes** : Les textes de fermeture d'une catégorie (« Fermer », confirmation, messages de résultat) manquaient dans 12 langues et s'affichaient en anglais.
+- **Message français** : « Certains onglets étaient déjà ouverts » n'affichait plus les nombres d'onglets ouverts et créés.
+- **Vérification du stockage** : Le contrôle de santé vérifie maintenant que la valeur relue correspond à celle écrite.
+- **Liens du dépôt** : Les liens du manifeste, du README et du changelog pointent vers le bon dépôt.
+
+### 🧹 Qualité
+- Logique d'ouverture des onglets factorisée (`openTabConfigs`), journaux de débogage désactivés par défaut, helpers partagés popup/options (`lib/ui-utils.js`).
+- ESLint, `.editorconfig` et tests (ouverture des onglets, helpers, cohérence des traductions) exécutés dans la CI.
+
 ## [1.3.5] - 2026-10-06
 
 ### 🛠️ Corrections
@@ -227,7 +239,7 @@ et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ## 🔗 Liens Utiles
 
-- **GitHub Repository** : [Tabs-Pin-Firefox-Extension](https://github.com/alexandre-leng/Tabs-Pin-Firefox-Extension)
+- **GitHub Repository** : [Tabs-Pin-Manager-Extension](https://github.com/alexandre-leng/Tabs-Pin-Manager-Extension)
 - **Firefox Add-ons** : [Page officielle AMO](https://addons.mozilla.org/firefox/addon/tabs-pin/)
-- **Documentation** : [Wiki du projet](https://github.com/alexandre-leng/Tabs-Pin-Firefox-Extension/wiki)
-- **Support** : [Issues GitHub](https://github.com/alexandre-leng/Tabs-Pin-Firefox-Extension/issues) 
+- **Documentation** : [Wiki du projet](https://github.com/alexandre-leng/Tabs-Pin-Manager-Extension/wiki)
+- **Support** : [Issues GitHub](https://github.com/alexandre-leng/Tabs-Pin-Manager-Extension/issues) 

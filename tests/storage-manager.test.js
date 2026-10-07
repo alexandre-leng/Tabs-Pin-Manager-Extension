@@ -1,3 +1,4 @@
+/* global browser */
 /**
  * Tests for StorageManager
  * Verifies core logic without browser.storage API.
@@ -12,6 +13,9 @@ browser.storage = {
     },
     async set(data) {
       Object.assign(this._store, data);
+    },
+    async remove(key) {
+      delete this._store[key];
     },
     async clear() {
       this._store = {};
@@ -55,5 +59,19 @@ describe('StorageManager', () => {
   test('set stores data and updates cache', async () => {
     await storage.set({ newKey: 'newValue' });
     expect(browser.storage.local._store.newKey).toBe('newValue');
+  });
+
+  test('healthCheck reports healthy when storage round-trips', async () => {
+    const result = await storage.healthCheck();
+    expect(result.healthy).toBe(true);
+    expect(browser.storage.local._store.__storage_health_test__).toBeUndefined();
+  });
+
+  test('healthCheck reports unhealthy when reads do not match writes', async () => {
+    const originalGet = browser.storage.local.get;
+    browser.storage.local.get = async () => ({});
+    const result = await storage.healthCheck();
+    browser.storage.local.get = originalGet;
+    expect(result.healthy).toBe(false);
   });
 });

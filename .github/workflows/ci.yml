@@ -17,6 +17,8 @@ jobs:
       - run: npm ci
       - name: Unit tests
         run: npm test
+      - name: ESLint
+        run: npm run lint:js
       - name: Lint Firefox
         run: node scripts/prepare-manifest.js firefox && npx web-ext lint
       - name: Build Firefox

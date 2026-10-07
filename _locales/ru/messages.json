@@ -514,5 +514,55 @@
   "moveDown": {
     "message": "Переместить вниз",
     "description": "Button to move a pinned tab down"
+  },
+  "closeCategoryTabs": {
+    "message": "Закрыть",
+    "description": "Button text for closing open pinned tabs from a category"
+  },
+  "closeCategoryTabsTooltip": {
+    "message": "Закрыть эту категорию",
+    "description": "Tooltip for closing open pinned tabs from a category"
+  },
+  "closeCategoryConfirm": {
+    "message": "Закрыть закреплённые вкладки категории «$CATEGORY_NAME$» в этом окне? Будут затронуты закреплённые вкладки с теми же доменами, что и $COUNT$ сохранённых вкладок в этой категории.",
+    "description": "Confirmation before closing category tabs",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "categoryPinnedTabsClosed": {
+    "message": "Закрыто закреплённых вкладок: $COUNT$ (категория $CATEGORY_NAME$)",
+    "description": "Success message when closing category tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "category_name": {
+        "content": "$2",
+        "example": "Work"
+      }
+    }
+  },
+  "noOpenCategoryPinnedTabs": {
+    "message": "Открытые закреплённые вкладки для $CATEGORY_NAME$ не найдены",
+    "description": "Info message when no matching category tabs are open",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "errorClosingCategoryTabs": {
+    "message": "Ошибка при закрытии вкладок категории",
+    "description": "Error message when closing category tabs fails"
   }
 }

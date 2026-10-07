@@ -879,9 +879,7 @@ class PopupManager {
       this.elements.categorySelectionList.removeChild(this.elements.categorySelectionList.firstChild);
     }
     
-    const tabsByCategory = this.groupTabsByCategory();
-      
-    // NOUVELLE LOGIQUE : Utiliser la même fonction de tri
+    // Same ordering as the main list
     const sortedCategories = this.getSortedCategoriesForSelection();
     
     let firstEmptyAdded = false;

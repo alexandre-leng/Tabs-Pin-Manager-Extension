@@ -595,5 +595,55 @@
   "moveDown": {
     "message": "Mover para baixo",
     "description": "Button to move a pinned tab down"
+  },
+  "closeCategoryTabs": {
+    "message": "Fechar",
+    "description": "Button text for closing open pinned tabs from a category"
+  },
+  "closeCategoryTabsTooltip": {
+    "message": "Fechar esta categoria",
+    "description": "Tooltip for closing open pinned tabs from a category"
+  },
+  "closeCategoryConfirm": {
+    "message": "Fechar os separadores fixados de \"$CATEGORY_NAME$\" nesta janela? Aplica-se aos separadores fixados dos mesmos domínios que os $COUNT$ separadores guardados nesta categoria.",
+    "description": "Confirmation before closing category tabs",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "categoryPinnedTabsClosed": {
+    "message": "$COUNT$ separador(es) fixado(s) fechado(s) de $CATEGORY_NAME$",
+    "description": "Success message when closing category tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "category_name": {
+        "content": "$2",
+        "example": "Work"
+      }
+    }
+  },
+  "noOpenCategoryPinnedTabs": {
+    "message": "Nenhum separador fixado aberto encontrado para $CATEGORY_NAME$",
+    "description": "Info message when no matching category tabs are open",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "errorClosingCategoryTabs": {
+    "message": "Erro ao fechar os separadores da categoria",
+    "description": "Error message when closing category tabs fails"
   }
 }

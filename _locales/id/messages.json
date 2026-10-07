@@ -514,5 +514,55 @@
   "moveDown": {
     "message": "Pindah ke bawah",
     "description": "Button to move a pinned tab down"
+  },
+  "closeCategoryTabs": {
+    "message": "Tutup",
+    "description": "Button text for closing open pinned tabs from a category"
+  },
+  "closeCategoryTabsTooltip": {
+    "message": "Tutup kategori ini",
+    "description": "Tooltip for closing open pinned tabs from a category"
+  },
+  "closeCategoryConfirm": {
+    "message": "Tutup tab yang disematkan dari \"$CATEGORY_NAME$\" di jendela ini? Ini berlaku untuk tab tersemat dari domain yang sama dengan $COUNT$ tab tersimpan di kategori ini.",
+    "description": "Confirmation before closing category tabs",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "categoryPinnedTabsClosed": {
+    "message": "$COUNT$ tab tersemat ditutup dari $CATEGORY_NAME$",
+    "description": "Success message when closing category tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "category_name": {
+        "content": "$2",
+        "example": "Work"
+      }
+    }
+  },
+  "noOpenCategoryPinnedTabs": {
+    "message": "Tidak ada tab tersemat yang terbuka untuk $CATEGORY_NAME$",
+    "description": "Info message when no matching category tabs are open",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "errorClosingCategoryTabs": {
+    "message": "Kesalahan saat menutup tab kategori",
+    "description": "Error message when closing category tabs fails"
   }
 }

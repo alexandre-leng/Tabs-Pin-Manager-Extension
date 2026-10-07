@@ -234,8 +234,14 @@
     "description": "Indication de temps pour un événement récent"
   },
   "lastOpened": {
-    "message": "Dernière ouverture",
-    "description": "Label pour la dernière fois que les onglets ont été ouverts"
+    "message": "Dernière ouverture : $TIME$",
+    "description": "Label pour la dernière fois que les onglets ont été ouverts",
+    "placeholders": {
+      "time": {
+        "content": "$1",
+        "example": "il y a 5 minutes"
+      }
+    }
   },
   "editTab": {
     "message": "Modifier l'onglet",
@@ -330,8 +336,18 @@
     "description": "Message informatif quand tous les onglets configurés sont déjà ouverts"
   },
   "someTabsAlreadyOpen": {
-    "message": "Certains onglets étaient déjà ouverts",
-    "description": "Message quand certains onglets étaient déjà ouverts"
+    "message": "$SKIPPED$ onglet(s) déjà ouvert(s), $OPENED$ nouvel/nouveaux onglet(s) créé(s)",
+    "description": "Message quand certains onglets étaient déjà ouverts",
+    "placeholders": {
+      "skipped": {
+        "content": "$1",
+        "example": "3"
+      },
+      "opened": {
+        "content": "$2",
+        "example": "2"
+      }
+    }
   },
   "checkingExistingTabs": {
     "message": "Vérification des onglets existants...",

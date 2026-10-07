@@ -514,5 +514,55 @@
   "moveDown": {
     "message": "下移",
     "description": "Button to move a pinned tab down"
+  },
+  "closeCategoryTabs": {
+    "message": "关闭",
+    "description": "Button text for closing open pinned tabs from a category"
+  },
+  "closeCategoryTabsTooltip": {
+    "message": "关闭此分类",
+    "description": "Tooltip for closing open pinned tabs from a category"
+  },
+  "closeCategoryConfirm": {
+    "message": "要关闭此窗口中“$CATEGORY_NAME$”的固定标签页吗？这将关闭与该分类中已保存的 $COUNT$ 个标签页域名相同的固定标签页。",
+    "description": "Confirmation before closing category tabs",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "categoryPinnedTabsClosed": {
+    "message": "已关闭 $CATEGORY_NAME$ 的 $COUNT$ 个固定标签页",
+    "description": "Success message when closing category tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "category_name": {
+        "content": "$2",
+        "example": "Work"
+      }
+    }
+  },
+  "noOpenCategoryPinnedTabs": {
+    "message": "未找到 $CATEGORY_NAME$ 已打开的固定标签页",
+    "description": "Info message when no matching category tabs are open",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "errorClosingCategoryTabs": {
+    "message": "关闭分类标签页时出错",
+    "description": "Error message when closing category tabs fails"
   }
 }

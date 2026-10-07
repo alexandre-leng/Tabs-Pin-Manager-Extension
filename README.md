@@ -33,7 +33,7 @@ Tabs Pin helps you organize your pinned tabs in both Firefox and Google Chrome. 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/alexandre-leng/Tabs-Pin-Firefox-Extension/
+git clone https://github.com/alexandre-leng/Tabs-Pin-Manager-Extension/
 cd "Tabs Pin Firefox extension"
 ```
 
@@ -68,12 +68,12 @@ npm install
 ## 📞 Support
 
 - **Documentation**: See this README.
-- **Issues & Suggestions**: [GitHub Issues](https://github.com/alexandre-leng/Tabs-Pin-Firefox-Extension/issues)
+- **Issues & Suggestions**: [GitHub Issues](https://github.com/alexandre-leng/Tabs-Pin-Manager-Extension/issues)
 - **Email**: dev.alexandre.git [@] gmail.com
 
 ## 📝 License
 
-Distributed under the GNU License. See [GPL-3.0 License](https://github.com/alexandre-leng/Tabs-Pin-Firefox-Extension/tree/main?tab=GPL-3.0-1-ov-file#readme) for more information.
+Distributed under the GNU License. See [GPL-3.0 License](https://github.com/alexandre-leng/Tabs-Pin-Manager-Extension/tree/main?tab=GPL-3.0-1-ov-file#readme) for more information.
 
 ---
 

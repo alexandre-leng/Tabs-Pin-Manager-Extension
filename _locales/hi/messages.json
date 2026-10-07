@@ -514,5 +514,55 @@
   "moveDown": {
     "message": "नीचे ले जाएँ",
     "description": "Button to move a pinned tab down"
+  },
+  "closeCategoryTabs": {
+    "message": "बंद करें",
+    "description": "Button text for closing open pinned tabs from a category"
+  },
+  "closeCategoryTabsTooltip": {
+    "message": "इस श्रेणी को बंद करें",
+    "description": "Tooltip for closing open pinned tabs from a category"
+  },
+  "closeCategoryConfirm": {
+    "message": "क्या इस विंडो में \"$CATEGORY_NAME$\" के पिन किए गए टैब बंद करें? यह इस श्रेणी में सहेजे गए $COUNT$ टैब के समान डोमेन वाले पिन किए गए टैब पर लागू होता है।",
+    "description": "Confirmation before closing category tabs",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "categoryPinnedTabsClosed": {
+    "message": "$CATEGORY_NAME$ के $COUNT$ पिन किए गए टैब बंद किए गए",
+    "description": "Success message when closing category tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "category_name": {
+        "content": "$2",
+        "example": "Work"
+      }
+    }
+  },
+  "noOpenCategoryPinnedTabs": {
+    "message": "$CATEGORY_NAME$ के लिए कोई खुला पिन किया गया टैब नहीं मिला",
+    "description": "Info message when no matching category tabs are open",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "errorClosingCategoryTabs": {
+    "message": "श्रेणी के टैब बंद करते समय त्रुटि हुई",
+    "description": "Error message when closing category tabs fails"
   }
 }

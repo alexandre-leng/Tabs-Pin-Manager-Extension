@@ -595,5 +595,55 @@
   "moveDown": {
     "message": "Nach unten",
     "description": "Button to move a pinned tab down"
+  },
+  "closeCategoryTabs": {
+    "message": "Schließen",
+    "description": "Button text for closing open pinned tabs from a category"
+  },
+  "closeCategoryTabsTooltip": {
+    "message": "Diese Kategorie schließen",
+    "description": "Tooltip for closing open pinned tabs from a category"
+  },
+  "closeCategoryConfirm": {
+    "message": "Angeheftete Tabs von \"$CATEGORY_NAME$\" in diesem Fenster schließen? Betroffen sind angeheftete Tabs derselben Domains wie die $COUNT$ gespeicherten Tabs dieser Kategorie.",
+    "description": "Confirmation before closing category tabs",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "categoryPinnedTabsClosed": {
+    "message": "$COUNT$ angeheftete(r) Tab(s) aus $CATEGORY_NAME$ geschlossen",
+    "description": "Success message when closing category tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "category_name": {
+        "content": "$2",
+        "example": "Work"
+      }
+    }
+  },
+  "noOpenCategoryPinnedTabs": {
+    "message": "Keine geöffneten angehefteten Tabs für $CATEGORY_NAME$ gefunden",
+    "description": "Info message when no matching category tabs are open",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "errorClosingCategoryTabs": {
+    "message": "Fehler beim Schließen der Kategorie-Tabs",
+    "description": "Error message when closing category tabs fails"
   }
 }

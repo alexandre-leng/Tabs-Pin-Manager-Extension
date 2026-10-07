@@ -514,5 +514,55 @@
   "moveDown": {
     "message": "아래로 이동",
     "description": "Button to move a pinned tab down"
+  },
+  "closeCategoryTabs": {
+    "message": "닫기",
+    "description": "Button text for closing open pinned tabs from a category"
+  },
+  "closeCategoryTabsTooltip": {
+    "message": "이 카테고리 닫기",
+    "description": "Tooltip for closing open pinned tabs from a category"
+  },
+  "closeCategoryConfirm": {
+    "message": "이 창에서 \"$CATEGORY_NAME$\"의 고정 탭을 닫을까요? 이 카테고리에 저장된 $COUNT$개 탭과 같은 도메인의 고정 탭이 대상입니다.",
+    "description": "Confirmation before closing category tabs",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "categoryPinnedTabsClosed": {
+    "message": "$CATEGORY_NAME$의 고정 탭 $COUNT$개를 닫았습니다",
+    "description": "Success message when closing category tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "category_name": {
+        "content": "$2",
+        "example": "Work"
+      }
+    }
+  },
+  "noOpenCategoryPinnedTabs": {
+    "message": "$CATEGORY_NAME$에 열려 있는 고정 탭이 없습니다",
+    "description": "Info message when no matching category tabs are open",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
+  "errorClosingCategoryTabs": {
+    "message": "카테고리 탭을 닫는 중 오류가 발생했습니다",
+    "description": "Error message when closing category tabs fails"
   }
 }
