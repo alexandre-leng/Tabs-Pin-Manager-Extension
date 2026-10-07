@@ -8,7 +8,7 @@ import { getDefaultCategories } from '../lib/default-categories.js';
 import { StorageManager } from '../lib/storage-manager.js';
 import { sanitizeImportData } from './import-sanitizer.js';
 import { log } from './log.js';
-import { generateTabId, isValidUrl, sortTabConfigs } from './tab-utils.js';
+import { generateTabId, isValidUrl, sortTabConfigs } from '../lib/tab-utils.js';
 
 const DATA_KEYS = ['pinnedTabs', 'categories', 'settings'];
 
@@ -64,13 +64,12 @@ export class DataStore {
       };
 
       const index = this.tabs.findIndex(t => t.id === saved.id);
-      if (index >= 0) {
-        this.tabs[index] = { ...this.tabs[index], ...saved };
-      } else {
-        this.tabs.push(saved);
-      }
-      await this.persist({ pinnedTabs: this.tabs }, 'tabsChanged');
-      return saved;
+      const merged = index >= 0 ? { ...this.tabs[index], ...saved } : saved;
+      const tabs = index >= 0
+        ? this.tabs.map((t, i) => (i === index ? merged : t))
+        : [...this.tabs, merged];
+      await this.persist({ pinnedTabs: tabs }, 'tabsChanged', () => { this.tabs = tabs; });
+      return merged;
     });
   }
 
@@ -80,8 +79,7 @@ export class DataStore {
       if (remaining.length === this.tabs.length) {
         throw new Error('Tab not found');
       }
-      this.tabs = remaining;
-      await this.persist({ pinnedTabs: this.tabs }, 'tabsChanged');
+      await this.persist({ pinnedTabs: remaining }, 'tabsChanged', () => { this.tabs = remaining; });
     });
   }
 
@@ -100,9 +98,9 @@ export class DataStore {
       const remaining = sortTabConfigs(this.tabs.filter(tab => !listedIds.has(tab.id)));
 
       const orderById = new Map([...listed, ...remaining].map((tab, index) => [tab.id, index]));
-      this.tabs = this.tabs.map(tab => ({ ...tab, order: orderById.get(tab.id) }));
-      await this.persist({ pinnedTabs: this.tabs }, 'tabsChanged');
-      return this.tabs;
+      const tabs = this.tabs.map(tab => ({ ...tab, order: orderById.get(tab.id) }));
+      await this.persist({ pinnedTabs: tabs }, 'tabsChanged', () => { this.tabs = tabs; });
+      return tabs;
     });
   }
 
@@ -111,16 +109,15 @@ export class DataStore {
       if (!Array.isArray(categories) || categories.some(c => !c.id || !c.name || !c.icon)) {
         throw new Error('Invalid category data');
       }
-      this.categories = categories;
-      await this.persist({ categories: this.categories }, 'categoriesChanged');
-      return this.categories;
+      await this.persist({ categories }, 'categoriesChanged', () => { this.categories = categories; });
+      return categories;
     });
   }
 
   recordLastOpened() {
     return this.serialize(async () => {
-      this.settings.lastOpened = new Date().toISOString();
-      await this.write({ settings: this.settings });
+      const settings = { ...this.settings, lastOpened: new Date().toISOString() };
+      await this.write({ settings }, () => { this.settings = settings; });
     });
   }
 
@@ -128,11 +125,17 @@ export class DataStore {
   importAll(data) {
     return this.serialize(async () => {
       const sanitized = sanitizeImportData(data);
-      this.tabs = sanitized.tabs;
-      this.categories = sanitized.categories;
-      this.settings = { ...this.settings, ...sanitized.settings };
-      await this.persist({ pinnedTabs: this.tabs, categories: this.categories, settings: this.settings }, 'dataChanged');
-      return { imported: this.tabs.length, skipped: sanitized.skipped };
+      const settings = { ...this.settings, ...sanitized.settings };
+      await this.persist(
+        { pinnedTabs: sanitized.tabs, categories: sanitized.categories, settings },
+        'dataChanged',
+        () => {
+          this.tabs = sanitized.tabs;
+          this.categories = sanitized.categories;
+          this.settings = settings;
+        }
+      );
+      return { imported: sanitized.tabs.length, skipped: sanitized.skipped };
     });
   }
 
@@ -196,15 +199,25 @@ export class DataStore {
     });
   }
 
-  /** Saves and tells the open pages about the change. */
-  async persist(data, changeType) {
-    await this.write(data);
+  /** Saves, applies the change to the in-memory state and tells the open pages. */
+  async persist(data, changeType, apply) {
+    await this.write(data, apply);
     this.notifyDataChange(changeType);
   }
 
-  async write(data) {
+  /**
+   * Writes to storage, then applies the change to memory: a failed write leaves the
+   * in-memory state untouched. The revision moves before and after the write, so a load
+   * that read storage at any point during it is discarded.
+   */
+  async write(data, apply) {
     this.revision++;
-    await this.storage.set(data);
+    try {
+      await this.storage.set(data);
+    } finally {
+      this.revision++;
+    }
+    if (apply) apply();
   }
 
   /** Tells the open popup / options pages to refresh. */

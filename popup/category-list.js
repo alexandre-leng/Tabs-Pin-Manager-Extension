@@ -132,7 +132,7 @@ export const categoryList = {
     closeButton.addEventListener('click', async (event) => {
       event.preventDefault();
       event.stopPropagation();
-      await this.closeCategoryTabs(category.id, category.name, count);
+      await this.closeCategoryTabs(category.id, category.name);
     });
     
     // Add hover animations

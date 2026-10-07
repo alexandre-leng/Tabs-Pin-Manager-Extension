@@ -2,7 +2,7 @@
  * Validation of imported backups.
  */
 
-import { generateTabId, isValidUrl } from './tab-utils.js';
+import { generateTabId, isValidUrl } from '../lib/tab-utils.js';
 
 const isPlainObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 

@@ -3,7 +3,7 @@
  */
 
 import { browser } from '../lib/browser-api.js';
-import { getDomainMatchKey, isSameDomainOrSubdomain } from '../lib/domain-utils.js';
+import { getDomainMatchKey, matchesDomainKeys } from '../lib/domain-utils.js';
 import { normalizeUrl } from '../lib/url-utils.js';
 
 // A URL opened less than this long ago is assumed to be still loading
@@ -140,7 +140,7 @@ export class TabActions {
 
     const existingTabs = await this.queryTabs(windowId);
     const tabsToClose = existingTabs.filter(tab =>
-      tab && tab.id && tab.pinned === true && isSameDomainOrSubdomain(this.urlOf(tab), domainKeys));
+      tab && tab.id && tab.pinned === true && matchesDomainKeys(this.urlOf(tab), domainKeys));
 
     let closed = 0;
     for (const tab of tabsToClose) {

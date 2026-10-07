@@ -26,7 +26,8 @@ test('opens every saved tab as a pinned tab, once', async ({ context, openPage, 
 
   const pinnedUrls = async () => (await popup.evaluate(() => chrome.tabs.query({ pinned: true })))
     .map(tab => tab.pendingUrl || tab.url).sort();
-  expect(await pinnedUrls()).toEqual(['https://site1.example/', 'https://site2.example/', 'https://site3.example/']);
+  // A freshly created tab may not report its address for a moment
+  await expect.poll(pinnedUrls).toEqual(['https://site1.example/', 'https://site2.example/', 'https://site3.example/']);
   expect((await savedData(popup)).settings.lastOpened).toEqual(expect.any(String));
 
   // A second click does not open duplicates

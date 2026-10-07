@@ -70,3 +70,24 @@ test('initializeDefaults does not overwrite data saved while it was reading', as
   await pendingDefaults;
   expect(fake.store.pinnedTabs.map(t => t.id)).toEqual(['x']);
 });
+
+test('a failed write leaves the in-memory state untouched', async () => {
+  fake.storage.local.set = async () => { throw new Error('quota exceeded'); };
+  await expect(store.saveTab({ url: 'https://d.com/' })).rejects.toThrow('quota');
+  await expect(store.deleteTab('a')).rejects.toThrow('quota');
+  expect(store.tabs.map(t => t.id)).toEqual(['a', 'b', 'c']);
+});
+
+test('a load that read storage during a write does not replace the newer state', async () => {
+  const realGet = fake.storage.local.get;
+  let staleRead;
+  fake.storage.local.get = async keys => {
+    const stale = await realGet(keys);
+    await new Promise(resolve => setTimeout(resolve, 20));
+    return staleRead ? staleRead : stale;
+  };
+  const saving = store.saveTab({ url: 'https://d.com/' });
+  await store.load(false);
+  await saving;
+  expect(store.tabs).toHaveLength(4);
+});

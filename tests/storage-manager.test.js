@@ -127,3 +127,13 @@ test('a read overlapping a write does not cache stale data', async () => {
   expect((await staleRead).key).toBe('old');
   expect((await storage.get(['key'])).key).toBe('new');
 });
+
+describe('throttle', () => {
+  test('spaces concurrent operations apart', async () => {
+    const manager = new StorageManager();
+    manager.throttleDelay = 30;
+    const starts = [];
+    await Promise.all([1, 2, 3].map(async () => { await manager.throttle(); starts.push(Date.now()); }));
+    expect(starts[2] - starts[0]).toBeGreaterThanOrEqual(55);
+  });
+});

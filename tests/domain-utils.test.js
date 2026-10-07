@@ -10,7 +10,7 @@ describe('DomainUtils', () => {
       DomainUtils.getDomainMatchKey('https://github.com/org/repo?tab=readme')
     ]);
 
-    expect(DomainUtils.isSameDomainOrSubdomain('https://github.com/settings/profile?x=1', categoryDomains)).toBe(true);
+    expect(DomainUtils.matchesDomainKeys('https://github.com/settings/profile?x=1', categoryDomains)).toBe(true);
   });
 
   test('does not match sibling subdomains unless that exact subdomain is configured', () => {
@@ -18,8 +18,8 @@ describe('DomainUtils', () => {
       DomainUtils.getDomainMatchKey('https://github.com/org/repo')
     ]);
 
-    expect(DomainUtils.isSameDomainOrSubdomain('https://docs.github.com/en', categoryDomains)).toBe(false);
-    expect(DomainUtils.isSameDomainOrSubdomain('https://gist.github.com/user/id', categoryDomains)).toBe(false);
+    expect(DomainUtils.matchesDomainKeys('https://docs.github.com/en', categoryDomains)).toBe(false);
+    expect(DomainUtils.matchesDomainKeys('https://gist.github.com/user/id', categoryDomains)).toBe(false);
   });
 
   test('does not require exact URL matching', () => {
@@ -27,7 +27,7 @@ describe('DomainUtils', () => {
       DomainUtils.getDomainMatchKey('https://example.com/a')
     ]);
 
-    expect(DomainUtils.isSameDomainOrSubdomain('https://example.com/completely/different/page', categoryDomains)).toBe(true);
+    expect(DomainUtils.matchesDomainKeys('https://example.com/completely/different/page', categoryDomains)).toBe(true);
   });
 
   test('does not match unrelated domains', () => {
@@ -35,7 +35,7 @@ describe('DomainUtils', () => {
       DomainUtils.getDomainMatchKey('https://github.com/org/repo')
     ]);
 
-    expect(DomainUtils.isSameDomainOrSubdomain('https://gitlab.com/org/repo', categoryDomains)).toBe(false);
+    expect(DomainUtils.matchesDomainKeys('https://gitlab.com/org/repo', categoryDomains)).toBe(false);
   });
 
   test('matches exact subdomain on country-code domains', () => {
@@ -43,8 +43,8 @@ describe('DomainUtils', () => {
       DomainUtils.getDomainMatchKey('https://service.example.co.uk/a')
     ]);
 
-    expect(DomainUtils.isSameDomainOrSubdomain('https://service.example.co.uk/b', categoryDomains)).toBe(true);
-    expect(DomainUtils.isSameDomainOrSubdomain('https://docs.example.co.uk/b', categoryDomains)).toBe(false);
+    expect(DomainUtils.matchesDomainKeys('https://service.example.co.uk/b', categoryDomains)).toBe(true);
+    expect(DomainUtils.matchesDomainKeys('https://docs.example.co.uk/b', categoryDomains)).toBe(false);
   });
 
   test('keeps google services separated by exact subdomain', () => {
@@ -52,9 +52,9 @@ describe('DomainUtils', () => {
       DomainUtils.getDomainMatchKey('https://mail.google.com/mail/u/0/#inbox')
     ]);
 
-    expect(DomainUtils.isSameDomainOrSubdomain('https://mail.google.com/mail/u/1/#sent', categoryDomains)).toBe(true);
-    expect(DomainUtils.isSameDomainOrSubdomain('https://drive.google.com/drive', categoryDomains)).toBe(false);
-    expect(DomainUtils.isSameDomainOrSubdomain('https://calendar.google.com/calendar', categoryDomains)).toBe(false);
+    expect(DomainUtils.matchesDomainKeys('https://mail.google.com/mail/u/1/#sent', categoryDomains)).toBe(true);
+    expect(DomainUtils.matchesDomainKeys('https://drive.google.com/drive', categoryDomains)).toBe(false);
+    expect(DomainUtils.matchesDomainKeys('https://calendar.google.com/calendar', categoryDomains)).toBe(false);
   });
 
   test('does not merge different hosted-site subdomains', () => {
@@ -62,8 +62,8 @@ describe('DomainUtils', () => {
       DomainUtils.getDomainMatchKey('https://alice.github.io/project')
     ]);
 
-    expect(DomainUtils.isSameDomainOrSubdomain('https://alice.github.io/other', categoryDomains)).toBe(true);
-    expect(DomainUtils.isSameDomainOrSubdomain('https://bob.github.io/project', categoryDomains)).toBe(false);
+    expect(DomainUtils.matchesDomainKeys('https://alice.github.io/other', categoryDomains)).toBe(true);
+    expect(DomainUtils.matchesDomainKeys('https://bob.github.io/project', categoryDomains)).toBe(false);
   });
 
   test('treats www and bare domain as the same host', () => {
@@ -71,7 +71,7 @@ describe('DomainUtils', () => {
       DomainUtils.getDomainMatchKey('https://www.example.com/a')
     ]);
 
-    expect(DomainUtils.isSameDomainOrSubdomain('https://example.com/b', categoryDomains)).toBe(true);
+    expect(DomainUtils.matchesDomainKeys('https://example.com/b', categoryDomains)).toBe(true);
   });
 
   test('handles localhost and IP hosts without throwing', () => {

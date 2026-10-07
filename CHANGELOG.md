@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### 🛠️ Corrections
+- **Pages confondues** : deux vidéos YouTube (`?v=`), deux listes (`list`) ou deux routes d'une application web (`#/a`, `#/b`) étaient considérées comme le même onglet, et le second n'était jamais ouvert ; ces paramètres et routes sont maintenant pris en compte.
+- **Modification perdue** : une lecture lancée pendant une sauvegarde pouvait remettre en mémoire d'anciennes données, que la sauvegarde suivante réécrivait ; la lecture est maintenant ignorée dans ce cas.
+- **Arrière-plan bloqué** : une erreur de stockage au démarrage faisait échouer tous les messages jusqu'au rechargement de l'extension ; l'initialisation est maintenant retentée au message suivant.
+- **Mémoire incohérente** : si une écriture échouait (quota…), la mémoire gardait des données absentes du stockage ; elle n'est plus modifiée qu'après une écriture réussie.
+- **Popup** : le bouton « Ouvrir N onglets » et l'ouverture d'une catégorie ignorent maintenant les onglets désactivés, et la confirmation de fermeture annonce le nombre d'onglets réellement fermés (rien n'est demandé s'il n'y en a aucun).
+- **Options** : enregistrer deux fois la même adresse est refusé.
+- **Stockage** : la limitation de débit espace maintenant aussi les appels simultanés, et la clé de cache n'est plus ambiguë pour une lecture avec valeurs par défaut.
 - **« Dernière ouverture » mal traduite** : le temps écoulé était assemblé à la main (« ago 3 days », « vor 3 Stundes », « 前 3 日s »…) ; il est maintenant formaté par le navigateur dans la langue de l'utilisateur (« il y a 3 heures », « vor 3 Stunden », « 3 時間前 »).
 - **« Onglet déjà épinglé »** : le popup comparait les adresses autrement que le script d'arrière-plan, et pouvait donc annoncer un onglet comme épinglé (ou non) à tort ; une seule fonction de comparaison est partagée.
 - **Ordre des catégories** : la catégorie « Développement » était reconnue par son nom (toute catégorie contenant « dev », comme « Devis », passait en dernier, et la règle échouait dans les autres langues) ; elle l'est maintenant par son identifiant.

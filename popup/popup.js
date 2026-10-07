@@ -331,7 +331,13 @@ export class PopupManager {
     });
   }
 
+  /** Tabs the "open all" action acts on. */
+  get enabledTabs() {
+    return this.tabs.filter(tab => tab.enabled !== false);
+  }
+
   updateTabCount() {
+    const openCount = this.enabledTabs.length;
     if (this.elements.tabCount) {
       this.elements.tabCount.textContent = this.tabs.length;
     }
@@ -341,20 +347,20 @@ export class PopupManager {
       const btnText = this.elements.openAllBtn.querySelector('.btn-text');
       if (btnText) {
         let buttonMessage;
-        if (this.tabs.length === 1) {
+        if (openCount === 1) {
           // Use singular form
-          buttonMessage = browser.i18n.getMessage('openTabsSingular', [this.tabs.length.toString()]);
+          buttonMessage = browser.i18n.getMessage('openTabsSingular', [openCount.toString()]);
         } else {
           // Use plural form
-          buttonMessage = browser.i18n.getMessage('openTabsPlural', [this.tabs.length.toString()]);
+          buttonMessage = browser.i18n.getMessage('openTabsPlural', [openCount.toString()]);
         }
         
         // Fallback to old method if new translations are not available
         if (!buttonMessage) {
-          if (this.tabs.length === 1) {
+          if (openCount === 1) {
             buttonMessage = browser.i18n.getMessage('openOneTab');
           } else {
-            buttonMessage = browser.i18n.getMessage('openTabsCount', [this.tabs.length.toString()]);
+            buttonMessage = browser.i18n.getMessage('openTabsCount', [openCount.toString()]);
           }
         }
         

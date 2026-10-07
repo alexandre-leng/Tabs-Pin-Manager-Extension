@@ -1,4 +1,4 @@
-import { generateTabId, isValidUrl, sortTabConfigs } from '../background/tab-utils.js';
+import { generateTabId, isValidUrl, sortTabConfigs } from '../lib/tab-utils.js';
 import { normalizeUrl } from '../lib/url-utils.js';
 
 describe('sortTabConfigs', () => {
@@ -36,4 +36,20 @@ test('isValidUrl accepts only http(s)', () => {
 
 test('generateTabId returns distinct ids', () => {
   expect(generateTabId()).not.toBe(generateTabId());
+});
+
+describe('normalizeUrl: page identity', () => {
+  test('tells apart pages that differ by an identifying parameter', () => {
+    expect(normalizeUrl('https://www.youtube.com/watch?v=AAA')).not.toBe(normalizeUrl('https://www.youtube.com/watch?v=BBB'));
+  });
+
+  test('tells apart single-page-app routes but not plain anchors', () => {
+    expect(normalizeUrl('https://app.example.com/#/a')).not.toBe(normalizeUrl('https://app.example.com/#/b'));
+    expect(normalizeUrl('https://example.com/page#top')).toBe(normalizeUrl('https://example.com/page'));
+  });
+
+  test('lowercases the redirect target of a Google login page', () => {
+    expect(normalizeUrl('https://accounts.google.com/ServiceLogin?continue=https%3A%2F%2FMail.google.com%2Fmail%2F'))
+      .toBe('https://mail.google.com/mail');
+  });
 });

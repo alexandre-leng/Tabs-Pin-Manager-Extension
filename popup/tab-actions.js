@@ -4,6 +4,7 @@
  */
 
 import { browser } from '../lib/browser-api.js';
+import { getDomainMatchKey, matchesDomainKeys } from '../lib/domain-utils.js';
 
 export const tabActions = {
   async openAllTabs() {
@@ -111,7 +112,7 @@ export const tabActions = {
   async openCategoryTabs(categoryId) {
     if (this.isOpeningTabs) return;
     
-    const categoryTabs = this.tabs.filter(tab => tab.category === categoryId);
+    const categoryTabs = this.tabs.filter(tab => tab.category === categoryId && tab.enabled !== false);
     if (categoryTabs.length === 0) return;
     
     this.isOpeningTabs = true;
@@ -137,8 +138,25 @@ export const tabActions = {
     }
   },
 
-  async closeCategoryTabs(categoryId, categoryName, count) {
+  /** Number of pinned tabs of the window the close action would close for a category. */
+  async countPinnedTabsToClose(categoryId, windowId) {
+    const domainKeys = new Set(this.tabs
+      .filter(tab => tab.category === categoryId && tab.enabled !== false)
+      .map(tab => getDomainMatchKey(tab.url))
+      .filter(Boolean));
+    const openTabs = await browser.tabs.query({ windowId });
+    return openTabs.filter(tab => tab.pinned && matchesDomainKeys(tab.url || tab.pendingUrl || '', domainKeys)).length;
+  },
+
+  async closeCategoryTabs(categoryId, categoryName) {
     if (this.isOpeningTabs) return;
+
+    const currentWindow = await browser.windows.getCurrent();
+    const count = await this.countPinnedTabsToClose(categoryId, currentWindow.id);
+    if (count === 0) {
+      this.showToast('info', 'ℹ️', browser.i18n.getMessage('noOpenCategoryPinnedTabs', [categoryName]));
+      return;
+    }
 
     const confirmMessage = browser.i18n.getMessage('closeCategoryConfirm', [
       categoryName,
@@ -152,8 +170,6 @@ export const tabActions = {
     this.isOpeningTabs = true;
 
     try {
-      const currentWindow = await browser.windows.getCurrent();
-
       const response = await this.sendMessageWithRetry({
         action: 'closeCategoryTabs',
         categoryId: categoryId,

@@ -67,3 +67,13 @@ test('reports an initialization failure to callers', async () => {
   const response = await background.handleMessage({ action: 'getTabsData' });
   expect(response.success).toBe(false);
 });
+
+test('retries the initialization after a failure', async () => {
+  const realGet = fake.storage.local.get;
+  fake.storage.local.get = async () => { throw new Error('quota exceeded'); };
+  const background = new TabsPinBackground().start();
+  await background.ready.catch(() => {});
+  expect((await background.handleMessage({ action: 'getTabsData' })).success).toBe(false);
+  fake.storage.local.get = realGet;
+  expect((await background.handleMessage({ action: 'getTabsData' })).success).toBe(true);
+});

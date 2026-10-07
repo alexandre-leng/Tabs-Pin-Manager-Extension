@@ -4,7 +4,9 @@
  */
 
 import { browser } from '../lib/browser-api.js';
+import { generateTabId } from '../lib/tab-utils.js';
 import { UiUtils } from '../lib/ui-utils.js';
+import { normalizeUrl } from '../lib/url-utils.js';
 
 export const tabEditor = {
   openTabModal(tab = null) {
@@ -68,8 +70,15 @@ export const tabEditor = {
       return;
     }
     
+    const key = normalizeUrl(url);
+    const duplicate = this.tabs.some(tab => tab.id !== this.currentEditingTab?.id && normalizeUrl(tab.url) === key);
+    if (duplicate) {
+      this.showToast('error', '❌', browser.i18n.getMessage('tabAlreadyPinned'));
+      return;
+    }
+
     const tabData = {
-      id: this.currentEditingTab?.id || this.generateTabId(),
+      id: this.currentEditingTab?.id || generateTabId(),
       url: url,
       title: title || this.extractDomain(url),
       category: category,
@@ -132,9 +141,5 @@ export const tabEditor = {
       console.error('Error deleting tab:', error);
       this.showToast('error', '❌', error.message);
     }
-  },
-
-  generateTabId() {
-    return 'tab_' + Date.now() + '_' + Math.random().toString(36).slice(2, 11);
   }
 };

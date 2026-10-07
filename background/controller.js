@@ -49,11 +49,30 @@ export class TabsPinBackground {
     browser.runtime.onStartup.addListener(() => this.handleStartup());
 
     this.ready = this.initialize();
-    this.ready.catch(error => console.error('Failed to initialize background script:', error));
+    this.ready.catch(() => {}); // already logged; the next message retries
     return this;
   }
 
+  /**
+   * Resolves once the data is loaded. A failed initialization is not kept: the next
+   * call starts a new one, so a transient storage error does not block every message.
+   */
+  whenReady() {
+    if (!this.ready) this.ready = this.initialize();
+    return this.ready;
+  }
+
   async initialize() {
+    try {
+      await this.loadInitialData();
+    } catch (error) {
+      console.error('Failed to initialize background script:', error);
+      this.ready = null;
+      throw error;
+    }
+  }
+
+  async loadInitialData() {
     const health = await this.store.storage.healthCheck();
     if (!health.healthy) {
       console.warn('Storage health check failed:', health.error);
@@ -69,7 +88,7 @@ export class TabsPinBackground {
       return { success: false, error: 'Unknown action' };
     }
     try {
-      await this.ready;
+      await this.whenReady();
       const result = await handler(request);
       return { success: true, ...result };
     } catch (error) {
@@ -122,7 +141,7 @@ export class TabsPinBackground {
 
   async handleInstalled(details) {
     try {
-      await this.ready;
+      await this.whenReady();
       log('Extension installed/updated:', details.reason);
       if (details.reason === 'install') {
         await this.store.initializeDefaults();
@@ -136,7 +155,7 @@ export class TabsPinBackground {
 
   async handleStartup() {
     try {
-      await this.ready;
+      await this.whenReady();
       await this.store.load();
     } catch (error) {
       console.error('Error handling startup:', error);

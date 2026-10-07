@@ -4,6 +4,7 @@
  */
 
 import { browser } from '../lib/browser-api.js';
+import { sortTabConfigs } from '../lib/tab-utils.js';
 
 export const tabOrdering = {
   enableDragAndDrop() {
@@ -109,15 +110,7 @@ export const tabOrdering = {
   },
 
   getSortedTabs() {
-    // Sort tabs by order (if exists) or by dateAdded
-    return [...this.tabs].sort((a, b) => {
-      if (a.order !== undefined && b.order !== undefined) {
-        return a.order - b.order;
-      }
-      if (a.order !== undefined) return -1;
-      if (b.order !== undefined) return 1;
-      return new Date(a.dateAdded || 0) - new Date(b.dateAdded || 0);
-    });
+    return sortTabConfigs(this.tabs);
   },
 
   // Move a tab one position up (delta = -1) or down (delta = 1)
