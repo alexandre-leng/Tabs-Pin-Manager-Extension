@@ -43,3 +43,21 @@ test('makes duplicate tab IDs unique', () => {
   });
   expect(new Set(tabs.map(t => t.id)).size).toBe(2);
 });
+
+test('drops unnamed categories, which would block every later category save', () => {
+  const result = sanitizeImportData({
+    tabs: [{ url: 'https://a.com', category: 'x' }],
+    categories: [{ id: 'work', name: 'Work' }, { id: 'x', name: '  ' }],
+    settings: {}
+  });
+  expect(result.categories.map(c => c.id)).toEqual(['work']);
+  expect(result.tabs[0].category).toBe('work');
+});
+
+test('keeps only a valid past lastOpened date', () => {
+  const settingsOf = settings => sanitizeImportData({ tabs: [], categories: [{ id: 'w', name: 'W' }], settings }).settings;
+  expect(settingsOf({ lastOpened: '2024-05-01T10:00:00.000Z', junk: 1 })).toEqual({ lastOpened: '2024-05-01T10:00:00.000Z' });
+  expect(settingsOf({ lastOpened: 5 })).toEqual({});
+  expect(settingsOf({ lastOpened: 'garbage' })).toEqual({});
+  expect(settingsOf({ lastOpened: '3000-01-01' })).toEqual({});
+});

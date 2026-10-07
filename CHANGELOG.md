@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### 🛠️ Corrections
+- **Catégories bloquées après un import** : un fichier importé pouvait contenir une catégorie sans nom ; ensuite, renommer n'importe quelle catégorie échouait (« données invalides ») jusqu'à une réinitialisation. Ces catégories sont maintenant écartées à l'import.
+- **Onglet enregistré en double** : un double-clic dans la fenêtre « Épingler dans une catégorie » enregistrait deux fois l'onglet ; le popup ignore le second clic et l'arrière-plan refuse une adresse déjà enregistrée.
+- **Date d'ouverture importée** : une valeur invalide (« il y a 20 733 jours ») n'est plus importée.
 - **Pages confondues** : deux vidéos YouTube (`?v=`), deux listes (`list`) ou deux routes d'une application web (`#/a`, `#/b`) étaient considérées comme le même onglet, et le second n'était jamais ouvert ; ces paramètres et routes sont maintenant pris en compte.
 - **Modification perdue** : une lecture lancée pendant une sauvegarde pouvait remettre en mémoire d'anciennes données, que la sauvegarde suivante réécrivait ; la lecture est maintenant ignorée dans ce cas.
 - **Arrière-plan bloqué** : une erreur de stockage au démarrage faisait échouer tous les messages jusqu'au rechargement de l'extension ; l'initialisation est maintenant retentée au message suivant.

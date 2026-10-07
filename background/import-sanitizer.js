@@ -39,13 +39,21 @@ export function sanitizeImportData(data) {
     tabs.push(clean);
   }
 
-  return { tabs, categories, settings: data.settings, skipped: data.tabs.length - tabs.length };
+  return { tabs, categories, settings: sanitizeSettings(data.settings), skipped: data.tabs.length - tabs.length };
+}
+
+/** Keeps the known settings with a valid value. */
+function sanitizeSettings(settings) {
+  const lastOpened = Date.parse(settings.lastOpened);
+  const valid = typeof settings.lastOpened === 'string' && Number.isFinite(lastOpened) && lastOpened <= Date.now();
+  return valid ? { lastOpened: settings.lastOpened } : {};
 }
 
 /** Returns a cleaned category, or null when it cannot be used. */
 function sanitizeCategory(category) {
   if (!isPlainObject(category) || typeof category.id !== 'string' || !category.id ||
-      typeof category.name !== 'string') {
+      typeof category.name !== 'string' || !category.name.trim()) {
+    // Same rule as when categories are saved: an unnamed one would block every later save
     return null;
   }
   return { ...category, icon: typeof category.icon === 'string' ? category.icon : '📁' };

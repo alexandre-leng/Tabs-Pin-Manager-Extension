@@ -91,3 +91,11 @@ test('a load that read storage during a write does not replace the newer state',
   await saving;
   expect(store.tabs).toHaveLength(4);
 });
+
+test('saveTab refuses a second tab with the same address, even concurrently', async () => {
+  const results = await Promise.allSettled([1, 2].map(() => store.saveTab({ url: 'https://d.com/' })));
+  expect(results.map(r => r.status).sort()).toEqual(['fulfilled', 'rejected']);
+  expect(fake.store.pinnedTabs.filter(t => t.url === 'https://d.com/')).toHaveLength(1);
+  // Editing the saved tab itself is still allowed
+  await expect(store.saveTab({ id: 'a', url: 'https://a.com/', title: 'A2' })).resolves.toMatchObject({ title: 'A2' });
+});

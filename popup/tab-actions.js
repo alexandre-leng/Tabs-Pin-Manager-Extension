@@ -214,9 +214,11 @@ export const tabActions = {
   },
 
   async pinCurrentTabInCategory(categoryId) {
-    if (!this.currentTab) {
+    // A double click (or Enter then click) must not save the tab twice
+    if (!this.currentTab || this.isPinningTab) {
       return;
     }
+    this.isPinningTab = true;
     
     try {
       const newTab = {
@@ -260,6 +262,8 @@ export const tabActions = {
     } catch (error) {
       console.error('💥 Error pinning tab:', error);
       this.showToast('error', '❌', browser.i18n.getMessage('failedToPinTab'));
+    } finally {
+      this.isPinningTab = false;
     }
   }
 };

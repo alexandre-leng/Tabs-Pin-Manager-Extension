@@ -7,6 +7,7 @@ import { browser } from '../lib/browser-api.js';
 import { getDefaultCategories } from '../lib/default-categories.js';
 import { StorageManager } from '../lib/storage-manager.js';
 import { sanitizeImportData } from './import-sanitizer.js';
+import { normalizeUrl } from '../lib/url-utils.js';
 import { log } from './log.js';
 import { generateTabId, isValidUrl, sortTabConfigs } from '../lib/tab-utils.js';
 
@@ -63,6 +64,10 @@ export class DataStore {
         category: tab.category || this.categories[0]?.id || 'work'
       };
 
+      const key = normalizeUrl(saved.url);
+      if (this.tabs.some(t => t.id !== saved.id && normalizeUrl(t.url) === key)) {
+        throw new Error('This address is already saved');
+      }
       const index = this.tabs.findIndex(t => t.id === saved.id);
       const merged = index >= 0 ? { ...this.tabs[index], ...saved } : saved;
       const tabs = index >= 0
