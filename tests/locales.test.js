@@ -27,6 +27,15 @@ const dynamicKeys = new Set(
 );
 
 describe('locales', () => {
+  test('every message requested by the extension exists in English', () => {
+    const requested = new Set([
+      ...[...source.matchAll(/getMessage\(\s*'(\w+)'/g)].map(m => m[1]),
+      ...[...source.matchAll(/data-i18n(?:-title|-placeholder)?="(\w+)"/g)].map(m => m[1]),
+      ...[...source.matchAll(/__MSG_(\w+)__/g)].map(m => m[1])
+    ]);
+    expect([...requested].filter(key => !(key in en))).toEqual([]);
+  });
+
   test('every English key is used by the extension', () => {
     const unused = Object.keys(en).filter(key =>
       !dynamicKeys.has(key) &&

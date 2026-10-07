@@ -265,21 +265,9 @@ class OptionsManager {
     }
   }
 
-  // Helper method to send messages with retry logic
-  async sendMessageWithRetry(message, maxRetries = 3) {
-    for (let attempt = 1; attempt <= maxRetries; attempt++) {
-      try {
-        const response = await browser.runtime.sendMessage(message);
-        return response;
-      } catch (error) {
-        if (attempt === maxRetries) {
-          throw new Error(`Failed to communicate with background script after ${maxRetries} attempts: ${error.message}`);
-        }
-        
-        // Wait before retry (exponential backoff)
-        await new Promise(resolve => setTimeout(resolve, attempt * 100));
-      }
-    }
+  // Send a message to the background script, retrying while it is unreachable
+  sendMessageWithRetry(message) {
+    return UiUtils.sendMessage(message);
   }
 
   render() {

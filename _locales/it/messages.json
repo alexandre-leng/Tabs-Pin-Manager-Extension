@@ -621,5 +621,13 @@
   "chooseIcon": {
     "message": "Scegli un'icona",
     "description": "Tooltip of the category icon picker button"
+  },
+  "editTab": {
+    "message": "Modifica Scheda",
+    "description": "Titolo del dialogo di modifica"
+  },
+  "exportFailed": {
+    "message": "Impossibile esportare le impostazioni",
+    "description": "Error message when exporting settings fails"
   }
 }

@@ -47,4 +47,31 @@ describe('UiUtils', () => {
     expect(manager.hideToast).toHaveBeenCalledTimes(1);
     jest.useRealTimers();
   });
+
+  describe('sendMessage', () => {
+    afterEach(() => { delete global.browser; });
+    const withSendMessage = (impl) => { global.browser = { runtime: { sendMessage: jest.fn(impl) } }; };
+
+    test('retries until the background script answers', async () => {
+      let calls = 0;
+      withSendMessage(async () => {
+        if (++calls < 2) throw new Error('Receiving end does not exist');
+        return { success: true };
+      });
+      await expect(UiUtils.sendMessage({ action: 'ping' })).resolves.toEqual({ success: true });
+      expect(global.browser.runtime.sendMessage).toHaveBeenCalledTimes(2);
+    });
+
+    test('returns failed responses without retrying', async () => {
+      withSendMessage(async () => ({ success: false, error: 'nope' }));
+      await expect(UiUtils.sendMessage({ action: 'x' })).resolves.toEqual({ success: false, error: 'nope' });
+      expect(global.browser.runtime.sendMessage).toHaveBeenCalledTimes(1);
+    });
+
+    test('rejects after the last attempt', async () => {
+      withSendMessage(async () => { throw new Error('Receiving end does not exist'); });
+      await expect(UiUtils.sendMessage({ action: 'x' }, 2)).rejects.toThrow('not responding');
+      expect(global.browser.runtime.sendMessage).toHaveBeenCalledTimes(2);
+    });
+  });
 });

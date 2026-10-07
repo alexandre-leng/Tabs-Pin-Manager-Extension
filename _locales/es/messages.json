@@ -621,5 +621,13 @@
   "chooseIcon": {
     "message": "Elegir un icono",
     "description": "Tooltip of the category icon picker button"
+  },
+  "editTab": {
+    "message": "Editar Pestaña",
+    "description": "Título del diálogo de edición"
+  },
+  "exportFailed": {
+    "message": "No se pudo exportar la configuración",
+    "description": "Error message when exporting settings fails"
   }
 }

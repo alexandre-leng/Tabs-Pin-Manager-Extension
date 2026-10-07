@@ -12,9 +12,12 @@ All notable changes to this project will be documented in this file.
 - **Traduction du popup** : Les textes du popup sont traduits dès l'ouverture, même si le script d'arrière-plan tarde à répondre ou échoue.
 - **Échec d'ouverture signalé** : Quand aucun onglet n'a pu être ouvert, le popup affichait « Tous les onglets sont déjà ouverts » ; il affiche maintenant une erreur.
 - **Page d'options** : Le modèle du sélecteur rapide de catégorie était placé après `</html>` (HTML invalide) ; ses boutons et celui du choix d'icône ont désormais un libellé traduit, aussi lu par les lecteurs d'écran.
+- **Titres non traduits** : Le titre « Modifier l'onglet » et le message d'échec d'export utilisaient des clés inexistantes et restaient en anglais dans toutes les langues ; un test vérifie désormais que chaque texte demandé existe.
+- **Icônes exposées aux sites** : Le manifeste rendait les icônes de l'extension accessibles à toutes les pages web, ce qui permettait de détecter l'extension ; cette exposition inutile est retirée.
 - **Liens du dépôt** : Les liens du manifeste, du README et du changelog pointent vers le bon dépôt.
 
 ### 🧹 Qualité
+- Envoi de messages au script d'arrière-plan centralisé dans `UiUtils.sendMessage` (deux variantes divergentes auparavant) ; le popup ne relance plus une action que le script d'arrière-plan a refusée.
 - CSS : 29 règles jamais utilisées et 55 variables recopiées à l'identique de `shared.css` supprimées (≈ 280 lignes), sans aucun changement visuel (16 captures clair/sombre comparées pixel par pixel) ; un test empêche de réintroduire des styles morts.
 - Messages d'ouverture d'onglets du popup regroupés dans `reportOpenResult` ; carte d'onglet des options et validation de l'import découpées en petites fonctions ; ESLint limite la complexité et la longueur des fonctions, sans avertissement toléré en CI.
 - `StorageManager` simplifié : une seule boucle de reprise pour lecture et écriture, suppression d'une fausse déduplication (identifiants horodatés jamais identiques) et de méthodes inutilisées ; le cache renvoie des copies pour qu'une modification par l'appelant ne le corrompe pas.

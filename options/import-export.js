@@ -32,7 +32,7 @@ Object.assign(OptionsManager.prototype, {
       this.showToast('success', '✅', browser.i18n.getMessage('settingsExported') || 'Settings exported successfully!');
     } catch (error) {
       console.error('Error exporting settings:', error);
-      const errorMessage = browser.i18n.getMessage('errorGeneral') || 'Failed to export settings';
+      const errorMessage = browser.i18n.getMessage('exportFailed') || 'Failed to export settings';
       this.showToast('error', '❌', errorMessage);
     }
   },

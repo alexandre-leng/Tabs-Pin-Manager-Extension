@@ -528,5 +528,12 @@
   "chooseIcon": {
     "message": "选择图标",
     "description": "Tooltip of the category icon picker button"
+  },
+  "editTab": {
+    "message": "编辑标签页"
+  },
+  "exportFailed": {
+    "message": "导出设置失败",
+    "description": "Error message when exporting settings fails"
   }
 }

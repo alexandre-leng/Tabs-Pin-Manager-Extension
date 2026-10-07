@@ -14,7 +14,7 @@ Object.assign(OptionsManager.prototype, {
 
     if (tab) {
       // Edit mode
-      this.elements.tabModalTitle.textContent = browser.i18n.getMessage('editTabTitle') || 'Edit Tab'; // Suggest using a more specific key like editTabTitle
+      this.elements.tabModalTitle.textContent = browser.i18n.getMessage('editTab') || 'Edit Tab';
       this.elements.tabUrl.value = tab.url || '';
       this.elements.tabTitle.value = tab.title || '';
       this.elements.tabCategory.value = tab.category || ''; // This should now work reliably

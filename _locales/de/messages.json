@@ -601,5 +601,13 @@
   "chooseIcon": {
     "message": "Symbol auswählen",
     "description": "Tooltip of the category icon picker button"
+  },
+  "editTab": {
+    "message": "Tab bearbeiten",
+    "description": "Bearbeitungsdialog-Titel"
+  },
+  "exportFailed": {
+    "message": "Export der Einstellungen fehlgeschlagen",
+    "description": "Error message when exporting settings fails"
   }
 }

@@ -116,50 +116,17 @@ class PopupManager {
   }
 
   /**
-   * Send message to background script with retry mechanism
+   * Send message to background script, retrying while it is unreachable
    * @param {object} message - Message to send
-   * @param {number} retries - Number of retries (default: 2)
-   * @returns {Promise<object>} Response from background script
+   * @returns {Promise<object>} Successful response from background script
    */
-  async sendMessageWithRetry(message, retries = 2) {
-    for (let attempt = 0; attempt <= retries; attempt++) {
-      try {
-        const response = await browser.runtime.sendMessage(message);
-        
-        if (!response) {
-          throw new Error('No response from background script');
-        }
-        
-        // Check if the response indicates an error
-        if (response.success === false) {
-          console.warn(`⚠️ Background script returned error:`, response.error);
-          // Don't retry on background script errors
-          throw new Error(response.error || 'Background script operation failed');
-        }
-        
-        return response;
-      } catch (error) {
-        console.warn(`❌ Message attempt ${attempt + 1} failed:`, {
-          action: message.action,
-          error: error.message,
-          attempt: attempt + 1,
-          maxAttempts: retries + 1
-        });
-        
-        if (attempt === retries) {
-          // Last attempt failed
-          const errorMessage = error.message.includes('Receiving end does not exist') 
-            ? 'Background script is not responding. Please reload the extension.'
-            : `Could not establish connection after ${retries + 1} attempts: ${error.message}`;
-          
-          throw new Error(errorMessage);
-        }
-        
-        // Wait before retry with exponential backoff
-        const delay = 100 * Math.pow(2, attempt);
-        await new Promise(resolve => setTimeout(resolve, delay));
-      }
+  async sendMessageWithRetry(message) {
+    const response = await UiUtils.sendMessage(message);
+    // Popup callers treat a background failure as an exception
+    if (response.success === false) {
+      throw new Error(response.error || 'Background script operation failed');
     }
+    return response;
   }
 
   async getCurrentTab() {
