@@ -4,7 +4,7 @@
 
 import { browser } from '../lib/browser-api.js';
 import { getDomainMatchKey, isSameDomainOrSubdomain } from '../lib/domain-utils.js';
-import { normalizeUrl } from './tab-utils.js';
+import { normalizeUrl } from '../lib/url-utils.js';
 
 // A URL opened less than this long ago is assumed to be still loading
 const RECENTLY_OPENED_EXPIRY_MS = 2000;

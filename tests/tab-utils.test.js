@@ -1,4 +1,5 @@
-import { generateTabId, isValidUrl, normalizeUrl, sortTabConfigs } from '../background/tab-utils.js';
+import { generateTabId, isValidUrl, sortTabConfigs } from '../background/tab-utils.js';
+import { normalizeUrl } from '../lib/url-utils.js';
 
 describe('sortTabConfigs', () => {
   test('orders by `order`, then ordered before unordered, then by dateAdded', () => {

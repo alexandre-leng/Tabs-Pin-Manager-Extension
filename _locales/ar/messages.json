@@ -214,18 +214,6 @@
   "failedToPinTab": {
     "message": "فشل في تثبيت التبويب"
   },
-  "ago": {
-    "message": "منذ"
-  },
-  "days": {
-    "message": "أيام"
-  },
-  "hours": {
-    "message": "ساعات"
-  },
-  "minutes": {
-    "message": "دقائق"
-  },
   "justNow": {
     "message": "الآن"
   },

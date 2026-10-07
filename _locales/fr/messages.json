@@ -211,22 +211,6 @@
     "message": "Supprimer l'onglet",
     "description": "Titre de la boîte de dialogue de suppression"
   },
-  "days": {
-    "message": "jour",
-    "description": "Unité de temps - jour"
-  },
-  "hours": {
-    "message": "heure",
-    "description": "Unité de temps - heure"
-  },
-  "minutes": {
-    "message": "minute",
-    "description": "Unité de temps - minute"
-  },
-  "ago": {
-    "message": "il y a",
-    "description": "Indicateur de temps passé"
-  },
   "uncategorized": {
     "message": "Non catégorisé",
     "description": "Catégorie par défaut pour les onglets sans catégorie"

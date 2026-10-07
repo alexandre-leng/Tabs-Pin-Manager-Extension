@@ -214,18 +214,6 @@
   "failedToPinTab": {
     "message": "固定标签页失败"
   },
-  "ago": {
-    "message": "前"
-  },
-  "days": {
-    "message": "天"
-  },
-  "hours": {
-    "message": "小时"
-  },
-  "minutes": {
-    "message": "分钟"
-  },
   "justNow": {
     "message": "刚刚"
   },

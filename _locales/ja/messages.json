@@ -214,18 +214,6 @@
   "failedToPinTab": {
     "message": "タブのピンに失敗しました"
   },
-  "ago": {
-    "message": "前"
-  },
-  "days": {
-    "message": "日"
-  },
-  "hours": {
-    "message": "時間"
-  },
-  "minutes": {
-    "message": "分"
-  },
   "justNow": {
     "message": "たった今"
   },

@@ -214,18 +214,6 @@
   "failedToPinTab": {
     "message": "Gagal menyematkan tab"
   },
-  "ago": {
-    "message": "yang lalu"
-  },
-  "days": {
-    "message": "hari"
-  },
-  "hours": {
-    "message": "jam"
-  },
-  "minutes": {
-    "message": "menit"
-  },
   "justNow": {
     "message": "Baru saja"
   },

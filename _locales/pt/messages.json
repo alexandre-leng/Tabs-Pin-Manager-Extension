@@ -207,22 +207,6 @@
     "message": "Excluir Aba",
     "description": "Título do diálogo de exclusão"
   },
-  "days": {
-    "message": "dia",
-    "description": "Unidade de tempo - dia"
-  },
-  "hours": {
-    "message": "hora",
-    "description": "Unidade de tempo - hora"
-  },
-  "minutes": {
-    "message": "minuto",
-    "description": "Unidade de tempo - minuto"
-  },
-  "ago": {
-    "message": "há",
-    "description": "Indicador de tempo passado"
-  },
   "uncategorized": {
     "message": "Sem categoria",
     "description": "Categoria padrão para abas sem categoria"

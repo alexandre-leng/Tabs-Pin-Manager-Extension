@@ -207,22 +207,6 @@
     "message": "Tabblad Verwijderen",
     "description": "Verwijder dialoog titel"
   },
-  "days": {
-    "message": "dag",
-    "description": "Tijdseenheid - dag"
-  },
-  "hours": {
-    "message": "uur",
-    "description": "Tijdseenheid - uur"
-  },
-  "minutes": {
-    "message": "minuut",
-    "description": "Tijdseenheid - minuut"
-  },
-  "ago": {
-    "message": "geleden",
-    "description": "Verleden tijd indicator"
-  },
   "uncategorized": {
     "message": "Ongecategoriseerd",
     "description": "Standaard categorie voor tabbladen zonder categorie"

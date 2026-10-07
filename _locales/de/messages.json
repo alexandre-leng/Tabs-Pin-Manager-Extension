@@ -207,22 +207,6 @@
     "message": "Tab löschen",
     "description": "Löschdialog-Titel"
   },
-  "days": {
-    "message": "Tag",
-    "description": "Zeiteinheit - Tag"
-  },
-  "hours": {
-    "message": "Stunde",
-    "description": "Zeiteinheit - Stunde"
-  },
-  "minutes": {
-    "message": "Minute",
-    "description": "Zeiteinheit - Minute"
-  },
-  "ago": {
-    "message": "vor",
-    "description": "Vergangene Zeit Indikator"
-  },
   "uncategorized": {
     "message": "Unkategorisiert",
     "description": "Standard-Kategorie für Tabs ohne Kategorie"

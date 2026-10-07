@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### 🛠️ Corrections
+- **« Dernière ouverture » mal traduite** : le temps écoulé était assemblé à la main (« ago 3 days », « vor 3 Stundes », « 前 3 日s »…) ; il est maintenant formaté par le navigateur dans la langue de l'utilisateur (« il y a 3 heures », « vor 3 Stunden », « 3 時間前 »).
+- **« Onglet déjà épinglé »** : le popup comparait les adresses autrement que le script d'arrière-plan, et pouvait donc annoncer un onglet comme épinglé (ou non) à tort ; une seule fonction de comparaison est partagée.
+- **Ordre des catégories** : la catégorie « Développement » était reconnue par son nom (toute catégorie contenant « dev », comme « Devis », passait en dernier, et la règle échouait dans les autres langues) ; elle l'est maintenant par son identifiant.
 - **Données importées effacées** : un import fait juste après l'installation pouvait être écrasé par l'initialisation des données par défaut, et une lecture lente pouvait remettre en mémoire d'anciennes données. Les opérations sur les données sont désormais exécutées une par une, et une lecture qui chevauche une écriture n'est plus utilisée ni mise en cache.
 - **Onglets en cours de chargement** : un onglet pas encore chargé n'était pas reconnu (adresse vide) : « Fermer » une catégorie l'ignorait et « Ouvrir » pouvait le dupliquer.
 - **Accessibilité** : contraste insuffisant corrigé (bouton « Fermer » du popup, textes secondaires) ; les fenêtres de dialogue sont annoncées comme telles, prennent le focus à l'ouverture et le rendent à la fermeture ; Échap ferme seulement la fenêtre du dessus ; cartes et badges de catégorie utilisables au clavier ; préférence « réduire les animations » respectée ; styles de contraste élevé réactivés (`prefers-contrast: high` n'existe pas, remplacé par `more`).
@@ -20,6 +23,8 @@ All notable changes to this project will be documented in this file.
 - **Liens du dépôt** : Les liens du manifeste, du README et du changelog pointent vers le bon dépôt.
 
 ### 🧹 Qualité
+- Versions minimales déclarées : Firefox 115 (ESR) et Chrome 104, d'après les fonctions utilisées ; Node 20.11 pour les outils (`engines`, `.nvmrc`) ; mises à jour des dépendances proposées par Dependabot.
+- `popup.js` (≈ 480 lignes) et `options.js` (≈ 380) allégés : liste des catégories, ordre des catégories et cartes d'onglet passent dans leurs propres modules.
 - **Tests d'interface** : Playwright charge la vraie extension dans Chromium et teste le popup et la page d'options (ouverture, fermeture, ajout, modification, suppression, flèches, glisser-déposer, changement de catégorie, icônes, export / import), avec un audit d'accessibilité axe-core (clair et sombre) et des tests au clavier ; exécutés dans la CI.
 - **Textes de secours retirés** : les 63 textes anglais en dur après `getMessage(...)` sont supprimés ; le test des traductions garantit que chaque texte demandé existe.
 - **Stylelint** : configuration standard, corrections (doublons, propriétés inexistantes, animations en double, notations), exécuté dans la CI.

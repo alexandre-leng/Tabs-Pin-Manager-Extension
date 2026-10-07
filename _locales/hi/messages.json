@@ -214,18 +214,6 @@
   "failedToPinTab": {
     "message": "टैब पिन करने में विफल"
   },
-  "ago": {
-    "message": "पहले"
-  },
-  "days": {
-    "message": "दिन"
-  },
-  "hours": {
-    "message": "घंटे"
-  },
-  "minutes": {
-    "message": "मिनट"
-  },
   "justNow": {
     "message": "अभी"
   },

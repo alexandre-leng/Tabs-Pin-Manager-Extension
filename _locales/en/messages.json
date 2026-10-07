@@ -211,22 +211,6 @@
     "message": "Delete Tab",
     "description": "Delete dialog title"
   },
-  "days": {
-    "message": "day",
-    "description": "Time unit - day"
-  },
-  "hours": {
-    "message": "hour",
-    "description": "Time unit - hour"
-  },
-  "minutes": {
-    "message": "minute",
-    "description": "Time unit - minute"
-  },
-  "ago": {
-    "message": "ago",
-    "description": "Past time indicator"
-  },
   "uncategorized": {
     "message": "Uncategorized",
     "description": "Default category for tabs without category"

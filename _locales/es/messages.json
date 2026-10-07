@@ -211,22 +211,6 @@
     "message": "Eliminar Pestaña",
     "description": "Título del diálogo de eliminación"
   },
-  "days": {
-    "message": "día",
-    "description": "Unidad de tiempo - día"
-  },
-  "hours": {
-    "message": "hora",
-    "description": "Unidad de tiempo - hora"
-  },
-  "minutes": {
-    "message": "minuto",
-    "description": "Unidad de tiempo - minuto"
-  },
-  "ago": {
-    "message": "hace",
-    "description": "Indicador de tiempo pasado"
-  },
   "uncategorized": {
     "message": "Sin categoría",
     "description": "Categoría por defecto para pestañas sin categoría"

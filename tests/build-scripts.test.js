@@ -12,13 +12,17 @@ describe('buildManifest', () => {
   test('firefox runs background.js as a module event page', () => {
     const manifest = buildManifest('firefox');
     expect(manifest.background).toEqual({ scripts: ['background/background.js'], type: 'module' });
-    expect(manifest.browser_specific_settings.gecko.id).toBe('tabspin@firefox.extension');
+    expect(manifest.browser_specific_settings.gecko).toMatchObject({
+      id: 'tabspin@firefox.extension',
+      strict_min_version: '115.0'
+    });
   });
 
   test('chrome runs background.js as a module service worker, without Firefox settings', () => {
     const manifest = buildManifest('chrome');
     expect(manifest.background).toEqual({ service_worker: 'background/background.js', type: 'module' });
     expect(manifest).not.toHaveProperty('browser_specific_settings');
+    expect(manifest.minimum_chrome_version).toBe('104');
   });
 
   test('does not modify the source manifest', () => {

@@ -214,18 +214,6 @@
   "failedToPinTab": {
     "message": "탭 고정에 실패했습니다"
   },
-  "ago": {
-    "message": "전"
-  },
-  "days": {
-    "message": "일"
-  },
-  "hours": {
-    "message": "시간"
-  },
-  "minutes": {
-    "message": "분"
-  },
   "justNow": {
     "message": "방금 전"
   },

@@ -211,22 +211,6 @@
     "message": "Elimina Scheda",
     "description": "Titolo del dialogo di eliminazione"
   },
-  "days": {
-    "message": "giorno",
-    "description": "Unità di tempo - giorno"
-  },
-  "hours": {
-    "message": "ora",
-    "description": "Unità di tempo - ora"
-  },
-  "minutes": {
-    "message": "minuto",
-    "description": "Unità di tempo - minuto"
-  },
-  "ago": {
-    "message": "fa",
-    "description": "Indicatore di tempo passato"
-  },
   "uncategorized": {
     "message": "Senza categoria",
     "description": "Categoria predefinita per schede senza categoria"

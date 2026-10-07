@@ -5,6 +5,7 @@
 
 import { browser } from '../lib/browser-api.js';
 import { UiUtils } from '../lib/ui-utils.js';
+import { sortCategoriesForSelection } from './category-order.js';
 
 export const categorySelection = {
   showCategorySelectionModal() {
@@ -46,7 +47,7 @@ export const categorySelection = {
     }
     
     // Same ordering as the main list
-    const sortedCategories = this.getSortedCategoriesForSelection();
+    const sortedCategories = sortCategoriesForSelection(this.categories, this.tabs);
     
     let firstEmptyAdded = false;
     
@@ -138,26 +139,5 @@ export const categorySelection = {
     if (this.elements.categorySelectionOverlay) {
       UiUtils.hideDialog(this.elements.categorySelectionOverlay, 200);
     }
-  },
-
-  // Category order for the selection modal
-  getSortedCategoriesForSelection() {
-    // With no pinned tab yet, use the default order
-    if (this.tabs.length === 0) {
-      return this.getDefaultCategoryOrder();
-    }
-    
-    // Otherwise, non-empty categories first, then alphabetical
-    return [...this.categories].sort((a, b) => {
-      const aCount = this.tabs.filter(tab => tab.category === a.id).length;
-      const bCount = this.tabs.filter(tab => tab.category === b.id).length;
-      
-      // Non-empty categories first
-      if (aCount > 0 && bCount === 0) return -1;
-      if (aCount === 0 && bCount > 0) return 1;
-      
-      // Within same group, sort alphabetically
-      return a.name.localeCompare(b.name);
-    });
   }
 };

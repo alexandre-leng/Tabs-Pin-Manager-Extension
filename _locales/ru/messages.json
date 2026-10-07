@@ -214,18 +214,6 @@
   "failedToPinTab": {
     "message": "Не удалось закрепить вкладку"
   },
-  "ago": {
-    "message": "назад"
-  },
-  "days": {
-    "message": "дней"
-  },
-  "hours": {
-    "message": "часов"
-  },
-  "minutes": {
-    "message": "минут"
-  },
   "justNow": {
     "message": "Только что"
   },

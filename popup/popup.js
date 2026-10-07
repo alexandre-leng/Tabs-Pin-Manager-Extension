@@ -8,7 +8,10 @@ import { getDefaultCategories } from '../lib/default-categories.js';
 import { I18nHelper } from '../lib/i18n-helper.js';
 import { StorageManager } from '../lib/storage-manager.js';
 import { UiUtils } from '../lib/ui-utils.js';
+import { formatTimeAgo } from '../lib/time-format.js';
+import { normalizeUrl } from '../lib/url-utils.js';
 import { mixin } from '../lib/mixins.js';
+import { categoryList } from './category-list.js';
 import { categorySelection } from './category-selection.js';
 import { tabActions } from './tab-actions.js';
 
@@ -419,145 +422,6 @@ export class PopupManager {
     });
   }
 
-  renderCategories() {
-    if (!this.elements.categoriesList) return;
-    
-    // Clear existing content safely
-    while (this.elements.categoriesList.firstChild) {
-      this.elements.categoriesList.removeChild(this.elements.categoriesList.firstChild);
-    }
-    
-    const groups = this.groupTabsByCategory();
-    
-    // Sort categories, with "Development" last by default
-    const sortedCategories = this.getSortedCategories();
-    
-    sortedCategories.forEach(category => {
-      const tabsInCategory = groups[category.id] || [];
-      if (tabsInCategory.length > 0) {
-        const categoryElement = this.createCategoryElement(category, tabsInCategory.length);
-        this.elements.categoriesList.appendChild(categoryElement);
-      }
-    });
-  }
-
-  groupTabsByCategory() {
-    const groups = {};
-    
-    // Sort tabs by order before grouping
-    const sortedTabs = [...this.tabs].sort((a, b) => {
-      if (a.order !== undefined && b.order !== undefined) {
-        return a.order - b.order;
-      }
-      if (a.order !== undefined) return -1;
-      if (b.order !== undefined) return 1;
-      return new Date(a.dateAdded || 0) - new Date(b.dateAdded || 0);
-    });
-    
-    sortedTabs.forEach(tab => {
-      const categoryId = tab.category || 'uncategorized';
-      if (!groups[categoryId]) {
-        groups[categoryId] = [];
-      }
-      groups[categoryId].push(tab);
-    });
-    return groups;
-  }
-
-  createCategoryElement(category, count) {
-    const element = document.createElement('div');
-    element.className = 'category-item';
-    element.dataset.categoryId = category.id;
-    
-    // Get translated tab word (singular/plural)
-    const tabWord = count !== 1 ? 
-      (browser.i18n.getMessage('tabPlural')) :
-      (browser.i18n.getMessage('tabSingular'));
-    
-    // Create elements safely without innerHTML
-    const iconDiv = document.createElement('div');
-    iconDiv.className = 'category-icon';
-    iconDiv.textContent = category.icon;
-    
-    const infoDiv = document.createElement('div');
-    infoDiv.className = 'category-info';
-    
-    const nameDiv = document.createElement('div');
-    nameDiv.className = 'category-name';
-    nameDiv.textContent = category.name; // Already escaped by textContent
-    
-    const countDiv = document.createElement('div');
-    countDiv.className = 'category-count';
-    countDiv.textContent = `${count} ${tabWord}`;
-
-    const closeButton = document.createElement('button');
-    closeButton.type = 'button';
-    closeButton.className = 'category-close-btn';
-    const closeLabel = browser.i18n.getMessage('closeCategoryTabsTooltip');
-    const closeButtonText = browser.i18n.getMessage('closeCategoryTabs');
-    closeButton.title = closeLabel;
-    closeButton.setAttribute('aria-label', closeLabel);
-
-    const closeIcon = document.createElement('span');
-    closeIcon.className = 'category-close-icon';
-    closeIcon.setAttribute('aria-hidden', 'true');
-
-    const closeSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    closeSvg.setAttribute('width', '14');
-    closeSvg.setAttribute('height', '14');
-    closeSvg.setAttribute('viewBox', '0 0 24 24');
-    closeSvg.setAttribute('fill', 'currentColor');
-
-    const closePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    closePath.setAttribute('d', 'M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z');
-    closeSvg.appendChild(closePath);
-    closeIcon.appendChild(closeSvg);
-
-    const closeText = document.createElement('span');
-    closeText.className = 'category-close-text';
-    closeText.textContent = closeButtonText;
-
-    closeButton.appendChild(closeIcon);
-    closeButton.appendChild(closeText);
-    
-    // Assemble the structure
-    infoDiv.appendChild(nameDiv);
-    infoDiv.appendChild(countDiv);
-    element.appendChild(iconDiv);
-    element.appendChild(infoDiv);
-    element.appendChild(closeButton);
-    
-    // Add click event with feedback
-    const openCategory = async () => {
-      element.style.transform = 'scale(0.98)';
-      setTimeout(() => {
-        element.style.transform = '';
-      }, 150);
-
-      await this.openCategoryTabs(category.id);
-    };
-    element.addEventListener('click', openCategory);
-    // Contains the Close button, so it gets no button role (no nested controls)
-    UiUtils.makeActivatable(element, openCategory, { label: category.name, role: null });
-
-    closeButton.addEventListener('click', async (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      await this.closeCategoryTabs(category.id, category.name, count);
-    });
-    
-    // Add hover animations
-    element.addEventListener('mouseenter', () => {
-      element.style.transform = 'translateX(4px)';
-    });
-    
-    element.addEventListener('mouseleave', () => {
-      element.style.transform = '';
-    });
-    
-    return element;
-  }
-
   openOptions() {
     browser.runtime.openOptionsPage();
     window.close();
@@ -575,28 +439,10 @@ export class PopupManager {
     return UiUtils.isValidUrl(url);
   }
 
+  /** Same matching as the background script uses to avoid opening duplicates. */
   isTabAlreadyPinned(url) {
-    if (!url) return false;
-    
-    // Normalize URL for comparison (remove trailing slash, fragments, etc.)
-    const normalizeUrl = (inputUrl) => {
-      try {
-        const urlObj = new URL(inputUrl);
-        // Remove fragment and trailing slash
-        const normalized = urlObj.origin + urlObj.pathname.replace(/\/$/, '') + urlObj.search;
-        return normalized.toLowerCase();
-      } catch (error) {
-        return inputUrl.toLowerCase();
-      }
-    };
-    
-    const normalizedCurrentUrl = normalizeUrl(url);
-    
-    return this.tabs.some(tab => {
-      if (!tab.url) return false;
-      const normalizedTabUrl = normalizeUrl(tab.url);
-      return normalizedTabUrl === normalizedCurrentUrl;
-    });
+    const key = normalizeUrl(url);
+    return Boolean(key) && this.tabs.some(tab => normalizeUrl(tab.url) === key);
   }
 
   extractDomainFromUrl(url) {
@@ -604,28 +450,10 @@ export class PopupManager {
   }
 
   getTimeAgo(date) {
-    const now = new Date();
-    const diff = now - date;
-    const minutes = Math.floor(diff / 60000);
-    const hours = Math.floor(diff / 3600000);
-    const days = Math.floor(diff / 86400000);
-    
-    if (days > 0) {
-      const dayUnit = browser.i18n.getMessage('days');
-      const timeAgo = browser.i18n.getMessage('ago');
-      return `${timeAgo} ${days} ${dayUnit}${days !== 1 ? 's' : ''}`;
-    }
-    if (hours > 0) {
-      const hourUnit = browser.i18n.getMessage('hours');
-      const timeAgo = browser.i18n.getMessage('ago');
-      return `${timeAgo} ${hours} ${hourUnit}${hours !== 1 ? 's' : ''}`;
-    }
-    if (minutes > 0) {
-      const minuteUnit = browser.i18n.getMessage('minutes');
-      const timeAgo = browser.i18n.getMessage('ago');
-      return `${timeAgo} ${minutes} ${minuteUnit}${minutes !== 1 ? 's' : ''}`;
-    }
-    return browser.i18n.getMessage('justNow');
+    return formatTimeAgo(date, {
+      locale: browser.i18n.getUILanguage(),
+      justNow: browser.i18n.getMessage('justNow')
+    });
   }
 
   showToast(type, icon, message) {
@@ -648,39 +476,6 @@ export class PopupManager {
       }
     });
   }
-
-  // Category order for the main list
-  getSortedCategories() {
-    // With no pinned tab yet, use the default order
-    if (this.tabs.length === 0) {
-      return this.getDefaultCategoryOrder();
-    }
-    
-    // Otherwise, alphabetical order
-    return [...this.categories].sort((a, b) => a.name.localeCompare(b.name));
-  }
-
-  // Default order, with "Development" last
-  getDefaultCategoryOrder() {
-    const developmentCategory = this.categories.find(cat => 
-      cat.name.toLowerCase().includes('développement') || 
-      cat.name.toLowerCase().includes('development') ||
-      cat.name.toLowerCase().includes('dev')
-    );
-    
-    if (!developmentCategory) {
-      // Without a "Development" category, alphabetical order
-      return [...this.categories].sort((a, b) => a.name.localeCompare(b.name));
-    }
-    
-    // Other categories, alphabetically
-    const otherCategories = this.categories
-      .filter(cat => cat.id !== developmentCategory.id)
-      .sort((a, b) => a.name.localeCompare(b.name));
-    
-    // "Development" goes last
-    return [...otherCategories, developmentCategory];
-  }
 }
 
-mixin(PopupManager.prototype, tabActions, categorySelection);
+mixin(PopupManager.prototype, categoryList, tabActions, categorySelection);
