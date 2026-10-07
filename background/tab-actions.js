@@ -132,15 +132,20 @@ export class TabActions {
    * Closes the pinned tabs whose domain matches one of the given configs.
    * @returns {Promise<{success: boolean, closed: number, failed: number, skipped: number}>}
    */
-  async closePinnedTabs(configs, windowId = null) {
+  /** Pinned tabs (of a window) whose domain matches one of the given configs. */
+  async findPinnedTabs(configs, windowId = null) {
     const domainKeys = new Set(configs.map(config => getDomainMatchKey(config.url)).filter(Boolean));
+    const existingTabs = await this.queryTabs(windowId);
+    const matching = existingTabs.filter(tab =>
+      tab && tab.id && tab.pinned === true && matchesDomainKeys(this.urlOf(tab), domainKeys));
+    return { domainKeys, existingTabs, matching };
+  }
+
+  async closePinnedTabs(configs, windowId = null) {
+    const { domainKeys, existingTabs, matching: tabsToClose } = await this.findPinnedTabs(configs, windowId);
     if (domainKeys.size === 0) {
       return { success: false, error: 'No valid domains in this category' };
     }
-
-    const existingTabs = await this.queryTabs(windowId);
-    const tabsToClose = existingTabs.filter(tab =>
-      tab && tab.id && tab.pinned === true && matchesDomainKeys(this.urlOf(tab), domainKeys));
 
     let closed = 0;
     for (const tab of tabsToClose) {

@@ -77,3 +77,12 @@ test('retries the initialization after a failure', async () => {
   fake.storage.local.get = realGet;
   expect((await background.handleMessage({ action: 'getTabsData' })).success).toBe(true);
 });
+
+test('counts the pinned tabs a category close would close', async () => {
+  const background = new TabsPinBackground({
+    tabActions: { findPinnedTabs: async configs => ({ matching: configs.map(() => ({})) }) }
+  }).start();
+  await background.ready;
+  const response = await background.handleMessage({ action: 'countCategoryPinnedTabs', categoryId: 'work' });
+  expect(response).toMatchObject({ success: true, count: expect.any(Number) });
+});

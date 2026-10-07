@@ -27,6 +27,9 @@ export class TabsPinBackground {
         this.exclusive('openCategoryTabs', () => this.openCategoryTabs(categoryId, windowId)),
       closeCategoryTabs: ({ categoryId, windowId }) =>
         this.exclusive('closeCategoryTabs', () => this.closeCategoryTabs(categoryId, windowId)),
+      countCategoryPinnedTabs: async ({ categoryId, windowId }) => ({
+        count: (await this.tabActions.findPinnedTabs(this.store.enabledTabs(categoryId), windowId)).matching.length
+      }),
       saveTab: async ({ tab }) => ({ tab: await this.store.saveTab(tab) }),
       deleteTab: async ({ tabId }) => { await this.store.deleteTab(tabId); return {}; },
       reorderTabs: async ({ tabIds }) => ({ tabs: await this.store.reorderTabs(tabIds) }),
