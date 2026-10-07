@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### 🛠️ Corrections
+- **Doublons existants non modifiables** (régression de 1.4.0) : un onglet enregistré en double par une ancienne version ne pouvait plus être renommé ni changé de catégorie (« adresse déjà enregistrée ») ; seul l'ajout d'une adresse déjà enregistrée est maintenant refusé.
+
+### 📝 Documentation
+- README réécrit : stockage 100 % local, permissions expliquées, appel aux services de favicons indiqué, format de sauvegarde, versions minimales, architecture à jour, procédure de release.
+
 ## [1.4.0] - 2026-10-07
 
 ### 🛠️ Corrections

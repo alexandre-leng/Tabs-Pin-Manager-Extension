@@ -71,7 +71,10 @@ export const tabEditor = {
     }
     
     const key = normalizeUrl(url);
-    const duplicate = this.tabs.some(tab => tab.id !== this.currentEditingTab?.id && normalizeUrl(tab.url) === key);
+    // Only a new address is checked: duplicates saved by older versions stay editable
+    const addressChanged = !this.currentEditingTab || normalizeUrl(this.currentEditingTab.url) !== key;
+    const duplicate = addressChanged &&
+      this.tabs.some(tab => tab.id !== this.currentEditingTab?.id && normalizeUrl(tab.url) === key);
     if (duplicate) {
       this.showToast('error', '❌', browser.i18n.getMessage('tabAlreadyPinned'));
       return;

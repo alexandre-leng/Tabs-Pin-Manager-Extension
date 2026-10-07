@@ -107,3 +107,15 @@ test('saveCategories moves the tabs of a removed category to the first one', asy
   expect(fake.sentMessages.at(-1)).toMatchObject({ changeType: 'dataChanged' });
   await expect(store.saveCategories([])).rejects.toThrow('Invalid');
 });
+
+test('duplicates saved by older versions stay editable', async () => {
+  fake.store.pinnedTabs = [
+    { id: 'x', url: 'https://dup.com/', category: 'work' },
+    { id: 'y', url: 'https://dup.com/', category: 'work' }
+  ];
+  await store.load(false);
+  await expect(store.saveTab({ ...store.tabs[0], title: 'Renamed' })).resolves.toMatchObject({ title: 'Renamed' });
+  // Changing another tab's address to a saved one is still refused
+  await store.saveTab({ id: 'z', url: 'https://z.com/' });
+  await expect(store.saveTab({ id: 'z', url: 'https://dup.com/' })).rejects.toThrow('already saved');
+});

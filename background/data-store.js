@@ -66,11 +66,13 @@ export class DataStore {
           : this.categories[0]?.id || 'work'
       };
 
+      const index = this.tabs.findIndex(t => t.id === saved.id);
+      // Only a new address is checked: duplicates saved by older versions stay editable
       const key = normalizeUrl(saved.url);
-      if (this.tabs.some(t => t.id !== saved.id && normalizeUrl(t.url) === key)) {
+      const addressChanged = index < 0 || normalizeUrl(this.tabs[index].url) !== key;
+      if (addressChanged && this.tabs.some(t => t.id !== saved.id && normalizeUrl(t.url) === key)) {
         throw new Error('This address is already saved');
       }
-      const index = this.tabs.findIndex(t => t.id === saved.id);
       const merged = index >= 0 ? { ...this.tabs[index], ...saved } : saved;
       const tabs = index >= 0
         ? this.tabs.map((t, i) => (i === index ? merged : t))
