@@ -140,15 +140,6 @@
   "loading": {
     "message": "加载中..."
   },
-  "retry": {
-    "message": "重试"
-  },
-  "close": {
-    "message": "关闭"
-  },
-  "options": {
-    "message": "选项"
-  },
   "refresh": {
     "message": "刷新"
   },
@@ -252,27 +243,6 @@
   },
   "errorOpeningCategoryTabs": {
     "message": "打开类别标签页时出错"
-  },
-  "tabPinned": {
-    "message": "\"$TITLE$\" 已固定",
-    "placeholders": {
-      "title": {
-        "content": "$1",
-        "example": "Google"
-      }
-    }
-  },
-  "lastOpened": {
-    "message": "上次打开：$TIME$",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "5分钟前"
-      }
-    }
-  },
-  "editTab": {
-    "message": "编辑标签页"
   },
   "deleteTab": {
     "message": "删除标签页"
@@ -385,9 +355,6 @@
   "dragToReorder": {
     "message": "拖拽重新排序"
   },
-  "dropHere": {
-    "message": "放在这里"
-  },
   "tabReordered": {
     "message": "标签页顺序已更新！"
   },
@@ -478,10 +445,6 @@
   "failedToUpdateCategory": {
     "message": "更新分类失败",
     "description": "Error when updating a category fails"
-  },
-  "placeholderUrl": {
-    "message": "https://example.cn",
-    "description": "Placeholder for URL input field"
   },
   "placeholderSiteName": {
     "message": "网站名称",

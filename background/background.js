@@ -240,10 +240,6 @@ class TabsPinBackground {
           result = await this.closeCategoryTabs(request.categoryId, request.windowId);
           break;
           
-        case 'updateSettings':
-          result = await this.updateSettings(request.settings);
-          break;
-          
         case 'getTabsData':
           await this.loadData(request.force === true ? false : true);
           result = {
@@ -268,10 +264,6 @@ class TabsPinBackground {
           result = await this.importAllData(request.data);
           break;
           
-        case 'updateTab':
-          result = await this.updateTab(request.tab);
-          break;
-
         case 'reorderTabs':
           result = await this.reorderTabs(request.tabIds);
           break;
@@ -657,9 +649,6 @@ class TabsPinBackground {
     }
   }
 
-  async updateTab(tab) {
-    return this.saveTab(tab);
-  }
 
   // Assign a contiguous order (0..n-1) to every tab following the given ID list.
   // Tabs missing from the list keep their relative position after the listed ones.
@@ -723,20 +712,6 @@ class TabsPinBackground {
     }
   }
 
-  async updateSettings(settings) {
-    try {
-      this.settings = { ...this.settings, ...settings };
-      await this.storage.set({ settings: this.settings });
-      
-      // Notify other parts of the extension about the change
-      this.notifyDataChange('settingsChanged');
-      
-      return { success: true, settings: this.settings };
-    } catch (error) {
-      console.error('Error updating settings:', error);
-      return { success: false, error: error.message };
-    }
-  }
 
   /**
    * Imports all data (tabs, categories, settings) in one operation
@@ -759,11 +734,7 @@ class TabsPinBackground {
       });
 
       // Notify changes
-      this.notifyDataChange('dataChanged', {
-        tabs: this.tabs,
-        categories: this.categories,
-        settings: this.settings
-      });
+      this.notifyDataChange('dataChanged');
 
       return { success: true, imported: this.tabs.length, skipped: sanitized.skipped };
     } catch (error) {

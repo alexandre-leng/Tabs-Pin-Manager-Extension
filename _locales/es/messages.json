@@ -165,21 +165,9 @@
     "message": "Cargando...",
     "description": "Mensaje de carga"
   },
-  "retry": {
-    "message": "Reintentar",
-    "description": "Texto del botón reintentar"
-  },
-  "close": {
-    "message": "Cerrar",
-    "description": "Texto del botón cerrar"
-  },
   "pinCurrentTab": {
     "message": "Fijar Pestaña Actual",
     "description": "Texto del botón para fijar la pestaña actual"
-  },
-  "options": {
-    "message": "Opciones",
-    "description": "Texto del botón opciones"
   },
   "cannotPinTab": {
     "message": "No se puede fijar esta pestaña",
@@ -188,16 +176,6 @@
   "tabAlreadyPinned": {
     "message": "Esta pestaña ya está fijada",
     "description": "Mensaje de advertencia cuando la pestaña ya está en la lista"
-  },
-  "tabPinned": {
-    "message": "$COUNT$ pestaña(s) han sido fijadas",
-    "description": "Mensaje de éxito para pestañas fijadas",
-    "placeholders": {
-      "count": {
-        "content": "$1",
-        "example": "3"
-      }
-    }
   },
   "failedToPinTab": {
     "message": "Error al fijar la pestaña",
@@ -232,20 +210,6 @@
   "justNow": {
     "message": "Ahora mismo",
     "description": "Indicación de tiempo para evento reciente"
-  },
-  "lastOpened": {
-    "message": "Última apertura: $TIME$",
-    "description": "Visualización del tiempo de la última apertura",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "hace 5 minutos"
-      }
-    }
-  },
-  "editTab": {
-    "message": "Editar Pestaña",
-    "description": "Título del diálogo de edición"
   },
   "deleteTab": {
     "message": "Eliminar Pestaña",
@@ -480,10 +444,6 @@
     "message": "Arrastrar para reordenar",
     "description": "Tooltip para el asa de arrastre de las pestañas"
   },
-  "dropHere": {
-    "message": "Soltar aquí",
-    "description": "Texto mostrado en la zona de soltar durante el arrastrar y soltar"
-  },
   "tabReordered": {
     "message": "¡Orden de pestañas actualizado!",
     "description": "Mensaje de éxito cuando se cambia el orden de las pestañas"
@@ -579,10 +539,6 @@
   "failedToUpdateCategory": {
     "message": "Error al actualizar categoría",
     "description": "Error when updating a category fails"
-  },
-  "placeholderUrl": {
-    "message": "https://ejemplo.es",
-    "description": "Placeholder for URL input field"
   },
   "placeholderSiteName": {
     "message": "Nombre de mi sitio",

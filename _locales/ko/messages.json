@@ -140,15 +140,6 @@
   "loading": {
     "message": "로딩 중..."
   },
-  "retry": {
-    "message": "다시 시도"
-  },
-  "close": {
-    "message": "닫기"
-  },
-  "options": {
-    "message": "옵션"
-  },
   "refresh": {
     "message": "새로고침"
   },
@@ -252,27 +243,6 @@
   },
   "errorOpeningCategoryTabs": {
     "message": "카테고리 탭 여는 중 오류 발생"
-  },
-  "tabPinned": {
-    "message": "\"$TITLE$\"이(가) 고정되었습니다",
-    "placeholders": {
-      "title": {
-        "content": "$1",
-        "example": "Google"
-      }
-    }
-  },
-  "lastOpened": {
-    "message": "마지막 열린 시간: $TIME$",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "5분 전"
-      }
-    }
-  },
-  "editTab": {
-    "message": "탭 편집"
   },
   "deleteTab": {
     "message": "탭 삭제"
@@ -385,9 +355,6 @@
   "dragToReorder": {
     "message": "드래그하여 순서 변경"
   },
-  "dropHere": {
-    "message": "여기에 놓기"
-  },
   "tabReordered": {
     "message": "탭 순서가 업데이트되었습니다!"
   },
@@ -478,10 +445,6 @@
   "failedToUpdateCategory": {
     "message": "카테고리 업데이트 실패",
     "description": "Error when updating a category fails"
-  },
-  "placeholderUrl": {
-    "message": "https://example.kr",
-    "description": "Placeholder for URL input field"
   },
   "placeholderSiteName": {
     "message": "사이트 이름",

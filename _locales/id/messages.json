@@ -140,15 +140,6 @@
   "loading": {
     "message": "Memuat..."
   },
-  "retry": {
-    "message": "Coba Lagi"
-  },
-  "close": {
-    "message": "Tutup"
-  },
-  "options": {
-    "message": "Opsi"
-  },
   "refresh": {
     "message": "Segarkan"
   },
@@ -252,27 +243,6 @@
   },
   "errorOpeningCategoryTabs": {
     "message": "Kesalahan saat membuka tab kategori"
-  },
-  "tabPinned": {
-    "message": "\"$TITLE$\" disematkan",
-    "placeholders": {
-      "title": {
-        "content": "$1",
-        "example": "Google"
-      }
-    }
-  },
-  "lastOpened": {
-    "message": "Terakhir dibuka: $TIME$",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "5 menit yang lalu"
-      }
-    }
-  },
-  "editTab": {
-    "message": "Edit Tab"
   },
   "deleteTab": {
     "message": "Hapus Tab"
@@ -385,9 +355,6 @@
   "dragToReorder": {
     "message": "Seret untuk mengurutkan ulang"
   },
-  "dropHere": {
-    "message": "Letakkan di sini"
-  },
   "tabReordered": {
     "message": "Urutan tab diperbarui!"
   },
@@ -478,10 +445,6 @@
   "failedToUpdateCategory": {
     "message": "Gagal memperbarui kategori",
     "description": "Error when updating a category fails"
-  },
-  "placeholderUrl": {
-    "message": "https://contoh.id",
-    "description": "Placeholder for URL input field"
   },
   "placeholderSiteName": {
     "message": "Nama situs saya",

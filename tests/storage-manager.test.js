@@ -74,4 +74,36 @@ describe('StorageManager', () => {
     browser.storage.local.get = originalGet;
     expect(result.healthy).toBe(false);
   });
+
+  test('cached reads return copies that callers can mutate safely', async () => {
+    browser.storage.local._store = { pinnedTabs: [{ id: 'a' }] };
+    const first = await storage.get(['pinnedTabs']);
+    first.pinnedTabs.push({ id: 'b' });
+    const second = await storage.get(['pinnedTabs']);
+    expect(second.pinnedTabs).toEqual([{ id: 'a' }]);
+  });
+
+  test('retries transient failures', async () => {
+    storage.retryDelay = 1;
+    const originalSet = browser.storage.local.set;
+    let calls = 0;
+    browser.storage.local.set = async (data) => {
+      calls++;
+      if (calls === 1) throw new Error('temporary failure');
+      return originalSet.call(browser.storage.local, data);
+    };
+    await storage.set({ key: 'value' });
+    browser.storage.local.set = originalSet;
+    expect(calls).toBe(2);
+    expect(browser.storage.local._store.key).toBe('value');
+  });
+
+  test('does not retry critical failures', async () => {
+    const originalSet = browser.storage.local.set;
+    let calls = 0;
+    browser.storage.local.set = async () => { calls++; throw new Error('QUOTA_BYTES quota exceeded'); };
+    await expect(storage.set({ key: 'value' })).rejects.toThrow('quota');
+    browser.storage.local.set = originalSet;
+    expect(calls).toBe(1);
+  });
 });

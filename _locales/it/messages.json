@@ -165,21 +165,9 @@
     "message": "Caricamento...",
     "description": "Messaggio di caricamento"
   },
-  "retry": {
-    "message": "Riprova",
-    "description": "Testo del pulsante riprova"
-  },
-  "close": {
-    "message": "Chiudi",
-    "description": "Testo del pulsante chiudi"
-  },
   "pinCurrentTab": {
     "message": "Fissa Scheda Corrente",
     "description": "Testo del pulsante per fissare la scheda corrente"
-  },
-  "options": {
-    "message": "Opzioni",
-    "description": "Testo del pulsante opzioni"
   },
   "cannotPinTab": {
     "message": "Impossibile fissare questa scheda",
@@ -188,16 +176,6 @@
   "tabAlreadyPinned": {
     "message": "Questa scheda è già fissata",
     "description": "Messaggio di avviso quando la scheda è già nella lista"
-  },
-  "tabPinned": {
-    "message": "\"$TITLE$\" è stata fissata",
-    "description": "Messaggio di successo quando la scheda è fissata",
-    "placeholders": {
-      "title": {
-        "content": "$1",
-        "example": "Google"
-      }
-    }
   },
   "failedToPinTab": {
     "message": "Errore nel fissare la scheda",
@@ -232,20 +210,6 @@
   "justNow": {
     "message": "Proprio ora",
     "description": "Indicazione temporale per evento recente"
-  },
-  "lastOpened": {
-    "message": "Ultima apertura: $TIME$",
-    "description": "Visualizzazione del tempo dell'ultima apertura",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "5 minuti fa"
-      }
-    }
-  },
-  "editTab": {
-    "message": "Modifica Scheda",
-    "description": "Titolo del dialogo di modifica"
   },
   "deleteTab": {
     "message": "Elimina Scheda",
@@ -480,10 +444,6 @@
     "message": "Trascina per riordinare",
     "description": "Tooltip per la maniglia di trascinamento delle schede"
   },
-  "dropHere": {
-    "message": "Rilascia qui",
-    "description": "Testo mostrato nella zona di rilascio durante il drag and drop"
-  },
   "tabReordered": {
     "message": "Ordine delle schede aggiornato!",
     "description": "Messaggio di successo quando viene modificato l'ordine delle schede"
@@ -579,10 +539,6 @@
   "failedToUpdateCategory": {
     "message": "Errore nell'aggiornare la categoria",
     "description": "Error when updating a category fails"
-  },
-  "placeholderUrl": {
-    "message": "https://esempio.it",
-    "description": "Placeholder for URL input field"
   },
   "placeholderSiteName": {
     "message": "Nome del mio sito",

@@ -13,7 +13,27 @@ const placeholders = (entry) => Object.values(entry.placeholders || {}).map(p =>
 const en = load('en');
 const languages = fs.readdirSync(LOCALES_DIR).filter(lang => lang !== 'en');
 
+const SOURCE_DIRS = ['background', 'lib', 'popup', 'options'];
+const source = SOURCE_DIRS
+  .flatMap(dir => fs.readdirSync(path.join(__dirname, '..', dir))
+    .filter(file => /\.(js|html)$/.test(file))
+    .map(file => fs.readFileSync(path.join(__dirname, '..', dir, file), 'utf8')))
+  .concat(fs.readFileSync(path.join(__dirname, '../manifest.json'), 'utf8'))
+  .join('\n');
+// Default category names are looked up dynamically by category ID
+require('../lib/default-categories.js');
+const dynamicKeys = new Set(
+  globalThis.DefaultCategories.getDefaultCategories({ getMessage: () => '' }).map(category => category.id)
+);
+
 describe('locales', () => {
+  test('every English key is used by the extension', () => {
+    const unused = Object.keys(en).filter(key =>
+      !dynamicKeys.has(key) &&
+      !source.includes(`'${key}'`) && !source.includes(`"${key}"`) && !source.includes(`__MSG_${key}__`));
+    expect(unused).toEqual([]);
+  });
+
   test.each(languages)('%s has every English key and no extra ones', (lang) => {
     const keys = Object.keys(load(lang));
     expect(Object.keys(en).filter(k => !keys.includes(k))).toEqual([]);

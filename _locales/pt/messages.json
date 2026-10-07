@@ -161,21 +161,9 @@
     "message": "Carregando...",
     "description": "Mensagem de carregamento"
   },
-  "retry": {
-    "message": "Tentar Novamente",
-    "description": "Texto do botão tentar novamente"
-  },
-  "close": {
-    "message": "Fechar",
-    "description": "Texto do botão fechar"
-  },
   "pinCurrentTab": {
     "message": "Fixar Aba Atual",
     "description": "Texto do botão para fixar a aba atual"
-  },
-  "options": {
-    "message": "Opções",
-    "description": "Texto do botão opções"
   },
   "cannotPinTab": {
     "message": "Não é possível fixar esta aba",
@@ -184,16 +172,6 @@
   "tabAlreadyPinned": {
     "message": "Esta aba já está fixada",
     "description": "Mensagem de aviso quando a aba já está na lista"
-  },
-  "tabPinned": {
-    "message": "\"$TITLE$\" foi fixada",
-    "description": "Mensagem de sucesso quando a aba é fixada",
-    "placeholders": {
-      "title": {
-        "content": "$1",
-        "example": "Google"
-      }
-    }
   },
   "failedToPinTab": {
     "message": "Falha ao fixar a aba",
@@ -228,20 +206,6 @@
   "justNow": {
     "message": "Agora mesmo",
     "description": "Indicação de tempo para evento recente"
-  },
-  "lastOpened": {
-    "message": "Última abertura: $TIME$",
-    "description": "Exibição do tempo da última abertura",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "há 5 minutos"
-      }
-    }
-  },
-  "editTab": {
-    "message": "Editar Aba",
-    "description": "Título do diálogo de edição"
   },
   "deleteTab": {
     "message": "Excluir Aba",
@@ -325,10 +289,6 @@
   "dragToReorder": {
     "message": "Arrastar para reordenar",
     "description": "Tooltip para a alça de arrasto das abas"
-  },
-  "dropHere": {
-    "message": "Soltar aqui",
-    "description": "Texto exibido na zona de soltar durante o arrastar e soltar"
   },
   "tabReordered": {
     "message": "Ordem das abas atualizada!",
@@ -559,10 +519,6 @@
   "failedToUpdateCategory": {
     "message": "Falha ao atualizar categoria",
     "description": "Error when updating a category fails"
-  },
-  "placeholderUrl": {
-    "message": "https://exemplo.pt",
-    "description": "Placeholder for URL input field"
   },
   "placeholderSiteName": {
     "message": "Nome do meu site",

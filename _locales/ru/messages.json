@@ -140,15 +140,6 @@
   "loading": {
     "message": "Загрузка..."
   },
-  "retry": {
-    "message": "Повторить"
-  },
-  "close": {
-    "message": "Закрыть"
-  },
-  "options": {
-    "message": "Параметры"
-  },
   "refresh": {
     "message": "Обновить"
   },
@@ -252,27 +243,6 @@
   },
   "errorOpeningCategoryTabs": {
     "message": "Ошибка при открытии вкладок категории"
-  },
-  "tabPinned": {
-    "message": "\"$TITLE$\" закреплено",
-    "placeholders": {
-      "title": {
-        "content": "$1",
-        "example": "Google"
-      }
-    }
-  },
-  "lastOpened": {
-    "message": "Последний раз открыто: $TIME$",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "5 минут назад"
-      }
-    }
-  },
-  "editTab": {
-    "message": "Редактировать вкладку"
   },
   "deleteTab": {
     "message": "Удалить вкладку"
@@ -385,9 +355,6 @@
   "dragToReorder": {
     "message": "Перетащите для изменения порядка"
   },
-  "dropHere": {
-    "message": "Поместите сюда"
-  },
   "tabReordered": {
     "message": "Порядок вкладок обновлён!"
   },
@@ -478,10 +445,6 @@
   "failedToUpdateCategory": {
     "message": "Ошибка обновления категории",
     "description": "Error when updating a category fails"
-  },
-  "placeholderUrl": {
-    "message": "https://пример.рф",
-    "description": "Placeholder for URL input field"
   },
   "placeholderSiteName": {
     "message": "Название сайта",

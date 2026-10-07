@@ -165,21 +165,9 @@
     "message": "Chargement...",
     "description": "Message de chargement"
   },
-  "retry": {
-    "message": "Réessayer",
-    "description": "Texte du bouton réessayer"
-  },
-  "close": {
-    "message": "Fermer",
-    "description": "Texte du bouton fermer"
-  },
   "pinCurrentTab": {
     "message": "Épingler l'onglet actuel",
     "description": "Texte du bouton pour épingler l'onglet actuel"
-  },
-  "options": {
-    "message": "Options",
-    "description": "Texte du bouton options"
   },
   "cannotPinTab": {
     "message": "Impossible d'épingler cet onglet",
@@ -188,16 +176,6 @@
   "tabAlreadyPinned": {
     "message": "Cet onglet est déjà épinglé",
     "description": "Message d'avertissement quand l'onglet est déjà dans la liste"
-  },
-  "tabPinned": {
-    "message": "\"$TITLE$\" a été épinglé",
-    "description": "Message de succès quand l'onglet est épinglé",
-    "placeholders": {
-      "title": {
-        "content": "$1",
-        "example": "Google"
-      }
-    }
   },
   "failedToPinTab": {
     "message": "Échec de l'épinglage de l'onglet",
@@ -232,20 +210,6 @@
   "justNow": {
     "message": "À l'instant",
     "description": "Indication de temps pour un événement récent"
-  },
-  "lastOpened": {
-    "message": "Dernière ouverture : $TIME$",
-    "description": "Label pour la dernière fois que les onglets ont été ouverts",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "il y a 5 minutes"
-      }
-    }
-  },
-  "editTab": {
-    "message": "Modifier l'onglet",
-    "description": "Titre de la boîte de dialogue d'édition"
   },
   "deleteTab": {
     "message": "Supprimer l'onglet",
@@ -480,10 +444,6 @@
     "message": "Glisser pour réorganiser",
     "description": "Tooltip pour la poignée de drag des onglets"
   },
-  "dropHere": {
-    "message": "Déposer ici",
-    "description": "Texte affiché dans la zone de dépôt lors du drag and drop"
-  },
   "tabReordered": {
     "message": "Ordre des onglets mis à jour !",
     "description": "Message de succès quand l'ordre des onglets est modifié"
@@ -579,10 +539,6 @@
   "failedToUpdateCategory": {
     "message": "Échec de la mise à jour de la catégorie",
     "description": "Error when updating a category fails"
-  },
-  "placeholderUrl": {
-    "message": "https://exemple.fr",
-    "description": "Placeholder for URL input field"
   },
   "placeholderSiteName": {
     "message": "Nom de mon site",

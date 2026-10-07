@@ -140,15 +140,6 @@
   "loading": {
     "message": "लोड हो रहा है..."
   },
-  "retry": {
-    "message": "पुनः प्रयास करें"
-  },
-  "close": {
-    "message": "बंद करें"
-  },
-  "options": {
-    "message": "विकल्प"
-  },
   "refresh": {
     "message": "रीफ्रेश करें"
   },
@@ -252,27 +243,6 @@
   },
   "errorOpeningCategoryTabs": {
     "message": "श्रेणी टैब खोलने में त्रुटि"
-  },
-  "tabPinned": {
-    "message": "\"$TITLE$\" पिन किया गया",
-    "placeholders": {
-      "title": {
-        "content": "$1",
-        "example": "Google"
-      }
-    }
-  },
-  "lastOpened": {
-    "message": "अंतिम बार खोला गया: $TIME$",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "5 मिनट पहले"
-      }
-    }
-  },
-  "editTab": {
-    "message": "टैब संपादित करें"
   },
   "deleteTab": {
     "message": "टैब हटाएं"
@@ -385,9 +355,6 @@
   "dragToReorder": {
     "message": "पुनः क्रमित करने के लिए खींचें"
   },
-  "dropHere": {
-    "message": "यहाँ छोड़ें"
-  },
   "tabReordered": {
     "message": "टैब क्रम अपडेट किया गया!"
   },
@@ -478,10 +445,6 @@
   "failedToUpdateCategory": {
     "message": "श्रेणी अपडेट करने में विफल",
     "description": "Error when updating a category fails"
-  },
-  "placeholderUrl": {
-    "message": "https://example.in",
-    "description": "Placeholder for URL input field"
   },
   "placeholderSiteName": {
     "message": "मेरी साइट का नाम",

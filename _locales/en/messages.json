@@ -165,21 +165,9 @@
     "message": "Loading...",
     "description": "Loading message"
   },
-  "retry": {
-    "message": "Retry",
-    "description": "Retry button text"
-  },
-  "close": {
-    "message": "Close",
-    "description": "Close button text"
-  },
   "pinCurrentTab": {
     "message": "Pin Current Tab",
     "description": "Button text for pinning the current tab"
-  },
-  "options": {
-    "message": "Options",
-    "description": "Options button text"
   },
   "cannotPinTab": {
     "message": "Cannot pin this tab",
@@ -188,16 +176,6 @@
   "tabAlreadyPinned": {
     "message": "Tab is already pinned",
     "description": "Warning message when tab is already in the list"
-  },
-  "tabPinned": {
-    "message": "\"$TITLE$\" has been pinned",
-    "description": "Success message when tab is pinned",
-    "placeholders": {
-      "title": {
-        "content": "$1",
-        "example": "Google"
-      }
-    }
   },
   "failedToPinTab": {
     "message": "Failed to pin tab",
@@ -232,20 +210,6 @@
   "justNow": {
     "message": "Just now",
     "description": "Time indication for recent event"
-  },
-  "lastOpened": {
-    "message": "Last opened: $TIME$",
-    "description": "Display of last opening time",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "5 minutes ago"
-      }
-    }
-  },
-  "editTab": {
-    "message": "Edit Tab",
-    "description": "Edit dialog title"
   },
   "deleteTab": {
     "message": "Delete Tab",
@@ -480,10 +444,6 @@
     "message": "Drag to reorder",
     "description": "Tooltip for the drag handle of tabs"
   },
-  "dropHere": {
-    "message": "Drop here",
-    "description": "Text displayed in the drop zone during drag and drop"
-  },
   "tabReordered": {
     "message": "Tab order updated!",
     "description": "Success message when tab order is changed"
@@ -585,10 +545,6 @@
   "failedToUpdateCategory": {
     "message": "Failed to update category",
     "description": "Error when updating a category fails"
-  },
-  "placeholderUrl": {
-    "message": "https://example.com",
-    "description": "Placeholder for URL input field"
   },
   "placeholderSiteName": {
     "message": "My Site Name",

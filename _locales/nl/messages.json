@@ -161,21 +161,9 @@
     "message": "Laden...",
     "description": "Laad bericht"
   },
-  "retry": {
-    "message": "Opnieuw Proberen",
-    "description": "Opnieuw proberen knop tekst"
-  },
-  "close": {
-    "message": "Sluiten",
-    "description": "Sluiten knop tekst"
-  },
   "pinCurrentTab": {
     "message": "Huidige Tabblad Vastmaken",
     "description": "Knop tekst voor het vastmaken van het huidige tabblad"
-  },
-  "options": {
-    "message": "Opties",
-    "description": "Opties knop tekst"
   },
   "cannotPinTab": {
     "message": "Kan dit tabblad niet vastmaken",
@@ -184,16 +172,6 @@
   "tabAlreadyPinned": {
     "message": "Tabblad is al vastgemaakt",
     "description": "Waarschuwingsbericht wanneer tabblad al in de lijst staat"
-  },
-  "tabPinned": {
-    "message": "\"$TITLE$\" is vastgemaakt",
-    "description": "Succesbericht wanneer tabblad is vastgemaakt",
-    "placeholders": {
-      "title": {
-        "content": "$1",
-        "example": "Google"
-      }
-    }
   },
   "failedToPinTab": {
     "message": "Fout bij het vastmaken van tabblad",
@@ -228,20 +206,6 @@
   "justNow": {
     "message": "Zojuist",
     "description": "Tijdsindicatie voor recente gebeurtenis"
-  },
-  "lastOpened": {
-    "message": "Laatst geopend: $TIME$",
-    "description": "Weergave van laatste openingstijd",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "5 minuten geleden"
-      }
-    }
-  },
-  "editTab": {
-    "message": "Tabblad Bewerken",
-    "description": "Bewerk dialoog titel"
   },
   "deleteTab": {
     "message": "Tabblad Verwijderen",
@@ -325,10 +289,6 @@
   "dragToReorder": {
     "message": "Sleep om opnieuw te rangschikken",
     "description": "Tooltip voor de sleepgreep van tabbladen"
-  },
-  "dropHere": {
-    "message": "Hier neerzetten",
-    "description": "Tekst getoond in de neerzetzone tijdens slepen en neerzetten"
   },
   "tabReordered": {
     "message": "Tabbladenvolgorde bijgewerkt!",
@@ -559,10 +519,6 @@
   "failedToUpdateCategory": {
     "message": "Fout bij bijwerken van categorie",
     "description": "Error when updating a category fails"
-  },
-  "placeholderUrl": {
-    "message": "https://voorbeeld.nl",
-    "description": "Placeholder for URL input field"
   },
   "placeholderSiteName": {
     "message": "Naam van mijn site",

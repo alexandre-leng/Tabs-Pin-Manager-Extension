@@ -140,15 +140,6 @@
   "loading": {
     "message": "読み込み中..."
   },
-  "retry": {
-    "message": "再試行"
-  },
-  "close": {
-    "message": "閉じる"
-  },
-  "options": {
-    "message": "オプション"
-  },
   "refresh": {
     "message": "更新"
   },
@@ -252,27 +243,6 @@
   },
   "errorOpeningCategoryTabs": {
     "message": "カテゴリタブを開く際にエラーが発生しました"
-  },
-  "tabPinned": {
-    "message": "\"$TITLE$\" がピンされました",
-    "placeholders": {
-      "title": {
-        "content": "$1",
-        "example": "Google"
-      }
-    }
-  },
-  "lastOpened": {
-    "message": "最後に開いた時刻: $TIME$",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "5分前"
-      }
-    }
-  },
-  "editTab": {
-    "message": "タブを編集"
   },
   "deleteTab": {
     "message": "タブを削除"
@@ -385,9 +355,6 @@
   "dragToReorder": {
     "message": "ドラッグして並び替え"
   },
-  "dropHere": {
-    "message": "ここにドロップ"
-  },
   "tabReordered": {
     "message": "タブの順序が更新されました！"
   },
@@ -478,10 +445,6 @@
   "failedToUpdateCategory": {
     "message": "カテゴリの更新に失敗しました",
     "description": "Error when updating a category fails"
-  },
-  "placeholderUrl": {
-    "message": "https://example.jp",
-    "description": "Placeholder for URL input field"
   },
   "placeholderSiteName": {
     "message": "サイト名",

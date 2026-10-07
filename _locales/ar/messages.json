@@ -140,15 +140,6 @@
   "loading": {
     "message": "جار التحميل..."
   },
-  "retry": {
-    "message": "إعادة المحاولة"
-  },
-  "close": {
-    "message": "إغلاق"
-  },
-  "options": {
-    "message": "خيارات"
-  },
   "refresh": {
     "message": "تحديث"
   },
@@ -252,27 +243,6 @@
   },
   "errorOpeningCategoryTabs": {
     "message": "خطأ في فتح تبويبات الفئة"
-  },
-  "tabPinned": {
-    "message": "تم تثبيت \"$TITLE$\"",
-    "placeholders": {
-      "title": {
-        "content": "$1",
-        "example": "Google"
-      }
-    }
-  },
-  "lastOpened": {
-    "message": "آخر فتح: $TIME$",
-    "placeholders": {
-      "time": {
-        "content": "$1",
-        "example": "منذ 5 دقائق"
-      }
-    }
-  },
-  "editTab": {
-    "message": "تحرير التبويب"
   },
   "deleteTab": {
     "message": "حذف التبويب"
@@ -385,9 +355,6 @@
   "dragToReorder": {
     "message": "اسحب لإعادة الترتيب"
   },
-  "dropHere": {
-    "message": "أسقط هنا"
-  },
   "tabReordered": {
     "message": "تم تحديث ترتيب التبويبات!"
   },
@@ -478,10 +445,6 @@
   "failedToUpdateCategory": {
     "message": "فشل تحديث الفئة",
     "description": "Error when updating a category fails"
-  },
-  "placeholderUrl": {
-    "message": "https://example.sa",
-    "description": "Placeholder for URL input field"
   },
   "placeholderSiteName": {
     "message": "اسم موقعي",
