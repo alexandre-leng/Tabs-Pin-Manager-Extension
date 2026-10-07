@@ -1,7 +1,6 @@
 /* TabsFlow Popup Styles - Firefox Proton Design */
 
 :root {
-  --primary-color: #0060df;
   --primary-hover: #0250bb;
   --primary-active: #054096;
   --secondary-color: #ff9400;
@@ -9,35 +8,11 @@
   --warning-color: #ffbd4f;
   --error-color: #ff4f4f;
   
-  --background-primary: #ffffff;
-  --background-secondary: #f9f9fb;
-  --background-tertiary: #f0f0f4;
-  --background-elevated: #ffffff;
-  
-  --text-primary: #15141a;
-  --text-secondary: #5b5b66;
-  --text-muted: #8f8f9d;
-  --text-link: #0060df;
-  
-  --border-color: #d7d7db;
-  --border-color-hover: #b1b1b9;
-  --border-radius: 8px;
-  --border-radius-small: 4px;
-  --border-radius-large: 12px;
-  
   --shadow-small: 0 1px 4px rgba(12, 12, 13, 0.1);
   --shadow-medium: 0 4px 16px rgba(12, 12, 13, 0.15);
   --shadow-large: 0 8px 32px rgba(12, 12, 13, 0.2);
   
   --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  --font-size-small: 12px;
-  --font-size-base: 14px;
-  --font-size-large: 16px;
-  --font-size-xl: 18px;
-  --font-size-xxl: 24px;
-  
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
   --spacing-xl: 32px;
@@ -52,16 +27,6 @@
   :root {
     --background-primary: #2b2a33;
     --background-secondary: #1c1b22;
-    --background-tertiary: #42414d;
-    --background-elevated: #2b2a33;
-    
-    --text-primary: #fbfbfe;
-    --text-secondary: #cfcfd8;
-    --text-muted: #8f8f9d;
-    --text-link: #00ddff;
-    
-    --border-color: #52525e;
-    --border-color-hover: #6f6f7e;
   }
 }
 
@@ -174,40 +139,8 @@ body {
 }
 
 /* Pin button special styling */
-.header-btn.pin-btn {
-  color: var(--secondary-color);
-  border-color: rgba(255, 148, 0, 0.3);
-}
-
-.header-btn.pin-btn:hover {
-  background: rgba(255, 148, 0, 0.1);
-  border-color: var(--secondary-color);
-  color: var(--secondary-color);
-}
-
-.header-btn.pin-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  color: var(--text-muted);
-  border-color: var(--border-color);
-}
-
-.header-btn.pin-btn:disabled:hover {
-  background: transparent;
-  transform: none;
-  box-shadow: none;
-}
 
 /* Options button styling */
-.header-btn.options-btn {
-  color: var(--text-secondary);
-}
-
-.header-btn.options-btn:hover {
-  background: var(--background-secondary);
-  border-color: var(--primary-color);
-  color: var(--primary-color);
-}
 
 /* Tooltip for buttons */
 .btn-tooltip {
@@ -631,12 +564,6 @@ body {
   border-top: 2px solid white;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
-}
-
-.quick-actions-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-sm);
 }
 
 .secondary-actions {
@@ -1469,10 +1396,6 @@ button:focus-visible,
 @media (max-width: 420px) {
   :root {
     --popup-width: 360px;
-  }
-  
-  .quick-actions-row {
-    grid-template-columns: 1fr;
   }
   
   .activity-stats {

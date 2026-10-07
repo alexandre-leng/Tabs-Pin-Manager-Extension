@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - **Liens du dépôt** : Les liens du manifeste, du README et du changelog pointent vers le bon dépôt.
 
 ### 🧹 Qualité
+- CSS : 29 règles jamais utilisées et 55 variables recopiées à l'identique de `shared.css` supprimées (≈ 280 lignes), sans aucun changement visuel (16 captures clair/sombre comparées pixel par pixel) ; un test empêche de réintroduire des styles morts.
 - Messages d'ouverture d'onglets du popup regroupés dans `reportOpenResult` ; carte d'onglet des options et validation de l'import découpées en petites fonctions ; ESLint limite la complexité et la longueur des fonctions, sans avertissement toléré en CI.
 - `StorageManager` simplifié : une seule boucle de reprise pour lecture et écriture, suppression d'une fausse déduplication (identifiants horodatés jamais identiques) et de méthodes inutilisées ; le cache renvoie des copies pour qu'une modification par l'appelant ne le corrompe pas.
 - Code mort retiré : actions `updateSettings` / `updateTab` jamais envoyées, fonctions inutilisées d'`I18nHelper`, 8 textes de traduction inutilisés (un test empêche d'en réintroduire).
