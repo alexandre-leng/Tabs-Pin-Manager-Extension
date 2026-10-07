@@ -353,7 +353,7 @@ OptionsManager.prototype.addToRecentIcons = function(icon) {
   localStorage.setItem('recentIcons', JSON.stringify(recentIcons));
   
   // Update in memory
-  ICON_DATA.recent = recentIcons.map(icon => ({ icon, keywords: [] }));
+  ICON_DATA.recent = recentIcons.map(recent => ({ icon: recent, keywords: [] }));
 };
 
 OptionsManager.prototype.getSelectedIcon = function() {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="browserActionTitle">Tabs Pin</title>
+  <title data-i18n="browserActionTitle">Open Tabs Pin</title>
   <link rel="stylesheet" href="../shared.css">
   <link rel="stylesheet" href="popup.css">
 </head>
@@ -14,8 +14,8 @@
       <div class="logo-section">
         <img src="../assets/icons/icon-32.png" alt="Tabs Pin" class="logo">
         <div class="header-info">
-          <h1 class="app-name" data-i18n="extensionName">Tabs Pin</h1>
-          <span class="header-subtitle" data-i18n="browserActionTitle">Pin Tabs Manager</span>
+          <h1 class="app-name" data-i18n="extensionName">Tabs Pin - Pin Tabs Manager</h1>
+          <span class="header-subtitle" data-i18n="browserActionTitle">Open Tabs Pin</span>
         </div>
       </div>
     </header>
@@ -30,31 +30,31 @@
 
       <!-- Empty State -->
       <div class="empty-state" id="emptyState" style="display: none;">
-        <!-- Nouvelle icône SVG animée plus large et engageante -->
+        <!-- Animated illustration -->
         <div class="empty-icon-container">
           <svg class="empty-icon-svg" width="160" height="160" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Onglet de navigateur stylisé -->
+            <!-- Stylized browser tab -->
             <rect class="browser-tab" x="40" y="60" width="160" height="100" rx="8" fill="var(--background-secondary)" stroke="var(--border-color)" stroke-width="2"/>
             
-            <!-- Icône dans l'onglet (représente un site web) -->
+            <!-- Site icon inside the tab -->
             <circle cx="70" cy="85" r="8" fill="var(--primary-color)" opacity="0.6"/>
             <rect x="85" y="80" width="80" height="4" rx="2" fill="var(--text-secondary)" opacity="0.4"/>
             <rect x="85" y="90" width="60" height="4" rx="2" fill="var(--text-secondary)" opacity="0.3"/>
             
-            <!-- Punaise qui "épingle" l'onglet -->
+            <!-- Pin pushing into the tab -->
             <g class="pin-group" transform="translate(180, 40)">
-              <!-- Corps de la punaise -->
+              <!-- Pin body -->
               <path class="pin-body" d="M8 15V5C8 3 9 2 11 2H17C19 2 20 3 20 5V15L17 18V20H15V30C15 31.5 13.5 33 12 33H16C14.5 33 13 31.5 13 30V20H11V18L8 15Z" fill="var(--primary-color)"/>
-              <!-- Tête brillante de la punaise -->
+              <!-- Pin head highlight -->
               <circle class="pin-head" cx="14" cy="8" r="6" fill="url(#pinShineGradient)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-              <!-- Point d'épinglage -->
+              <!-- Pin point -->
               <circle class="pin-point" cx="14" cy="38" r="2" fill="var(--primary-color)"/>
             </g>
             
-            <!-- Flèche courbe qui relie la punaise à l'onglet -->
+            <!-- Curved arrow from the pin to the tab -->
             <path class="connection-arrow" d="M175 65 Q165 50 140 55" stroke="var(--primary-color)" stroke-width="3" fill="none" stroke-linecap="round" marker-end="url(#arrowhead)" opacity="0.8"/>
             
-            <!-- Particules/étincelles autour de l'action -->
+            <!-- Sparkles around the action -->
             <g class="sparkles-group">
               <circle class="sparkle sparkle-1" cx="50" cy="45" r="2.5" fill="var(--secondary-color)"/>
               <circle class="sparkle sparkle-2" cx="190" cy="75" r="2" fill="var(--primary-color)"/>
@@ -63,13 +63,13 @@
               <circle class="sparkle sparkle-5" cx="220" cy="95" r="1.5" fill="var(--secondary-color)"/>
             </g>
             
-            <!-- Effet de "nouveau" ou "première fois" -->
+            <!-- "New" badge effect -->
             <g class="new-badge" transform="translate(35, 45)">
               <circle cx="0" cy="0" r="12" fill="var(--secondary-color)"/>
               <text x="0" y="2" text-anchor="middle" fill="white" font-size="8" font-weight="bold">1</text>
             </g>
             
-            <!-- Définitions pour les gradients et flèches -->
+            <!-- Gradient and arrow definitions -->
             <defs>
               <linearGradient id="pinShineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" style="stop-color:#60A5FA"/>
@@ -84,15 +84,15 @@
           </svg>
         </div>
         
-        <!-- Nouveau message plus engageant -->
+        <!-- Welcome message -->
         <div class="empty-content">
-          <h2 class="empty-title" data-i18n="getStartedTitle">Commencez ici !</h2>
-          <p class="empty-description" data-i18n="getStartedDescription">Épinglez votre premier onglet pour créer votre espace personnalisé et améliorer votre productivité.</p>
+          <h2 class="empty-title" data-i18n="getStartedTitle">Get Started Here!</h2>
+          <p class="empty-description" data-i18n="getStartedDescription">Pin your first tab to create your personal space and boost productivity.</p>
         </div>
         
-        <!-- Actions réorganisées avec priorités -->
+        <!-- Actions, by priority -->
         <div class="empty-actions">
-          <!-- Action principale : épingler l'onglet actuel -->
+          <!-- Main action: pin the current tab -->
           <button class="primary-action-btn" id="pinCurrentFromEmpty">
             <div class="btn-content">
               <div class="btn-icon-container">
@@ -101,20 +101,20 @@
             </svg>
               </div>
               <div class="btn-text-section">
-                <span class="btn-main-text" data-i18n="pinCurrentTabAction">Épingler l'onglet actuel</span>
-                <span class="btn-helper-text" data-i18n="pinCurrentTabHelper">Ajoute l'onglet que vous consultez actuellement</span>
+                <span class="btn-main-text" data-i18n="pinCurrentTabAction">Pin Current Tab</span>
+                <span class="btn-helper-text" data-i18n="pinCurrentTabHelper">Add the tab you're currently viewing</span>
               </div>
             </div>
           </button>
           
           <!-- Action secondaire : aller aux options -->
           <div class="secondary-action-section">
-            <span class="or-divider" data-i18n="orDivider">ou</span>
+            <span class="or-divider" data-i18n="orDivider">or</span>
             <button class="secondary-action-btn" id="openOptionsFromEmpty">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97c0-.33-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1c0 .33.03.65.07.97L2.46 14.6c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.31.61.22l2.49-1c.52.39 1.06.73 1.69.98l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.25 1.17-.59 1.69-.98l2.49 1c.22.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.63Z"/>
               </svg>
-              <span data-i18n="configureManually">Configurer manuellement</span>
+              <span data-i18n="configureManually">Configure manually</span>
             </button>
           </div>
         </div>
@@ -152,7 +152,7 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97c0-.33-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1c0 .33.03.65.07.97L2.46 14.6c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.31.61.22l2.49-1c.52.39 1.06.73 1.69.98l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.25 1.17-.59 1.69-.98l2.49 1c.22.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.63Z"/>
             </svg>
-            <span data-i18n="openOptions">Manage Tabs</span>
+            <span data-i18n="openOptions">Open Options</span>
           </button>
         </div>
         
@@ -181,16 +181,16 @@
       <!-- Recent Activity -->
       <div class="activity-section" id="activitySection" style="display: none;">
         <div class="activity-stats">
-          <button class="stat clickable" id="pinnedTabsStatBtn" data-i18n-title="viewAllPinnedTabsTooltip" title="Voir tous les onglets épinglés">
+          <button class="stat clickable" id="pinnedTabsStatBtn" data-i18n-title="viewAllPinnedTabsTooltip" title="View all pinned tabs">
             <span class="stat-number" id="pinnedTabsCount">0</span>
-            <span class="stat-label" data-i18n="pinnedTabsShort">Épinglés</span>
+            <span class="stat-label" data-i18n="pinnedTabsShort">Pinned</span>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
               <path d="M8.59 16.59L13.17 12L8.59 7.41L10 6l6 6-6 6l-1.41-1.41z"/>
             </svg>
           </button>
-          <button class="stat clickable" id="categoriesStatBtn" data-i18n-title="manageCategoriesStatTooltip" title="Gérer les catégories">
+          <button class="stat clickable" id="categoriesStatBtn" data-i18n-title="manageCategoriesStatTooltip" title="Manage categories">
             <span class="stat-number" id="categoriesCount">0</span>
-            <span class="stat-label" data-i18n="categoriesShort">Catégories</span>
+            <span class="stat-label" data-i18n="categoriesShort">Categories</span>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
               <path d="M8.59 16.59L13.17 12L8.59 7.41L10 6l6 6-6 6l-1.41-1.41z"/>
             </svg>
@@ -227,7 +227,7 @@
   <div class="modal-overlay" id="categorySelectionOverlay" style="display: none;">
     <div class="modal" id="categorySelectionModal">
       <div class="modal-header">
-        <h3 class="modal-title" data-i18n="selectCategory">Sélectionner une catégorie</h3>
+        <h3 class="modal-title" data-i18n="selectCategory">Select a category</h3>
         <button class="modal-close" id="closeCategorySelection" aria-label="Close">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
             <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
@@ -249,7 +249,7 @@
         </div>
         
         <div class="modal-actions">
-          <button type="button" class="secondary-btn" id="cancelCategorySelection" data-i18n="cancel">Annuler</button>
+          <button type="button" class="secondary-btn" id="cancelCategorySelection" data-i18n="cancel">Cancel</button>
         </div>
       </div>
     </div>
@@ -259,6 +259,7 @@
   <script src="../lib/default-categories.js"></script>
   <script src="../lib/storage-manager.js"></script>
   <script src="../lib/ui-utils.js"></script>
+  <script src="../lib/i18n-helper.js"></script>
   <script src="popup.js"></script>
   <script src="tab-actions.js"></script>
   <script src="category-selection.js"></script>

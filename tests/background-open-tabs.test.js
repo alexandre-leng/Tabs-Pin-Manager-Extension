@@ -96,3 +96,47 @@ describe('sortTabConfigs', () => {
     expect(sorted.map(t => t.id)).toEqual(['one', 'two', 'early', 'late']);
   });
 });
+
+describe('sanitizeImportData', () => {
+  const categories = [{ id: 'work', name: 'Work', icon: '💼' }];
+
+  test('rejects data without the expected shape', () => {
+    const { bg } = loadBackground([]);
+    expect(() => bg.sanitizeImportData(null)).toThrow();
+    expect(() => bg.sanitizeImportData({ tabs: [], categories, settings: [] })).toThrow();
+    expect(() => bg.sanitizeImportData({ tabs: [], categories: [{ name: 'no id' }], settings: {} })).toThrow();
+  });
+
+  test('drops tabs without an http(s) URL and fixes field types', () => {
+    const { bg } = loadBackground([]);
+    const result = bg.sanitizeImportData({
+      categories,
+      settings: {},
+      tabs: [
+        { id: 'a', url: 'https://a.com/', title: 'A', category: 'work', order: 1 },
+        { id: 'b', url: 'javascript:alert(1)' },
+        { id: 'c', url: 'file:///etc/passwd' },
+        'not a tab',
+        { url: 'http://b.com/', category: 'missing', order: 'x', title: 42 }
+      ]
+    });
+
+    expect(result.skipped).toBe(3);
+    expect(result.tabs.map(t => t.url)).toEqual(['https://a.com/', 'http://b.com/']);
+    const [, second] = result.tabs;
+    expect(second.id).toMatch(/^tab_/);
+    expect(second.category).toBe('work');
+    expect(second.title).toBe('http://b.com/');
+    expect(second).not.toHaveProperty('order');
+  });
+
+  test('makes duplicate tab IDs unique', () => {
+    const { bg } = loadBackground([]);
+    const { tabs } = bg.sanitizeImportData({
+      categories,
+      settings: {},
+      tabs: [{ id: 'x', url: 'https://a.com/' }, { id: 'x', url: 'https://b.com/' }]
+    });
+    expect(new Set(tabs.map(t => t.id)).size).toBe(2);
+  });
+});

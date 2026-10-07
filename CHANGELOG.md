@@ -8,11 +8,15 @@ All notable changes to this project will be documented in this file.
 - **Traductions manquantes** : Les textes de fermeture d'une catégorie (« Fermer », confirmation, messages de résultat) manquaient dans 12 langues et s'affichaient en anglais.
 - **Message français** : « Certains onglets étaient déjà ouverts » n'affichait plus les nombres d'onglets ouverts et créés.
 - **Vérification du stockage** : Le contrôle de santé vérifie maintenant que la valeur relue correspond à celle écrite.
+- **Import sécurisé** : Un fichier importé ne peut plus enregistrer d'onglets sans URL http(s) (`javascript:`, `file:`…) ni de données mal formées ; les identifiants en double sont corrigés et les onglets ignorés sont comptés.
+- **Traduction du popup** : Les textes du popup sont traduits dès l'ouverture, même si le script d'arrière-plan tarde à répondre ou échoue.
 - **Liens du dépôt** : Les liens du manifeste, du README et du changelog pointent vers le bon dépôt.
 
 ### 🧹 Qualité
 - Logique d'ouverture des onglets factorisée (`openTabConfigs`), journaux de débogage désactivés par défaut, helpers partagés popup/options (`lib/ui-utils.js`).
 - `popup.js` et `options.js` découpés par fonctionnalité (édition et réorganisation des onglets, catégories, sélecteur d'icônes, import/export, actions du popup, sélection de catégorie) ; une méthode `getSelectedIcon` définie en double supprimée.
+- Traduction des pages centralisée dans `I18nHelper.localizePage` (le module n'était utilisé que par les tests) ; textes de secours du HTML et commentaires en anglais.
+- Tests ajoutés : validation de l'import, `localizePage`, cohérence des versions `package.json` / `manifest.json`.
 - ESLint, `.editorconfig` et tests (ouverture des onglets, helpers, cohérence des traductions) exécutés dans la CI.
 
 ## [1.3.5] - 2026-10-06

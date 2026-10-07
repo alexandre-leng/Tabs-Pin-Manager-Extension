@@ -289,11 +289,11 @@ body {
   }
 }
 
-/* Conteneur de l'icône sans marge */
+/* Icon container without margin */
 .empty-icon-container {
   position: relative;
   margin-bottom: 0;
-  /* Animation d'apparition retardée */
+  /* Delayed fade-in */
   opacity: 0;
   animation: iconAppear 0.5s ease-out 0.3s forwards;
 }
@@ -309,7 +309,7 @@ body {
   }
 }
 
-/* SVG plus compact */
+/* Compact SVG */
 .empty-icon-svg {
   width: 110px;
   height: 110px;
@@ -318,11 +318,11 @@ body {
   filter: drop-shadow(0 4px 12px rgba(79, 156, 249, 0.2));
 }
 
-/* Contenu textuel collé à l'icône */
+/* Text right next to the icon */
 .empty-content {
   margin-bottom: var(--spacing-md);
   margin-top: 0;
-  /* Animation d'apparition retardée */
+  /* Delayed fade-in */
   opacity: 0;
   animation: contentAppear 0.4s ease-out 0.5s forwards;
 }
@@ -350,7 +350,7 @@ body {
   margin: 0 auto;
 }
 
-/* Actions avec espacement réduit */
+/* Actions with reduced spacing */
 .empty-actions {
   display: flex;
   flex-direction: column;
@@ -358,7 +358,7 @@ body {
   width: 100%;
   max-width: 280px;
   margin-top: 0;
-  /* Animation d'apparition retardée */
+  /* Delayed fade-in */
   opacity: 0;
   animation: actionsAppear 0.4s ease-out 0.7s forwards;
 }
@@ -401,7 +401,7 @@ body {
   box-shadow: 0 4px 16px rgba(79, 156, 249, 0.3);
 }
 
-/* Contenu du bouton principal */
+/* Main button content */
 .primary-action-btn .btn-content {
   display: flex;
   align-items: center;
@@ -1195,22 +1195,22 @@ body {
   color: var(--primary-color);
 }
 
-/* === NOTIFICATIONS TOAST REDESIGNÉES === */
+/* === TOAST NOTIFICATIONS === */
 .toast {
   position: fixed;
   top: var(--spacing-lg);
   left: 50%;
   transform: translateX(-50%) translateY(-120%);
   background: var(--background-elevated);
-  border: none; /* SUPPRIME la bordure */
-  border-radius: 12px; /* Bordures plus arrondies */
+  border: none; /* No border */
+  border-radius: 12px; /* Rounder corners */
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1); /* Ombre moderne */
-  padding: 0; /* Supprime le padding pour un contrôle total */
+  padding: 0; /* No padding, children handle spacing */
   z-index: 1000;
   min-width: 320px;
   max-width: 400px;
   opacity: 0;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Transition plus fluide */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother transition */
   overflow: hidden;
   backdrop-filter: blur(10px); /* Effet glass moderne */
 }
@@ -1228,7 +1228,7 @@ body {
   position: relative;
 }
 
-/* Barre colorée sur le côté */
+/* Colored side bar */
 .toast.success::before {
   content: '';
   position: absolute;
@@ -1269,7 +1269,7 @@ body {
   background: linear-gradient(180deg, #3B82F6, #2563EB);
 }
 
-/* Container pour l'icône avec effet de fond */
+/* Icon container with background */
 .toast-icon {
   display: flex;
   align-items: center;
@@ -1307,12 +1307,12 @@ body {
   border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
-/* Animation de l'icône */
+/* Icon animation */
 .toast:hover .toast-icon {
   transform: scale(1.05);
 }
 
-/* Message avec meilleure hiérarchie */
+/* Message text */
 .toast-message {
   flex: 1;
   color: var(--text-primary);
@@ -1320,15 +1320,15 @@ body {
   font-weight: 500;
   line-height: 1.4;
   margin: 0;
-  padding-top: 8px; /* Alignement avec l'icône */
+  padding-top: 8px; /* Aligned with the icon */
 }
 
-/* Effet de fermeture automatique avec barre de progression */
+/* Auto-dismiss progress bar */
 .toast.show::after {
   content: '';
   position: absolute;
   bottom: 0;
-  left: 4px; /* Commence après la barre colorée */
+  left: 4px; /* Starts after the colored bar */
   right: 0;
   height: 2px;
   background: rgba(255, 255, 255, 0.3);
@@ -1344,7 +1344,7 @@ body {
   }
 }
 
-/* Animations d'entrée et sortie améliorées */
+/* Enter and exit animations */
 .toast {
   transform: translateX(-50%) translateY(-120%) scale(0.9);
 }
@@ -1353,7 +1353,7 @@ body {
   transform: translateX(-50%) translateY(0) scale(1);
 }
 
-/* Style pour écrans plus petits */
+/* Small screens */
 @media (max-width: 420px) {
   .toast {
     min-width: 280px;
@@ -1378,7 +1378,7 @@ body {
   }
 }
 
-/* Mode sombre - ajustements spécifiques */
+/* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
   .toast {
     background: rgba(30, 41, 59, 0.95);
@@ -1393,7 +1393,7 @@ body {
   }
 }
 
-/* Animation pour le mode préfère-réduction-de-mouvement */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .toast {
     transition: opacity 0.2s ease;
@@ -1409,7 +1409,7 @@ body {
   }
 }
 
-/* Effet de vibration subtile pour les erreurs */
+/* Subtle shake for errors */
 .toast.error.show {
   animation: errorShake 0.5s ease-in-out;
 }

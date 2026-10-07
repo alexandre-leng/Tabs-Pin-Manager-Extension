@@ -61,6 +61,8 @@ class PopupManager {
   }
 
   async init() {
+    // Translate static text first: it must not wait for, or depend on, the background script
+    this.setupI18n();
     try {
       // Check connection with background script first. Not fatal: loadData() falls back
       // to direct storage access, and the popup must still render and be usable.
@@ -73,7 +75,6 @@ class PopupManager {
       await this.getCurrentTab();
       await this.loadData();
       this.setupEventListeners();
-      this.setupI18n();
       this.updateVersionInfo();
       
       // Initial render
@@ -267,25 +268,7 @@ class PopupManager {
   }
 
   setupI18n() {
-    // Apply internationalization to all data-i18n elements
-    const i18nElements = document.querySelectorAll('[data-i18n]');
-    i18nElements.forEach(element => {
-      const key = element.getAttribute('data-i18n');
-      const message = browser.i18n.getMessage(key);
-      if (message) {
-        element.textContent = message;
-      }
-    });
-
-    // Apply title translations
-    const i18nTitleElements = document.querySelectorAll('[data-i18n-title]');
-    i18nTitleElements.forEach(element => {
-      const key = element.getAttribute('data-i18n-title');
-      const message = browser.i18n.getMessage(key);
-      if (message) {
-        element.title = message;
-      }
-    });
+    I18nHelper.localizePage(document);
   }
 
   updateVersionInfo() {
@@ -471,7 +454,7 @@ class PopupManager {
     
     const groups = this.groupTabsByCategory();
     
-    // NOUVELLE LOGIQUE : Trier les catégories avec "Développement" en dernier par défaut
+    // Sort categories, with "Development" last by default
     const sortedCategories = this.getSortedCategories();
     
     sortedCategories.forEach(category => {
@@ -688,18 +671,18 @@ class PopupManager {
     });
   }
 
-  // NOUVELLE FONCTION : Tri des catégories pour l'affichage principal
+  // Category order for the main list
   getSortedCategories() {
-    // Si l'utilisateur n'a aucun onglet épinglé, utiliser l'ordre spécial
+    // With no pinned tab yet, use the default order
     if (this.tabs.length === 0) {
       return this.getDefaultCategoryOrder();
     }
     
-    // Sinon, utiliser l'ordre alphabétique normal
+    // Otherwise, alphabetical order
     return [...this.categories].sort((a, b) => a.name.localeCompare(b.name));
   }
 
-  // NOUVELLE FONCTION : Ordre par défaut avec "Développement" en dernier
+  // Default order, with "Development" last
   getDefaultCategoryOrder() {
     const developmentCategory = this.categories.find(cat => 
       cat.name.toLowerCase().includes('développement') || 
@@ -708,16 +691,16 @@ class PopupManager {
     );
     
     if (!developmentCategory) {
-      // Si pas de catégorie "Développement", ordre alphabétique normal
+      // Without a "Development" category, alphabetical order
       return [...this.categories].sort((a, b) => a.name.localeCompare(b.name));
     }
     
-    // Séparer les autres catégories et les trier alphabétiquement
+    // Other categories, alphabetically
     const otherCategories = this.categories
       .filter(cat => cat.id !== developmentCategory.id)
       .sort((a, b) => a.name.localeCompare(b.name));
     
-    // Retourner avec "Développement" en dernier
+    // "Development" goes last
     return [...otherCategories, developmentCategory];
   }
 }

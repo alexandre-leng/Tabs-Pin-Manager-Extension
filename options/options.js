@@ -142,35 +142,7 @@ class OptionsManager {
   }
 
   setupI18n() {
-    // Apply internationalization to all data-i18n elements
-    const i18nElements = document.querySelectorAll('[data-i18n]');
-    i18nElements.forEach(element => {
-      const key = element.getAttribute('data-i18n');
-      const message = browser.i18n.getMessage(key);
-      if (message) {
-        element.textContent = message;
-      }
-    });
-
-    // Apply placeholder translations
-    const placeholderElements = document.querySelectorAll('[data-i18n-placeholder]');
-    placeholderElements.forEach(element => {
-      const key = element.getAttribute('data-i18n-placeholder');
-      const message = browser.i18n.getMessage(key);
-      if (message) {
-        element.placeholder = message;
-      }
-    });
-
-    // Apply title translations (tooltips)
-    const i18nTitleElements = document.querySelectorAll('[data-i18n-title]');
-    i18nTitleElements.forEach(element => {
-      const key = element.getAttribute('data-i18n-title');
-      const message = browser.i18n.getMessage(key);
-      if (message) {
-        element.title = message;
-      }
-    });
+    I18nHelper.localizePage(document);
   }
 
   setupEventListeners() {

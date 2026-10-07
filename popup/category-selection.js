@@ -144,18 +144,17 @@ Object.assign(PopupManager.prototype, {
       setTimeout(() => {
         this.elements.categorySelectionOverlay.style.display = 'none';
       }, 200);
-    } else {
     }
   },
 
-  // NOUVELLE FONCTION : Tri des catégories pour la modal de sélection
+  // Category order for the selection modal
   getSortedCategoriesForSelection() {
-    // Si l'utilisateur n'a aucun onglet épinglé, utiliser l'ordre spécial
+    // With no pinned tab yet, use the default order
     if (this.tabs.length === 0) {
       return this.getDefaultCategoryOrder();
     }
     
-    // Sinon, utiliser la logique originale (non-vides d'abord, puis alphabétique)
+    // Otherwise, non-empty categories first, then alphabetical
     return [...this.categories].sort((a, b) => {
       const aCount = this.tabs.filter(tab => tab.category === a.id).length;
       const bCount = this.tabs.filter(tab => tab.category === b.id).length;

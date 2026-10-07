@@ -66,4 +66,28 @@ describe('I18nHelper', () => {
       expect(I18nHelper.placeholder('url')).toBe('https://example.com');
     });
   });
+
+  describe('localizePage', () => {
+    test('translates text, title and placeholder, keeping HTML text for unknown keys', () => {
+      setMessage('hello', 'Bonjour');
+      setMessage('tip', 'Astuce');
+      setMessage('ph', 'Saisir');
+      const make = (attribute, key) => {
+        const element = { textContent: 'html', title: 'html', placeholder: 'html', getAttribute: () => key };
+        return { attribute, element };
+      };
+      const items = [make('data-i18n', 'hello'), make('data-i18n-title', 'tip'),
+        make('data-i18n-placeholder', 'ph'), make('data-i18n', 'unknownKey')];
+      const root = {
+        querySelectorAll: selector => items.filter(i => `[${i.attribute}]` === selector).map(i => i.element)
+      };
+
+      I18nHelper.localizePage(root);
+
+      expect(items[0].element.textContent).toBe('Bonjour');
+      expect(items[1].element.title).toBe('Astuce');
+      expect(items[2].element.placeholder).toBe('Saisir');
+      expect(items[3].element.textContent).toBe('html');
+    });
+  });
 });

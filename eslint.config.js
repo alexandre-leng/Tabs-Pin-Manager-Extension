@@ -7,6 +7,7 @@ const extensionGlobals = {
   ContainerUtils: 'readonly',
   DomainUtils: 'readonly',
   UiUtils: 'readonly',
+  I18nHelper: 'readonly',
   DefaultCategories: 'readonly',
   // Page classes, split across several scripts of the same page
   OptionsManager: 'writable',
@@ -28,7 +29,12 @@ module.exports = [
       'no-undef': 'error',
       'no-var': 'error',
       'prefer-const': 'warn',
-      eqeqeq: ['warn', 'always', { null: 'ignore' }]
+      eqeqeq: ['warn', 'always', { null: 'ignore' }],
+      'no-empty': ['error', { allowEmptyCatch: false }],
+      'no-shadow': 'warn',
+      'no-return-await': 'warn',
+      'no-useless-catch': 'error',
+      'no-prototype-builtins': 'error'
     }
   },
   {

@@ -304,59 +304,59 @@ class TabsPinBackground {
       return { success: false, error: error.message };
     }
   }
-      
+
   normalizeUrl(url) {
-        if (typeof url !== 'string' || !url) {
-          return '';
+    if (typeof url !== 'string' || !url) {
+      return '';
+    }
+    try {
+      const urlObj = new URL(url);
+      const host = urlObj.hostname.toLowerCase(); // Get hostname once
+      
+      // Special handling for common redirect patterns
+      if (host === 'accounts.google.com' && urlObj.pathname.includes('ServiceLogin')) {
+        const continueParam = urlObj.searchParams.get('continue');
+        if (continueParam) {
+          try {
+            const targetUrl = new URL(decodeURIComponent(continueParam));
+            return targetUrl.origin + targetUrl.pathname.replace(/\/$/, '');
+          } catch (e) {
+            return host; // Fallback to hostname if 'continue' is malformed
+          }
         }
-        try {
-          const urlObj = new URL(url);
-          const host = urlObj.hostname.toLowerCase(); // Get hostname once
-          
-          // Special handling for common redirect patterns
-          if (host === 'accounts.google.com' && urlObj.pathname.includes('ServiceLogin')) {
-            const continueParam = urlObj.searchParams.get('continue');
-            if (continueParam) {
-              try {
-                const targetUrl = new URL(decodeURIComponent(continueParam));
-                return targetUrl.origin + targetUrl.pathname.replace(/\/$/, '');
-              } catch (e) {
-                return host; // Fallback to hostname if 'continue' is malformed
-              }
-            }
-          }
-          
-          // For specific sensitive hosts, keep query parameters as they might be significant for distinguishing pages
-          if (host === 'addons.mozilla.org' || 
-              host === 'login.infomaniak.com' || 
-              host === 'kdrive.infomaniak.com' || // Added for kDrive as well
-              host.endsWith('.infomaniak.com')) { // Broader rule for all infomaniak subdomains
-            return (urlObj.origin + urlObj.pathname + urlObj.search).toLowerCase();
-          }
-          
-          // For other URLs, normalize by removing query parameters and fragments
-          // but keep important path information and a whitelist of common important params
-          let normalized = urlObj.origin + urlObj.pathname.replace(/\/$/, '');
-          
-          const importantParams = ['view', 'mode', 'hl', 'id', 'q', 'query', 'search_query', 'p', 'article', 'page']; // Expanded whitelist
-          const keptParams = new URLSearchParams();
-          let hasKeptParams = false;
-          for (const [key, value] of urlObj.searchParams) {
-            if (importantParams.includes(key.toLowerCase())) {
-              keptParams.set(key, value);
-              hasKeptParams = true;
-            }
-          }
-          
-          if (hasKeptParams) {
-            normalized += '?' + keptParams.toString();
-          }
-          
-          return normalized.toLowerCase();
-        } catch (error) {
-          console.warn(`Failed to normalize URL: ${url}`, error);
-          return url.toLowerCase(); // Fallback to original URL (lowercase) if parsing fails
+      }
+      
+      // For specific sensitive hosts, keep query parameters as they might be significant for distinguishing pages
+      if (host === 'addons.mozilla.org' || 
+          host === 'login.infomaniak.com' || 
+          host === 'kdrive.infomaniak.com' || // Added for kDrive as well
+          host.endsWith('.infomaniak.com')) { // Broader rule for all infomaniak subdomains
+        return (urlObj.origin + urlObj.pathname + urlObj.search).toLowerCase();
+      }
+      
+      // For other URLs, normalize by removing query parameters and fragments
+      // but keep important path information and a whitelist of common important params
+      let normalized = urlObj.origin + urlObj.pathname.replace(/\/$/, '');
+      
+      const importantParams = ['view', 'mode', 'hl', 'id', 'q', 'query', 'search_query', 'p', 'article', 'page']; // Expanded whitelist
+      const keptParams = new URLSearchParams();
+      let hasKeptParams = false;
+      for (const [key, value] of urlObj.searchParams) {
+        if (importantParams.includes(key.toLowerCase())) {
+          keptParams.set(key, value);
+          hasKeptParams = true;
         }
+      }
+      
+      if (hasKeptParams) {
+        normalized += '?' + keptParams.toString();
+      }
+      
+      return normalized.toLowerCase();
+    } catch (error) {
+      console.warn(`Failed to normalize URL: ${url}`, error);
+      return url.toLowerCase(); // Fallback to original URL (lowercase) if parsing fails
+    }
   }
 
   sortTabConfigs(tabs) {
@@ -669,7 +669,7 @@ class TabsPinBackground {
   }
 
   async updateTab(tab) {
-    return await this.saveTab(tab);
+    return this.saveTab(tab);
   }
 
   // Assign a contiguous order (0..n-1) to every tab following the given ID list.
@@ -691,14 +691,7 @@ class TabsPinBackground {
         }
       }
 
-      const remaining = this.tabs
-        .filter(tab => !seen.has(tab.id))
-        .sort((a, b) => {
-          if (a.order !== undefined && b.order !== undefined) return a.order - b.order;
-          if (a.order !== undefined) return -1;
-          if (b.order !== undefined) return 1;
-          return new Date(a.dateAdded || 0) - new Date(b.dateAdded || 0);
-        });
+      const remaining = this.sortTabConfigs(this.tabs.filter(tab => !seen.has(tab.id)));
 
       const orderById = new Map();
       [...ordered, ...remaining].forEach((tab, index) => orderById.set(tab.id, index));
@@ -763,16 +756,11 @@ class TabsPinBackground {
    */
   async importAllData(data) {
     try {
-      if (!data || !Array.isArray(data.tabs) || !Array.isArray(data.categories) || !data.settings) {
-        throw new Error('Invalid import data format');
-      }
+      const sanitized = this.sanitizeImportData(data);
 
-      log('📥 Importing all data...');
-
-      // Update local state
-      this.tabs = [...data.tabs];
-      this.categories = [...data.categories];
-      this.settings = { ...this.settings, ...data.settings };
+      this.tabs = sanitized.tabs;
+      this.categories = sanitized.categories;
+      this.settings = { ...this.settings, ...sanitized.settings };
 
       // Save everything to storage in one go
       await this.storage.set({
@@ -788,12 +776,61 @@ class TabsPinBackground {
         settings: this.settings
       });
 
-      log('✅ Import completed successfully');
-      return { success: true };
+      return { success: true, imported: this.tabs.length, skipped: sanitized.skipped };
     } catch (error) {
       console.error('❌ Error during data import:', error);
       return { success: false, error: error.message };
     }
+  }
+
+  /**
+   * Validates an imported backup: drops tabs without an http(s) URL and malformed
+   * categories, fixes field types and duplicate IDs. Throws if the overall shape is wrong.
+   */
+  sanitizeImportData(data) {
+    const isPlainObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+    if (!isPlainObject(data) || !Array.isArray(data.tabs) || !Array.isArray(data.categories) || !isPlainObject(data.settings)) {
+      throw new Error('Invalid import data format');
+    }
+
+    const categories = [];
+    const categoryIds = new Set();
+    for (const category of data.categories) {
+      if (!isPlainObject(category) || typeof category.id !== 'string' || !category.id ||
+          typeof category.name !== 'string' || categoryIds.has(category.id)) {
+        continue;
+      }
+      categoryIds.add(category.id);
+      categories.push({ ...category, icon: typeof category.icon === 'string' ? category.icon : '📁' });
+    }
+    if (categories.length === 0) {
+      throw new Error('Invalid import data format');
+    }
+
+    const tabs = [];
+    const tabIds = new Set();
+    for (const tab of data.tabs) {
+      if (!isPlainObject(tab) || typeof tab.url !== 'string' || !this.isValidUrl(tab.url)) {
+        continue;
+      }
+      let id = typeof tab.id === 'string' && tab.id ? tab.id : this.generateTabId();
+      while (tabIds.has(id)) id = this.generateTabId();
+      tabIds.add(id);
+
+      const clean = {
+        ...tab,
+        id,
+        title: typeof tab.title === 'string' ? tab.title : tab.url,
+        category: categoryIds.has(tab.category) ? tab.category : categories[0].id,
+        enabled: tab.enabled !== false
+      };
+      if (!Number.isFinite(clean.order)) delete clean.order;
+      if (typeof clean.dateAdded !== 'string') clean.dateAdded = new Date().toISOString();
+      if (clean.cookieStoreId !== undefined && typeof clean.cookieStoreId !== 'string') delete clean.cookieStoreId;
+      tabs.push(clean);
+    }
+
+    return { tabs, categories, settings: data.settings, skipped: data.tabs.length - tabs.length };
   }
 
   async handleInstalled(details) {
@@ -909,15 +946,15 @@ class TabsPinBackground {
   // Utility functions
   isValidUrl(url) {
     try {
-      new URL(url);
-      return url.startsWith('http://') || url.startsWith('https://');
+      const { protocol } = new URL(url);
+      return protocol === 'http:' || protocol === 'https:';
     } catch {
       return false;
     }
   }
 
   generateTabId() {
-    return 'tab_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    return 'tab_' + Date.now() + '_' + Math.random().toString(36).slice(2, 11);
   }
 
   // Notify other parts of the extension about data changes
