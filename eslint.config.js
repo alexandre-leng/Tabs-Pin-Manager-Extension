@@ -7,7 +7,11 @@ const extensionGlobals = {
   ContainerUtils: 'readonly',
   DomainUtils: 'readonly',
   UiUtils: 'readonly',
-  DefaultCategories: 'readonly'
+  DefaultCategories: 'readonly',
+  // Page classes, split across several scripts of the same page
+  OptionsManager: 'writable',
+  PopupManager: 'writable',
+  ICON_DATA: 'writable'
 };
 
 module.exports = [
