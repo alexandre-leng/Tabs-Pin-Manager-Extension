@@ -137,10 +137,6 @@
     "message": "Error opening tabs",
     "description": "Error message when tabs fail to open"
   },
-  "tabsOpened": {
-    "message": "Tabs opened successfully!",
-    "description": "Success message when tabs are opened"
-  },
   "tabsSaved": {
     "message": "Tab saved successfully!",
     "description": "Success message when tab is saved"
@@ -623,5 +619,13 @@
   "moveDown": {
     "message": "Move down",
     "description": "Button to move a pinned tab down"
+  },
+  "confirm": {
+    "message": "Confirm",
+    "description": "Tooltip of the confirm button"
+  },
+  "chooseIcon": {
+    "message": "Choose an icon",
+    "description": "Tooltip of the category icon picker button"
   }
 }

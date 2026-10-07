@@ -30,60 +30,50 @@ Object.assign(PopupManager.prototype, {
         this.settings.lastOpened = new Date().toISOString();
         this.updateStatusInfo();
         
-        // Handle different response scenarios with better logic
-        if (response.allAlreadyOpen || (response.opened === 0 && response.skipped > 0 && (!response.pinned || response.pinned === 0))) {
-          // All tabs are already open and pinned - consistent behavior
-          this.showToast('info', 'ℹ️', browser.i18n.getMessage('allTabsAlreadyOpen') || 'All tabs are already open and pinned');
-        } else if (response.pinned > 0 && response.opened > 0) {
-          // Some tabs were pinned, some opened
-          const message = browser.i18n.getMessage('someTabsPinnedAndOpened', [
-            response.pinned.toString(),
-            response.opened.toString()
-          ]) || `${response.pinned} tab(s) pinned, ${response.opened} new tab(s) created`;
-          this.showToast('success', '✅', message);
+        if (this.reportOpenResult(response)) {
           this.showButtonSuccess();
-        } else if (response.pinned > 0) {
-          // Only tabs were pinned (no new tabs opened)
-          const message = browser.i18n.getMessage('tabsPinned', [response.pinned.toString()]) || `${response.pinned} tab(s) were pinned`;
-          this.showToast('success', '📌', message);
-          this.showButtonSuccess();
-        } else if (response.skipped > 0 && response.opened > 0) {
-          // Some tabs were skipped, some opened
-          const message = browser.i18n.getMessage('someTabsAlreadyOpen', [
-            response.skipped.toString(),
-            response.opened.toString()
-          ]) || `${response.skipped} tab(s) already open, ${response.opened} new tab(s) created`;
-          this.showToast('success', '✅', message);
-          // Show success animation only if some tabs were actually opened
-          this.showButtonSuccess();
-        } else if (response.opened > 0) {
-          // All tabs were opened successfully
-          this.showToast('success', '✅', browser.i18n.getMessage('tabsOpened') || 'Tabs opened successfully!');
-          // Show success animation
-          this.showButtonSuccess();
-        } else {
-          // Fallback case - no tabs opened for unknown reason
-          this.showToast('info', 'ℹ️', browser.i18n.getMessage('allTabsAlreadyOpen') || 'All tabs are already open and pinned');
         }
-      } else {
-        // Background script returned an error
-        if (response.error === 'No tabs configured') {
-          // This is expected when no tabs are configured, don't show as error
-          return;
-        }
-        throw new Error(response.error || browser.i18n.getMessage('failedToOpenTabs'));
       }
     } catch (error) {
+      // sendMessageWithRetry throws on background errors; no configured tab is not one
+      if (error.message.includes('No tabs configured')) return;
       console.error('Error opening tabs:', error);
-      // Only show toast error for real errors, not when no tabs configured
-      if (!error.message.includes('No tabs configured')) {
-        this.showToast('error', '❌', browser.i18n.getMessage('errorOpeningTabs') || 'Error opening tabs');
-      }
+      this.showToast('error', '❌', browser.i18n.getMessage('errorOpeningTabs') || 'Error opening tabs');
     } finally {
       this.isOpeningTabs = false;
       // Hide loading animation after a delay
       setTimeout(() => this.showButtonLoading(false), 1000);
     }
+  },
+
+  /**
+   * Shows the toast matching an openAllTabs / openCategoryTabs result.
+   * @param {object} response - Counts returned by the background script
+   * @param {string} [failureKey] - Message shown when every tab failed to open
+   * @returns {boolean} true when at least one tab was opened or pinned
+   */
+  reportOpenResult({ opened = 0, pinned = 0, skipped = 0, failed = 0 }, failureKey = 'failedToOpenTabs') {
+    const msg = (key, subs, fallback) => browser.i18n.getMessage(key, subs) || fallback;
+
+    if (opened === 0 && pinned === 0) {
+      if (failed > 0) {
+        this.showToast('error', '❌', msg(failureKey, undefined, 'Failed to open tabs'));
+      } else {
+        this.showToast('info', 'ℹ️', msg('allTabsAlreadyOpen', undefined, 'All tabs are already open and pinned'));
+      }
+      return false;
+    }
+
+    if (pinned > 0 && opened > 0) {
+      this.showToast('success', '✅', msg('someTabsPinnedAndOpened', undefined, `${pinned} tab(s) pinned, ${opened} new tab(s) created`));
+    } else if (pinned > 0) {
+      this.showToast('success', '📌', msg('tabsPinned', [String(pinned)], `${pinned} tab(s) were pinned`));
+    } else if (skipped > 0) {
+      this.showToast('success', '✅', msg('someTabsAlreadyOpen', [String(skipped), String(opened)], `${skipped} tab(s) already open, ${opened} new tab(s) created`));
+    } else {
+      this.showToast('success', '✅', msg('tabsOpenedCount', [String(opened)], `Opened ${opened} tabs`));
+    }
+    return true;
   },
 
   showButtonLoading(show) {
@@ -99,7 +89,7 @@ Object.assign(PopupManager.prototype, {
         }, 10);
       } else {
         btnLoading.style.opacity = '0';
-      setTimeout(() => {
+        setTimeout(() => {
           btnLoading.style.display = 'none';
           btnContent.style.opacity = '1';
         }, 200);
@@ -140,43 +130,7 @@ Object.assign(PopupManager.prototype, {
         windowId: currentWindow.id
       });
       
-      if (response.success) {
-        // Handle different response scenarios with better logic
-        if (response.allAlreadyOpen || (response.opened === 0 && response.skipped > 0 && (!response.pinned || response.pinned === 0))) {
-          // All tabs are already open and pinned - consistent behavior
-          this.showToast('info', 'ℹ️', browser.i18n.getMessage('allTabsAlreadyOpen') || 'All tabs are already open and pinned');
-        } else if (response.pinned > 0 && response.opened > 0) {
-          // Some tabs were pinned, some opened
-          const message = browser.i18n.getMessage('someTabsPinnedAndOpened', [
-            response.pinned.toString(),
-            response.opened.toString()
-          ]) || `${response.pinned} tab(s) pinned, ${response.opened} new tab(s) created`;
-          this.showToast('success', '✅', message);
-        } else if (response.pinned > 0) {
-          // Only tabs were pinned (no new tabs opened)
-          const message = browser.i18n.getMessage('tabsPinned', [response.pinned.toString()]) || `${response.pinned} tab(s) were pinned`;
-          this.showToast('success', '📌', message);
-        } else if (response.skipped > 0 && response.opened > 0) {
-          // Some tabs were skipped, some opened
-          const message = browser.i18n.getMessage('someTabsAlreadyOpen', [
-            response.skipped.toString(),
-            response.opened.toString()
-          ]) || `${response.skipped} tab(s) already open, ${response.opened} new tab(s) created`;
-          this.showToast('success', '✅', message);
-          // Show success animation only if some tabs were actually opened
-          this.showButtonSuccess();
-        } else if (response.opened > 0) {
-          // All tabs were opened successfully
-          const openedCount = response.opened;
-          this.showToast('success', '✅', browser.i18n.getMessage('tabsOpenedCount', [openedCount.toString()]) || `Opened ${openedCount} tabs`);
-        } else {
-          // Fallback case - no tabs opened for unknown reason
-          this.showToast('info', 'ℹ️', browser.i18n.getMessage('allTabsAlreadyOpen') || 'All tabs are already open and pinned');
-        }
-      } else {
-        // Background script returned an error
-        throw new Error(response.error || browser.i18n.getMessage('failedToOpenCategoryTabs'));
-      }
+      this.reportOpenResult(response, 'failedToOpenCategoryTabs');
     } catch (error) {
       console.error('Error opening category tabs:', error);
       this.showToast('error', '❌', browser.i18n.getMessage('errorOpeningCategoryTabs') || 'Error opening category tabs');

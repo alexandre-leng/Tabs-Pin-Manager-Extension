@@ -137,10 +137,6 @@
     "message": "Errore nell'apertura delle schede",
     "description": "Messaggio di errore quando le schede non riescono ad aprirsi"
   },
-  "tabsOpened": {
-    "message": "Schede aperte con successo!",
-    "description": "Messaggio di successo quando le schede si aprono"
-  },
   "tabsSaved": {
     "message": "Scheda salvata con successo!",
     "description": "Messaggio di successo quando la scheda è salvata"
@@ -617,5 +613,13 @@
   "errorClosingCategoryTabs": {
     "message": "Errore durante la chiusura delle schede della categoria",
     "description": "Error message when closing category tabs fails"
+  },
+  "confirm": {
+    "message": "Conferma",
+    "description": "Tooltip of the confirm button"
+  },
+  "chooseIcon": {
+    "message": "Scegli un'icona",
+    "description": "Tooltip of the category icon picker button"
   }
 }

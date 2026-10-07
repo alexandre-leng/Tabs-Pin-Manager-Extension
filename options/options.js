@@ -36,6 +36,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 50);
 });
 
+// SVG paths of the tab card icons (24x24 viewBox)
+const TAB_CARD_ICONS = {
+  drag: 'M11,18c0,1.1-0.9,2-2,2s-2-0.9-2-2s0.9-2,2-2S11,16.9,11,18z M9,10c-1.1,0-2,0.9-2,2s0.9,2,2,2s2-0.9,2-2S10.1,10,9,10z M9,4C7.9,4,7,4.9,7,6s0.9,2,2,2s2-0.9,2-2S10.1,4,9,4z M15,8c1.1,0,2-0.9,2-2s-0.9-2-2-2s-2,0.9-2,2S13.9,8,15,8z M15,10c-1.1,0-2,0.9-2,2s0.9,2,2,2s2-0.9,2-2S16.1,10,15,10z M15,16c-1.1,0-2,0.9-2,2s0.9,2,2,2s2-0.9,2-2S16.1,16,15,16z',
+  edit: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z',
+  delete: 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z',
+  up: 'M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z',
+  down: 'M7.41,8.59L12,13.17L16.59,8.59L18,10L12,16L6,10L7.41,8.59Z'
+};
+
 class OptionsManager {
   constructor() {
     this.tabs = [];
@@ -312,193 +321,109 @@ class OptionsManager {
     card.dataset.tabId = tab.id;
     card.dataset.tabIndex = index;
     card.draggable = true;
-    
-    // Add order indicator
+
     const orderIndicator = document.createElement('div');
     orderIndicator.className = 'tab-order-indicator';
     orderIndicator.textContent = index + 1;
-    card.appendChild(orderIndicator);
-    
-    // Get category info
+
     const category = this.categories.find(c => c.id === tab.category);
-    const categoryName = category ? category.name : (browser.i18n.getMessage('uncategorized') || 'Uncategorized');
     const categoryIcon = category ? category.icon : '📁';
-    
-    // Get translated button labels
-    const editLabel = browser.i18n.getMessage('edit') || 'Edit';
-    const deleteLabel = browser.i18n.getMessage('delete') || 'Delete';
-    const dragLabel = browser.i18n.getMessage('dragToReorder') || 'Drag to reorder';
-    const changeCategoryLabel = browser.i18n.getMessage('changeCategoryTooltip') || 'Change category';
-    
-    // Create card header
-    const cardHeader = document.createElement('div');
-    cardHeader.className = 'tab-card-header';
-    
-    // Create drag handle
+
     const dragHandle = document.createElement('div');
     dragHandle.className = 'drag-handle';
-    dragHandle.title = dragLabel;
-    
-    // Create SVG for drag handle
-    const dragSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    dragSvg.setAttribute('width', '16');
-    dragSvg.setAttribute('height', '16');
-    dragSvg.setAttribute('viewBox', '0 0 24 24');
-    dragSvg.setAttribute('fill', 'currentColor');
-    
-    const dragPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    dragPath.setAttribute('d', 'M11,18c0,1.1-0.9,2-2,2s-2-0.9-2-2s0.9-2,2-2S11,16.9,11,18z M9,10c-1.1,0-2,0.9-2,2s0.9,2,2,2s2-0.9,2-2S10.1,10,9,10z M9,4C7.9,4,7,4.9,7,6s0.9,2,2,2s2-0.9,2-2S10.1,4,9,4z M15,8c1.1,0,2-0.9,2-2s-0.9-2-2-2s-2,0.9-2,2S13.9,8,15,8z M15,10c-1.1,0-2,0.9-2,2s0.9,2,2,2s2-0.9,2-2S16.1,10,15,10z M15,16c-1.1,0-2,0.9-2,2s0.9,2,2,2s2-0.9,2-2S16.1,16,15,16z');
-    
-    dragSvg.appendChild(dragPath);
-    dragHandle.appendChild(dragSvg);
-    
-    // Create favicon container
+    dragHandle.title = browser.i18n.getMessage('dragToReorder') || 'Drag to reorder';
+    dragHandle.appendChild(this.createSvgIcon(16, TAB_CARD_ICONS.drag));
+
     const faviconContainer = document.createElement('div');
     faviconContainer.className = 'tab-favicon-container';
-    
-    // Create tab info
+    faviconContainer.appendChild(this.createFaviconElement(tab.url, categoryIcon));
+
+    const cardHeader = document.createElement('div');
+    cardHeader.className = 'tab-card-header';
+    cardHeader.append(dragHandle, faviconContainer, this.createTabInfo(tab), this.createTabActions(tab, index, total));
+
+    card.append(orderIndicator, cardHeader, this.createCategoryBadge(tab, category));
+    return card;
+  }
+
+  createTabInfo(tab) {
     const tabInfo = document.createElement('div');
     tabInfo.className = 'tab-info';
-    
+
     const tabTitle = document.createElement('h3');
     tabTitle.className = 'tab-title';
     tabTitle.textContent = tab.title || this.extractDomain(tab.url);
-    
+
     const tabUrl = document.createElement('p');
     tabUrl.className = 'tab-url';
     tabUrl.textContent = tab.url;
-    
-    tabInfo.appendChild(tabTitle);
-    tabInfo.appendChild(tabUrl);
-    
-    // Create actions
+
+    tabInfo.append(tabTitle, tabUrl);
+    return tabInfo;
+  }
+
+  // Move up / move down are a simple alternative to drag and drop
+  createTabActions(tab, index, total) {
+    const label = (key, fallback) => browser.i18n.getMessage(key) || fallback;
     const tabActions = document.createElement('div');
     tabActions.className = 'tab-actions';
-    
-    const editBtn = document.createElement('button');
-    editBtn.className = 'icon-btn edit';
-    editBtn.title = editLabel;
-    
-    // Create SVG for edit button
-    const editSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    editSvg.setAttribute('width', '12');
-    editSvg.setAttribute('height', '12');
-    editSvg.setAttribute('viewBox', '0 0 24 24');
-    editSvg.setAttribute('fill', 'currentColor');
-    
-    const editPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    editPath.setAttribute('d', 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z');
-    
-    editSvg.appendChild(editPath);
-    editBtn.appendChild(editSvg);
-    
-    const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'icon-btn danger delete';
-    deleteBtn.title = deleteLabel;
-    
-    // Create SVG for delete button
-    const deleteSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    deleteSvg.setAttribute('width', '12');
-    deleteSvg.setAttribute('height', '12');
-    deleteSvg.setAttribute('viewBox', '0 0 24 24');
-    deleteSvg.setAttribute('fill', 'currentColor');
-    
-    const deletePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    deletePath.setAttribute('d', 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z');
-    
-    deleteSvg.appendChild(deletePath);
-    deleteBtn.appendChild(deleteSvg);
-    
-    // Move up / move down buttons: simple alternative to drag and drop
-    const createMoveButton = (direction, label, pathData, disabled) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = `icon-btn move-${direction}`;
-      btn.title = label;
-      btn.setAttribute('aria-label', label);
-      btn.disabled = disabled;
-      
-      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svg.setAttribute('width', '12');
-      svg.setAttribute('height', '12');
-      svg.setAttribute('viewBox', '0 0 24 24');
-      svg.setAttribute('fill', 'currentColor');
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('d', pathData);
-      svg.appendChild(path);
-      btn.appendChild(svg);
-      
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        this.moveTab(tab.id, direction === 'up' ? -1 : 1);
-      });
-      return btn;
-    };
-    
-    const moveUpBtn = createMoveButton('up', browser.i18n.getMessage('moveUp') || 'Move up',
-      'M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z', index === 0);
-    const moveDownBtn = createMoveButton('down', browser.i18n.getMessage('moveDown') || 'Move down',
-      'M7.41,8.59L12,13.17L16.59,8.59L18,10L12,16L6,10L7.41,8.59Z', index === total - 1);
-    
-    tabActions.appendChild(moveUpBtn);
-    tabActions.appendChild(moveDownBtn);
-    tabActions.appendChild(editBtn);
-    tabActions.appendChild(deleteBtn);
-    
-    // Assemble header
-    cardHeader.appendChild(dragHandle);
-    cardHeader.appendChild(faviconContainer);
-    cardHeader.appendChild(tabInfo);
-    cardHeader.appendChild(tabActions);
-    
-    // Create category badge
-    const categoryBadge = document.createElement('div');
-    categoryBadge.className = 'tab-category';
-    categoryBadge.title = changeCategoryLabel;
-    
-    const categoryIconSpan = document.createElement('span');
-    categoryIconSpan.textContent = categoryIcon;
-    
-    const categoryNameSpan = document.createElement('span');
-    categoryNameSpan.textContent = categoryName;
-    
-    categoryBadge.appendChild(categoryIconSpan);
-    categoryBadge.appendChild(categoryNameSpan);
-    
-    // Assemble card
-    card.appendChild(cardHeader);
-    card.appendChild(categoryBadge);
-    
-    // Add the favicon element to the container
-    const faviconElement = this.createFaviconElement(tab.url, categoryIcon);
-    faviconContainer.appendChild(faviconElement);
-    
-    // Add event listeners
-    if (editBtn) {
-      editBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        this.editTab(tab);
-      });
-    }
-    
-    if (deleteBtn) {
-      deleteBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        this.deleteTab(tab);
-      });
-    }
-    
-    if (categoryBadge) {
-      categoryBadge.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent card click or other parent events
-        this.openCategoryQuickEdit(e.currentTarget, tab);
-      });
-    }
-    
-    return card;
+    tabActions.append(
+      this.createIconButton('icon-btn move-up', label('moveUp', 'Move up'), TAB_CARD_ICONS.up,
+        () => this.moveTab(tab.id, -1), index === 0),
+      this.createIconButton('icon-btn move-down', label('moveDown', 'Move down'), TAB_CARD_ICONS.down,
+        () => this.moveTab(tab.id, 1), index === total - 1),
+      this.createIconButton('icon-btn edit', label('edit', 'Edit'), TAB_CARD_ICONS.edit,
+        () => this.editTab(tab)),
+      this.createIconButton('icon-btn danger delete', label('delete', 'Delete'), TAB_CARD_ICONS.delete,
+        () => this.deleteTab(tab))
+    );
+    return tabActions;
+  }
+
+  createCategoryBadge(tab, category) {
+    const badge = document.createElement('div');
+    badge.className = 'tab-category';
+    badge.title = browser.i18n.getMessage('changeCategoryTooltip') || 'Change category';
+
+    const iconSpan = document.createElement('span');
+    iconSpan.textContent = category ? category.icon : '📁';
+    const nameSpan = document.createElement('span');
+    nameSpan.textContent = category ? category.name : (browser.i18n.getMessage('uncategorized') || 'Uncategorized');
+    badge.append(iconSpan, nameSpan);
+
+    badge.addEventListener('click', (e) => {
+      e.stopPropagation(); // Keep the click away from the card (drag handling)
+      this.openCategoryQuickEdit(e.currentTarget, tab);
+    });
+    return badge;
+  }
+
+  createIconButton(className, label, pathData, onClick, disabled = false) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = className;
+    button.title = label;
+    button.setAttribute('aria-label', label);
+    button.disabled = disabled;
+    button.appendChild(this.createSvgIcon(12, pathData));
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onClick();
+    });
+    return button;
+  }
+
+  createSvgIcon(size, pathData) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', String(size));
+    svg.setAttribute('height', String(size));
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'currentColor');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', pathData);
+    svg.appendChild(path);
+    return svg;
   }
 
   renderCategories() {

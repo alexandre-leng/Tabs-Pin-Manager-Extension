@@ -133,10 +133,6 @@
     "message": "Fehler beim Öffnen der Tabs",
     "description": "Fehlermeldung, wenn Tabs nicht geöffnet werden können"
   },
-  "tabsOpened": {
-    "message": "Tabs erfolgreich geöffnet!",
-    "description": "Erfolgsnachricht, wenn Tabs geöffnet werden"
-  },
   "tabsSaved": {
     "message": "Tab erfolgreich gespeichert!",
     "description": "Erfolgsnachricht, wenn Tab gespeichert wird"
@@ -597,5 +593,13 @@
   "errorClosingCategoryTabs": {
     "message": "Fehler beim Schließen der Kategorie-Tabs",
     "description": "Error message when closing category tabs fails"
+  },
+  "confirm": {
+    "message": "Bestätigen",
+    "description": "Tooltip of the confirm button"
+  },
+  "chooseIcon": {
+    "message": "Symbol auswählen",
+    "description": "Tooltip of the category icon picker button"
   }
 }

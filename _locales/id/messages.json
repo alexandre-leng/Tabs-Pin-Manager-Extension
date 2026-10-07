@@ -180,9 +180,6 @@
       }
     }
   },
-  "tabsOpened": {
-    "message": "Tab berhasil dibuka!"
-  },
   "errorOpeningTabs": {
     "message": "Kesalahan saat membuka tab"
   },
@@ -523,5 +520,13 @@
   "errorClosingCategoryTabs": {
     "message": "Kesalahan saat menutup tab kategori",
     "description": "Error message when closing category tabs fails"
+  },
+  "confirm": {
+    "message": "Konfirmasi",
+    "description": "Tooltip of the confirm button"
+  },
+  "chooseIcon": {
+    "message": "Pilih ikon",
+    "description": "Tooltip of the category icon picker button"
   }
 }

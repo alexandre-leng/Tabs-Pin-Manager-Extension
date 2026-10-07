@@ -33,7 +33,10 @@ module.exports = [
       'no-shadow': 'warn',
       'no-return-await': 'warn',
       'no-useless-catch': 'error',
-      'no-prototype-builtins': 'error'
+      'no-prototype-builtins': 'error',
+      // Keep functions small enough to read and test
+      complexity: ['warn', 20],
+      'max-lines-per-function': ['warn', { max: 120, skipBlankLines: true, skipComments: true }]
     }
   },
   {

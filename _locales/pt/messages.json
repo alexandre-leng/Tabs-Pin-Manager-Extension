@@ -133,10 +133,6 @@
     "message": "Erro ao abrir abas",
     "description": "Mensagem de erro quando as abas falham ao abrir"
   },
-  "tabsOpened": {
-    "message": "Abas abertas com sucesso!",
-    "description": "Mensagem de sucesso quando as abas são abertas"
-  },
   "tabsSaved": {
     "message": "Aba salva com sucesso!",
     "description": "Mensagem de sucesso quando a aba é salva"
@@ -597,5 +593,13 @@
   "errorClosingCategoryTabs": {
     "message": "Erro ao fechar os separadores da categoria",
     "description": "Error message when closing category tabs fails"
+  },
+  "confirm": {
+    "message": "Confirmar",
+    "description": "Tooltip of the confirm button"
+  },
+  "chooseIcon": {
+    "message": "Escolher um ícone",
+    "description": "Tooltip of the category icon picker button"
   }
 }

@@ -180,9 +180,6 @@
       }
     }
   },
-  "tabsOpened": {
-    "message": "تم فتح التبويبات بنجاح!"
-  },
   "errorOpeningTabs": {
     "message": "خطأ في فتح التبويبات"
   },
@@ -523,5 +520,13 @@
   "errorClosingCategoryTabs": {
     "message": "حدث خطأ أثناء إغلاق علامات تبويب الفئة",
     "description": "Error message when closing category tabs fails"
+  },
+  "confirm": {
+    "message": "تأكيد",
+    "description": "Tooltip of the confirm button"
+  },
+  "chooseIcon": {
+    "message": "اختر أيقونة",
+    "description": "Tooltip of the category icon picker button"
   }
 }

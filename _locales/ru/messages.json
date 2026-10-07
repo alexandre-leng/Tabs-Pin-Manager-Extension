@@ -180,9 +180,6 @@
       }
     }
   },
-  "tabsOpened": {
-    "message": "Вкладки успешно открыты!"
-  },
   "errorOpeningTabs": {
     "message": "Ошибка при открытии вкладок"
   },
@@ -523,5 +520,13 @@
   "errorClosingCategoryTabs": {
     "message": "Ошибка при закрытии вкладок категории",
     "description": "Error message when closing category tabs fails"
+  },
+  "confirm": {
+    "message": "Подтвердить",
+    "description": "Tooltip of the confirm button"
+  },
+  "chooseIcon": {
+    "message": "Выбрать значок",
+    "description": "Tooltip of the category icon picker button"
   }
 }

@@ -180,9 +180,6 @@
       }
     }
   },
-  "tabsOpened": {
-    "message": "टैब सफलतापूर्वक खोले गए!"
-  },
   "errorOpeningTabs": {
     "message": "टैब खोलने में त्रुटि"
   },
@@ -523,5 +520,13 @@
   "errorClosingCategoryTabs": {
     "message": "श्रेणी के टैब बंद करते समय त्रुटि हुई",
     "description": "Error message when closing category tabs fails"
+  },
+  "confirm": {
+    "message": "पुष्टि करें",
+    "description": "Tooltip of the confirm button"
+  },
+  "chooseIcon": {
+    "message": "आइकन चुनें",
+    "description": "Tooltip of the category icon picker button"
   }
 }

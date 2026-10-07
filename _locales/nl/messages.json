@@ -133,10 +133,6 @@
     "message": "Fout bij het openen van tabbladen",
     "description": "Foutbericht wanneer tabbladen falen te openen"
   },
-  "tabsOpened": {
-    "message": "Tabbladen succesvol geopend!",
-    "description": "Succesbericht wanneer tabbladen zijn geopend"
-  },
   "tabsSaved": {
     "message": "Tabblad succesvol opgeslagen!",
     "description": "Succesbericht wanneer tabblad is opgeslagen"
@@ -597,5 +593,13 @@
   "errorClosingCategoryTabs": {
     "message": "Fout bij het sluiten van de categorietabbladen",
     "description": "Error message when closing category tabs fails"
+  },
+  "confirm": {
+    "message": "Bevestigen",
+    "description": "Tooltip of the confirm button"
+  },
+  "chooseIcon": {
+    "message": "Kies een pictogram",
+    "description": "Tooltip of the category icon picker button"
   }
 }

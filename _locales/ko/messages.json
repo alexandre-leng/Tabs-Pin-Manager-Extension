@@ -180,9 +180,6 @@
       }
     }
   },
-  "tabsOpened": {
-    "message": "탭이 성공적으로 열렸습니다!"
-  },
   "errorOpeningTabs": {
     "message": "탭 여는 중 오류 발생"
   },
@@ -523,5 +520,13 @@
   "errorClosingCategoryTabs": {
     "message": "카테고리 탭을 닫는 중 오류가 발생했습니다",
     "description": "Error message when closing category tabs fails"
+  },
+  "confirm": {
+    "message": "확인",
+    "description": "Tooltip of the confirm button"
+  },
+  "chooseIcon": {
+    "message": "아이콘 선택",
+    "description": "Tooltip of the category icon picker button"
   }
 }

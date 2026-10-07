@@ -180,9 +180,6 @@
       }
     }
   },
-  "tabsOpened": {
-    "message": "タブが正常に開かれました！"
-  },
   "errorOpeningTabs": {
     "message": "タブを開く際にエラーが発生しました"
   },
@@ -523,5 +520,13 @@
   "errorClosingCategoryTabs": {
     "message": "カテゴリのタブを閉じる際にエラーが発生しました",
     "description": "Error message when closing category tabs fails"
+  },
+  "confirm": {
+    "message": "確認",
+    "description": "Tooltip of the confirm button"
+  },
+  "chooseIcon": {
+    "message": "アイコンを選択",
+    "description": "Tooltip of the category icon picker button"
   }
 }

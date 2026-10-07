@@ -180,9 +180,6 @@
       }
     }
   },
-  "tabsOpened": {
-    "message": "标签页已成功打开！"
-  },
   "errorOpeningTabs": {
     "message": "打开标签页时出错"
   },
@@ -523,5 +520,13 @@
   "errorClosingCategoryTabs": {
     "message": "关闭分类标签页时出错",
     "description": "Error message when closing category tabs fails"
+  },
+  "confirm": {
+    "message": "确认",
+    "description": "Tooltip of the confirm button"
+  },
+  "chooseIcon": {
+    "message": "选择图标",
+    "description": "Tooltip of the category icon picker button"
   }
 }

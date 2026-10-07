@@ -33,7 +33,12 @@ describe('I18nHelper', () => {
       setMessage('tip', 'Astuce');
       setMessage('ph', 'Saisir');
       const make = (attribute, key) => {
-        const element = { textContent: 'html', title: 'html', placeholder: 'html', getAttribute: () => key };
+        const element = {
+          textContent: 'html', title: 'html', placeholder: 'html', ariaLabel: 'html',
+          getAttribute: () => key,
+          hasAttribute: name => name === 'aria-label',
+          setAttribute(name, value) { if (name === 'aria-label') this.ariaLabel = value; }
+        };
         return { attribute, element };
       };
       const items = [make('data-i18n', 'hello'), make('data-i18n-title', 'tip'),
@@ -46,6 +51,7 @@ describe('I18nHelper', () => {
 
       expect(items[0].element.textContent).toBe('Bonjour');
       expect(items[1].element.title).toBe('Astuce');
+      expect(items[1].element.ariaLabel).toBe('Astuce');
       expect(items[2].element.placeholder).toBe('Saisir');
       expect(items[3].element.textContent).toBe('html');
     });

@@ -137,10 +137,6 @@
     "message": "Erreur lors de l'ouverture des onglets",
     "description": "Message d'erreur quand les onglets échouent à s'ouvrir"
   },
-  "tabsOpened": {
-    "message": "Onglets ouverts avec succès !",
-    "description": "Message de succès quand les onglets sont ouverts"
-  },
   "tabsSaved": {
     "message": "Onglet enregistré avec succès !",
     "description": "Message de succès quand l'onglet est enregistré"
@@ -617,5 +613,13 @@
   "moveDown": {
     "message": "Descendre",
     "description": "Button to move a pinned tab down"
+  },
+  "confirm": {
+    "message": "Confirmer",
+    "description": "Tooltip of the confirm button"
+  },
+  "chooseIcon": {
+    "message": "Choisir une icône",
+    "description": "Tooltip of the category icon picker button"
   }
 }

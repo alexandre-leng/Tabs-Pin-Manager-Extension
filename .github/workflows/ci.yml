@@ -18,7 +18,7 @@ jobs:
       - name: Unit tests
         run: npm test
       - name: ESLint
-        run: npm run lint:js
+        run: npm run lint:js -- --max-warnings 0
       - name: Lint Firefox
         run: npm run lint
       - name: Build Firefox

@@ -19,6 +19,7 @@ if (typeof importScripts === 'function') {
 // Verbose diagnostics are opt-in: set to true while debugging
 const DEBUG = false;
 const log = (...args) => { if (DEBUG) console.log(...args); };
+const isPlainObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 
 class TabsPinBackground {
   constructor() {
@@ -410,6 +411,43 @@ class TabsPinBackground {
   }
 
   /**
+   * Decides, for each config, whether its tab is already open and pinned, open but
+   * unpinned (to pin), or missing (to open). Updates the recently-opened cache.
+   */
+  planTabOpening(configs, existingTabs, now, expiryMs) {
+    const tabsToOpen = [];
+    const tabsToPin = [];
+    let alreadyOpenCount = 0;
+    const processed = new Set();
+
+    for (const tabConfig of configs) {
+      const normalizedUrl = this.normalizeUrl(tabConfig.url);
+      if (processed.has(normalizedUrl)) continue;
+      processed.add(normalizedUrl);
+
+      const matches = existingTabs.filter(tab => this.normalizeUrl(tab.url) === normalizedUrl);
+      const pinnedTab = matches.find(tab => tab.pinned);
+      const unpinnedTab = matches.find(tab => !tab.pinned);
+      const recentlyOpenedAt = this.recentlyOpenedUrls.get(normalizedUrl);
+
+      if (pinnedTab) {
+        alreadyOpenCount++;
+        this.recentlyOpenedUrls.set(normalizedUrl, now);
+      } else if (unpinnedTab) {
+        tabsToPin.push({ config: tabConfig, existingTab: unpinnedTab });
+        this.recentlyOpenedUrls.set(normalizedUrl, now);
+      } else if (recentlyOpenedAt !== undefined && now - recentlyOpenedAt < expiryMs) {
+        // A previous, very recent call is already creating this tab
+        alreadyOpenCount++;
+      } else {
+        tabsToOpen.push(tabConfig);
+        this.recentlyOpenedUrls.set(normalizedUrl, now);
+      }
+    }
+    return { tabsToOpen, tabsToPin, alreadyOpenCount };
+  }
+
+  /**
    * Opens (or pins, if already open but unpinned) the given tab configs, skipping the
    * ones already open and pinned. `messages` holds the i18n result keys for the caller.
    */
@@ -421,39 +459,7 @@ class TabsPinBackground {
     }
 
     const existingTabs = await browser.tabs.query(windowId ? { windowId } : {});
-    const tabsToOpen = [];
-    const tabsToPin = [];
-    let alreadyOpenCount = 0;
-    const processed = new Set();
-
-    for (const tabConfig of configs) {
-      const normalizedUrl = this.normalizeUrl(tabConfig.url);
-      if (processed.has(normalizedUrl)) continue;
-      processed.add(normalizedUrl);
-
-      let pinnedTab = null;
-      let unpinnedTab = null;
-      for (const queried of existingTabs) {
-        if (this.normalizeUrl(queried.url) !== normalizedUrl) continue;
-        if (queried.pinned) { pinnedTab = queried; break; }
-        if (!unpinnedTab) unpinnedTab = queried;
-      }
-
-      if (pinnedTab) {
-        alreadyOpenCount++;
-        this.recentlyOpenedUrls.set(normalizedUrl, now);
-      } else if (unpinnedTab) {
-        tabsToPin.push({ config: tabConfig, existingTab: unpinnedTab });
-        this.recentlyOpenedUrls.set(normalizedUrl, now);
-      } else if (this.recentlyOpenedUrls.has(normalizedUrl) &&
-                 now - this.recentlyOpenedUrls.get(normalizedUrl) < RECENTLY_OPENED_EXPIRY_MS) {
-        // A previous, very recent call is already creating this tab
-        alreadyOpenCount++;
-      } else {
-        tabsToOpen.push(tabConfig);
-        this.recentlyOpenedUrls.set(normalizedUrl, now);
-      }
-    }
+    const { tabsToOpen, tabsToPin, alreadyOpenCount } = this.planTabOpening(configs, existingTabs, now, RECENTLY_OPENED_EXPIRY_MS);
 
     const pinResults = [];
     for (const { config, existingTab } of tabsToPin) {
@@ -748,7 +754,6 @@ class TabsPinBackground {
    * categories, fixes field types and duplicate IDs. Throws if the overall shape is wrong.
    */
   sanitizeImportData(data) {
-    const isPlainObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
     if (!isPlainObject(data) || !Array.isArray(data.tabs) || !Array.isArray(data.categories) || !isPlainObject(data.settings)) {
       throw new Error('Invalid import data format');
     }
@@ -756,12 +761,11 @@ class TabsPinBackground {
     const categories = [];
     const categoryIds = new Set();
     for (const category of data.categories) {
-      if (!isPlainObject(category) || typeof category.id !== 'string' || !category.id ||
-          typeof category.name !== 'string' || categoryIds.has(category.id)) {
-        continue;
+      const clean = this.sanitizeImportedCategory(category);
+      if (clean && !categoryIds.has(clean.id)) {
+        categoryIds.add(clean.id);
+        categories.push(clean);
       }
-      categoryIds.add(category.id);
-      categories.push({ ...category, icon: typeof category.icon === 'string' ? category.icon : '📁' });
     }
     if (categories.length === 0) {
       throw new Error('Invalid import data format');
@@ -770,28 +774,42 @@ class TabsPinBackground {
     const tabs = [];
     const tabIds = new Set();
     for (const tab of data.tabs) {
-      if (!isPlainObject(tab) || typeof tab.url !== 'string' || !this.isValidUrl(tab.url)) {
-        continue;
-      }
-      let id = typeof tab.id === 'string' && tab.id ? tab.id : this.generateTabId();
-      while (tabIds.has(id)) id = this.generateTabId();
-      tabIds.add(id);
-
-      const clean = {
-        ...tab,
-        id,
-        title: typeof tab.title === 'string' ? tab.title : tab.url,
-        category: categoryIds.has(tab.category) ? tab.category : categories[0].id,
-        enabled: tab.enabled !== false
-      };
-      if (!Number.isFinite(clean.order)) delete clean.order;
-      if (typeof clean.dateAdded !== 'string') clean.dateAdded = new Date().toISOString();
-      // Containers are not supported: older backups may still carry a container ID
-      delete clean.cookieStoreId;
+      const clean = this.sanitizeImportedTab(tab, categoryIds, categories[0].id);
+      if (!clean) continue;
+      while (tabIds.has(clean.id)) clean.id = this.generateTabId();
+      tabIds.add(clean.id);
       tabs.push(clean);
     }
 
     return { tabs, categories, settings: data.settings, skipped: data.tabs.length - tabs.length };
+  }
+
+  /** Returns a cleaned category, or null when it cannot be used. */
+  sanitizeImportedCategory(category) {
+    if (!isPlainObject(category) || typeof category.id !== 'string' || !category.id ||
+        typeof category.name !== 'string') {
+      return null;
+    }
+    return { ...category, icon: typeof category.icon === 'string' ? category.icon : '📁' };
+  }
+
+  /** Returns a cleaned tab, or null when it has no http(s) URL. */
+  sanitizeImportedTab(tab, categoryIds, fallbackCategoryId) {
+    if (!isPlainObject(tab) || typeof tab.url !== 'string' || !this.isValidUrl(tab.url)) {
+      return null;
+    }
+    const clean = {
+      ...tab,
+      id: typeof tab.id === 'string' && tab.id ? tab.id : this.generateTabId(),
+      title: typeof tab.title === 'string' ? tab.title : tab.url,
+      category: categoryIds.has(tab.category) ? tab.category : fallbackCategoryId,
+      enabled: tab.enabled !== false
+    };
+    if (!Number.isFinite(clean.order)) delete clean.order;
+    if (typeof clean.dateAdded !== 'string') clean.dateAdded = new Date().toISOString();
+    // Containers are not supported: older backups may still carry a container ID
+    delete clean.cookieStoreId;
+    return clean;
   }
 
   async handleInstalled(details) {

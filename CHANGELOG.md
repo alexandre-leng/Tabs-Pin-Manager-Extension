@@ -10,9 +10,12 @@ All notable changes to this project will be documented in this file.
 - **Vérification du stockage** : Le contrôle de santé vérifie maintenant que la valeur relue correspond à celle écrite.
 - **Import sécurisé** : Un fichier importé ne peut plus enregistrer d'onglets sans URL http(s) (`javascript:`, `file:`…) ni de données mal formées ; les identifiants en double sont corrigés et les onglets ignorés sont comptés.
 - **Traduction du popup** : Les textes du popup sont traduits dès l'ouverture, même si le script d'arrière-plan tarde à répondre ou échoue.
+- **Échec d'ouverture signalé** : Quand aucun onglet n'a pu être ouvert, le popup affichait « Tous les onglets sont déjà ouverts » ; il affiche maintenant une erreur.
+- **Page d'options** : Le modèle du sélecteur rapide de catégorie était placé après `</html>` (HTML invalide) ; ses boutons et celui du choix d'icône ont désormais un libellé traduit, aussi lu par les lecteurs d'écran.
 - **Liens du dépôt** : Les liens du manifeste, du README et du changelog pointent vers le bon dépôt.
 
 ### 🧹 Qualité
+- Messages d'ouverture d'onglets du popup regroupés dans `reportOpenResult` ; carte d'onglet des options et validation de l'import découpées en petites fonctions ; ESLint limite la complexité et la longueur des fonctions, sans avertissement toléré en CI.
 - `StorageManager` simplifié : une seule boucle de reprise pour lecture et écriture, suppression d'une fausse déduplication (identifiants horodatés jamais identiques) et de méthodes inutilisées ; le cache renvoie des copies pour qu'une modification par l'appelant ne le corrompe pas.
 - Code mort retiré : actions `updateSettings` / `updateTab` jamais envoyées, fonctions inutilisées d'`I18nHelper`, 8 textes de traduction inutilisés (un test empêche d'en réintroduire).
 - Prise en charge des conteneurs Firefox retirée (`lib/container-utils.js`) : sans la permission `contextualIdentities`, elle n'était jamais active. Les identifiants de conteneur des anciennes sauvegardes sont ignorés à l'import.

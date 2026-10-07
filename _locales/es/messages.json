@@ -137,10 +137,6 @@
     "message": "Error al abrir las pestañas",
     "description": "Mensaje de error cuando las pestañas fallan al abrirse"
   },
-  "tabsOpened": {
-    "message": "¡Pestañas abiertas con éxito!",
-    "description": "Mensaje de éxito cuando las pestañas se abren"
-  },
   "tabsSaved": {
     "message": "¡Pestaña guardada con éxito!",
     "description": "Mensaje de éxito cuando la pestaña se guarda"
@@ -617,5 +613,13 @@
   "errorClosingCategoryTabs": {
     "message": "Error al cerrar las pestañas de la categoría",
     "description": "Error message when closing category tabs fails"
+  },
+  "confirm": {
+    "message": "Confirmar",
+    "description": "Tooltip of the confirm button"
+  },
+  "chooseIcon": {
+    "message": "Elegir un icono",
+    "description": "Tooltip of the category icon picker button"
   }
 }
