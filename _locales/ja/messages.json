@@ -355,9 +355,6 @@
   "tabReordered": {
     "message": "タブの順序が更新されました！"
   },
-  "reorderError": {
-    "message": "タブの並び替えでエラーが発生しました"
-  },
   "footerCreatedBy": {
     "message": "Alexandre によって作成"
   },

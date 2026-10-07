@@ -13,12 +13,18 @@
     "lint": "node scripts/stage.js firefox && web-ext lint --source-dir build/firefox",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --passWithNoTests",
     "test:watch": "npm test -- --watch",
-    "lint:js": "eslint ."
+    "lint:js": "eslint .",
+    "test:e2e": "playwright test",
+    "lint:css": "stylelint \"**/*.css\""
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "1.56.1",
     "eslint": "^9.39.5",
     "globals": "^17.13.0",
     "jest": "^30.2.0",
+    "stylelint": "^17.16.0",
+    "stylelint-config-standard": "^40.0.0",
     "web-ext": "^10.1.0"
   },
   "jest": {

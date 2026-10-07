@@ -290,10 +290,6 @@
     "message": "Ordem das abas atualizada!",
     "description": "Mensagem de sucesso quando a ordem das abas é alterada"
   },
-  "reorderError": {
-    "message": "Erro ao reordenar a aba",
-    "description": "Mensagem de erro durante o reordenamento"
-  },
   "footerCreatedBy": {
     "message": "Criado por Alexandre com",
     "description": "Footer created by text"

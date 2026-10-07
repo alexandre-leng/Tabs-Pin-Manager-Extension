@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### 🛠️ Corrections
+- **Données importées effacées** : un import fait juste après l'installation pouvait être écrasé par l'initialisation des données par défaut, et une lecture lente pouvait remettre en mémoire d'anciennes données. Les opérations sur les données sont désormais exécutées une par une, et une lecture qui chevauche une écriture n'est plus utilisée ni mise en cache.
+- **Onglets en cours de chargement** : un onglet pas encore chargé n'était pas reconnu (adresse vide) : « Fermer » une catégorie l'ignorait et « Ouvrir » pouvait le dupliquer.
+- **Accessibilité** : contraste insuffisant corrigé (bouton « Fermer » du popup, textes secondaires) ; les fenêtres de dialogue sont annoncées comme telles, prennent le focus à l'ouverture et le rendent à la fermeture ; Échap ferme seulement la fenêtre du dessus ; cartes et badges de catégorie utilisables au clavier ; préférence « réduire les animations » respectée ; styles de contraste élevé réactivés (`prefers-contrast: high` n'existe pas, remplacé par `more`).
 - **Traductions manquantes** : Les textes de fermeture d'une catégorie (« Fermer », confirmation, messages de résultat) manquaient dans 12 langues et s'affichaient en anglais.
 - **Message français** : « Certains onglets étaient déjà ouverts » n'affichait plus les nombres d'onglets ouverts et créés.
 - **Vérification du stockage** : Le contrôle de santé vérifie maintenant que la valeur relue correspond à celle écrite.
@@ -17,6 +20,9 @@ All notable changes to this project will be documented in this file.
 - **Liens du dépôt** : Les liens du manifeste, du README et du changelog pointent vers le bon dépôt.
 
 ### 🧹 Qualité
+- **Tests d'interface** : Playwright charge la vraie extension dans Chromium et teste le popup et la page d'options (ouverture, fermeture, ajout, modification, suppression, flèches, glisser-déposer, changement de catégorie, icônes, export / import), avec un audit d'accessibilité axe-core (clair et sombre) et des tests au clavier ; exécutés dans la CI.
+- **Textes de secours retirés** : les 63 textes anglais en dur après `getMessage(...)` sont supprimés ; le test des traductions garantit que chaque texte demandé existe.
+- **Stylelint** : configuration standard, corrections (doublons, propriétés inexistantes, animations en double, notations), exécuté dans la CI.
 - **Modules ES** : tout le code (arrière-plan, popup, options, `lib/`) est passé en modules ES natifs avec des imports explicites. Il n'y a plus de variables globales partagées ni de dépendance à l'ordre des balises `<script>` : chaque page charge un seul module d'entrée, et l'arrière-plan est déclaré `type: module` (Firefox et Chrome).
 - **Arrière-plan découpé** : la classe unique d'environ 1000 lignes devient 7 modules (contrôleur des messages, stockage des données, actions sur les onglets, validation de l'import, utilitaires), le plus gros faisant 177 lignes ; un état jamais lu (`tabUrlsById`) est supprimé. Chaque module a ses propres tests.
 - Envoi de messages au script d'arrière-plan centralisé dans `UiUtils.sendMessage` (deux variantes divergentes auparavant) ; le popup ne relance plus une action que le script d'arrière-plan a refusée.

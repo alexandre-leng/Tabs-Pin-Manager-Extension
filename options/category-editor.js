@@ -4,6 +4,7 @@
  */
 
 import { browser } from '../lib/browser-api.js';
+import { UiUtils } from '../lib/ui-utils.js';
 import { getDefaultCategories } from '../lib/default-categories.js';
 
 export const categoryEditor = {
@@ -12,7 +13,7 @@ export const categoryEditor = {
     this.currentEditingCategory = category;
     
     if (this.elements.categoryModalTitle) {
-      this.elements.categoryModalTitle.textContent = browser.i18n.getMessage('editCategory') || 'Edit Category';
+      this.elements.categoryModalTitle.textContent = browser.i18n.getMessage('editCategory');
     }
     
     if (this.elements.categoryName) {
@@ -25,16 +26,8 @@ export const categoryEditor = {
     }
     
     if (this.elements.categoryModalOverlay) {
-      this.elements.categoryModalOverlay.style.display = 'flex'; // Ensure it is display:flex before adding show
-      requestAnimationFrame(() => {
-      this.elements.categoryModalOverlay.classList.add('show');
-      });
+      UiUtils.showDialog(this.elements.categoryModalOverlay, this.elements.categoryName);
     }
-    
-    if (this.elements.categoryName) {
-      this.elements.categoryName.focus();
-    }
-    
   },
 
   closeCategoryModal() {
@@ -54,12 +47,12 @@ export const categoryEditor = {
     const icon = this.getSelectedIcon();
     
     if (!name) {
-      this.showToast('error', '❌', browser.i18n.getMessage('categoryNameRequired') || 'Category name is required');
+      this.showToast('error', '❌', browser.i18n.getMessage('categoryNameRequired'));
       return;
     }
     
     if (!icon) {
-      this.showToast('error', '❌', browser.i18n.getMessage('categoryIconRequired') || 'Category icon is required');
+      this.showToast('error', '❌', browser.i18n.getMessage('categoryIconRequired'));
       return;
     }
     
@@ -81,7 +74,7 @@ export const categoryEditor = {
         this.renderTabs();
         this.renderCategories();
         this.closeCategoryModal();
-        this.showToast('success', '✅', browser.i18n.getMessage('categorySaved') || 'Category saved successfully!');
+        this.showToast('success', '✅', browser.i18n.getMessage('categorySaved'));
       } else {
         throw new Error(response?.error || browser.i18n.getMessage('failedToSaveCategory'));
       }
@@ -92,7 +85,7 @@ export const categoryEditor = {
   },
 
   async resetCategories() {
-    const confirmed = confirm(browser.i18n.getMessage('resetCategoriesConfirm') || 'Are you sure you want to reset all categories? This will restore default names and icons.');
+    const confirmed = confirm(browser.i18n.getMessage('resetCategoriesConfirm'));
     
     if (!confirmed) return;
     
@@ -107,7 +100,7 @@ export const categoryEditor = {
       if (response && response.success) {
         this.categories = defaultCategories;
         this.render();
-        this.showToast('success', '✅', browser.i18n.getMessage('categoriesReset') || 'Categories reset to default!');
+        this.showToast('success', '✅', browser.i18n.getMessage('categoriesReset'));
       } else {
         throw new Error(response?.error || browser.i18n.getMessage('failedToResetCategories'));
       }
@@ -183,6 +176,7 @@ export const categoryEditor = {
         popover.classList.add('show');
     });
     
+    this.quickEditOpener = badgeElement;
     selectElement.focus();
   },
 
@@ -222,7 +216,7 @@ export const categoryEditor = {
           await this.loadData();
           this.renderTabs();
           this.renderCategories();
-          this.showToast('success', '✅', browser.i18n.getMessage('categoryChanged') || 'Category updated!');
+          this.showToast('success', '✅', browser.i18n.getMessage('categoryChanged'));
         } else {
           throw new Error(response?.error || browser.i18n.getMessage('failedToUpdateCategory'));
         }
@@ -261,5 +255,10 @@ export const categoryEditor = {
       popover.classList.remove('show');
       setTimeout(() => popover.remove(), 350);
     }
+    // Give the focus back to the badge (when it was not re-rendered meanwhile)
+    if (this.quickEditOpener?.isConnected && popover?.contains(document.activeElement)) {
+      this.quickEditOpener.focus();
+    }
+    this.quickEditOpener = null;
   }
 };

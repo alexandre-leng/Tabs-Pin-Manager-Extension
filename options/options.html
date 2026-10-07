@@ -110,7 +110,7 @@
 
   <!-- Tab Edit Modal -->
   <div class="modal-overlay" id="tabModalOverlay" style="display: none;">
-    <div class="modal" id="tabModal">
+    <div class="modal" id="tabModal" role="dialog" aria-modal="true" aria-labelledby="tabModalTitle">
       <div class="modal-header">
         <h3 class="modal-title" id="tabModalTitle" data-i18n="addNewTab">Add New Tab</h3>
         <button class="modal-close" id="closeTabModal" aria-label="Close">
@@ -163,7 +163,7 @@
 
   <!-- Category Edit Modal -->
   <div class="modal-overlay" id="categoryModalOverlay" style="display: none;">
-    <div class="modal" id="categoryModal">
+    <div class="modal" id="categoryModal" role="dialog" aria-modal="true" aria-labelledby="categoryModalTitle">
       <div class="modal-header">
         <h3 class="modal-title" id="categoryModalTitle" data-i18n="editCategory">Edit Category</h3>
         <button class="modal-close" id="closeCategoryModal" aria-label="Close">
@@ -214,9 +214,9 @@
 
   <!-- Icon Picker Modal -->
   <div class="modal-overlay" id="iconPickerOverlay" style="display: none;">
-    <div class="modal icon-picker-modal" id="iconPickerModal">
+    <div class="modal icon-picker-modal" id="iconPickerModal" role="dialog" aria-modal="true" aria-labelledby="iconPickerTitle">
       <div class="modal-header">
-        <h3 class="modal-title" data-i18n="selectCategoryIcon">Select Category Icon</h3>
+        <h3 class="modal-title" id="iconPickerTitle" data-i18n="selectCategoryIcon">Select Category Icon</h3>
         <button class="modal-close" id="closeIconPicker" aria-label="Close">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
             <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>

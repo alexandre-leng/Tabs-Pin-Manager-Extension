@@ -28,11 +28,21 @@ export default [
     }
   },
   {
-    files: ['scripts/**/*.js', 'tests/**/*.js', 'eslint.config.js'],
+    files: ['scripts/**/*.js', 'tests/**/*.js', 'eslint.config.js', 'playwright.config.js'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
       globals: { ...globals.node, ...globals.jest }
+    },
+    rules: { 'no-unused-vars': ['warn', { args: 'none' }], 'no-undef': 'error' }
+  },
+  {
+    // Playwright tests: Node code plus callbacks evaluated in extension pages
+    files: ['e2e/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: { ...globals.node, ...globals.browser, ...globals.webextensions }
     },
     rules: { 'no-unused-vars': ['warn', { args: 'none' }], 'no-undef': 'error' }
   },

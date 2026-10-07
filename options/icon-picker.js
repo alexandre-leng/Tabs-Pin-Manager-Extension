@@ -4,6 +4,7 @@
  */
 
 import { browser } from '../lib/browser-api.js';
+import { UiUtils } from '../lib/ui-utils.js';
 
 // Icon data for the picker
 const ICON_DATA = {
@@ -203,20 +204,9 @@ export const iconPicker = {
 
   openIconPicker() {
     this.initIconData();
-    this.elements.iconPickerOverlay.style.display = 'flex'; // Ensure it is display:flex before adding show
     this.elements.iconSelectorBtn.classList.add('active');
-    
-    requestAnimationFrame(() => {
-      this.elements.iconPickerOverlay.classList.add('show');
-    });
-    
-    // Show recent icons by default
     this.switchIconCategory('objects');
-    
-    // Focus search input
-    setTimeout(() => {
-      this.elements.iconSearchInput?.focus();
-    }, 200);
+    UiUtils.showDialog(this.elements.iconPickerOverlay, this.elements.iconSearchInput);
   },
 
   closeIconPicker() {
@@ -288,10 +278,10 @@ export const iconPicker = {
       const emptyText = document.createElement('div');
       emptyText.className = 'icon-empty-text';
       emptyText.textContent = category === 'recent' ? 
-              (browser.i18n.getMessage('noRecentIcons') || 'No recent icons') : 
+              (browser.i18n.getMessage('noRecentIcons')) : 
               category === 'search' ?
-              (browser.i18n.getMessage('noIconsFound') || 'No icons found') :
-        (browser.i18n.getMessage('noIconsFound') || 'No icons found');
+              (browser.i18n.getMessage('noIconsFound')) :
+        (browser.i18n.getMessage('noIconsFound'));
       
       emptyContainer.appendChild(emptyText);
       this.elements.iconGrid.appendChild(emptyContainer);

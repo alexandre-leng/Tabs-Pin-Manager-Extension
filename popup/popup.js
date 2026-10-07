@@ -92,8 +92,10 @@ export class PopupManager {
       
     } catch (error) {
       console.error('Failed to initialize popup:', error);
-      this.showToast('error', '❌', browser.i18n.getMessage('failedToInitialize') || 'Failed to initialize popup');
+      this.showToast('error', '❌', browser.i18n.getMessage('failedToInitialize'));
     }
+    // Marks the page as interactive (used by the end-to-end tests)
+    document.body.dataset.ready = 'true';
   }
 
   /**
@@ -347,10 +349,9 @@ export class PopupManager {
         // Fallback to old method if new translations are not available
         if (!buttonMessage) {
           if (this.tabs.length === 1) {
-            buttonMessage = browser.i18n.getMessage('openOneTab') || 'Open 1 Tab';
+            buttonMessage = browser.i18n.getMessage('openOneTab');
           } else {
-            buttonMessage = browser.i18n.getMessage('openTabsCount', [this.tabs.length.toString()]) || 
-                           `Open ${this.tabs.length} tabs`;
+            buttonMessage = browser.i18n.getMessage('openTabsCount', [this.tabs.length.toString()]);
           }
         }
         
@@ -376,10 +377,10 @@ export class PopupManager {
       if (lastOpened) {
         const date = new Date(lastOpened);
         const timeAgo = this.getTimeAgo(date);
-        const prefix = browser.i18n.getMessage('lastOpenedPrefix') || 'Last opened:';
+        const prefix = browser.i18n.getMessage('lastOpenedPrefix');
         this.elements.statusText.textContent = `${prefix} ${timeAgo}`;
       } else {
-        this.elements.statusText.textContent = browser.i18n.getMessage('readyToOpenTabs') || 'Ready to open tabs';
+        this.elements.statusText.textContent = browser.i18n.getMessage('readyToOpenTabs');
       }
     }
   }
@@ -401,11 +402,11 @@ export class PopupManager {
         const tooltip = button.querySelector('.btn-tooltip');
         if (tooltip) {
           if (canPin) {
-            tooltip.textContent = browser.i18n.getMessage('pinCurrentTab') || 'Pin Current Tab';
+            tooltip.textContent = browser.i18n.getMessage('pinCurrentTab');
           } else if (this.currentTab && this.isTabAlreadyPinned(this.currentTab.url)) {
-            tooltip.textContent = browser.i18n.getMessage('tabAlreadyPinned') || 'Tab is already pinned';
+            tooltip.textContent = browser.i18n.getMessage('tabAlreadyPinned');
           } else {
-            tooltip.textContent = browser.i18n.getMessage('currentTabCannotBePinned') || 'Current tab cannot be pinned';
+            tooltip.textContent = browser.i18n.getMessage('currentTabCannotBePinned');
           }
         }
         
@@ -470,8 +471,8 @@ export class PopupManager {
     
     // Get translated tab word (singular/plural)
     const tabWord = count !== 1 ? 
-      (browser.i18n.getMessage('tabPlural') || 'tabs') :
-      (browser.i18n.getMessage('tabSingular') || 'tab');
+      (browser.i18n.getMessage('tabPlural')) :
+      (browser.i18n.getMessage('tabSingular'));
     
     // Create elements safely without innerHTML
     const iconDiv = document.createElement('div');
@@ -492,8 +493,8 @@ export class PopupManager {
     const closeButton = document.createElement('button');
     closeButton.type = 'button';
     closeButton.className = 'category-close-btn';
-    const closeLabel = browser.i18n.getMessage('closeCategoryTabsTooltip') || 'Close this category';
-    const closeButtonText = browser.i18n.getMessage('closeCategoryTabs') || 'Close';
+    const closeLabel = browser.i18n.getMessage('closeCategoryTabsTooltip');
+    const closeButtonText = browser.i18n.getMessage('closeCategoryTabs');
     closeButton.title = closeLabel;
     closeButton.setAttribute('aria-label', closeLabel);
 
@@ -527,14 +528,17 @@ export class PopupManager {
     element.appendChild(closeButton);
     
     // Add click event with feedback
-    element.addEventListener('click', async () => {
+    const openCategory = async () => {
       element.style.transform = 'scale(0.98)';
       setTimeout(() => {
         element.style.transform = '';
       }, 150);
-      
+
       await this.openCategoryTabs(category.id);
-    });
+    };
+    element.addEventListener('click', openCategory);
+    // Contains the Close button, so it gets no button role (no nested controls)
+    UiUtils.makeActivatable(element, openCategory, { label: category.name, role: null });
 
     closeButton.addEventListener('click', async (event) => {
       event.preventDefault();
@@ -607,21 +611,21 @@ export class PopupManager {
     const days = Math.floor(diff / 86400000);
     
     if (days > 0) {
-      const dayUnit = browser.i18n.getMessage('days') || 'day';
-      const timeAgo = browser.i18n.getMessage('ago') || 'ago';
+      const dayUnit = browser.i18n.getMessage('days');
+      const timeAgo = browser.i18n.getMessage('ago');
       return `${timeAgo} ${days} ${dayUnit}${days !== 1 ? 's' : ''}`;
     }
     if (hours > 0) {
-      const hourUnit = browser.i18n.getMessage('hours') || 'hour';
-      const timeAgo = browser.i18n.getMessage('ago') || 'ago';
+      const hourUnit = browser.i18n.getMessage('hours');
+      const timeAgo = browser.i18n.getMessage('ago');
       return `${timeAgo} ${hours} ${hourUnit}${hours !== 1 ? 's' : ''}`;
     }
     if (minutes > 0) {
-      const minuteUnit = browser.i18n.getMessage('minutes') || 'minute';
-      const timeAgo = browser.i18n.getMessage('ago') || 'ago';
+      const minuteUnit = browser.i18n.getMessage('minutes');
+      const timeAgo = browser.i18n.getMessage('ago');
       return `${timeAgo} ${minutes} ${minuteUnit}${minutes !== 1 ? 's' : ''}`;
     }
-    return browser.i18n.getMessage('justNow') || 'Just now';
+    return browser.i18n.getMessage('justNow');
   }
 
   showToast(type, icon, message) {

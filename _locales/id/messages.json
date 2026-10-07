@@ -355,9 +355,6 @@
   "tabReordered": {
     "message": "Urutan tab diperbarui!"
   },
-  "reorderError": {
-    "message": "Kesalahan saat mengurutkan ulang tab"
-  },
   "footerCreatedBy": {
     "message": "Dibuat oleh Alexandre"
   },

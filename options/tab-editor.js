@@ -4,6 +4,7 @@
  */
 
 import { browser } from '../lib/browser-api.js';
+import { UiUtils } from '../lib/ui-utils.js';
 
 export const tabEditor = {
   openTabModal(tab = null) {
@@ -14,25 +15,20 @@ export const tabEditor = {
 
     if (tab) {
       // Edit mode
-      this.elements.tabModalTitle.textContent = browser.i18n.getMessage('editTab') || 'Edit Tab';
+      this.elements.tabModalTitle.textContent = browser.i18n.getMessage('editTab');
       this.elements.tabUrl.value = tab.url || '';
       this.elements.tabTitle.value = tab.title || '';
       this.elements.tabCategory.value = tab.category || ''; // This should now work reliably
     } else {
       // Add mode
-      this.elements.tabModalTitle.textContent = browser.i18n.getMessage('addNewTab') || 'Add New Tab';
+      this.elements.tabModalTitle.textContent = browser.i18n.getMessage('addNewTab');
       this.elements.tabUrl.value = '';
       this.elements.tabTitle.value = '';
       // Ensure categories are loaded and select the first one, or empty if no categories
       this.elements.tabCategory.value = this.categories.length > 0 ? (this.categories[0]?.id || '') : '';
     }
     
-    // Show modal
-    this.elements.tabModalOverlay.style.display = 'flex'; // Ensure it is display:flex before adding show
-    requestAnimationFrame(() => {
-      this.elements.tabModalOverlay.classList.add('show');
-    });
-    this.elements.tabUrl.focus();
+    UiUtils.showDialog(this.elements.tabModalOverlay, this.elements.tabUrl);
   },
 
   closeTabModal() {
@@ -68,7 +64,7 @@ export const tabEditor = {
     const category = this.elements.tabCategory.value;
     
     if (!this.isValidUrl(url)) {
-      this.showToast('error', '❌', browser.i18n.getMessage('invalidUrl') || 'Invalid URL');
+      this.showToast('error', '❌', browser.i18n.getMessage('invalidUrl'));
       return;
     }
     
@@ -89,8 +85,8 @@ export const tabEditor = {
       
       if (response && response.success) {
         const message = this.currentEditingTab ? 
-          (browser.i18n.getMessage('tabsSaved') || 'Tab updated successfully!') :
-          (browser.i18n.getMessage('tabsSaved') || 'Tab saved successfully!');
+          (browser.i18n.getMessage('tabsSaved')) :
+          (browser.i18n.getMessage('tabsSaved'));
         
         await this.loadData();
         this.renderTabs();
@@ -112,7 +108,7 @@ export const tabEditor = {
   },
 
   async deleteTab(tab) {
-    const confirmMessage = browser.i18n.getMessage('deleteConfirm') || 'Are you sure you want to delete this tab?';
+    const confirmMessage = browser.i18n.getMessage('deleteConfirm');
     
     if (!confirm(confirmMessage)) {
       return;
@@ -128,7 +124,7 @@ export const tabEditor = {
         await this.loadData();
         this.renderTabs();
         this.renderCategories();
-        this.showToast('success', '✅', browser.i18n.getMessage('tabDeleted') || 'Tab deleted successfully!');
+        this.showToast('success', '✅', browser.i18n.getMessage('tabDeleted'));
       } else {
         throw new Error(response?.error || browser.i18n.getMessage('failedToDeleteTab'));
       }

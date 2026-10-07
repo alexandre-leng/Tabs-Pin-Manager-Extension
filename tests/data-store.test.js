@@ -54,3 +54,19 @@ test('migrate translates untouched default category names only', async () => {
   await new DataStore().migrate();
   expect(fake.store.categories.map(c => c.name)).toEqual(['Travail', 'My tools']);
 });
+
+test('a load that overlaps a change keeps the newer state', async () => {
+  const pendingLoad = store.load(false);
+  await store.deleteTab('a');
+  await pendingLoad;
+  expect(store.tabs.map(t => t.id)).toEqual(['b', 'c']);
+});
+
+test('initializeDefaults does not overwrite data saved while it was reading', async () => {
+  delete fake.store.pinnedTabs;
+  const fresh = new DataStore();
+  const pendingDefaults = fresh.initializeDefaults();
+  await fresh.importAll({ tabs: [{ id: 'x', url: 'https://x.com/' }], categories: [{ id: 'work', name: 'Work' }], settings: {} });
+  await pendingDefaults;
+  expect(fake.store.pinnedTabs.map(t => t.id)).toEqual(['x']);
+});

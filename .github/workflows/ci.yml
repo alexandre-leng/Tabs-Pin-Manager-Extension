@@ -19,6 +19,8 @@ jobs:
         run: npm test
       - name: ESLint
         run: npm run lint:js -- --max-warnings 0
+      - name: Stylelint
+        run: npm run lint:css
       - name: Lint Firefox
         run: npm run lint
       - name: Build Firefox
@@ -30,3 +32,25 @@ jobs:
         with:
           name: extensions
           path: web-ext-artifacts/
+
+  e2e:
+    # Interface and accessibility tests on the real extension, loaded in Chromium
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Playwright tests
+        run: npm run test:e2e
+      - name: Upload report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/

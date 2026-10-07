@@ -46,8 +46,9 @@ npm install
 - **Development (Chrome)**: `npm run dev:chrome`, then load `build/chrome/` as an unpacked extension (run it again after changes)
 - **Build (All)**: `npm run build` (generate both .zip packages in `web-ext-artifacts/`)
 - **Build (Single)**: `npm run build:chrome` or `npm run build:firefox`
-- **Lint**: `npm run lint` (web-ext compliance) and `npm run lint:js` (ESLint)
-- **Test**: `npm test` (run unit tests with Jest)
+- **Lint**: `npm run lint` (web-ext compliance), `npm run lint:js` (ESLint) and `npm run lint:css` (Stylelint)
+- **Unit tests**: `npm test` (Jest)
+- **Interface tests**: `npm run test:e2e` (Playwright: loads the real extension in Chromium and drives the popup and options page, including an axe-core accessibility audit and keyboard checks). Run `npx playwright install chromium` once beforehand.
 
 The shared `manifest.json` is never modified: each command copies the extension into
 `build/<browser>/` with the browser-specific manifest (`scripts/prepare-manifest.js`).

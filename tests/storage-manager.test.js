@@ -108,3 +108,22 @@ describe('StorageManager', () => {
     expect(calls).toBe(1);
   });
 });
+
+test('a read overlapping a write does not cache stale data', async () => {
+  const storage = new StorageManager();
+  storage.throttleDelay = 0;
+  browser.storage.local._store = { key: 'old' };
+  let releaseRead;
+  const originalGet = browser.storage.local.get;
+  browser.storage.local.get = function () {
+    const snapshot = { ...this._store };
+    return new Promise(resolve => { releaseRead = () => resolve(snapshot); });
+  };
+  const staleRead = storage.get(['key']);
+  await new Promise(resolve => setTimeout(resolve, 0));
+  browser.storage.local.get = originalGet;
+  await storage.set({ key: 'new' });
+  releaseRead();
+  expect((await staleRead).key).toBe('old');
+  expect((await storage.get(['key'])).key).toBe('new');
+});

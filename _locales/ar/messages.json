@@ -355,9 +355,6 @@
   "tabReordered": {
     "message": "تم تحديث ترتيب التبويبات!"
   },
-  "reorderError": {
-    "message": "خطأ في إعادة ترتيب التبويبات"
-  },
   "footerCreatedBy": {
     "message": "من إنشاء Alexandre"
   },

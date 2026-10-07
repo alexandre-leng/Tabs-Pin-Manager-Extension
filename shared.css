@@ -1,28 +1,29 @@
 /* Tabs Pin — Shared Design Tokens */
+
 /* ================================================================ */
 
 :root {
   /* Colors — Light theme */
   --primary-color: #0060df;
   --primary-hover: #0250bb;
-  --primary-light: rgba(0, 96, 223, 0.1);
+  --primary-light: rgb(0 96 223 / 10%);
   --error-color: #d70022;
-  --error-bg: rgba(215, 0, 34, 0.08);
+  --error-bg: rgb(215 0 34 / 8%);
   --success-color: #2ac3a2;
-  --success-bg: rgba(42, 195, 162, 0.08);
+  --success-bg: rgb(42 195 162 / 8%);
   --warning-color: #e29b00;
-  --warning-bg: rgba(226, 155, 0, 0.08);
+  --warning-bg: rgb(226 155 0 / 8%);
 
   /* Surfaces — Light */
-  --background-primary: #ffffff;
+  --background-primary: #fff;
   --background-secondary: #f9f9fb;
   --background-tertiary: #f0f0f4;
-  --background-elevated: #ffffff;
+  --background-elevated: #fff;
 
   /* Text — Light */
   --text-primary: #15141a;
   --text-secondary: #5b5b66;
-  --text-muted: #8f8f9d;
+  --text-muted: #6b6b78; /* 4.5:1 or more on the light surfaces */
   --text-link: #0060df;
 
   /* Borders — Light */
@@ -30,9 +31,9 @@
   --border-color-hover: #b1b1b9;
 
   /* Shadows — Light */
-  --shadow-small: 0 2px 8px rgba(0, 0, 0, 0.08);
-  --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.1);
-  --shadow-large: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-small: 0 2px 8px rgb(0 0 0 / 8%);
+  --shadow-medium: 0 4px 20px rgb(0 0 0 / 10%);
+  --shadow-large: 0 8px 32px rgb(0 0 0 / 12%);
 
   /* Radius */
   --border-radius: 8px;
@@ -40,7 +41,7 @@
   --border-radius-small: 4px;
 
   /* Typography */
-  --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family: system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, sans-serif;
   --font-size-small: 12px;
   --font-size-base: 14px;
   --font-size-large: 16px;
@@ -63,26 +64,34 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --primary-hover: #4c9aff;
-    --primary-light: rgba(0, 221, 255, 0.1);
-    --error-bg: rgba(255, 79, 79, 0.12);
-    --success-bg: rgba(42, 195, 162, 0.12);
-    --warning-bg: rgba(226, 155, 0, 0.12);
-
+    --primary-light: rgb(0 221 255 / 10%);
+    --error-bg: rgb(255 79 79 / 12%);
+    --success-bg: rgb(42 195 162 / 12%);
+    --warning-bg: rgb(226 155 0 / 12%);
     --background-primary: #1c1b22;
     --background-secondary: #2b2a33;
     --background-tertiary: #42414d;
     --background-elevated: #2b2a33;
-
     --text-primary: #fbfbfe;
     --text-secondary: #cfcfd8;
     --text-muted: #8f8f9d;
-    --text-link: #00ddff;
-
+    --text-link: #0df;
     --border-color: #52525e;
     --border-color-hover: #6f6f7e;
+    --shadow-small: 0 2px 8px rgb(0 0 0 / 40%);
+    --shadow-medium: 0 4px 20px rgb(0 0 0 / 50%);
+    --shadow-large: 0 8px 32px rgb(0 0 0 / 60%);
+  }
+}
 
-    --shadow-small: 0 2px 8px rgba(0, 0, 0, 0.4);
-    --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.5);
-    --shadow-large: 0 8px 32px rgba(0, 0, 0, 0.6);
+/* Honor the system "reduce motion" setting everywhere */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

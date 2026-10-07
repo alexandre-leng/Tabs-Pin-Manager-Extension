@@ -144,14 +144,14 @@ export const tabOrdering = {
           this.tabs = response.tabs;
         }
         
-        this.showToast('success', '↕️', browser.i18n.getMessage('tabReordered') || 'Tab order updated!');
+        this.showToast('success', '↕️', browser.i18n.getMessage('tabReordered'));
         this.renderTabs();
       } else {
         throw new Error(response?.error || browser.i18n.getMessage('failedToReorderTab'));
       }
     } catch (error) {
       console.error('Error reordering tab:', error);
-      this.showToast('error', '❌', browser.i18n.getMessage('reorderError') || browser.i18n.getMessage('failedToReorderTab'));
+      this.showToast('error', '❌', browser.i18n.getMessage('failedToReorderTab'));
       
       // Reload data to reset state
       await this.loadData();

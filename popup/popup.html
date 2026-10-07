@@ -225,9 +225,9 @@
 
   <!-- Category Selection Modal -->
   <div class="modal-overlay" id="categorySelectionOverlay" style="display: none;">
-    <div class="modal" id="categorySelectionModal">
+    <div class="modal" id="categorySelectionModal" role="dialog" aria-modal="true" aria-labelledby="categorySelectionTitle">
       <div class="modal-header">
-        <h3 class="modal-title" data-i18n="selectCategory">Select a category</h3>
+        <h3 class="modal-title" id="categorySelectionTitle" data-i18n="selectCategory">Select a category</h3>
         <button class="modal-close" id="closeCategorySelection" aria-label="Close">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
             <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>

@@ -46,6 +46,13 @@ describe('TabActions.openTabs', () => {
     expect(second).toMatchObject({ opened: 0, skipped: 1 });
   });
 
+  test('recognizes a tab that is still loading (URL only in pendingUrl)', async () => {
+    const fake = installFakeBrowser({ openTabs: [{ id: 3, url: '', pendingUrl: 'https://a.com/', pinned: true }] });
+    const result = await new TabActions().openTabs([{ url: 'https://a.com/' }]);
+    expect(fake.created).toHaveLength(0);
+    expect(result).toMatchObject({ skipped: 1 });
+  });
+
   test('counts tabs that failed to open', async () => {
     const fake = installFakeBrowser();
     fake.tabs.create = async () => { throw new Error('blocked'); };
@@ -55,17 +62,31 @@ describe('TabActions.openTabs', () => {
 });
 
 describe('TabActions.closePinnedTabs', () => {
+  test('closes a tab it just opened even before the browser reports its address', async () => {
+    const openTabs = [];
+    const fake = installFakeBrowser({ openTabs });
+    const actions = new TabActions();
+    await actions.openTabs([{ url: 'https://github.com/' }]);
+    // The new tab exists, but without url nor pendingUrl yet
+    openTabs.push({ id: fake.created[0].id, url: '', pinned: true });
+
+    const result = await actions.closePinnedTabs([{ url: 'https://github.com/' }]);
+    expect(fake.removed).toEqual([fake.created[0].id]);
+    expect(result.closed).toBe(1);
+  });
+
   test('closes pinned tabs of the configured domains only', async () => {
     const fake = installFakeBrowser({
       openTabs: [
         { id: 1, url: 'https://www.github.com/org', pinned: true },
         { id: 2, url: 'https://github.com/other', pinned: false },
-        { id: 3, url: 'https://example.com/', pinned: true }
+        { id: 3, url: 'https://example.com/', pinned: true },
+        { id: 4, url: '', pendingUrl: 'https://github.com/loading', pinned: true }
       ]
     });
     const result = await new TabActions().closePinnedTabs([{ url: 'https://github.com/' }]);
 
-    expect(fake.removed).toEqual([1]);
-    expect(result).toEqual({ success: true, closed: 1, failed: 0, skipped: 2 });
+    expect(fake.removed).toEqual([1, 4]);
+    expect(result).toEqual({ success: true, closed: 2, failed: 0, skipped: 2 });
   });
 });

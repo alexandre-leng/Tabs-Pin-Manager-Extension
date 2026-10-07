@@ -3,3 +3,5 @@ web-ext-artifacts
 .DS_Store
 Thumbs.db
 build
+playwright-report
+test-results

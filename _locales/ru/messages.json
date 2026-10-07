@@ -355,9 +355,6 @@
   "tabReordered": {
     "message": "Порядок вкладок обновлён!"
   },
-  "reorderError": {
-    "message": "Ошибка при изменении порядка вкладок"
-  },
   "footerCreatedBy": {
     "message": "Создано Alexandre"
   },

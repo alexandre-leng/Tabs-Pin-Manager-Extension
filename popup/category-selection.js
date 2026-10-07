@@ -33,12 +33,8 @@ export const categorySelection = {
     // Populate categories list
     this.renderCategorySelectionList();
     
-    // Show modal
-    this.elements.categorySelectionOverlay.style.display = 'flex';
-    
-    setTimeout(() => {
-      this.elements.categorySelectionOverlay.classList.add('show');
-    }, 10);
+    UiUtils.showDialog(this.elements.categorySelectionOverlay,
+      this.elements.categorySelectionList.querySelector('.category-item'));
   },
 
   renderCategorySelectionList() {
@@ -82,17 +78,17 @@ export const categorySelection = {
     
     // Get translated tab word (singular/plural)
     const tabWord = tabCount !== 1 ? 
-      (browser.i18n.getMessage('tabPlural') || 'tabs') :
-      (browser.i18n.getMessage('tabSingular') || 'tab');
+      (browser.i18n.getMessage('tabPlural')) :
+      (browser.i18n.getMessage('tabSingular'));
     
     // Create aria-label for accessibility
-    const ariaLabel = `${browser.i18n.getMessage('categoryPrefix') || 'Category'} ${category.name}, ${browser.i18n.getMessage('containsPrefix') || 'contains'} ${tabCount} ${tabWord}`;
+    const ariaLabel = `${browser.i18n.getMessage('categoryPrefix')} ${category.name}, ${browser.i18n.getMessage('containsPrefix')} ${tabCount} ${tabWord}`;
     element.setAttribute('aria-label', ariaLabel);
     
     // Add empty category classes and tooltip
     if (isEmpty) {
       element.classList.add('empty-category');
-      const emptyTooltip = browser.i18n.getMessage('noCategoryTabs') || 'No tabs in this category';
+      const emptyTooltip = browser.i18n.getMessage('noCategoryTabs');
       element.setAttribute('data-empty-tooltip', emptyTooltip);
     }
     
@@ -140,11 +136,7 @@ export const categorySelection = {
 
   closeCategorySelectionModal() {
     if (this.elements.categorySelectionOverlay) {
-      this.elements.categorySelectionOverlay.classList.remove('show');
-      
-      setTimeout(() => {
-        this.elements.categorySelectionOverlay.style.display = 'none';
-      }, 200);
+      UiUtils.hideDialog(this.elements.categorySelectionOverlay, 200);
     }
   },
 

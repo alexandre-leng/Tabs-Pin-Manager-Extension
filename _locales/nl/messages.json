@@ -290,10 +290,6 @@
     "message": "Tabbladenvolgorde bijgewerkt!",
     "description": "Succesbericht wanneer de tabbladenvolgorde wordt gewijzigd"
   },
-  "reorderError": {
-    "message": "Fout bij opnieuw rangschikken van tabblad",
-    "description": "Foutbericht tijdens het opnieuw rangschikken"
-  },
   "footerCreatedBy": {
     "message": "Gemaakt door Alexandre met",
     "description": "Footer created by text"

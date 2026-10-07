@@ -29,10 +29,10 @@ export const importExport = {
       
       setTimeout(() => URL.revokeObjectURL(link.href), 1000);
       
-      this.showToast('success', '✅', browser.i18n.getMessage('settingsExported') || 'Settings exported successfully!');
+      this.showToast('success', '✅', browser.i18n.getMessage('settingsExported'));
     } catch (error) {
       console.error('Error exporting settings:', error);
-      const errorMessage = browser.i18n.getMessage('exportFailed') || 'Failed to export settings';
+      const errorMessage = browser.i18n.getMessage('exportFailed');
       this.showToast('error', '❌', errorMessage);
     }
   },
@@ -68,10 +68,10 @@ export const importExport = {
       await this.loadData();
       this.render();
       
-      this.showToast('success', '✅', browser.i18n.getMessage('settingsImported') || 'Settings imported successfully!');
+      this.showToast('success', '✅', browser.i18n.getMessage('settingsImported'));
     } catch (error) {
       console.error('Error importing settings:', error);
-      this.showToast('error', '❌', browser.i18n.getMessage('invalidFile') || 'Invalid file format');
+      this.showToast('error', '❌', browser.i18n.getMessage('invalidFile'));
     }
     
     // Clear file input

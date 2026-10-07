@@ -355,9 +355,6 @@
   "tabReordered": {
     "message": "탭 순서가 업데이트되었습니다!"
   },
-  "reorderError": {
-    "message": "탭 순서 변경 중 오류 발생"
-  },
   "footerCreatedBy": {
     "message": "Alexandre에 의해 제작됨"
   },

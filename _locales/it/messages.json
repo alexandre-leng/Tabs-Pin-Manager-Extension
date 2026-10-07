@@ -444,10 +444,6 @@
     "message": "Ordine delle schede aggiornato!",
     "description": "Messaggio di successo quando viene modificato l'ordine delle schede"
   },
-  "reorderError": {
-    "message": "Errore nel riordinare la scheda",
-    "description": "Messaggio di errore durante il riordinamento"
-  },
   "footerCreatedBy": {
     "message": "Creato da Alexandre con",
     "description": "Footer created by text"

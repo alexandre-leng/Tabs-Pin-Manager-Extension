@@ -444,10 +444,6 @@
     "message": "Ordre des onglets mis à jour !",
     "description": "Message de succès quand l'ordre des onglets est modifié"
   },
-  "reorderError": {
-    "message": "Erreur lors du réordonnancement de l'onglet",
-    "description": "Message d'erreur lors du réordonnancement"
-  },
   "footerCreatedBy": {
     "message": "Créé par Alexandre with",
     "description": "Footer created by text"

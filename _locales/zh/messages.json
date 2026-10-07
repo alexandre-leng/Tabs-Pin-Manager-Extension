@@ -355,9 +355,6 @@
   "tabReordered": {
     "message": "标签页顺序已更新！"
   },
-  "reorderError": {
-    "message": "重新排序标签页时出错"
-  },
   "footerCreatedBy": {
     "message": "由 Alexandre 创建"
   },

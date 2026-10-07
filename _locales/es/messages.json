@@ -444,10 +444,6 @@
     "message": "¡Orden de pestañas actualizado!",
     "description": "Mensaje de éxito cuando se cambia el orden de las pestañas"
   },
-  "reorderError": {
-    "message": "Error al reordenar la pestaña",
-    "description": "Mensaje de error durante el reordenamiento"
-  },
   "footerCreatedBy": {
     "message": "Creado por Alexandre con",
     "description": "Footer created by text"

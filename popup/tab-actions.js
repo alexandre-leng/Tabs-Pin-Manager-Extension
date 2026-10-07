@@ -13,7 +13,7 @@ export const tabActions = {
     this.showButtonLoading(true);
     
     try {
-      this.showToast('info', '🔍', browser.i18n.getMessage('checkingExistingTabs') || 'Checking existing tabs...');
+      this.showToast('info', '🔍', browser.i18n.getMessage('checkingExistingTabs'));
       
       // Get current window ID to ensure tabs are checked/opened in the correct window
       const currentWindow = await browser.windows.getCurrent();
@@ -38,7 +38,7 @@ export const tabActions = {
       // sendMessageWithRetry throws on background errors; no configured tab is not one
       if (error.message.includes('No tabs configured')) return;
       console.error('Error opening tabs:', error);
-      this.showToast('error', '❌', browser.i18n.getMessage('errorOpeningTabs') || 'Error opening tabs');
+      this.showToast('error', '❌', browser.i18n.getMessage('errorOpeningTabs'));
     } finally {
       this.isOpeningTabs = false;
       // Hide loading animation after a delay
@@ -53,25 +53,23 @@ export const tabActions = {
    * @returns {boolean} true when at least one tab was opened or pinned
    */
   reportOpenResult({ opened = 0, pinned = 0, skipped = 0, failed = 0 }, failureKey = 'failedToOpenTabs') {
-    const msg = (key, subs, fallback) => browser.i18n.getMessage(key, subs) || fallback;
-
     if (opened === 0 && pinned === 0) {
       if (failed > 0) {
-        this.showToast('error', '❌', msg(failureKey, undefined, 'Failed to open tabs'));
+        this.showToast('error', '❌', browser.i18n.getMessage(failureKey));
       } else {
-        this.showToast('info', 'ℹ️', msg('allTabsAlreadyOpen', undefined, 'All tabs are already open and pinned'));
+        this.showToast('info', 'ℹ️', browser.i18n.getMessage('allTabsAlreadyOpen'));
       }
       return false;
     }
 
     if (pinned > 0 && opened > 0) {
-      this.showToast('success', '✅', msg('someTabsPinnedAndOpened', undefined, `${pinned} tab(s) pinned, ${opened} new tab(s) created`));
+      this.showToast('success', '✅', browser.i18n.getMessage('someTabsPinnedAndOpened'));
     } else if (pinned > 0) {
-      this.showToast('success', '📌', msg('tabsPinned', [String(pinned)], `${pinned} tab(s) were pinned`));
+      this.showToast('success', '📌', browser.i18n.getMessage('tabsPinned', [String(pinned)]));
     } else if (skipped > 0) {
-      this.showToast('success', '✅', msg('someTabsAlreadyOpen', [String(skipped), String(opened)], `${skipped} tab(s) already open, ${opened} new tab(s) created`));
+      this.showToast('success', '✅', browser.i18n.getMessage('someTabsAlreadyOpen', [String(skipped), String(opened)]));
     } else {
-      this.showToast('success', '✅', msg('tabsOpenedCount', [String(opened)], `Opened ${opened} tabs`));
+      this.showToast('success', '✅', browser.i18n.getMessage('tabsOpenedCount', [String(opened)]));
     }
     return true;
   },
@@ -119,7 +117,7 @@ export const tabActions = {
     this.isOpeningTabs = true;
     
     try {
-      this.showToast('info', '🔍', browser.i18n.getMessage('checkingExistingTabs') || 'Checking existing tabs...');
+      this.showToast('info', '🔍', browser.i18n.getMessage('checkingExistingTabs'));
       
       // Get current window ID to ensure tabs are checked/opened in the correct window
       const currentWindow = await browser.windows.getCurrent();
@@ -133,7 +131,7 @@ export const tabActions = {
       this.reportOpenResult(response, 'failedToOpenCategoryTabs');
     } catch (error) {
       console.error('Error opening category tabs:', error);
-      this.showToast('error', '❌', browser.i18n.getMessage('errorOpeningCategoryTabs') || 'Error opening category tabs');
+      this.showToast('error', '❌', browser.i18n.getMessage('errorOpeningCategoryTabs'));
     } finally {
       this.isOpeningTabs = false;
     }
@@ -145,7 +143,7 @@ export const tabActions = {
     const confirmMessage = browser.i18n.getMessage('closeCategoryConfirm', [
       categoryName,
       count.toString()
-    ]) || `Close pinned tabs from "${categoryName}" in this window?`;
+    ]);
 
     if (!window.confirm(confirmMessage)) {
       return;
@@ -167,11 +165,10 @@ export const tabActions = {
           const message = browser.i18n.getMessage('categoryPinnedTabsClosed', [
             response.closed.toString(),
             categoryName
-          ]) || `Closed ${response.closed} pinned tab(s) from ${categoryName}`;
+          ]);
           this.showToast('success', '✅', message);
         } else {
-          const message = browser.i18n.getMessage('noOpenCategoryPinnedTabs', [categoryName]) ||
-            `No open pinned tabs found for ${categoryName}`;
+          const message = browser.i18n.getMessage('noOpenCategoryPinnedTabs', [categoryName]);
           this.showToast('info', 'ℹ️', message);
         }
       } else {
@@ -179,7 +176,7 @@ export const tabActions = {
       }
     } catch (error) {
       console.error('Error closing category tabs:', error);
-      this.showToast('error', '❌', browser.i18n.getMessage('errorClosingCategoryTabs') || 'Error closing category tabs');
+      this.showToast('error', '❌', browser.i18n.getMessage('errorClosingCategoryTabs'));
     } finally {
       this.isOpeningTabs = false;
     }
@@ -187,12 +184,12 @@ export const tabActions = {
 
   async pinCurrentTab() {
     if (!this.currentTab || !this.isValidUrl(this.currentTab.url)) {
-      this.showToast('warning', '⚠️', browser.i18n.getMessage('cannotPinTab') || 'Cannot pin this tab');
+      this.showToast('warning', '⚠️', browser.i18n.getMessage('cannotPinTab'));
       return;
     }
     
     if (this.isTabAlreadyPinned(this.currentTab.url)) {
-      this.showToast('warning', '⚠️', browser.i18n.getMessage('tabAlreadyPinned') || 'Tab is already pinned');
+      this.showToast('warning', '⚠️', browser.i18n.getMessage('tabAlreadyPinned'));
       return;
     }
     
@@ -231,8 +228,7 @@ export const tabActions = {
         // Show success message with category name
         const category = this.categories.find(c => c.id === categoryId);
         const categoryName = category ? category.name : 'Unknown';
-        const successMessage = browser.i18n.getMessage('tabPinnedInCategory', [newTab.title, categoryName]) || 
-                              `Pinned "${newTab.title}" in ${categoryName}`;
+        const successMessage = browser.i18n.getMessage('tabPinnedInCategory', [newTab.title, categoryName]);
         
         this.showToast('success', '📌', successMessage);
         
@@ -247,7 +243,7 @@ export const tabActions = {
       
     } catch (error) {
       console.error('💥 Error pinning tab:', error);
-      this.showToast('error', '❌', browser.i18n.getMessage('failedToPinTab') || 'Failed to pin tab');
+      this.showToast('error', '❌', browser.i18n.getMessage('failedToPinTab'));
     }
   }
 };

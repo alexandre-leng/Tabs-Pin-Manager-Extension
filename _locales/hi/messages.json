@@ -355,9 +355,6 @@
   "tabReordered": {
     "message": "टैब क्रम अपडेट किया गया!"
   },
-  "reorderError": {
-    "message": "टैब पुनः क्रमित करने में त्रुटि"
-  },
   "footerCreatedBy": {
     "message": "Alexandre द्वारा बनाया गया"
   },

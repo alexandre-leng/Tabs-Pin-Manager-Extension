@@ -290,10 +290,6 @@
     "message": "Tab-Reihenfolge aktualisiert!",
     "description": "Erfolgsmeldung wenn die Tab-Reihenfolge geändert wird"
   },
-  "reorderError": {
-    "message": "Tab-Neuordnung fehlgeschlagen",
-    "description": "Fehlermeldung beim Neuordnen"
-  },
   "footerCreatedBy": {
     "message": "Erstellt von Alexandre mit",
     "description": "Footer created by text"

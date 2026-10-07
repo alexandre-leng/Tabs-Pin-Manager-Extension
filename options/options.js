@@ -105,6 +105,8 @@ export class OptionsManager {
       // Still render with empty data so the UI is usable
       this.render();
     }
+    // Marks the page as interactive (used by the end-to-end tests)
+    document.body.dataset.ready = 'true';
   }
 
   /**
@@ -186,9 +188,7 @@ export class OptionsManager {
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        this.closeTabModal();
-        this.closeCategoryModal();
-        this.closeIconPicker();
+        this.closeTopmostDialog();
       }
       // Add F5 for manual refresh
       if (e.key === 'F5') {
@@ -296,7 +296,7 @@ export class OptionsManager {
 
     const dragHandle = document.createElement('div');
     dragHandle.className = 'drag-handle';
-    dragHandle.title = browser.i18n.getMessage('dragToReorder') || 'Drag to reorder';
+    dragHandle.title = browser.i18n.getMessage('dragToReorder');
     dragHandle.appendChild(this.createSvgIcon(16, TAB_CARD_ICONS.drag));
 
     const faviconContainer = document.createElement('div');
@@ -329,17 +329,16 @@ export class OptionsManager {
 
   // Move up / move down are a simple alternative to drag and drop
   createTabActions(tab, index, total) {
-    const label = (key, fallback) => browser.i18n.getMessage(key) || fallback;
     const tabActions = document.createElement('div');
     tabActions.className = 'tab-actions';
     tabActions.append(
-      this.createIconButton('icon-btn move-up', label('moveUp', 'Move up'), TAB_CARD_ICONS.up,
+      this.createIconButton('icon-btn move-up', browser.i18n.getMessage('moveUp'), TAB_CARD_ICONS.up,
         () => this.moveTab(tab.id, -1), index === 0),
-      this.createIconButton('icon-btn move-down', label('moveDown', 'Move down'), TAB_CARD_ICONS.down,
+      this.createIconButton('icon-btn move-down', browser.i18n.getMessage('moveDown'), TAB_CARD_ICONS.down,
         () => this.moveTab(tab.id, 1), index === total - 1),
-      this.createIconButton('icon-btn edit', label('edit', 'Edit'), TAB_CARD_ICONS.edit,
+      this.createIconButton('icon-btn edit', browser.i18n.getMessage('edit'), TAB_CARD_ICONS.edit,
         () => this.editTab(tab)),
-      this.createIconButton('icon-btn danger delete', label('delete', 'Delete'), TAB_CARD_ICONS.delete,
+      this.createIconButton('icon-btn danger delete', browser.i18n.getMessage('delete'), TAB_CARD_ICONS.delete,
         () => this.deleteTab(tab))
     );
     return tabActions;
@@ -348,17 +347,20 @@ export class OptionsManager {
   createCategoryBadge(tab, category) {
     const badge = document.createElement('div');
     badge.className = 'tab-category';
-    badge.title = browser.i18n.getMessage('changeCategoryTooltip') || 'Change category';
+    badge.title = browser.i18n.getMessage('changeCategoryTooltip');
 
     const iconSpan = document.createElement('span');
     iconSpan.textContent = category ? category.icon : '📁';
     const nameSpan = document.createElement('span');
-    nameSpan.textContent = category ? category.name : (browser.i18n.getMessage('uncategorized') || 'Uncategorized');
+    nameSpan.textContent = category ? category.name : (browser.i18n.getMessage('uncategorized'));
     badge.append(iconSpan, nameSpan);
 
     badge.addEventListener('click', (e) => {
       e.stopPropagation(); // Keep the click away from the card (drag handling)
       this.openCategoryQuickEdit(e.currentTarget, tab);
+    });
+    UiUtils.makeActivatable(badge, e => this.openCategoryQuickEdit(e.currentTarget, tab), {
+      label: `${badge.title}: ${nameSpan.textContent}`
     });
     return badge;
   }
@@ -415,8 +417,8 @@ export class OptionsManager {
     
     // Get translated tab word (singular/plural)
     const tabWord = tabCount !== 1 ? 
-      (browser.i18n.getMessage('tabPlural') || 'tabs') :
-      (browser.i18n.getMessage('tabSingular') || 'tab');
+      (browser.i18n.getMessage('tabPlural')) :
+      (browser.i18n.getMessage('tabSingular'));
     
     // Create elements safely
     const iconDiv = document.createElement('div');
@@ -441,8 +443,9 @@ export class OptionsManager {
     card.appendChild(infoDiv);
     
     // Add click event to edit category
-    card.addEventListener('click', (e) => {
-      this.editCategory(category);
+    card.addEventListener('click', () => this.editCategory(category));
+    UiUtils.makeActivatable(card, () => this.editCategory(category), {
+      label: `${browser.i18n.getMessage('editCategory')}: ${category.name}`
     });
     
     return card;
@@ -451,14 +454,22 @@ export class OptionsManager {
   // Hide an overlay once its fade-out is done. A timer is used instead of a one-shot
   // 'transitionend' listener: that event bubbles up from child elements, and a listener
   // left behind when closing an already-closed modal would hide the modal on its next opening.
+  /** Escape closes only the dialog on top (the icon picker sits over the category editor). */
+  closeTopmostDialog() {
+    const isOpen = overlay => overlay?.classList.contains('show');
+    if (this.activeQuickEditPopover) {
+      this.closeCategoryQuickEdit();
+    } else if (isOpen(this.elements.iconPickerOverlay)) {
+      this.closeIconPicker();
+    } else if (isOpen(this.elements.categoryModalOverlay)) {
+      this.closeCategoryModal();
+    } else if (isOpen(this.elements.tabModalOverlay)) {
+      this.closeTabModal();
+    }
+  }
+
   hideOverlay(overlay) {
-    if (!overlay) return;
-    overlay.classList.remove('show');
-    setTimeout(() => {
-      if (!overlay.classList.contains('show')) {
-        overlay.style.display = 'none';
-      }
-    }, 350);
+    if (overlay) UiUtils.hideDialog(overlay);
   }
 
   // Utility methods

@@ -444,10 +444,6 @@
     "message": "Tab order updated!",
     "description": "Success message when tab order is changed"
   },
-  "reorderError": {
-    "message": "Failed to reorder tab",
-    "description": "Error message during reordering"
-  },
   "footerCreatedBy": {
     "message": "Created by Alexandre with",
     "description": "Footer created by text"

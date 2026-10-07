@@ -13,6 +13,26 @@ export class TabActions {
   constructor() {
     // normalized URL -> time it was opened or found, to absorb rapid repeated clicks
     this.recentlyOpenedUrls = new Map();
+    // tab ID -> URL of the tabs opened here: right after creation, the browser may not
+    // report any address for a tab yet
+    this.openedTabUrls = new Map();
+  }
+
+  /** Address of a tab, including one still loading (pendingUrl) or just created here. */
+  urlOf(tab) {
+    return tab.url || tab.pendingUrl || this.openedTabUrls.get(tab.id) || '';
+  }
+
+  /** Lists the tabs (of a window) and forgets the opened tabs that are gone. */
+  async queryTabs(windowId) {
+    const tabs = await browser.tabs.query(windowId ? { windowId } : {});
+    if (!windowId) {
+      const ids = new Set(tabs.map(tab => tab.id));
+      for (const id of this.openedTabUrls.keys()) {
+        if (!ids.has(id)) this.openedTabUrls.delete(id);
+      }
+    }
+    return tabs;
   }
 
   /**
@@ -26,7 +46,7 @@ export class TabActions {
       if (now - time > RECENTLY_OPENED_EXPIRY_MS) this.recentlyOpenedUrls.delete(url);
     }
 
-    const existingTabs = await browser.tabs.query(windowId ? { windowId } : {});
+    const existingTabs = await this.queryTabs(windowId);
     const { tabsToOpen, tabsToPin, alreadyOpenCount } = this.planTabOpening(configs, existingTabs, now);
 
     let pinned = 0;
@@ -39,7 +59,8 @@ export class TabActions {
       try {
         const createOptions = { url: config.url, pinned: true, active: false };
         if (windowId) createOptions.windowId = windowId;
-        await browser.tabs.create(createOptions);
+        const tab = await browser.tabs.create(createOptions);
+        this.openedTabUrls.set(tab.id, config.url);
         opened++;
       } catch (error) {
         console.error(`Failed to open tab ${config.url}:`, error);
@@ -71,7 +92,7 @@ export class TabActions {
       if (processed.has(normalizedUrl)) continue;
       processed.add(normalizedUrl);
 
-      const matches = existingTabs.filter(tab => normalizeUrl(tab.url) === normalizedUrl);
+      const matches = existingTabs.filter(tab => normalizeUrl(this.urlOf(tab)) === normalizedUrl);
       const pinnedTab = matches.find(tab => tab.pinned);
       const unpinnedTab = matches.find(tab => !tab.pinned);
       const recentlyOpenedAt = this.recentlyOpenedUrls.get(normalizedUrl);
@@ -117,17 +138,18 @@ export class TabActions {
       return { success: false, error: 'No valid domains in this category' };
     }
 
-    const existingTabs = await browser.tabs.query(windowId ? { windowId } : {});
+    const existingTabs = await this.queryTabs(windowId);
     const tabsToClose = existingTabs.filter(tab =>
-      tab && tab.id && tab.pinned === true && isSameDomainOrSubdomain(tab.url, domainKeys));
+      tab && tab.id && tab.pinned === true && isSameDomainOrSubdomain(this.urlOf(tab), domainKeys));
 
     let closed = 0;
     for (const tab of tabsToClose) {
       try {
         await browser.tabs.remove(tab.id);
+        this.openedTabUrls.delete(tab.id);
         closed++;
       } catch (error) {
-        console.error(`Failed to close pinned category tab ${tab.url}:`, error);
+        console.error(`Failed to close pinned category tab ${this.urlOf(tab)}:`, error);
       }
     }
 
