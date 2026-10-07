@@ -99,3 +99,11 @@ test('saveTab refuses a second tab with the same address, even concurrently', as
   // Editing the saved tab itself is still allowed
   await expect(store.saveTab({ id: 'a', url: 'https://a.com/', title: 'A2' })).resolves.toMatchObject({ title: 'A2' });
 });
+
+test('saveCategories moves the tabs of a removed category to the first one', async () => {
+  await store.saveTab({ id: 'x', url: 'https://x.com/', category: 'clients' });
+  await store.saveCategories([{ id: 'home', name: 'Home', icon: '🏠' }]);
+  expect(fake.store.pinnedTabs.every(t => t.category === 'home')).toBe(true);
+  expect(fake.sentMessages.at(-1)).toMatchObject({ changeType: 'dataChanged' });
+  await expect(store.saveCategories([])).rejects.toThrow('Invalid');
+});

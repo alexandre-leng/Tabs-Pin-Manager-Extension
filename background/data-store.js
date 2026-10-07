@@ -61,7 +61,9 @@ export class DataStore {
         id: tab.id || generateTabId(),
         dateAdded: tab.dateAdded || new Date().toISOString(),
         enabled: tab.enabled !== false,
-        category: tab.category || this.categories[0]?.id || 'work'
+        category: this.categories.some(c => c.id === tab.category)
+          ? tab.category
+          : this.categories[0]?.id || 'work'
       };
 
       const key = normalizeUrl(saved.url);
@@ -111,10 +113,21 @@ export class DataStore {
 
   saveCategories(categories) {
     return this.serialize(async () => {
-      if (!Array.isArray(categories) || categories.some(c => !c.id || !c.name || !c.icon)) {
+      if (!Array.isArray(categories) || categories.length === 0 || categories.some(c => !c.id || !c.name || !c.icon)) {
         throw new Error('Invalid category data');
       }
-      await this.persist({ categories }, 'categoriesChanged', () => { this.categories = categories; });
+      // Tabs of a removed category (e.g. after a reset) move to the first one, so they stay listed
+      const ids = new Set(categories.map(c => c.id));
+      const orphaned = this.tabs.some(tab => !ids.has(tab.category));
+      if (!orphaned) {
+        await this.persist({ categories }, 'categoriesChanged', () => { this.categories = categories; });
+        return categories;
+      }
+      const tabs = this.tabs.map(tab => (ids.has(tab.category) ? tab : { ...tab, category: categories[0].id }));
+      await this.persist({ categories, pinnedTabs: tabs }, 'dataChanged', () => {
+        this.categories = categories;
+        this.tabs = tabs;
+      });
       return categories;
     });
   }

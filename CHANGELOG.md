@@ -2,9 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [1.4.0] - 2026-10-07
 
 ### 🛠️ Corrections
+- **Onglets invisibles après « Réinitialiser les catégories »** : les onglets d'une catégorie supprimée (par exemple importée) n'apparaissaient plus dans le popup ; ils sont maintenant rattachés à la première catégorie. Un onglet enregistré avec une catégorie inconnue l'est aussi.
 - **Catégories bloquées après un import** : un fichier importé pouvait contenir une catégorie sans nom ; ensuite, renommer n'importe quelle catégorie échouait (« données invalides ») jusqu'à une réinitialisation. Ces catégories sont maintenant écartées à l'import.
 - **Onglet enregistré en double** : un double-clic dans la fenêtre « Épingler dans une catégorie » enregistrait deux fois l'onglet ; le popup ignore le second clic et l'arrière-plan refuse une adresse déjà enregistrée.
 - **Date d'ouverture importée** : une valeur invalide (« il y a 20 733 jours ») n'est plus importée.
