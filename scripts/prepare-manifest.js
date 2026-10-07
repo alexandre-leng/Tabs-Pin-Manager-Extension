@@ -1,60 +1,47 @@
 /**
- * Prepare Manifest for Target Browser
- * Usage: node scripts/prepare-manifest.js [firefox|chrome]
+ * Builds the browser-specific manifest from the shared manifest.json.
+ * The source manifest is never modified: callers write the result into a staging dir.
  */
 
 const fs = require('fs');
 const path = require('path');
 
-const target = process.argv[2] || 'firefox';
-const manifestPath = path.join(__dirname, '../manifest.json');
-const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+const ROOT = path.join(__dirname, '..');
 
-console.log(`🔧 Preparing manifest for ${target}...`);
-
-if (target === 'firefox') {
-  // Firefox MV3 prefers background.scripts over service_worker for stability
-  delete manifest.background.service_worker;
-  manifest.background.scripts = [
-    "lib/browser-polyfill.js",
-    "lib/default-categories.js",
-    "lib/storage-manager.js",
-    "lib/container-utils.js",
-    "lib/domain-utils.js",
-    "background/background.js"
-  ];
-  
-  // Ensure we have an ID for Firefox and privacy settings
-  if (!manifest.browser_specific_settings) {
-    manifest.browser_specific_settings = { gecko: {} };
-  }
-  if (!manifest.browser_specific_settings.gecko) {
-    manifest.browser_specific_settings.gecko = {};
-  }
-  
-  manifest.browser_specific_settings.gecko.id = "tabspin@firefox.extension";
-  manifest.browser_specific_settings.gecko.data_collection_permissions = {
-    "required": ["none"]
-  };
-  
-} else if (target === 'chrome') {
-  // Chrome MV3 requires service_worker
-  delete manifest.browser_specific_settings;
-  
-  // Ensure background is set up as a Service Worker for Chrome
-  delete manifest.background.scripts;
-  manifest.background = {
-    "service_worker": "background/background.js"
-  };
-  
-  // Remove Firefox-only permissions
-  if (manifest.permissions) {
-    manifest.permissions = manifest.permissions.filter(p => p !== 'contextualIdentities');
-  }
+/**
+ * Library scripts the background loads, read from the importScripts() call in
+ * background.js so the Firefox (background.scripts) and Chrome (service worker)
+ * setups cannot drift apart.
+ */
+function getBackgroundLibraries() {
+  const source = fs.readFileSync(path.join(ROOT, 'background/background.js'), 'utf8');
+  const call = source.match(/importScripts\(([\s\S]*?)\);/);
+  if (!call) throw new Error('importScripts() call not found in background/background.js');
+  return [...call[1].matchAll(/'\.\.\/([^']+)'/g)].map(m => m[1]);
 }
 
-// Write the modified manifest
-const outputPath = path.join(__dirname, '../manifest.json');
-fs.writeFileSync(outputPath, JSON.stringify(manifest, null, 2));
+function buildManifest(target) {
+  const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest.json'), 'utf8'));
 
-console.log(`✅ Manifest updated for ${target}`);
+  if (target === 'firefox') {
+    // Firefox MV3 runs the background as event-page scripts rather than a service worker
+    manifest.background = {
+      scripts: [...getBackgroundLibraries(), 'background/background.js']
+    };
+    manifest.browser_specific_settings = {
+      gecko: {
+        id: 'tabspin@firefox.extension',
+        data_collection_permissions: { required: ['none'] }
+      }
+    };
+  } else if (target === 'chrome') {
+    manifest.background = { service_worker: 'background/background.js' };
+    delete manifest.browser_specific_settings;
+  } else {
+    throw new Error(`Unknown target "${target}" (expected firefox or chrome)`);
+  }
+
+  return manifest;
+}
+
+module.exports = { buildManifest, getBackgroundLibraries };

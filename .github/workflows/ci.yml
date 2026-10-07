@@ -20,7 +20,7 @@ jobs:
       - name: ESLint
         run: npm run lint:js
       - name: Lint Firefox
-        run: node scripts/prepare-manifest.js firefox && npx web-ext lint
+        run: npm run lint
       - name: Build Firefox
         run: node scripts/build.js firefox
       - name: Build Chrome

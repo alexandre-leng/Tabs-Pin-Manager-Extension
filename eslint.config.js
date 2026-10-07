@@ -16,7 +16,7 @@ const extensionGlobals = {
 };
 
 module.exports = [
-  { ignores: ['node_modules/', 'web-ext-artifacts/'] },
+  { ignores: ['node_modules/', 'web-ext-artifacts/', 'build/'] },
   {
     files: ['background/**/*.js', 'popup/**/*.js', 'options/**/*.js', 'lib/**/*.js'],
     languageOptions: {

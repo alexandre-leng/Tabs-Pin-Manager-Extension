@@ -1,16 +1,16 @@
 {
-  "name": "Tabs Pin",
+  "name": "tabs-pin",
   "version": "1.3.5",
   "private": true,
   "scripts": {
     "dev": "npm run dev:firefox",
-    "dev:firefox": "node scripts/prepare-manifest.js firefox && web-ext run",
-    "dev:chrome": "node scripts/prepare-manifest.js chrome",
+    "dev:firefox": "node scripts/dev.js",
+    "dev:chrome": "node scripts/stage.js chrome",
     "build": "npm run build:firefox && npm run build:chrome",
     "build:firefox": "node scripts/build.js firefox",
     "build:chrome": "node scripts/build.js chrome",
     "start": "npm run dev",
-    "lint": "node scripts/prepare-manifest.js firefox && web-ext lint",
+    "lint": "node scripts/stage.js firefox && web-ext lint --source-dir build/firefox",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --passWithNoTests",
     "test:watch": "npm test -- --watch",
     "lint:js": "eslint ."

@@ -17,7 +17,6 @@ Tabs Pin helps you organize your pinned tabs in both Firefox and Google Chrome. 
 - **Direct Pinning**: Instantly pin the current tab from the popup.
 - **Categories**: Organize tabs with fully customizable categories and emoji icon picker.
 - **Drag & Drop**: Reorder tabs intuitively by dragging.
-- **Firefox Multi-Account Containers**: Open tabs in specific containers (Firefox).
 - **Multi-language**: Supports 14 languages including Arabic, German, English, Spanish, French, Hindi, Indonesian, Italian, Japanese, Korean, Dutch, Portuguese, Russian, Chinese.
 - **Import/Export**: Save, restore, and share your configurations as JSON.
 - **Adaptive Theme**: Automatic dark/light mode based on system preference.
@@ -34,7 +33,7 @@ Tabs Pin helps you organize your pinned tabs in both Firefox and Google Chrome. 
 1. Clone the repository:
 ```bash
 git clone https://github.com/alexandre-leng/Tabs-Pin-Manager-Extension/
-cd "Tabs Pin Firefox extension"
+cd Tabs-Pin-Manager-Extension
 ```
 
 2. Install dependencies:
@@ -43,12 +42,15 @@ npm install
 ```
 
 3. Useful commands:
-- **Development (Firefox)**: `npm run dev:firefox` (launch Firefox with auto-reload)
-- **Development (Chrome)**: `npm run dev:chrome` (prepare manifest for Chrome manual loading)
+- **Development (Firefox)**: `npm run dev:firefox` (launch Firefox, reload on every change)
+- **Development (Chrome)**: `npm run dev:chrome`, then load `build/chrome/` as an unpacked extension (run it again after changes)
 - **Build (All)**: `npm run build` (generate both .zip packages in `web-ext-artifacts/`)
 - **Build (Single)**: `npm run build:chrome` or `npm run build:firefox`
-- **Lint**: `npm run lint` (verify extension compliance via web-ext)
+- **Lint**: `npm run lint` (web-ext compliance) and `npm run lint:js` (ESLint)
 - **Test**: `npm test` (run unit tests with Jest)
+
+The shared `manifest.json` is never modified: each command copies the extension into
+`build/<browser>/` with the browser-specific manifest (`scripts/prepare-manifest.js`).
 
 ## 🚀 Quick Start
 
@@ -56,11 +58,10 @@ npm install
 2. **Add your sites**: Use "Pin current tab" from the popup or open the Options page.
 3. **Organize**: Assign categories and reorder tabs via drag & drop in Options.
 4. **Launch all**: Click "Open X tabs" to open every configured tab at once.
-5. **Containers** (Firefox): Assign a container to any tab in Options; it will open in that container automatically.
 
 ## 🔒 Security & Privacy
 
-- **Minimal Permissions**: Uses `tabs`, `storage`, `activeTab` (+ `contextualIdentities` for Firefox Container support).
+- **Minimal Permissions**: Uses `tabs`, `storage` and `activeTab` only.
 - **Manifest V3**: Enhanced security and privacy.
 - **100% Local**: No data is transmitted externally.
 - **Privacy-First & Open Source**.
