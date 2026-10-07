@@ -4,7 +4,6 @@ const extensionGlobals = {
   browser: 'readonly',
   chrome: 'readonly',
   StorageManager: 'readonly',
-  ContainerUtils: 'readonly',
   DomainUtils: 'readonly',
   UiUtils: 'readonly',
   I18nHelper: 'readonly',

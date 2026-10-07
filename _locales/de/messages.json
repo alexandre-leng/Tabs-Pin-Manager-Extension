@@ -502,10 +502,6 @@
   "orDivider": {
     "message": "oder"
   },
-  "defaultContainer": {
-    "message": "Standard-Container",
-    "description": "Name for the default container"
-  },
   "someTabsPinned": {
     "message": "Einige vorhandene Tabs wurden angeheftet",
     "description": "Message when some existing tabs were pinned"

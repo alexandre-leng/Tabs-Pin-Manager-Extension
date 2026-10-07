@@ -522,10 +522,6 @@
   "orDivider": {
     "message": "o"
   },
-  "defaultContainer": {
-    "message": "Contenedor predeterminado",
-    "description": "Nombre para el contenedor predeterminado"
-  },
   "someTabsPinned": {
     "message": "Algunas pestañas existentes han sido fijadas",
     "description": "Mensaje cuando algunas pestañas existentes fueron fijadas"

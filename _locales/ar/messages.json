@@ -421,10 +421,6 @@
   "configureManually": {
     "message": "تكوين يدوي"
   },
-  "defaultContainer": {
-    "message": "الحاوية الافتراضية",
-    "description": "Name for the default container"
-  },
   "someTabsPinned": {
     "message": "تم تثبيت بعض علامات التبويب الموجودة",
     "description": "Message when some existing tabs were pinned"

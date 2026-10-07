@@ -13,12 +13,13 @@ All notable changes to this project will be documented in this file.
 - **Liens du dépôt** : Les liens du manifeste, du README et du changelog pointent vers le bon dépôt.
 
 ### 🧹 Qualité
+- Prise en charge des conteneurs Firefox retirée (`lib/container-utils.js`) : sans la permission `contextualIdentities`, elle n'était jamais active. Les identifiants de conteneur des anciennes sauvegardes sont ignorés à l'import.
 - Logique d'ouverture des onglets factorisée (`openTabConfigs`), journaux de débogage désactivés par défaut, helpers partagés popup/options (`lib/ui-utils.js`).
 - `popup.js` et `options.js` découpés par fonctionnalité (édition et réorganisation des onglets, catégories, sélecteur d'icônes, import/export, actions du popup, sélection de catégorie) ; une méthode `getSelectedIcon` définie en double supprimée.
 - Traduction des pages centralisée dans `I18nHelper.localizePage` (le module n'était utilisé que par les tests) ; textes de secours du HTML et commentaires en anglais.
 - Tests ajoutés : validation de l'import, `localizePage`, cohérence des versions `package.json` / `manifest.json`.
 - Build, lint et dev travaillent sur une copie dans `build/<navigateur>/` : `manifest.json` n'est plus réécrit à chaque commande, et seuls les fichiers de l'extension sont empaquetés (`eslint.config.js` ne part plus dans les zips). La liste des scripts d'arrière-plan Firefox est lue depuis `background.js`.
-- README corrigé (dossier du dépôt, commandes, permissions, conteneurs non configurables) ; nom du paquet npm valide.
+- README corrigé (dossier du dépôt, commandes, permissions) ; nom du paquet npm valide.
 - ESLint, `.editorconfig` et tests (ouverture des onglets, helpers, cohérence des traductions) exécutés dans la CI.
 
 ## [1.3.5] - 2026-10-06

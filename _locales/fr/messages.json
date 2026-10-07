@@ -536,10 +536,6 @@
     "message": "Certains onglets ont été épinglés",
     "description": "Message quand certains onglets existants ont été épinglés"
   },
-  "defaultContainer": {
-    "message": "Container par défaut",
-    "description": "Nom du container par défaut"
-  },
   "someTabsPinnedAndOpened": {
     "message": "Certains onglets ont été épinglés et d'autres ouverts",
     "description": "Message quand certains onglets ont été épinglés et d'autres ouverts"

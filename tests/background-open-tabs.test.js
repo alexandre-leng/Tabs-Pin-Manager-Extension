@@ -14,6 +14,12 @@ function loadBackground(existingTabs) {
   const browser = new Proxy({
     tabs: {
       query: async () => existingTabs,
+      update: async (id, props) => { updatedTabs.push({ id, props }); return { id, ...props }; },
+      create: async (options) => {
+        const tab = { id: 100 + createdTabs.length, ...options };
+        createdTabs.push(tab);
+        return tab;
+      },
       get: async (id) => existingTabs.find(t => t.id === id)
     }
   }, { get: (target, key) => (key in target ? target[key] : anything()) });
@@ -23,21 +29,9 @@ function loadBackground(existingTabs) {
     async get() { return {}; }
     async set() {}
   }
-  class ContainerUtils {
-    constructor() { this.initializationPromise = Promise.resolve(); }
-    async updateTabWithContainer(id, props) {
-      updatedTabs.push({ id, props });
-      return { id, ...props };
-    }
-    async createTabWithContainer(options) {
-      const tab = { id: 100 + createdTabs.length, ...options };
-      createdTabs.push(tab);
-      return tab;
-    }
-  }
 
   const context = vm.createContext({
-    browser, StorageManager, ContainerUtils, URL, console, setTimeout, clearTimeout,
+    browser, StorageManager, URL, console, setTimeout, clearTimeout,
     DomainUtils: {}, DefaultCategories: {}
   });
   const source = fs.readFileSync(path.join(__dirname, '../background/background.js'), 'utf8');
@@ -128,6 +122,16 @@ describe('sanitizeImportData', () => {
     expect(second.category).toBe('work');
     expect(second.title).toBe('http://b.com/');
     expect(second).not.toHaveProperty('order');
+  });
+
+  test('drops container IDs from older backups', () => {
+    const { bg } = loadBackground([]);
+    const { tabs } = bg.sanitizeImportData({
+      categories,
+      settings: {},
+      tabs: [{ id: 'a', url: 'https://a.com/', cookieStoreId: 'firefox-container-1' }]
+    });
+    expect(tabs[0]).not.toHaveProperty('cookieStoreId');
   });
 
   test('makes duplicate tab IDs unique', () => {

@@ -522,10 +522,6 @@
   "orDivider": {
     "message": "o"
   },
-  "defaultContainer": {
-    "message": "Container predefinito",
-    "description": "Nome per il container predefinito"
-  },
   "someTabsPinned": {
     "message": "Alcune schede esistenti sono state fissate",
     "description": "Messaggio quando alcune schede esistenti sono state fissate"

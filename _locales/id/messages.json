@@ -421,10 +421,6 @@
   "configureManually": {
     "message": "Konfigurasikan secara manual"
   },
-  "defaultContainer": {
-    "message": "Default container",
-    "description": "Name for the default container"
-  },
   "someTabsPinned": {
     "message": "Some existing tabs have been pinned",
     "description": "Message when some existing tabs were pinned"

@@ -1,7 +1,7 @@
 /**
  * Tabs Pin Background Script for Firefox
  * Handles core extension functionality and tab management
- * Enhanced with Firefox Multi-Account Containers support and robust storage management
+ * Uses a resilient storage layer (retries, cache, health check)
  */
 
 'use strict';
@@ -12,7 +12,6 @@ if (typeof importScripts === 'function') {
     '../lib/browser-polyfill.js',
     '../lib/default-categories.js',
     '../lib/storage-manager.js',
-    '../lib/container-utils.js',
     '../lib/domain-utils.js'
   );
 }
@@ -33,8 +32,6 @@ class TabsPinBackground {
     // Track tab URLs by ID for cleanup
     this.tabUrlsById = new Map();
     
-    // Initialize container utilities
-    this.containerUtils = new ContainerUtils();
 
     // Locks to prevent concurrent tab opening operations
     this.isOpeningAllTabsInProgress = false;
@@ -76,9 +73,6 @@ class TabsPinBackground {
     const healthCheck = await this.storage.healthCheck();
     log('📊 Storage health check:', healthCheck);
     
-    // Wait for container utils to be ready
-    await this.containerUtils.initializationPromise;
-    log('🔒 Container support:', this.containerUtils.containersSupported);
     
     // Load initial data
     await this.loadData();
@@ -88,7 +82,6 @@ class TabsPinBackground {
     // Return initialization status
     return {
       healthy: healthCheck.healthy,
-      containersSupported: this.containerUtils.containersSupported,
       dataLoaded: true
     };
   }
@@ -177,7 +170,7 @@ class TabsPinBackground {
   }
 
   /**
-   * Safely updates a tab with error handling for containers
+   * Updates a tab, reporting failures instead of throwing
    * @param {number} tabId - The tab ID to update
    * @param {object} updateProperties - Properties to update
    * @returns {Promise<object>} - Result object with success status
@@ -191,8 +184,7 @@ class TabsPinBackground {
         throw new Error(`Invalid tab ID: ${tabId}`);
       }
 
-      // Use containerUtils for better container handling
-      const updatedTab = await this.containerUtils.updateTabWithContainer(tabId, updateProperties);
+      const updatedTab = await browser.tabs.update(tabId, updateProperties);
       return { success: true, tab: updatedTab };
       
     } catch (error) {
@@ -501,10 +493,7 @@ class TabsPinBackground {
       try {
         const createOptions = { url: tab.url, pinned: true, active: false };
         if (windowId) createOptions.windowId = windowId;
-        if (tab.cookieStoreId && tab.cookieStoreId !== 'firefox-default') {
-          createOptions.cookieStoreId = tab.cookieStoreId;
-        }
-        const newTab = await this.containerUtils.createTabWithContainer(createOptions);
+        const newTab = await browser.tabs.create(createOptions);
         this.tabUrlsById.set(newTab.id, tab.url);
         results.push({ success: true, tab: newTab, config: tab });
       } catch (error) {
@@ -826,7 +815,8 @@ class TabsPinBackground {
       };
       if (!Number.isFinite(clean.order)) delete clean.order;
       if (typeof clean.dateAdded !== 'string') clean.dateAdded = new Date().toISOString();
-      if (clean.cookieStoreId !== undefined && typeof clean.cookieStoreId !== 'string') delete clean.cookieStoreId;
+      // Containers are not supported: older backups may still carry a container ID
+      delete clean.cookieStoreId;
       tabs.push(clean);
     }
 

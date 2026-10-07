@@ -528,10 +528,6 @@
     "message": "or",
     "description": "Text divider between primary and secondary actions"
   },
-  "defaultContainer": {
-    "message": "Default container",
-    "description": "Name for the default container"
-  },
   "someTabsPinned": {
     "message": "Some existing tabs have been pinned",
     "description": "Message when some existing tabs were pinned"
