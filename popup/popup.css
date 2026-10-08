@@ -764,12 +764,12 @@ body {
   margin-top: 6px;
 }
 
-.category-item.empty-category:first-of-type {
+.category-item.first-empty-category {
   margin-top: 12px;
   position: relative;
 }
 
-.category-item.empty-category:first-of-type::before {
+.category-item.first-empty-category::before {
   content: '';
   position: absolute;
   top: -9px;
@@ -1492,6 +1492,10 @@ button:focus-visible,
   transition: opacity 0.2s ease;
 }
 
+.modal-overlay:not(.show) {
+  pointer-events: none; /* a dialog fading out takes no more clicks */
+}
+
 .modal-overlay.show {
   opacity: 1;
 }
@@ -1638,12 +1642,12 @@ button:focus-visible,
   margin-top: 6px;
 }
 
-.categories-list .category-item.empty-category:first-of-type {
+.categories-list .category-item.first-empty-category {
   margin-top: 12px;
   position: relative;
 }
 
-.categories-list .category-item.empty-category:first-of-type::before {
+.categories-list .category-item.first-empty-category::before {
   content: '';
   position: absolute;
   top: -9px;

@@ -113,7 +113,7 @@
     <div class="modal" id="tabModal" role="dialog" aria-modal="true" aria-labelledby="tabModalTitle">
       <div class="modal-header">
         <h3 class="modal-title" id="tabModalTitle" data-i18n="addNewTab">Add New Tab</h3>
-        <button class="modal-close" id="closeTabModal" aria-label="Close">
+        <button class="modal-close" id="closeTabModal" aria-label="Close" data-i18n-title="closeDialog">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
             <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
           </svg>
@@ -166,7 +166,7 @@
     <div class="modal" id="categoryModal" role="dialog" aria-modal="true" aria-labelledby="categoryModalTitle">
       <div class="modal-header">
         <h3 class="modal-title" id="categoryModalTitle" data-i18n="editCategory">Edit Category</h3>
-        <button class="modal-close" id="closeCategoryModal" aria-label="Close">
+        <button class="modal-close" id="closeCategoryModal" aria-label="Close" data-i18n-title="closeDialog">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
             <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
           </svg>
@@ -217,7 +217,7 @@
     <div class="modal icon-picker-modal" id="iconPickerModal" role="dialog" aria-modal="true" aria-labelledby="iconPickerTitle">
       <div class="modal-header">
         <h3 class="modal-title" id="iconPickerTitle" data-i18n="selectCategoryIcon">Select Category Icon</h3>
-        <button class="modal-close" id="closeIconPicker" aria-label="Close">
+        <button class="modal-close" id="closeIconPicker" aria-label="Close" data-i18n-title="closeDialog">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
             <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
           </svg>
@@ -251,7 +251,7 @@
   </div>
 
   <!-- Toast notification -->
-  <div class="toast" id="toast">
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
     <div class="toast-content">
       <span class="toast-icon" id="toastIcon"></span>
       <span class="toast-message" id="toastMessage"></span>

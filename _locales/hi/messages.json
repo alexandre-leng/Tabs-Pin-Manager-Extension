@@ -461,7 +461,7 @@
     "description": "Tooltip for closing open pinned tabs from a category"
   },
   "closeCategoryConfirm": {
-    "message": "क्या इस विंडो में \"$CATEGORY_NAME$\" के पिन किए गए टैब बंद करें? यह इस श्रेणी में सहेजे गए $COUNT$ टैब के समान डोमेन वाले पिन किए गए टैब पर लागू होता है।",
+    "message": "इस विंडो में \"$CATEGORY_NAME$\" के $COUNT$ पिन किए गए टैब बंद करें? इस श्रेणी की साइटों वाले पिन किए गए टैब बंद हो जाएंगे।",
     "description": "Confirmation before closing category tabs",
     "placeholders": {
       "category_name": {
@@ -516,5 +516,33 @@
   "exportFailed": {
     "message": "सेटिंग्स निर्यात करने में विफल",
     "description": "Error message when exporting settings fails"
+  },
+  "tabOpenedSingle": {
+    "message": "$COUNT$ टैब खोला गया",
+    "description": "Success message when exactly one tab was opened",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "tabPinnedSingle": {
+    "message": "$COUNT$ टैब पिन किया गया",
+    "description": "Success message when exactly one tab was pinned",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "openingTabs": {
+    "message": "खोला जा रहा है...",
+    "description": "Shown on the Open button while tabs are opening"
+  },
+  "closeDialog": {
+    "message": "बंद करें",
+    "description": "Accessible name of the close button of a dialog"
   }
 }

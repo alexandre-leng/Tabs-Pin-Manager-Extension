@@ -121,10 +121,19 @@ export const tabOrdering = {
     if (index === -1 || newIndex < 0 || newIndex >= orderedIds.length) return;
     
     [orderedIds[index], orderedIds[newIndex]] = [orderedIds[newIndex], orderedIds[index]];
-    this.reorderTabs(orderedIds);
+    this.reorderTabs(orderedIds, { tabId, direction: delta < 0 ? 'move-up' : 'move-down' });
   },
 
-  async reorderTabs(orderedIds) {
+  /** Keeps the keyboard focus on the moved card's arrow (the other one at either end). */
+  focusMoveButton({ tabId, direction }) {
+    const card = this.elements.tabsGrid.querySelector(`.tab-item[data-tab-id="${CSS.escape(tabId)}"]`);
+    if (!card) return;
+    const other = direction === 'move-up' ? 'move-down' : 'move-up';
+    const button = [direction, other].map(name => card.querySelector(`.${name}`)).find(b => b && !b.disabled);
+    button?.focus();
+  },
+
+  async reorderTabs(orderedIds, moved = null) {
     try {
       const response = await this.sendMessageWithRetry({
         action: 'reorderTabs',
@@ -139,6 +148,7 @@ export const tabOrdering = {
         
         this.showToast('success', '↕️', browser.i18n.getMessage('tabReordered'));
         this.renderTabs();
+        if (moved) this.focusMoveButton(moved);
       } else {
         throw new Error(response?.error || browser.i18n.getMessage('failedToReorderTab'));
       }

@@ -461,7 +461,7 @@
     "description": "Tooltip for closing open pinned tabs from a category"
   },
   "closeCategoryConfirm": {
-    "message": "要关闭此窗口中“$CATEGORY_NAME$”的固定标签页吗？这将关闭与该分类中已保存的 $COUNT$ 个标签页域名相同的固定标签页。",
+    "message": "要关闭此窗口中“$CATEGORY_NAME$”的 $COUNT$ 个固定标签页吗？与此类别相同网站的固定标签页将被关闭。",
     "description": "Confirmation before closing category tabs",
     "placeholders": {
       "category_name": {
@@ -516,5 +516,33 @@
   "exportFailed": {
     "message": "导出设置失败",
     "description": "Error message when exporting settings fails"
+  },
+  "tabOpenedSingle": {
+    "message": "已打开 $COUNT$ 个标签页",
+    "description": "Success message when exactly one tab was opened",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "tabPinnedSingle": {
+    "message": "已固定 $COUNT$ 个标签页",
+    "description": "Success message when exactly one tab was pinned",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "openingTabs": {
+    "message": "正在打开...",
+    "description": "Shown on the Open button while tabs are opening"
+  },
+  "closeDialog": {
+    "message": "关闭",
+    "description": "Accessible name of the close button of a dialog"
   }
 }

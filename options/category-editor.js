@@ -10,6 +10,7 @@ import { getDefaultCategories } from '../lib/default-categories.js';
 export const categoryEditor = {
   // Category management methods
   editCategory(category) {
+    this.closeCategoryQuickEdit();
     this.currentEditingCategory = category;
     
     if (this.elements.categoryModalTitle) {
@@ -155,6 +156,9 @@ export const categoryEditor = {
     popover.style.top = `${badgeRect.bottom + window.scrollY + 5}px`;
     popover.style.left = `${badgeRect.left + window.scrollX}px`;
     
+    // Measurable only once displayed (still transparent until its .show transition)
+    popover.style.display = 'flex';
+
     // Ensure popover doesn't go off screen
     const popoverRect = popover.getBoundingClientRect();
     const viewportWidth = window.innerWidth;
@@ -170,8 +174,8 @@ export const categoryEditor = {
       popover.style.top = `${badgeRect.top + window.scrollY - popoverRect.height - 5}px`;
     }
     
-    // Ensure popover is visible before starting animation
-    popover.style.display = 'flex';
+    popover.style.left = `${Math.max(window.scrollX, parseFloat(popover.style.left))}px`;
+    popover.style.top = `${Math.max(window.scrollY, parseFloat(popover.style.top))}px`;
     requestAnimationFrame(() => {
         popover.classList.add('show');
     });

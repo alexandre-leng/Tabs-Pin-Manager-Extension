@@ -51,16 +51,15 @@ export const categorySelection = {
     
     let firstEmptyAdded = false;
     
-    sortedCategories.forEach((category) => {
+    sortedCategories.forEach((category, index) => {
       const tabCount = this.tabs.filter(tab => tab.category === category.id).length;
       const isEmpty = tabCount === 0;
       
-      // Add empty class for first empty category (for separator)
-      if (isEmpty && !firstEmptyAdded) {
-        firstEmptyAdded = true;
-      }
+      // The first empty category after used ones gets the separator
+      const isFirstEmpty = isEmpty && !firstEmptyAdded && index > 0;
+      if (isEmpty) firstEmptyAdded = true;
       
-      const categoryElement = this.createCategorySelectionItem(category, isEmpty, !firstEmptyAdded && isEmpty);
+      const categoryElement = this.createCategorySelectionItem(category, isEmpty, isFirstEmpty);
       this.elements.categorySelectionList.appendChild(categoryElement);
     });
   },

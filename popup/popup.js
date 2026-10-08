@@ -9,7 +9,7 @@ import { I18nHelper } from '../lib/i18n-helper.js';
 import { StorageManager } from '../lib/storage-manager.js';
 import { UiUtils } from '../lib/ui-utils.js';
 import { formatTimeAgo } from '../lib/time-format.js';
-import { normalizeUrl } from '../lib/url-utils.js';
+import { savedAddressKey } from '../lib/url-utils.js';
 import { mixin } from '../lib/mixins.js';
 import { categoryList } from './category-list.js';
 import { categorySelection } from './category-selection.js';
@@ -447,12 +447,13 @@ export class PopupManager {
 
   /** Same matching as the background script uses to avoid opening duplicates. */
   isTabAlreadyPinned(url) {
-    const key = normalizeUrl(url);
-    return Boolean(key) && this.tabs.some(tab => normalizeUrl(tab.url) === key);
+    const key = savedAddressKey(url);
+    return Boolean(key) && this.tabs.some(tab => savedAddressKey(tab.url) === key);
   }
 
+  /** Readable domain, used as the title of a page without one. */
   extractDomainFromUrl(url) {
-    return UiUtils.extractDomain(url);
+    return UiUtils.displayDomain(url);
   }
 
   getTimeAgo(date) {

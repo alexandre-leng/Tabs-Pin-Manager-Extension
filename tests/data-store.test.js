@@ -119,3 +119,28 @@ test('duplicates saved by older versions stay editable', async () => {
   await store.saveTab({ id: 'z', url: 'https://z.com/' });
   await expect(store.saveTab({ id: 'z', url: 'https://dup.com/' })).rejects.toThrow('already saved');
 });
+
+describe('repairs on update and load', () => {
+  test('migrate translates default names once, then keeps an English rename', async () => {
+    fake.i18n.getMessage = key => (key === 'work' ? 'Travail' : '');
+    fake.store.categories = [{ id: 'work', name: 'Work', icon: '💼' }];
+    fake.store.settings = {};
+    await store.migrate();
+    expect(fake.store.categories[0].name).toBe('Travail');
+    await store.saveCategories([{ id: 'work', name: 'Work', icon: '💼' }]);
+    await store.migrate();
+    expect(fake.store.categories[0].name).toBe('Work');
+  });
+
+  test('migrate moves tabs of unknown categories to the first one', async () => {
+    fake.store.pinnedTabs = [{ id: 'o', url: 'https://o.com/', category: 'gone' }, { id: 'n', url: 'https://n.com/' }];
+    await store.migrate();
+    expect(fake.store.pinnedTabs.map(t => t.category)).toEqual(['work', 'work']);
+  });
+
+  test('an empty category list is replaced by the defaults', async () => {
+    fake.store.categories = [];
+    await store.load(false);
+    expect(store.categories.length).toBeGreaterThan(0);
+  });
+});

@@ -461,7 +461,7 @@
     "description": "Tooltip for closing open pinned tabs from a category"
   },
   "closeCategoryConfirm": {
-    "message": "このウィンドウの「$CATEGORY_NAME$」のピン留めタブを閉じますか？このカテゴリに保存されている$COUNT$個のタブと同じドメインのピン留めタブが対象です。",
+    "message": "このウィンドウで「$CATEGORY_NAME$」の固定タブ $COUNT$ 個を閉じますか？このカテゴリと同じサイトの固定タブが閉じられます。",
     "description": "Confirmation before closing category tabs",
     "placeholders": {
       "category_name": {
@@ -516,5 +516,33 @@
   "exportFailed": {
     "message": "設定のエクスポートに失敗しました",
     "description": "Error message when exporting settings fails"
+  },
+  "tabOpenedSingle": {
+    "message": "$COUNT$ 個のタブを開きました",
+    "description": "Success message when exactly one tab was opened",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "tabPinnedSingle": {
+    "message": "$COUNT$ 個のタブを固定しました",
+    "description": "Success message when exactly one tab was pinned",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "openingTabs": {
+    "message": "開いています...",
+    "description": "Shown on the Open button while tabs are opening"
+  },
+  "closeDialog": {
+    "message": "閉じる",
+    "description": "Accessible name of the close button of a dialog"
   }
 }

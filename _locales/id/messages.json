@@ -461,7 +461,7 @@
     "description": "Tooltip for closing open pinned tabs from a category"
   },
   "closeCategoryConfirm": {
-    "message": "Tutup tab yang disematkan dari \"$CATEGORY_NAME$\" di jendela ini? Ini berlaku untuk tab tersemat dari domain yang sama dengan $COUNT$ tab tersimpan di kategori ini.",
+    "message": "Tutup $COUNT$ tab tersemat dari \"$CATEGORY_NAME$\" di jendela ini? Tab tersemat dari situs yang sama dengan kategori ini akan ditutup.",
     "description": "Confirmation before closing category tabs",
     "placeholders": {
       "category_name": {
@@ -516,5 +516,33 @@
   "exportFailed": {
     "message": "Gagal mengekspor pengaturan",
     "description": "Error message when exporting settings fails"
+  },
+  "tabOpenedSingle": {
+    "message": "$COUNT$ tab dibuka",
+    "description": "Success message when exactly one tab was opened",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "tabPinnedSingle": {
+    "message": "$COUNT$ tab telah disematkan",
+    "description": "Success message when exactly one tab was pinned",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "openingTabs": {
+    "message": "Membuka...",
+    "description": "Shown on the Open button while tabs are opening"
+  },
+  "closeDialog": {
+    "message": "Tutup",
+    "description": "Accessible name of the close button of a dialog"
   }
 }

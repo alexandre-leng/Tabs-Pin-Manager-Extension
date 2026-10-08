@@ -539,7 +539,7 @@
     "description": "Tooltip for closing open pinned tabs from a category"
   },
   "closeCategoryConfirm": {
-    "message": "Close pinned tabs from \"$CATEGORY_NAME$\" in this window? This matches pinned tabs from the same domains as the $COUNT$ saved tab(s) in this category.",
+    "message": "Close $COUNT$ pinned tab(s) of \"$CATEGORY_NAME$\" in this window? Pinned tabs from the same sites as this category are closed.",
     "description": "Confirmation before closing category tabs",
     "placeholders": {
       "category_name": {
@@ -611,5 +611,33 @@
   "exportFailed": {
     "message": "Failed to export settings",
     "description": "Error message when exporting settings fails"
+  },
+  "tabOpenedSingle": {
+    "message": "Opened $COUNT$ tab",
+    "description": "Success message when exactly one tab was opened",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "tabPinnedSingle": {
+    "message": "$COUNT$ tab has been pinned",
+    "description": "Success message when exactly one tab was pinned",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "openingTabs": {
+    "message": "Opening...",
+    "description": "Shown on the Open button while tabs are opening"
+  },
+  "closeDialog": {
+    "message": "Close",
+    "description": "Accessible name of the close button of a dialog"
   }
 }

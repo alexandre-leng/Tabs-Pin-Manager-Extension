@@ -1,4 +1,5 @@
 import { generateTabId, isValidUrl, sortTabConfigs } from '../lib/tab-utils.js';
+import { matchKey, savedAddressKey } from '../lib/url-utils.js';
 import { normalizeUrl } from '../lib/url-utils.js';
 
 describe('sortTabConfigs', () => {
@@ -51,5 +52,22 @@ describe('normalizeUrl: page identity', () => {
   test('lowercases the redirect target of a Google login page', () => {
     expect(normalizeUrl('https://accounts.google.com/ServiceLogin?continue=https%3A%2F%2FMail.google.com%2Fmail%2F'))
       .toBe('https://mail.google.com/mail');
+  });
+});
+
+describe('URL keys', () => {
+  test('the root route and parameter order do not change the page', () => {
+    expect(normalizeUrl('https://app.example.com/#/')).toBe(normalizeUrl('https://app.example.com/'));
+    expect(normalizeUrl('https://app.example.com/#!/')).toBe(normalizeUrl('https://app.example.com/'));
+    expect(normalizeUrl('https://www.youtube.com/watch?list=L&v=a')).toBe(normalizeUrl('https://www.youtube.com/watch?v=a&list=L'));
+  });
+
+  test('savedAddressKey tells apart any parameter but tracking ones', () => {
+    expect(savedAddressKey('https://shop.com/item?sku=1')).not.toBe(savedAddressKey('https://shop.com/item?sku=2'));
+    expect(savedAddressKey('https://shop.com/item?sku=1&utm_source=x')).toBe(savedAddressKey('https://shop.com/item/?sku=1'));
+  });
+
+  test('matchKey ignores the scheme and www', () => {
+    expect(matchKey('http://a.com/x')).toBe(matchKey('https://www.a.com/x'));
   });
 });

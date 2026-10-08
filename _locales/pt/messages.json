@@ -529,7 +529,7 @@
     "description": "Tooltip for closing open pinned tabs from a category"
   },
   "closeCategoryConfirm": {
-    "message": "Fechar os separadores fixados de \"$CATEGORY_NAME$\" nesta janela? Aplica-se aos separadores fixados dos mesmos domínios que os $COUNT$ separadores guardados nesta categoria.",
+    "message": "Fechar $COUNT$ aba(s) fixada(s) de \"$CATEGORY_NAME$\" nesta janela? As abas fixadas dos mesmos sites desta categoria serão fechadas.",
     "description": "Confirmation before closing category tabs",
     "placeholders": {
       "category_name": {
@@ -585,5 +585,33 @@
   "exportFailed": {
     "message": "Falha ao exportar as definições",
     "description": "Error message when exporting settings fails"
+  },
+  "tabOpenedSingle": {
+    "message": "$COUNT$ aba aberta",
+    "description": "Success message when exactly one tab was opened",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "tabPinnedSingle": {
+    "message": "$COUNT$ aba foi fixada",
+    "description": "Success message when exactly one tab was pinned",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "openingTabs": {
+    "message": "Abrindo...",
+    "description": "Shown on the Open button while tabs are opening"
+  },
+  "closeDialog": {
+    "message": "Fechar",
+    "description": "Accessible name of the close button of a dialog"
   }
 }

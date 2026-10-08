@@ -4,7 +4,7 @@
 
 import { browser } from '../lib/browser-api.js';
 import { getDomainMatchKey, matchesDomainKeys } from '../lib/domain-utils.js';
-import { normalizeUrl } from '../lib/url-utils.js';
+import { matchKey } from '../lib/url-utils.js';
 
 // A URL opened less than this long ago is assumed to be still loading
 const RECENTLY_OPENED_EXPIRY_MS = 2000;
@@ -20,7 +20,15 @@ export class TabActions {
 
   /** Address of a tab, including one still loading (pendingUrl) or just created here. */
   urlOf(tab) {
-    return tab.url || tab.pendingUrl || this.openedTabUrls.get(tab.id) || '';
+    // Firefox reports a tab still loading as about:blank
+    const url = tab.url && tab.url !== 'about:blank' ? tab.url : '';
+    return url || tab.pendingUrl || this.openedTabUrls.get(tab.id) || tab.url || '';
+  }
+
+  /** Whether a browser tab shows the page of a saved config (even after a redirect). */
+  tabMatches(tab, key) {
+    const openedFor = this.openedTabUrls.get(tab.id);
+    return matchKey(this.urlOf(tab)) === key || (openedFor !== undefined && matchKey(openedFor) === key);
   }
 
   /** Lists the tabs (of a window) and forgets the opened tabs that are gone. */
@@ -64,7 +72,7 @@ export class TabActions {
         opened++;
       } catch (error) {
         console.error(`Failed to open tab ${config.url}:`, error);
-        this.recentlyOpenedUrls.delete(normalizeUrl(config.url));
+        this.recentlyOpenedUrls.delete(matchKey(config.url));
       }
     }
 
@@ -88,11 +96,11 @@ export class TabActions {
     const processed = new Set();
 
     for (const config of configs) {
-      const normalizedUrl = normalizeUrl(config.url);
+      const normalizedUrl = matchKey(config.url);
       if (processed.has(normalizedUrl)) continue;
       processed.add(normalizedUrl);
 
-      const matches = existingTabs.filter(tab => normalizeUrl(this.urlOf(tab)) === normalizedUrl);
+      const matches = existingTabs.filter(tab => this.tabMatches(tab, normalizedUrl));
       const pinnedTab = matches.find(tab => tab.pinned);
       const unpinnedTab = matches.find(tab => !tab.pinned);
       const recentlyOpenedAt = this.recentlyOpenedUrls.get(normalizedUrl);

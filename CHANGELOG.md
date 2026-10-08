@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### 🛠️ Corrections
+- **Onglets ouverts en double après une redirection** : un site qui redirige (`a.com` → `www.a.com`, `http` → `https`) n'était jamais reconnu, et chaque « Ouvrir tout » ajoutait un nouvel onglet épinglé.
+- **Firefox, onglets en chargement** : un onglet encore vide (`about:blank`) n'était pas reconnu : « Fermer » l'ignorait et « Ouvrir tout » le dupliquait.
+- **Renommage annulé à chaque mise à jour** : une catégorie renommée avec son nom anglais par défaut (ex. « Development » dans un navigateur en français) reprenait son nom traduit à chaque mise à jour ; les noms par défaut ne sont plus traduits qu'une fois.
+- **Onglets cachés après la mise à jour** : les onglets laissés sans catégorie valide par les anciennes versions sont rattachés à la première catégorie lors de la mise à jour, et une liste de catégories vide est remplacée par les catégories par défaut.
+- **Adresse refusée à tort** : deux pages différenciées par un paramètre (`?sku=1` / `?sku=2`) étaient considérées comme la même adresse et la seconde ne pouvait pas être enregistrée.
+- **Comparaison d'adresses** : la route racine `#/` et l'ordre des paramètres ne changent plus la page reconnue.
+- **Catégorie importée sans icône** : elle bloquait toute modification de catégorie ; une icône par défaut lui est donnée.
+- **Popup** : « 1 onglet ouvert / épinglé » au singulier ; « Ouverture… » et le bouton de fermeture du dialogue traduits ; la confirmation de fermeture annonce bien le nombre d'onglets épinglés fermés ; un double-clic dans « Épingler dans une catégorie » n'affiche plus d'erreur ; le séparateur entre catégories utilisées et vides s'affiche.
+- **Options** : sélectionner du texte dans un champ et relâcher la souris hors du dialogue ne le ferme plus (et n'efface plus la saisie) ; le sélecteur rapide de catégorie se ferme quand une autre action s'ouvre et ne sort plus de l'écran ; le focus clavier reste sur la carte après « Monter / Descendre », « Supprimer » et l'enregistrement d'un dialogue.
+- **Accessibilité et langues** : les messages (toasts) sont annoncés par les lecteurs d'écran ; la langue et le sens d'écriture de la page suivent celle du navigateur (l'arabe s'affiche de droite à gauche) ; les noms de domaine internationaux s'affichent en clair (`bücher.ch` au lieu de `xn--bcher-kva.ch`).
+- **Stockage** : un changement de l'horloge système ne peut plus bloquer les opérations de stockage.
 - **Doublons existants non modifiables** (régression de 1.4.0) : un onglet enregistré en double par une ancienne version ne pouvait plus être renommé ni changé de catégorie (« adresse déjà enregistrée ») ; seul l'ajout d'une adresse déjà enregistrée est maintenant refusé.
 
 ### 📝 Documentation

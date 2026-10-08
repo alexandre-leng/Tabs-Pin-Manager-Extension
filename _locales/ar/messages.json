@@ -461,7 +461,7 @@
     "description": "Tooltip for closing open pinned tabs from a category"
   },
   "closeCategoryConfirm": {
-    "message": "هل تريد إغلاق علامات التبويب المثبتة في \"$CATEGORY_NAME$\" في هذه النافذة؟ ينطبق ذلك على علامات التبويب المثبتة من النطاقات نفسها لعلامات التبويب الـ $COUNT$ المحفوظة في هذه الفئة.",
+    "message": "إغلاق $COUNT$ من علامات التبويب المثبتة من \"$CATEGORY_NAME$\" في هذه النافذة؟ سيتم إغلاق علامات التبويب المثبتة من نفس مواقع هذه الفئة.",
     "description": "Confirmation before closing category tabs",
     "placeholders": {
       "category_name": {
@@ -516,5 +516,33 @@
   "exportFailed": {
     "message": "تعذر تصدير الإعدادات",
     "description": "Error message when exporting settings fails"
+  },
+  "tabOpenedSingle": {
+    "message": "تم فتح $COUNT$ علامة تبويب",
+    "description": "Success message when exactly one tab was opened",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "tabPinnedSingle": {
+    "message": "تم تثبيت $COUNT$ علامة تبويب",
+    "description": "Success message when exactly one tab was pinned",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "openingTabs": {
+    "message": "جارٍ الفتح...",
+    "description": "Shown on the Open button while tabs are opening"
+  },
+  "closeDialog": {
+    "message": "إغلاق",
+    "description": "Accessible name of the close button of a dialog"
   }
 }

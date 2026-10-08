@@ -529,7 +529,7 @@
     "description": "Tooltip for closing open pinned tabs from a category"
   },
   "closeCategoryConfirm": {
-    "message": "Vastgezette tabbladen van \"$CATEGORY_NAME$\" in dit venster sluiten? Dit geldt voor vastgezette tabbladen van dezelfde domeinen als de $COUNT$ opgeslagen tabbladen in deze categorie.",
+    "message": "$COUNT$ vastgezette tabblad(en) van \"$CATEGORY_NAME$\" in dit venster sluiten? Vastgezette tabbladen van dezelfde sites als deze categorie worden gesloten.",
     "description": "Confirmation before closing category tabs",
     "placeholders": {
       "category_name": {
@@ -585,5 +585,33 @@
   "exportFailed": {
     "message": "Exporteren van instellingen mislukt",
     "description": "Error message when exporting settings fails"
+  },
+  "tabOpenedSingle": {
+    "message": "$COUNT$ tabblad geopend",
+    "description": "Success message when exactly one tab was opened",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "tabPinnedSingle": {
+    "message": "$COUNT$ tabblad is vastgezet",
+    "description": "Success message when exactly one tab was pinned",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "openingTabs": {
+    "message": "Openen...",
+    "description": "Shown on the Open button while tabs are opening"
+  },
+  "closeDialog": {
+    "message": "Sluiten",
+    "description": "Accessible name of the close button of a dialog"
   }
 }

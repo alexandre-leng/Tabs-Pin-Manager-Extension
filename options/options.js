@@ -144,30 +144,18 @@ export class OptionsManager {
     this.elements.closeTabModal?.addEventListener('click', () => this.closeTabModal());
     this.elements.cancelTabBtn?.addEventListener('click', () => this.closeTabModal());
     this.elements.tabForm?.addEventListener('submit', (e) => this.saveTab(e));
-    this.elements.tabModalOverlay?.addEventListener('click', (e) => {
-      if (e.target === this.elements.tabModalOverlay) {
-        this.closeTabModal();
-      }
-    });
+    this.bindBackdropClose(this.elements.tabModalOverlay, () => this.closeTabModal());
     
     // Category Modal
     this.elements.closeCategoryModal?.addEventListener('click', () => this.closeCategoryModal());
     this.elements.cancelCategoryBtn?.addEventListener('click', () => this.closeCategoryModal());
     this.elements.categoryForm?.addEventListener('submit', (e) => this.saveCategory(e));
-    this.elements.categoryModalOverlay?.addEventListener('click', (e) => {
-      if (e.target === this.elements.categoryModalOverlay) {
-        this.closeCategoryModal();
-      }
-    });
+    this.bindBackdropClose(this.elements.categoryModalOverlay, () => this.closeCategoryModal());
     
     // Icon Picker Modal
     this.elements.iconSelectorBtn?.addEventListener('click', () => this.openIconPicker());
     this.elements.closeIconPicker?.addEventListener('click', () => this.closeIconPicker());
-    this.elements.iconPickerOverlay?.addEventListener('click', (e) => {
-      if (e.target === this.elements.iconPickerOverlay) {
-        this.closeIconPicker();
-      }
-    });
+    this.bindBackdropClose(this.elements.iconPickerOverlay, () => this.closeIconPicker());
     this.elements.iconSearchInput?.addEventListener('input', (e) => this.searchIcons(e.target.value));
     
     // Icon Category buttons
@@ -347,6 +335,20 @@ export class OptionsManager {
     }
   }
 
+  /**
+   * Closes a dialog on a click on its backdrop, but only when the press also started
+   * there: selecting text in a field and releasing outside must not close the dialog.
+   */
+  bindBackdropClose(overlay, close) {
+    if (!overlay) return;
+    let pressedOnBackdrop = false;
+    overlay.addEventListener('mousedown', (e) => { pressedOnBackdrop = e.target === overlay; });
+    overlay.addEventListener('click', (e) => {
+      if (pressedOnBackdrop && e.target === overlay) close();
+      pressedOnBackdrop = false;
+    });
+  }
+
   hideOverlay(overlay) {
     if (overlay) UiUtils.hideDialog(overlay);
   }
@@ -358,6 +360,11 @@ export class OptionsManager {
 
   extractDomain(url) {
     return UiUtils.extractDomain(url);
+  }
+
+  /** Readable domain, used as the title of a page without one. */
+  displayDomain(url) {
+    return UiUtils.displayDomain(url);
   }
 
   showToast(type, icon, message) {

@@ -56,7 +56,7 @@ function sanitizeCategory(category) {
     // Same rule as when categories are saved: an unnamed one would block every later save
     return null;
   }
-  return { ...category, icon: typeof category.icon === 'string' ? category.icon : '📁' };
+  return { ...category, icon: typeof category.icon === 'string' && category.icon.trim() ? category.icon : '📁' };
 }
 
 /** Returns a cleaned tab, or null when it has no http(s) URL. */

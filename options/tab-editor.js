@@ -6,10 +6,11 @@
 import { browser } from '../lib/browser-api.js';
 import { generateTabId } from '../lib/tab-utils.js';
 import { UiUtils } from '../lib/ui-utils.js';
-import { normalizeUrl } from '../lib/url-utils.js';
+import { savedAddressKey } from '../lib/url-utils.js';
 
 export const tabEditor = {
   openTabModal(tab = null) {
+    this.closeCategoryQuickEdit();
     this.currentEditingTab = tab;
     
     // Populate category dropdown FIRST, so its options are available when setting the value.
@@ -70,11 +71,11 @@ export const tabEditor = {
       return;
     }
     
-    const key = normalizeUrl(url);
+    const key = savedAddressKey(url);
     // Only a new address is checked: duplicates saved by older versions stay editable
-    const addressChanged = !this.currentEditingTab || normalizeUrl(this.currentEditingTab.url) !== key;
+    const addressChanged = !this.currentEditingTab || savedAddressKey(this.currentEditingTab.url) !== key;
     const duplicate = addressChanged &&
-      this.tabs.some(tab => tab.id !== this.currentEditingTab?.id && normalizeUrl(tab.url) === key);
+      this.tabs.some(tab => tab.id !== this.currentEditingTab?.id && savedAddressKey(tab.url) === key);
     if (duplicate) {
       this.showToast('error', '❌', browser.i18n.getMessage('tabAlreadyPinned'));
       return;
@@ -83,7 +84,7 @@ export const tabEditor = {
     const tabData = {
       id: this.currentEditingTab?.id || generateTabId(),
       url: url,
-      title: title || this.extractDomain(url),
+      title: title || this.displayDomain(url),
       category: category,
       enabled: this.currentEditingTab ? this.currentEditingTab.enabled !== false : true,
       dateAdded: this.currentEditingTab?.dateAdded || new Date().toISOString()
@@ -133,9 +134,11 @@ export const tabEditor = {
       });
       
       if (response && response.success) {
+        const index = this.getSortedTabs().findIndex(t => t.id === tab.id);
         await this.loadData();
         this.renderTabs();
         this.renderCategories();
+        this.focusAfterDelete(index);
         this.showToast('success', '✅', browser.i18n.getMessage('tabDeleted'));
       } else {
         throw new Error(response?.error || browser.i18n.getMessage('failedToDeleteTab'));
@@ -144,5 +147,12 @@ export const tabEditor = {
       console.error('Error deleting tab:', error);
       this.showToast('error', '❌', error.message);
     }
+  },
+
+  /** After a deletion, focus the card now at the same place (or the add button). */
+  focusAfterDelete(index) {
+    const cards = this.elements.tabsGrid.querySelectorAll('.tab-item');
+    const card = cards[Math.min(index, cards.length - 1)];
+    (card?.querySelector('.delete') || this.elements.addFirstTabBtn || this.elements.addTabBtn)?.focus();
   }
 };

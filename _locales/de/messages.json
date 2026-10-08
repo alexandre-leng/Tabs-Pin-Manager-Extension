@@ -529,7 +529,7 @@
     "description": "Tooltip for closing open pinned tabs from a category"
   },
   "closeCategoryConfirm": {
-    "message": "Angeheftete Tabs von \"$CATEGORY_NAME$\" in diesem Fenster schließen? Betroffen sind angeheftete Tabs derselben Domains wie die $COUNT$ gespeicherten Tabs dieser Kategorie.",
+    "message": "$COUNT$ angeheftete(n) Tab(s) von „$CATEGORY_NAME$“ in diesem Fenster schließen? Angeheftete Tabs derselben Websites wie diese Kategorie werden geschlossen.",
     "description": "Confirmation before closing category tabs",
     "placeholders": {
       "category_name": {
@@ -585,5 +585,33 @@
   "exportFailed": {
     "message": "Export der Einstellungen fehlgeschlagen",
     "description": "Error message when exporting settings fails"
+  },
+  "tabOpenedSingle": {
+    "message": "$COUNT$ Tab geöffnet",
+    "description": "Success message when exactly one tab was opened",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "tabPinnedSingle": {
+    "message": "$COUNT$ Tab wurde angeheftet",
+    "description": "Success message when exactly one tab was pinned",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "openingTabs": {
+    "message": "Wird geöffnet...",
+    "description": "Shown on the Open button while tabs are opening"
+  },
+  "closeDialog": {
+    "message": "Schließen",
+    "description": "Accessible name of the close button of a dialog"
   }
 }

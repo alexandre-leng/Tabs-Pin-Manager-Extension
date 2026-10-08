@@ -549,7 +549,7 @@
     "description": "Tooltip for closing open pinned tabs from a category"
   },
   "closeCategoryConfirm": {
-    "message": "Chiudere le schede bloccate di \"$CATEGORY_NAME$\" in questa finestra? Riguarda le schede bloccate degli stessi domini delle $COUNT$ schede salvate in questa categoria.",
+    "message": "Chiudere $COUNT$ scheda/e fissata/e di \"$CATEGORY_NAME$\" in questa finestra? Vengono chiuse le schede fissate degli stessi siti di questa categoria.",
     "description": "Confirmation before closing category tabs",
     "placeholders": {
       "category_name": {
@@ -605,5 +605,33 @@
   "exportFailed": {
     "message": "Impossibile esportare le impostazioni",
     "description": "Error message when exporting settings fails"
+  },
+  "tabOpenedSingle": {
+    "message": "$COUNT$ scheda aperta",
+    "description": "Success message when exactly one tab was opened",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "tabPinnedSingle": {
+    "message": "$COUNT$ scheda è stata fissata",
+    "description": "Success message when exactly one tab was pinned",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "openingTabs": {
+    "message": "Apertura...",
+    "description": "Shown on the Open button while tabs are opening"
+  },
+  "closeDialog": {
+    "message": "Chiudi",
+    "description": "Accessible name of the close button of a dialog"
   }
 }

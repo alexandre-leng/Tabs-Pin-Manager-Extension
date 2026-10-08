@@ -90,3 +90,21 @@ describe('TabActions.closePinnedTabs', () => {
     expect(result).toEqual({ success: true, closed: 2, failed: 0, skipped: 2 });
   });
 });
+
+describe('TabActions: tabs whose address changed', () => {
+  test('recognizes a tab the site redirected (scheme and www changed)', async () => {
+    const fake = installFakeBrowser({ openTabs: [{ id: 3, url: 'https://www.a.com/', pinned: true }] });
+    const result = await new TabActions().openTabs([{ url: 'http://a.com/' }]);
+    expect(fake.created).toHaveLength(0);
+    expect(result).toMatchObject({ skipped: 1 });
+  });
+
+  test('treats a Firefox tab still loading (about:blank) by the address it was opened for', async () => {
+    const actions = new TabActions();
+    actions.openedTabUrls.set(9, 'https://a.com/');
+    installFakeBrowser({ openTabs: [{ id: 9, url: 'about:blank', pinned: true }] });
+    expect(actions.urlOf({ id: 9, url: 'about:blank' })).toBe('https://a.com/');
+    const result = await actions.closePinnedTabs([{ url: 'https://a.com/' }]);
+    expect(result).toMatchObject({ closed: 1 });
+  });
+});

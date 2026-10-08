@@ -24,7 +24,9 @@ describe('reportOpenResult', () => {
   test.each([
     [{ opened: 2 }, 'success', 'tabsOpenedCount', true],
     [{ opened: 1, skipped: 2 }, 'success', 'someTabsAlreadyOpen', true],
-    [{ pinned: 1 }, 'success', 'tabsPinned', true],
+    [{ pinned: 1 }, 'success', 'tabPinnedSingle', true],
+    [{ pinned: 2 }, 'success', 'tabsPinned', true],
+    [{ opened: 1 }, 'success', 'tabOpenedSingle', true],
     [{ pinned: 1, opened: 1 }, 'success', 'someTabsPinnedAndOpened', true],
     [{ skipped: 3 }, 'info', 'allTabsAlreadyOpen', false],
     [{ failed: 2 }, 'error', 'failedToOpenTabs', false],

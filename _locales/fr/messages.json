@@ -533,7 +533,7 @@
     "description": "Tooltip for closing open pinned tabs from a category"
   },
   "closeCategoryConfirm": {
-    "message": "Fermer les onglets épinglés de \"$CATEGORY_NAME$\" dans cette fenêtre ? Cela cible les onglets épinglés des mêmes domaines que les $COUNT$ onglet(s) enregistrés dans cette catégorie.",
+    "message": "Fermer $COUNT$ onglet(s) épinglé(s) de « $CATEGORY_NAME$ » dans cette fenêtre ? Les onglets épinglés des mêmes sites que cette catégorie sont fermés.",
     "description": "Confirmation before closing category tabs",
     "placeholders": {
       "category_name": {
@@ -605,5 +605,33 @@
   "exportFailed": {
     "message": "Échec de l'export des paramètres",
     "description": "Error message when exporting settings fails"
+  },
+  "tabOpenedSingle": {
+    "message": "$COUNT$ onglet ouvert",
+    "description": "Success message when exactly one tab was opened",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "tabPinnedSingle": {
+    "message": "$COUNT$ onglet a été épinglé",
+    "description": "Success message when exactly one tab was pinned",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "openingTabs": {
+    "message": "Ouverture...",
+    "description": "Shown on the Open button while tabs are opening"
+  },
+  "closeDialog": {
+    "message": "Fermer",
+    "description": "Accessible name of the close button of a dialog"
   }
 }

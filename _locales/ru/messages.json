@@ -461,7 +461,7 @@
     "description": "Tooltip for closing open pinned tabs from a category"
   },
   "closeCategoryConfirm": {
-    "message": "Закрыть закреплённые вкладки категории «$CATEGORY_NAME$» в этом окне? Будут затронуты закреплённые вкладки с теми же доменами, что и $COUNT$ сохранённых вкладок в этой категории.",
+    "message": "Закрыть закреплённые вкладки ($COUNT$) категории «$CATEGORY_NAME$» в этом окне? Будут закрыты закреплённые вкладки с тех же сайтов, что и в этой категории.",
     "description": "Confirmation before closing category tabs",
     "placeholders": {
       "category_name": {
@@ -516,5 +516,33 @@
   "exportFailed": {
     "message": "Не удалось экспортировать настройки",
     "description": "Error message when exporting settings fails"
+  },
+  "tabOpenedSingle": {
+    "message": "Открыта $COUNT$ вкладка",
+    "description": "Success message when exactly one tab was opened",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "tabPinnedSingle": {
+    "message": "$COUNT$ вкладка закреплена",
+    "description": "Success message when exactly one tab was pinned",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "openingTabs": {
+    "message": "Открытие...",
+    "description": "Shown on the Open button while tabs are opening"
+  },
+  "closeDialog": {
+    "message": "Закрыть",
+    "description": "Accessible name of the close button of a dialog"
   }
 }

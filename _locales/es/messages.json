@@ -549,7 +549,7 @@
     "description": "Tooltip for closing open pinned tabs from a category"
   },
   "closeCategoryConfirm": {
-    "message": "¿Cerrar las pestañas fijadas de \"$CATEGORY_NAME$\" en esta ventana? Se aplica a las pestañas fijadas de los mismos dominios que las $COUNT$ pestañas guardadas en esta categoría.",
+    "message": "¿Cerrar $COUNT$ pestaña(s) fijada(s) de \"$CATEGORY_NAME$\" en esta ventana? Se cierran las pestañas fijadas de los mismos sitios que esta categoría.",
     "description": "Confirmation before closing category tabs",
     "placeholders": {
       "category_name": {
@@ -605,5 +605,33 @@
   "exportFailed": {
     "message": "No se pudo exportar la configuración",
     "description": "Error message when exporting settings fails"
+  },
+  "tabOpenedSingle": {
+    "message": "$COUNT$ pestaña abierta",
+    "description": "Success message when exactly one tab was opened",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "tabPinnedSingle": {
+    "message": "$COUNT$ pestaña ha sido fijada",
+    "description": "Success message when exactly one tab was pinned",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "openingTabs": {
+    "message": "Abriendo...",
+    "description": "Shown on the Open button while tabs are opening"
+  },
+  "closeDialog": {
+    "message": "Cerrar",
+    "description": "Accessible name of the close button of a dialog"
   }
 }

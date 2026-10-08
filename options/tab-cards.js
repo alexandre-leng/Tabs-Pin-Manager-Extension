@@ -53,7 +53,7 @@ export const tabCards = {
 
     const tabTitle = document.createElement('h3');
     tabTitle.className = 'tab-title';
-    tabTitle.textContent = tab.title || this.extractDomain(tab.url);
+    tabTitle.textContent = tab.title || this.displayDomain(tab.url);
 
     const tabUrl = document.createElement('p');
     tabUrl.className = 'tab-url';
@@ -112,6 +112,8 @@ export const tabCards = {
     button.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
+      // The quick category popover must not stay open over another action
+      this.closeCategoryQuickEdit();
       onClick();
     });
     return button;

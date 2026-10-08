@@ -7,7 +7,7 @@ import { browser } from '../lib/browser-api.js';
 import { getDefaultCategories } from '../lib/default-categories.js';
 import { StorageManager } from '../lib/storage-manager.js';
 import { sanitizeImportData } from './import-sanitizer.js';
-import { normalizeUrl } from '../lib/url-utils.js';
+import { savedAddressKey } from '../lib/url-utils.js';
 import { log } from './log.js';
 import { generateTabId, isValidUrl, sortTabConfigs } from '../lib/tab-utils.js';
 
@@ -37,7 +37,9 @@ export class DataStore {
     const result = await this.storage.get(DATA_KEYS, useCache);
     if (revision !== this.revision) return;
     this.tabs = result.pinnedTabs || [];
-    this.categories = result.categories || getDefaultCategories(browser.i18n);
+    this.categories = Array.isArray(result.categories) && result.categories.length > 0
+      ? result.categories
+      : getDefaultCategories(browser.i18n);
     this.settings = { ...result.settings };
   }
 
@@ -68,9 +70,9 @@ export class DataStore {
 
       const index = this.tabs.findIndex(t => t.id === saved.id);
       // Only a new address is checked: duplicates saved by older versions stay editable
-      const key = normalizeUrl(saved.url);
-      const addressChanged = index < 0 || normalizeUrl(this.tabs[index].url) !== key;
-      if (addressChanged && this.tabs.some(t => t.id !== saved.id && normalizeUrl(t.url) === key)) {
+      const key = savedAddressKey(saved.url);
+      const addressChanged = index < 0 || savedAddressKey(this.tabs[index].url) !== key;
+      if (addressChanged && this.tabs.some(t => t.id !== saved.id && savedAddressKey(t.url) === key)) {
         throw new Error('This address is already saved');
       }
       const merged = index >= 0 ? { ...this.tabs[index], ...saved } : saved;
@@ -172,6 +174,10 @@ export class DataStore {
         defaults.categories = getDefaultCategories(browser.i18n);
       }
       if (!existing.settings) defaults.settings = {};
+      if (defaults.categories) {
+        // Names written here are already translated: later updates must not touch them
+        defaults.settings = { ...existing.settings, ...defaults.settings, categoriesLocalized: true };
+      }
 
       if (Object.keys(defaults).length > 0) {
         await this.write(defaults);
@@ -180,15 +186,20 @@ export class DataStore {
     });
   }
 
-  /** Extension update: translate untouched default category names, fill missing tab fields. */
+  /**
+   * Extension update: translate the default category names once, fill missing tab
+   * fields and move tabs of unknown categories to the first one.
+   */
   migrate() {
     return this.serialize(async () => {
-      await this.load();
+      await this.load(false);
 
       const translated = getDefaultCategories(browser.i18n);
       const english = getDefaultCategories(null);
       let categoriesChanged = false;
-      this.categories = this.categories.map(category => {
+      // Translated once only: afterwards an English name is the user's choice
+      const alreadyLocalized = this.settings.categoriesLocalized === true;
+      this.categories = alreadyLocalized ? this.categories : this.categories.map(category => {
         const target = translated.find(c => c.id === category.id);
         const original = english.find(c => c.id === category.id);
         // Only names never customized by the user are translated
@@ -201,6 +212,10 @@ export class DataStore {
       if (categoriesChanged) {
         await this.write({ categories: this.categories });
       }
+      if (!alreadyLocalized) {
+        this.settings = { ...this.settings, categoriesLocalized: true };
+        await this.write({ settings: this.settings });
+      }
 
       let tabsChanged = false;
       this.tabs = this.tabs.map(tab => {
@@ -212,6 +227,13 @@ export class DataStore {
           enabled: tab.enabled !== undefined ? tab.enabled : true,
           dateAdded: tab.dateAdded || new Date().toISOString()
         };
+      });
+      // Older versions could leave tabs in a removed category, hidden in the popup
+      const categoryIds = new Set(this.categories.map(c => c.id));
+      this.tabs = this.tabs.map(tab => {
+        if (categoryIds.has(tab.category)) return tab;
+        tabsChanged = true;
+        return { ...tab, category: this.categories[0].id };
       });
       if (tabsChanged) {
         await this.write({ pinnedTabs: this.tabs });

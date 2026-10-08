@@ -65,11 +65,11 @@ export const tabActions = {
     if (pinned > 0 && opened > 0) {
       this.showToast('success', '✅', browser.i18n.getMessage('someTabsPinnedAndOpened'));
     } else if (pinned > 0) {
-      this.showToast('success', '📌', browser.i18n.getMessage('tabsPinned', [String(pinned)]));
+      this.showToast('success', '📌', browser.i18n.getMessage(pinned === 1 ? 'tabPinnedSingle' : 'tabsPinned', [String(pinned)]));
     } else if (skipped > 0) {
       this.showToast('success', '✅', browser.i18n.getMessage('someTabsAlreadyOpen', [String(skipped), String(opened)]));
     } else {
-      this.showToast('success', '✅', browser.i18n.getMessage('tabsOpenedCount', [String(opened)]));
+      this.showToast('success', '✅', browser.i18n.getMessage(opened === 1 ? 'tabOpenedSingle' : 'tabsOpenedCount', [String(opened)]));
     }
     return true;
   },
@@ -216,8 +216,9 @@ export const tabActions = {
   },
 
   async pinCurrentTabInCategory(categoryId) {
-    // A double click (or Enter then click) must not save the tab twice
-    if (!this.currentTab || this.isPinningTab) {
+    // A double click (or Enter then click) must not save the tab twice, nor report an
+    // error for the second click once the first one saved it
+    if (!this.currentTab || this.isPinningTab || this.isTabAlreadyPinned(this.currentTab.url)) {
       return;
     }
     this.isPinningTab = true;
