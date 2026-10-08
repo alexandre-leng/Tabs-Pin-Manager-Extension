@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [1.4.1] - 2026-10-08
 
 ### 🛠️ Corrections
 - **Onglets ouverts en double après une redirection** : un site qui redirige (`a.com` → `www.a.com`, `http` → `https`) n'était jamais reconnu, et chaque « Ouvrir tout » ajoutait un nouvel onglet épinglé.
