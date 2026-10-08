@@ -31,17 +31,20 @@ in one click, pinned and without duplicates. Manifest V3, 100% local storage, no
 
 - **One-click launch**: open every saved site as a pinned tab, or only one category.
 - **No duplicates**: a site already open is left alone; open but unpinned, it is pinned
-  instead of reopened. Matching ignores tracking parameters but keeps the ones that
-  identify a page (`?v=` on YouTube, `?q=`, `?id=`, single-page-app routes like `#/inbox`…).
+  instead of reopened. Matching ignores tracking parameters, parameter order, `http`/`https`
+  and `www.` (so a tab still matches after the site redirected it), but keeps what
+  identifies a page (`?v=` on YouTube, `?q=`, `?id=`, single-page-app routes like `#/inbox`…).
+  The same address cannot be saved twice.
 - **Pin the current tab** from the popup, into the category of your choice.
 - **Categories**: rename them and pick an emoji icon; close all pinned tabs of a
-  category at once (with confirmation).
+  category at once (with confirmation). Tabs of a removed category move to the first one.
 - **Reorder** tabs by drag and drop, or with the ↑ / ↓ buttons (keyboard friendly).
 - **Import / export** your configuration as JSON.
 - **14 languages**: Arabic, Chinese, Dutch, English, French, German, Hindi, Indonesian,
   Italian, Japanese, Korean, Portuguese, Russian, Spanish.
-- **Accessible**: full keyboard use, focus management in dialogs, screen-reader labels,
-  dark mode, high-contrast and reduced-motion preferences respected.
+- **Accessible**: full keyboard use, focus kept in place after actions, screen-reader
+  labels and announced messages, right-to-left layout for Arabic, dark mode,
+  high-contrast and reduced-motion preferences respected.
 
 ## Installation
 
@@ -59,7 +62,8 @@ also provides the Firefox and Chrome packages as `.zip` files.
 2. **Pin current tab** saves the page you are on (you choose its category), or open
    **Options** to add, edit and reorder sites.
 3. **Open N tabs** opens everything; click a category to open only its sites.
-4. The **Close** button of a category closes its pinned tabs in the current window.
+4. The **Close** button of a category closes, after confirmation, the pinned tabs of the
+   current window whose site (domain) matches one of the category's saved sites.
 
 ## Privacy & permissions
 
@@ -86,15 +90,17 @@ also provides the Firefox and Chrome packages as `.zip` files.
       "category": "work", "enabled": true, "order": 0, "dateAdded": "2026-01-01T00:00:00.000Z" }
   ],
   "categories": [{ "id": "work", "name": "Work", "icon": "💼" }],
-  "settings": { "lastOpened": "2026-01-01T00:00:00.000Z" },
+  "settings": { "lastOpened": "2026-01-01T00:00:00.000Z", "categoriesLocalized": true },
   "exportDate": "…",
-  "version": "1.4.0"
+  "version": "1.4.2"
 }
 ```
 
-On import, the file **replaces** the current configuration. It is validated first:
-entries without an `http(s)` address, unnamed categories and invalid values are dropped,
-duplicate IDs are fixed, and the number of skipped tabs is reported.
+On import, the file **replaces** the current tabs and categories. It is validated first:
+entries without an `http(s)` address and unnamed categories are dropped, a missing icon
+becomes 📁, tabs of an unknown category go to the first one, duplicate IDs are fixed,
+only a valid past `lastOpened` date is kept from the settings, and the number of skipped
+tabs is reported.
 
 ## Development
 
@@ -130,11 +136,16 @@ dependency is an explicit `import`.
 | Background (Firefox event page / Chrome service worker) | `background/background.js` | `controller.js` (events, messages), `data-store.js` (saved data, one change at a time), `tab-actions.js` (open / pin / close tabs), `import-sanitizer.js`, `log.js` |
 | Popup | `popup/main.js` | `popup.js` (`PopupManager`), `category-list.js`, `category-order.js`, `category-selection.js`, `tab-actions.js` |
 | Options page | `options/main.js` | `options.js` (`OptionsManager`), `tab-cards.js`, `tab-editor.js`, `tab-ordering.js`, `category-editor.js`, `icon-picker.js`, `import-export.js` |
-| Shared | `lib/` | `browser-api.js`, `storage-manager.js`, `url-utils.js`, `tab-utils.js`, `domain-utils.js`, `time-format.js`, `ui-utils.js`, `i18n-helper.js`, `default-categories.js`, `mixins.js` |
+| Shared | `lib/` | `browser-api.js`, `storage-manager.js`, `url-utils.js`, `tab-utils.js`, `domain-utils.js`, `punycode.js` (display of international domains), `time-format.js`, `ui-utils.js`, `i18n-helper.js`, `default-categories.js`, `mixins.js` |
 
-- The **background script owns the data**: pages read and change it only through
-  messages (`getTabsData`, `saveTab`, `reorderTabs`, `importAllData`…), and it broadcasts
-  a `dataChanged` message after each change.
+- The **background script owns the data**: pages change it only through messages
+  (`openAllTabs`, `openCategoryTabs`, `countCategoryPinnedTabs`, `closeCategoryTabs`,
+  `saveTab`, `deleteTab`, `reorderTabs`, `saveCategories`, `importAllData`) and read it
+  with `getTabsData` (the popup reads storage directly only if the background does not
+  answer). The background broadcasts a `dataChanged` message after each change.
+- On install, default categories are created in the browser language; on update,
+  `migrate()` translates them once (`settings.categoriesLocalized`), fills missing tab
+  fields and moves tabs of unknown categories to the first one.
 - Page features are plain objects of methods composed into the page class with `mixin()`,
   which throws if two features define the same method.
 - `tests/module-graph.test.js` checks that every import resolves and no module is unused;

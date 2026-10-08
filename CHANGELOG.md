@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### 📝 Documentation
+- README mis à jour avec le code actuel : détection des doublons (redirections, ordre des paramètres), fermeture d'une catégorie par domaine, format d'export et règles de l'import, migrations à la mise à jour, messages du script d'arrière-plan, module `punycode.js`, accessibilité.
+
 ## [1.4.2] - 2026-10-08
 
 ### 📝 Documentation
