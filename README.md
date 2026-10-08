@@ -1,4 +1,4 @@
-# Tabs Pin — Pinned Tabs Manager for Firefox & Chrome
+# Tabs Pin: Pinned Tabs Manager for Firefox & Chrome
 
 <p align="center">
   <img src="assets/icons/icon-128.png" alt="Tabs Pin logo" width="96">
@@ -13,7 +13,7 @@
 </p>
 
 Save the sites you always keep pinned, sort them into categories, and reopen them all
-— pinned, without duplicates — in one click. Manifest V3, 100% local storage, no account, no tracking.
+in one click, pinned and without duplicates. Manifest V3, 100% local storage, no account, no tracking.
 
 ## Contents
 
@@ -29,18 +29,18 @@ Save the sites you always keep pinned, sort them into categories, and reopen the
 
 ## Features
 
-- **One-click launch** — open every saved site as a pinned tab, or only one category.
-- **No duplicates** — a site already open is left alone; open but unpinned, it is pinned
+- **One-click launch**: open every saved site as a pinned tab, or only one category.
+- **No duplicates**: a site already open is left alone; open but unpinned, it is pinned
   instead of reopened. Matching ignores tracking parameters but keeps the ones that
   identify a page (`?v=` on YouTube, `?q=`, `?id=`, single-page-app routes like `#/inbox`…).
 - **Pin the current tab** from the popup, into the category of your choice.
-- **Categories** — rename them and pick an emoji icon; close all pinned tabs of a
+- **Categories**: rename them and pick an emoji icon; close all pinned tabs of a
   category at once (with confirmation).
 - **Reorder** tabs by drag and drop, or with the ↑ / ↓ buttons (keyboard friendly).
 - **Import / export** your configuration as JSON.
-- **14 languages** — Arabic, Chinese, Dutch, English, French, German, Hindi, Indonesian,
+- **14 languages**: Arabic, Chinese, Dutch, English, French, German, Hindi, Indonesian,
   Italian, Japanese, Korean, Portuguese, Russian, Spanish.
-- **Accessible** — full keyboard use, focus management in dialogs, screen-reader labels,
+- **Accessible**: full keyboard use, focus management in dialogs, screen-reader labels,
   dark mode, high-contrast and reduced-motion preferences respected.
 
 ## Installation
@@ -156,4 +156,4 @@ dependency is an explicit `import`.
 
 ## License
 
-[GPL-3.0](LICENSE) — developed by Alexandre.
+[GPL-3.0](LICENSE). Developed by Alexandre.
