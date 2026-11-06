@@ -162,7 +162,7 @@ dependency is an explicit `import`.
 ## Support
 
 - Bugs and ideas: [GitHub Issues](https://github.com/alexandre-leng/Tabs-Pin-Manager-Extension/issues)
-- Email: dev.alexandre.git [@] gmail.com
+- Email: dev.alexandre.git [AT] gmail [DOT] com
 - Changes: [CHANGELOG.md](CHANGELOG.md)
 
 ## License
