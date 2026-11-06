@@ -21,6 +21,7 @@ Category deletion, a lighter popup and an English documentation folder.
 - **Delete a category**: the edit dialog offers "Delete Category", with a confirmation naming the tabs involved and the category that will take them. Tabs of the deleted category move to the first remaining category, and the last category cannot be deleted.
 
 ### 🛠️ Fixes
+- **Right-to-left direction**: the pages now set their writing direction from the interface language itself, so Arabic stays right to left even when the browser reports no direction. Verified by an automated test that opens the walkthrough with a French and an Arabic interface.
 - **Translations**: eight languages (Hindi, Indonesian, Japanese, Korean, Dutch, Portuguese, Russian, Chinese) still displayed "Some tabs were pinned and others opened" in English. Error messages raised by the background script are translated too, instead of reaching the options page in English, and the favicon of the tab preview no longer carries an English "Favicon" label.
 
 ### 🧹 Quality
