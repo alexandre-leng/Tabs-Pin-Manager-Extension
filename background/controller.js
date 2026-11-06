@@ -148,6 +148,8 @@ export class TabsPinBackground {
       log('Extension installed/updated:', details.reason);
       if (details.reason === 'install') {
         await this.store.initializeDefaults();
+        // First run: say what the extension is for, once
+        await browser.tabs.create({ url: browser.runtime.getURL('welcome/welcome.html') });
       } else if (details.reason === 'update') {
         await this.store.migrate();
       }

@@ -551,6 +551,54 @@
     "message": "Dati aggiornati con successo!",
     "description": "Message shown when data is refreshed successfully"
   },
+  "onboardingTitle": {
+    "message": "Come funziona Tabs Pin",
+    "description": "Welcome page title"
+  },
+  "onboardingIntro": {
+    "message": "Salva i siti che tieni sempre aperti e riaprili come schede fissate con un clic, senza duplicati.",
+    "description": "One-sentence summary of what the extension does"
+  },
+  "onboardingStep1Title": {
+    "message": "Fissa un sito",
+    "description": "Welcome page, first step"
+  },
+  "onboardingStep1Text": {
+    "message": "Fai clic sull'icona di Tabs Pin, poi su «Fissa scheda corrente» per salvare la pagina aperta. Aggiungi gli altri dalla pagina delle opzioni.",
+    "description": "Welcome page, first step, explanation"
+  },
+  "onboardingStep2Title": {
+    "message": "Riaprili più tardi",
+    "description": "Welcome page, second step"
+  },
+  "onboardingStep2Text": {
+    "message": "Apri una categoria per ritrovare i suoi siti, oppure «Apri tutte le schede» per tutto, una volta sola, anche dopo aver chiuso il browser.",
+    "description": "Welcome page, second step, explanation"
+  },
+  "onboardingStep3Title": {
+    "message": "Ordinali per progetto",
+    "description": "Welcome page, third step"
+  },
+  "onboardingStep3Text": {
+    "message": "Ogni categoria ha la sua icona e le sue schede: lavoro, personale e letture restano separati.",
+    "description": "Welcome page, third step, explanation"
+  },
+  "onboardingPrivacy": {
+    "message": "Tutto resta nel tuo browser: nessun account, nessun server, nessun tracciamento.",
+    "description": "Local storage promise, welcome page"
+  },
+  "onboardingStart": {
+    "message": "Apri la pagina delle opzioni",
+    "description": "Welcome page button that opens the options page"
+  },
+  "onboardingDone": {
+    "message": "Ho capito",
+    "description": "Welcome page button that closes the page"
+  },
+  "onboardingReplay": {
+    "message": "Come funziona",
+    "description": "Link that reopens the welcome page"
+  },
   "reportBug": {
     "message": "Segnala un bug",
     "description": "Link to report a bug on GitHub"

@@ -536,6 +536,54 @@
     "message": "Gegevens succesvol vernieuwd!",
     "description": "Message shown when data is refreshed successfully"
   },
+  "onboardingTitle": {
+    "message": "Hoe Tabs Pin werkt",
+    "description": "Welcome page title"
+  },
+  "onboardingIntro": {
+    "message": "Bewaar de sites die je altijd open hebt en open ze met één klik weer als vastgezette tabbladen, zonder duplicaten.",
+    "description": "One-sentence summary of what the extension does"
+  },
+  "onboardingStep1Title": {
+    "message": "Een site vastzetten",
+    "description": "Welcome page, first step"
+  },
+  "onboardingStep1Text": {
+    "message": "Klik op het Tabs Pin-pictogram en daarna op „Huidig tabblad vastzetten” om de pagina te bewaren. Voeg er meer toe op de instellingenpagina.",
+    "description": "Welcome page, first step, explanation"
+  },
+  "onboardingStep2Title": {
+    "message": "Later weer openen",
+    "description": "Welcome page, second step"
+  },
+  "onboardingStep2Text": {
+    "message": "Open een categorie om de sites te herstellen, of „Alle tabbladen openen” voor alles, één keer, ook na het sluiten van de browser.",
+    "description": "Welcome page, second step, explanation"
+  },
+  "onboardingStep3Title": {
+    "message": "Sorteer per project",
+    "description": "Welcome page, third step"
+  },
+  "onboardingStep3Text": {
+    "message": "Elke categorie heeft een eigen pictogram en eigen tabbladen, zodat werk, privé en leeslijst gescheiden blijven.",
+    "description": "Welcome page, third step, explanation"
+  },
+  "onboardingPrivacy": {
+    "message": "Alles blijft in je browser: geen account, geen server, geen tracking.",
+    "description": "Local storage promise, welcome page"
+  },
+  "onboardingStart": {
+    "message": "Instellingen openen",
+    "description": "Welcome page button that opens the options page"
+  },
+  "onboardingDone": {
+    "message": "Duidelijk",
+    "description": "Welcome page button that closes the page"
+  },
+  "onboardingReplay": {
+    "message": "Hoe het werkt",
+    "description": "Link that reopens the welcome page"
+  },
   "reportBug": {
     "message": "Bug melden",
     "description": "Link to report a bug on GitHub"

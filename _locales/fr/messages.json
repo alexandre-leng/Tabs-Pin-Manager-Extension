@@ -601,6 +601,54 @@
     "message": "Erreur lors de la fermeture des onglets de la catégorie",
     "description": "Error message when closing category tabs fails"
   },
+  "onboardingTitle": {
+    "message": "Comment fonctionne Tabs Pin",
+    "description": "Welcome page title"
+  },
+  "onboardingIntro": {
+    "message": "Enregistrez les sites que vous gardez toujours ouverts, puis retrouvez-les en onglets épinglés en un clic, sans doublons.",
+    "description": "One-sentence summary of what the extension does"
+  },
+  "onboardingStep1Title": {
+    "message": "Épingler un site",
+    "description": "Welcome page, first step"
+  },
+  "onboardingStep1Text": {
+    "message": "Cliquez sur l'icône Tabs Pin, puis sur « Épingler l'onglet actuel » pour enregistrer la page affichée. Ajoutez les autres depuis la page d'options.",
+    "description": "Welcome page, first step, explanation"
+  },
+  "onboardingStep2Title": {
+    "message": "Les rouvrir plus tard",
+    "description": "Welcome page, second step"
+  },
+  "onboardingStep2Text": {
+    "message": "Ouvrez une catégorie pour retrouver ses sites, ou « Ouvrir tous les onglets » pour tout, en une fois, même après avoir fermé le navigateur.",
+    "description": "Welcome page, second step, explanation"
+  },
+  "onboardingStep3Title": {
+    "message": "Les trier par projet",
+    "description": "Welcome page, third step"
+  },
+  "onboardingStep3Text": {
+    "message": "Chaque catégorie a son icône et ses onglets : travail, personnel et lectures restent séparés.",
+    "description": "Welcome page, third step, explanation"
+  },
+  "onboardingPrivacy": {
+    "message": "Tout reste dans votre navigateur : pas de compte, pas de serveur, pas de suivi.",
+    "description": "Local storage promise, welcome page"
+  },
+  "onboardingStart": {
+    "message": "Ouvrir la page d'options",
+    "description": "Welcome page button that opens the options page"
+  },
+  "onboardingDone": {
+    "message": "J'ai compris",
+    "description": "Welcome page button that closes the page"
+  },
+  "onboardingReplay": {
+    "message": "Comment ça marche",
+    "description": "Link that reopens the welcome page"
+  },
   "reportBug": {
     "message": "Signaler un bug",
     "description": "Link to report a bug on GitHub"

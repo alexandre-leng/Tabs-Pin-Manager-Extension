@@ -9,7 +9,7 @@ import path from 'node:path';
 import { buildManifest } from './prepare-manifest.js';
 
 const ROOT = path.join(import.meta.dirname, '..');
-export const SHIPPED_PATHS = ['_locales', 'assets', 'background', 'lib', 'options', 'popup', 'shared.css', 'LICENSE'];
+export const SHIPPED_PATHS = ['_locales', 'assets', 'background', 'lib', 'options', 'popup', 'welcome', 'shared.css', 'LICENSE'];
 
 export function stage(target) {
   const manifest = buildManifest(target);

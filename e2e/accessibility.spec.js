@@ -42,6 +42,10 @@ for (const scheme of ['light', 'dark']) {
       await expectNoViolations(await open(openPage, 'options/options.html'));
     });
 
+    test('welcome page', async ({ openPage }) => {
+      await expectNoViolations(await open(openPage, 'welcome/welcome.html'));
+    });
+
     test('options page at the category limit', async ({ openPage, seed }) => {
       const categories = Array.from({ length: 20 }, (_, i) => ({ id: `cat${i}`, name: `Category ${i}`, icon: '📁' }));
       await seed({ tabs: sampleTabs(2), categories });

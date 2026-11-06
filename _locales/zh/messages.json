@@ -470,6 +470,54 @@
     "message": "数据刷新成功！",
     "description": "Message shown when data is refreshed successfully"
   },
+  "onboardingTitle": {
+    "message": "Tabs Pin 怎么用",
+    "description": "Welcome page title"
+  },
+  "onboardingIntro": {
+    "message": "保存你总是开着的网站，一次点击就能把它们重新打开为固定标签页，不会重复。",
+    "description": "One-sentence summary of what the extension does"
+  },
+  "onboardingStep1Title": {
+    "message": "固定一个网站",
+    "description": "Welcome page, first step"
+  },
+  "onboardingStep1Text": {
+    "message": "点击 Tabs Pin 图标，再点“固定当前标签页”，保存你正在看的页面。更多网站可以在设置页添加。",
+    "description": "Welcome page, first step, explanation"
+  },
+  "onboardingStep2Title": {
+    "message": "以后重新打开",
+    "description": "Welcome page, second step"
+  },
+  "onboardingStep2Text": {
+    "message": "点开一个类别就能恢复它的网站，或者点“打开全部标签页”一次打开所有，关掉浏览器之后再打开也一样。",
+    "description": "Welcome page, second step, explanation"
+  },
+  "onboardingStep3Title": {
+    "message": "按项目分类",
+    "description": "Welcome page, third step"
+  },
+  "onboardingStep3Text": {
+    "message": "每个类别有自己的图标和标签页，工作、个人和待读清单互不混杂。",
+    "description": "Welcome page, third step, explanation"
+  },
+  "onboardingPrivacy": {
+    "message": "所有数据都留在你的浏览器里：不需要账号，没有服务器，不做跟踪。",
+    "description": "Local storage promise, welcome page"
+  },
+  "onboardingStart": {
+    "message": "打开设置页",
+    "description": "Welcome page button that opens the options page"
+  },
+  "onboardingDone": {
+    "message": "明白了",
+    "description": "Welcome page button that closes the page"
+  },
+  "onboardingReplay": {
+    "message": "怎么用",
+    "description": "Link that reopens the welcome page"
+  },
   "reportBug": {
     "message": "报告错误",
     "description": "Link to report a bug on GitHub"

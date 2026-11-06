@@ -470,6 +470,54 @@
     "message": "تم تحديث البيانات بنجاح!",
     "description": "Message shown when data is refreshed successfully"
   },
+  "onboardingTitle": {
+    "message": "كيف يعمل Tabs Pin",
+    "description": "Welcome page title"
+  },
+  "onboardingIntro": {
+    "message": "احفظ المواقع التي تُبقيها مفتوحة دائمًا، ثم أعد فتحها كتبويبات مثبتة بنقرة واحدة، دون تكرار.",
+    "description": "One-sentence summary of what the extension does"
+  },
+  "onboardingStep1Title": {
+    "message": "ثبّت موقعًا",
+    "description": "Welcome page, first step"
+  },
+  "onboardingStep1Text": {
+    "message": "اضغط على أيقونة Tabs Pin، ثم على «تثبيت التبويب الحالي» لحفظ الصفحة التي تفتحها. أضف غيرها من صفحة الإعدادات.",
+    "description": "Welcome page, first step, explanation"
+  },
+  "onboardingStep2Title": {
+    "message": "أعد فتحها لاحقًا",
+    "description": "Welcome page, second step"
+  },
+  "onboardingStep2Text": {
+    "message": "افتح فئة لاستعادة مواقعها، أو «فتح كل التبويبات» لفتح كل شيء مرة واحدة، حتى بعد إغلاق المتصفح.",
+    "description": "Welcome page, second step, explanation"
+  },
+  "onboardingStep3Title": {
+    "message": "رتّبها حسب المشروع",
+    "description": "Welcome page, third step"
+  },
+  "onboardingStep3Text": {
+    "message": "لكل فئة أيقونتها وتبويباتها، فيبقى العمل والشخصي وقائمة القراءة منفصلة.",
+    "description": "Welcome page, third step, explanation"
+  },
+  "onboardingPrivacy": {
+    "message": "كل شيء يبقى في متصفحك: بلا حساب، بلا خادم، بلا تتبع.",
+    "description": "Local storage promise, welcome page"
+  },
+  "onboardingStart": {
+    "message": "فتح صفحة الإعدادات",
+    "description": "Welcome page button that opens the options page"
+  },
+  "onboardingDone": {
+    "message": "فهمت",
+    "description": "Welcome page button that closes the page"
+  },
+  "onboardingReplay": {
+    "message": "كيف يعمل",
+    "description": "Link that reopens the welcome page"
+  },
   "reportBug": {
     "message": "الإبلاغ عن خطأ",
     "description": "Link to report a bug on GitHub"

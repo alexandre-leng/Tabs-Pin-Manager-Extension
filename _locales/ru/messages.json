@@ -470,6 +470,54 @@
     "message": "Данные успешно обновлены!",
     "description": "Message shown when data is refreshed successfully"
   },
+  "onboardingTitle": {
+    "message": "Как работает Tabs Pin",
+    "description": "Welcome page title"
+  },
+  "onboardingIntro": {
+    "message": "Сохраняйте сайты, которые всегда держите открытыми, и открывайте их снова закреплёнными вкладками в один клик, без дублей.",
+    "description": "One-sentence summary of what the extension does"
+  },
+  "onboardingStep1Title": {
+    "message": "Закрепите сайт",
+    "description": "Welcome page, first step"
+  },
+  "onboardingStep1Text": {
+    "message": "Нажмите на значок Tabs Pin, затем на «Закрепить текущую вкладку», чтобы сохранить открытую страницу. Остальные добавьте на странице настроек.",
+    "description": "Welcome page, first step, explanation"
+  },
+  "onboardingStep2Title": {
+    "message": "Открывайте их позже",
+    "description": "Welcome page, second step"
+  },
+  "onboardingStep2Text": {
+    "message": "Откройте категорию, чтобы вернуть её сайты, или «Открыть все вкладки», чтобы открыть всё сразу, даже после закрытия браузера.",
+    "description": "Welcome page, second step, explanation"
+  },
+  "onboardingStep3Title": {
+    "message": "Разложите по проектам",
+    "description": "Welcome page, third step"
+  },
+  "onboardingStep3Text": {
+    "message": "У каждой категории свой значок и свои вкладки: работа, личное и чтение не смешиваются.",
+    "description": "Welcome page, third step, explanation"
+  },
+  "onboardingPrivacy": {
+    "message": "Всё остаётся в вашем браузере: без аккаунта, без сервера, без отслеживания.",
+    "description": "Local storage promise, welcome page"
+  },
+  "onboardingStart": {
+    "message": "Открыть настройки",
+    "description": "Welcome page button that opens the options page"
+  },
+  "onboardingDone": {
+    "message": "Понятно",
+    "description": "Welcome page button that closes the page"
+  },
+  "onboardingReplay": {
+    "message": "Как это работает",
+    "description": "Link that reopens the welcome page"
+  },
   "reportBug": {
     "message": "Сообщить об ошибке",
     "description": "Link to report a bug on GitHub"

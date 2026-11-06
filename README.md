@@ -34,6 +34,8 @@ in one click, pinned and without duplicates. Manifest V3, 100% local storage, no
   identifies a page (`?v=` on YouTube, `?q=`, `?id=`, single-page-app routes like `#/inbox`…).
   The same address cannot be saved twice.
 - **Pin the current tab** from the popup, into the category of your choice.
+- **First run**: a short page explains in three steps what the extension does; open it again
+  from the "?" in the popup header or the "How it works" link in the options footer.
 - **Categories**: add your own (up to 20), rename or delete them and pick an emoji icon;
   close all pinned tabs of a category at once (with confirmation). Tabs of a removed
   category move to the first one, and the last category cannot be deleted.

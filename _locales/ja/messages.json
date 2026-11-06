@@ -470,6 +470,54 @@
     "message": "データが正常に更新されました！",
     "description": "Message shown when data is refreshed successfully"
   },
+  "onboardingTitle": {
+    "message": "Tabs Pin の使い方",
+    "description": "Welcome page title"
+  },
+  "onboardingIntro": {
+    "message": "いつも開いているサイトを保存しておけば、ワンクリックでピン留めタブとして開き直せます。重複はしません。",
+    "description": "One-sentence summary of what the extension does"
+  },
+  "onboardingStep1Title": {
+    "message": "サイトをピン留めする",
+    "description": "Welcome page, first step"
+  },
+  "onboardingStep1Text": {
+    "message": "Tabs Pin のアイコンをクリックし、「現在のタブをピン留め」で表示中のページを保存します。ほかのサイトは設定ページから追加できます。",
+    "description": "Welcome page, first step, explanation"
+  },
+  "onboardingStep2Title": {
+    "message": "あとで開き直す",
+    "description": "Welcome page, second step"
+  },
+  "onboardingStep2Text": {
+    "message": "カテゴリをクリックするとそのサイトが戻ります。「すべてのタブを開く」なら一度に全部、ブラウザを閉じたあとでも開けます。",
+    "description": "Welcome page, second step, explanation"
+  },
+  "onboardingStep3Title": {
+    "message": "プロジェクトごとに分ける",
+    "description": "Welcome page, third step"
+  },
+  "onboardingStep3Text": {
+    "message": "カテゴリごとにアイコンとタブが分かれ、仕事・個人・あとで読むが混ざりません。",
+    "description": "Welcome page, third step, explanation"
+  },
+  "onboardingPrivacy": {
+    "message": "データはすべてブラウザの中に残ります。アカウントもサーバーも追跡もありません。",
+    "description": "Local storage promise, welcome page"
+  },
+  "onboardingStart": {
+    "message": "設定ページを開く",
+    "description": "Welcome page button that opens the options page"
+  },
+  "onboardingDone": {
+    "message": "わかりました",
+    "description": "Welcome page button that closes the page"
+  },
+  "onboardingReplay": {
+    "message": "使い方",
+    "description": "Link that reopens the welcome page"
+  },
   "reportBug": {
     "message": "バグを報告",
     "description": "Link to report a bug on GitHub"

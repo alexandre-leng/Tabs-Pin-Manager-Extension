@@ -14,7 +14,7 @@ const placeholders = (entry) => Object.values(entry.placeholders || {}).map(p =>
 const en = load('en');
 const languages = fs.readdirSync(LOCALES_DIR).filter(lang => lang !== 'en');
 
-const SOURCE_DIRS = ['background', 'lib', 'popup', 'options'];
+const SOURCE_DIRS = ['background', 'lib', 'popup', 'options', 'welcome'];
 const source = SOURCE_DIRS
   .flatMap(dir => fs.readdirSync(path.join(import.meta.dirname, '..', dir))
     .filter(file => /\.(js|html)$/.test(file))

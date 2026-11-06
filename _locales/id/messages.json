@@ -470,6 +470,54 @@
     "message": "Data berhasil disegarkan!",
     "description": "Message shown when data is refreshed successfully"
   },
+  "onboardingTitle": {
+    "message": "Cara kerja Tabs Pin",
+    "description": "Welcome page title"
+  },
+  "onboardingIntro": {
+    "message": "Simpan situs yang selalu Anda buka, lalu buka lagi sebagai tab yang disematkan dengan satu klik, tanpa duplikat.",
+    "description": "One-sentence summary of what the extension does"
+  },
+  "onboardingStep1Title": {
+    "message": "Sematkan sebuah situs",
+    "description": "Welcome page, first step"
+  },
+  "onboardingStep1Text": {
+    "message": "Klik ikon Tabs Pin, lalu «Sematkan Tab Saat Ini» untuk menyimpan halaman yang terbuka. Tambahkan yang lain dari halaman pengaturan.",
+    "description": "Welcome page, first step, explanation"
+  },
+  "onboardingStep2Title": {
+    "message": "Buka lagi nanti",
+    "description": "Welcome page, second step"
+  },
+  "onboardingStep2Text": {
+    "message": "Buka sebuah kategori untuk memulihkan situsnya, atau «Buka Semua Tab» untuk semuanya, sekali saja, bahkan setelah peramban ditutup.",
+    "description": "Welcome page, second step, explanation"
+  },
+  "onboardingStep3Title": {
+    "message": "Kelompokkan per proyek",
+    "description": "Welcome page, third step"
+  },
+  "onboardingStep3Text": {
+    "message": "Setiap kategori punya ikon dan tabnya sendiri, jadi pekerjaan, pribadi, dan bacaan tetap terpisah.",
+    "description": "Welcome page, third step, explanation"
+  },
+  "onboardingPrivacy": {
+    "message": "Semuanya tetap di peramban Anda: tanpa akun, tanpa server, tanpa pelacakan.",
+    "description": "Local storage promise, welcome page"
+  },
+  "onboardingStart": {
+    "message": "Buka halaman pengaturan",
+    "description": "Welcome page button that opens the options page"
+  },
+  "onboardingDone": {
+    "message": "Mengerti",
+    "description": "Welcome page button that closes the page"
+  },
+  "onboardingReplay": {
+    "message": "Cara kerjanya",
+    "description": "Link that reopens the welcome page"
+  },
   "reportBug": {
     "message": "Laporkan bug",
     "description": "Link to report a bug on GitHub"

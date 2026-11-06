@@ -551,6 +551,54 @@
     "message": "¡Datos actualizados correctamente!",
     "description": "Message shown when data is refreshed successfully"
   },
+  "onboardingTitle": {
+    "message": "Cómo funciona Tabs Pin",
+    "description": "Welcome page title"
+  },
+  "onboardingIntro": {
+    "message": "Guarda los sitios que siempre tienes abiertos y vuelve a abrirlos como pestañas fijadas con un clic, sin duplicados.",
+    "description": "One-sentence summary of what the extension does"
+  },
+  "onboardingStep1Title": {
+    "message": "Fija un sitio",
+    "description": "Welcome page, first step"
+  },
+  "onboardingStep1Text": {
+    "message": "Haz clic en el icono de Tabs Pin y luego en «Fijar pestaña actual» para guardar la página en la que estás. Añade los demás desde la página de opciones.",
+    "description": "Welcome page, first step, explanation"
+  },
+  "onboardingStep2Title": {
+    "message": "Vuelve a abrirlos después",
+    "description": "Welcome page, second step"
+  },
+  "onboardingStep2Text": {
+    "message": "Abre una categoría para recuperar sus sitios, o «Abrir todas las pestañas» para todo, una sola vez, incluso después de cerrar el navegador.",
+    "description": "Welcome page, second step, explanation"
+  },
+  "onboardingStep3Title": {
+    "message": "Ordénalos por proyecto",
+    "description": "Welcome page, third step"
+  },
+  "onboardingStep3Text": {
+    "message": "Cada categoría tiene su icono y sus pestañas, así el trabajo, lo personal y las lecturas no se mezclan.",
+    "description": "Welcome page, third step, explanation"
+  },
+  "onboardingPrivacy": {
+    "message": "Todo se queda en tu navegador: sin cuenta, sin servidor, sin seguimiento.",
+    "description": "Local storage promise, welcome page"
+  },
+  "onboardingStart": {
+    "message": "Abrir la página de opciones",
+    "description": "Welcome page button that opens the options page"
+  },
+  "onboardingDone": {
+    "message": "Entendido",
+    "description": "Welcome page button that closes the page"
+  },
+  "onboardingReplay": {
+    "message": "Cómo funciona",
+    "description": "Link that reopens the welcome page"
+  },
   "reportBug": {
     "message": "Informar de un error",
     "description": "Link to report a bug on GitHub"

@@ -470,6 +470,54 @@
     "message": "데이터가 성공적으로 새로고침되었습니다!",
     "description": "Message shown when data is refreshed successfully"
   },
+  "onboardingTitle": {
+    "message": "Tabs Pin 사용법",
+    "description": "Welcome page title"
+  },
+  "onboardingIntro": {
+    "message": "늘 열어 두는 사이트를 저장해 두면 클릭 한 번으로 고정 탭으로 다시 열 수 있습니다. 중복되지 않습니다.",
+    "description": "One-sentence summary of what the extension does"
+  },
+  "onboardingStep1Title": {
+    "message": "사이트 고정하기",
+    "description": "Welcome page, first step"
+  },
+  "onboardingStep1Text": {
+    "message": "Tabs Pin 아이콘을 누른 뒤 “현재 탭 고정”을 눌러 지금 보는 페이지를 저장하세요. 나머지는 설정 페이지에서 추가할 수 있습니다.",
+    "description": "Welcome page, first step, explanation"
+  },
+  "onboardingStep2Title": {
+    "message": "나중에 다시 열기",
+    "description": "Welcome page, second step"
+  },
+  "onboardingStep2Text": {
+    "message": "카테고리를 누르면 해당 사이트가 돌아옵니다. “모든 탭 열기”는 브라우저를 닫은 뒤에도 한 번에 모두 열어 줍니다.",
+    "description": "Welcome page, second step, explanation"
+  },
+  "onboardingStep3Title": {
+    "message": "프로젝트별로 정리하기",
+    "description": "Welcome page, third step"
+  },
+  "onboardingStep3Text": {
+    "message": "카테고리마다 아이콘과 탭이 따로 있어 업무, 개인, 읽을거리가 섞이지 않습니다.",
+    "description": "Welcome page, third step, explanation"
+  },
+  "onboardingPrivacy": {
+    "message": "모든 데이터는 브라우저 안에만 남습니다. 계정도 서버도 추적도 없습니다.",
+    "description": "Local storage promise, welcome page"
+  },
+  "onboardingStart": {
+    "message": "설정 페이지 열기",
+    "description": "Welcome page button that opens the options page"
+  },
+  "onboardingDone": {
+    "message": "확인",
+    "description": "Welcome page button that closes the page"
+  },
+  "onboardingReplay": {
+    "message": "사용법",
+    "description": "Link that reopens the welcome page"
+  },
   "reportBug": {
     "message": "버그 신고",
     "description": "Link to report a bug on GitHub"

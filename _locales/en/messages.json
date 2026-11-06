@@ -613,6 +613,54 @@
     "message": "Error closing category tabs",
     "description": "Error message when closing category tabs fails"
   },
+  "onboardingTitle": {
+    "message": "How Tabs Pin works",
+    "description": "Welcome page title"
+  },
+  "onboardingIntro": {
+    "message": "Save the sites you always keep open, then reopen them as pinned tabs in one click, without duplicates.",
+    "description": "One-sentence summary of what the extension does"
+  },
+  "onboardingStep1Title": {
+    "message": "Pin a site",
+    "description": "Welcome page, first step"
+  },
+  "onboardingStep1Text": {
+    "message": "Click the Tabs Pin icon, then \"Pin Current Tab\" to save the page you are on. Add the others from the options page.",
+    "description": "Welcome page, first step, explanation"
+  },
+  "onboardingStep2Title": {
+    "message": "Reopen them later",
+    "description": "Welcome page, second step"
+  },
+  "onboardingStep2Text": {
+    "message": "Open a category to restore its sites, or \"Open all tabs\" for everything, once, even after closing your browser.",
+    "description": "Welcome page, second step, explanation"
+  },
+  "onboardingStep3Title": {
+    "message": "Sort them by project",
+    "description": "Welcome page, third step"
+  },
+  "onboardingStep3Text": {
+    "message": "Each category has its own icon and its own tabs, so work, personal and reading lists stay apart.",
+    "description": "Welcome page, third step, explanation"
+  },
+  "onboardingPrivacy": {
+    "message": "Everything stays in your browser: no account, no server, no tracking.",
+    "description": "Local storage promise, welcome page"
+  },
+  "onboardingStart": {
+    "message": "Open the options page",
+    "description": "Welcome page button that opens the options page"
+  },
+  "onboardingDone": {
+    "message": "Got it",
+    "description": "Welcome page button that closes the page"
+  },
+  "onboardingReplay": {
+    "message": "How it works",
+    "description": "Link that reopens the welcome page"
+  },
   "reportBug": {
     "message": "Report a bug",
     "description": "Link to report a bug on GitHub"
