@@ -167,9 +167,9 @@ was the first public release, there is no `0.x`.
 
 The sections of the unreleased part of `CHANGELOG.md` decide the number:
 
-- `⚠️ Ruptures` (breaking changes) present: **MAJOR**
-- otherwise `✨ Nouvelles Fonctionnalités` present: **MINOR**
-- only `🛠️ Corrections`, `📝 Documentation` and `🧹 Qualité`: **PATCH**
+- `⚠️ Breaking Changes` present: **MAJOR**
+- otherwise `✨ New Features` present: **MINOR**
+- only `🛠️ Fixes`, `📝 Documentation` and `🧹 Quality`: **PATCH**
 
 Rules that keep the repository and the two stores consistent:
 
@@ -182,13 +182,16 @@ Rules that keep the repository and the two stores consistent:
 - The Git tag is `X.Y.Z` and the release title `vX.Y.Z`, both written by the Release workflow.
 - A release ships what its notes describe: tests, CI or internal refactoring that changes nothing
   for the user do not, by themselves, justify a release.
+- Release notes are written in English, in `CHANGELOG.md` and on the GitHub release page: they are
+  read by users of both stores, whatever their language. Entries published before `1.5.0` keep the
+  language they were released in.
 
 ## Releasing
 
 1. Choose the number with the rules above.
 2. Bump it in `package.json`, `package-lock.json` and `manifest.json`
    (`npm version x.y.z --no-git-tag-version`, then edit the manifest).
-3. Move the `Unreleased` notes of `CHANGELOG.md` under `## [x.y.z] - date`.
+3. Move the `Unreleased` notes of `CHANGELOG.md` under `## [x.y.z] - date`, in English.
 4. Push to `main`, then run the **Release** workflow (Actions → Release → Run workflow):
    it tests, builds both packages and publishes the GitHub release with the changelog
    section as notes.

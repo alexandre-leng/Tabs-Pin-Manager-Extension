@@ -2,29 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+Entries from 1.5.0 on are written in English: the release notes published from this file are
+read by users of both stores, whatever their language. Earlier entries keep the language they
+were published in.
+
 ## [Unreleased]
 
-### ✨ Nouvelles Fonctionnalités
-- **Supprimer une catégorie** : le dialogue de modification propose « Supprimer la Catégorie », avec une confirmation qui indique le nombre d'onglets concernés et la catégorie qui les accueillera. Les onglets de la catégorie supprimée rejoignent la première catégorie restante, et la dernière catégorie ne peut pas être supprimée.
+### ✨ New Features
+- **Delete a category**: the edit dialog offers "Delete Category", with a confirmation naming the tabs involved and the category that will take them. Tabs of the deleted category move to the first remaining category, and the last category cannot be deleted.
 
-### 🧹 Qualité
-- **Popup allégé** : la ligne « Dernière ouverture » et la rangée de statistiques « N épinglés / N catégories » sont retirées, avec le module de formatage du temps et les sept textes qu'elles utilisaient dans les 14 langues. Le réglage `lastOpened` reste enregistré dans les sauvegardes.
+### 🧹 Quality
+- **Lighter popup**: the "Last opened" line and the "N pinned / N categories" statistics row are removed, with the time formatting module and the seven messages they used in the 14 locales. The `lastOpened` setting is still recorded in backups.
 
 ### 📝 Documentation
-- **Règles de versionnement** : le README indique quand publier une version majeure, mineure ou corrective (rupture de données ou de permissions, fonctionnalité, correction), et comment le numéro se déduit des sections du CHANGELOG.
+- **Versioning rules**: the README says when to publish a major, minor or patch version (data or permission break, feature, fix), and how the number follows from the changelog sections.
 
 ## [1.5.0] - 2026-11-06
 
-### ✨ Nouvelles Fonctionnalités
-- **Ajouter une catégorie** : un bouton « Ajouter une catégorie » dans la page d'options ouvre l'éditeur sur une catégorie vide (nom et icône), comme pour un onglet. Limite fixée à 20 catégories : à ce nombre, le bouton se désactive et la raison s'affiche sous le titre. Les catégories d'une sauvegarde importée au-delà de cette limite restent lisibles et modifiables. La confirmation de « Réinitialiser par défaut » indique désormais que les catégories ajoutées seront supprimées.
+### ✨ New Features
+- **Add a category**: an "Add Category" button in the options page opens the editor on an empty category (name and icon), like a tab. Capped at 20 categories: at that number the button is disabled and the reason shows under the heading. Categories above this limit imported from a backup stay readable and editable. The "Reset to Default" confirmation now states that added categories will be deleted.
 
-### 🛠️ Corrections
-- **Accessibilité, cartes de catégorie** : le nom annoncé inclut maintenant le texte visible (icône, nom, nombre d'onglets), conformément à WCAG 2.5.3 ; l'audit automatique des tests d'interface le vérifie.
-- **Noms de catégorie longs** : un nom sans espace débordait de sa carte et se retrouvait tronqué, dans les options comme dans le popup ; il passe désormais à la ligne dans la carte.
-- **Popup, choix de la catégorie** : le nom annoncé reprend le texte visible (WCAG 2.5.3) et le nombre d'onglets d'une catégorie vide atteint le contraste minimal ; ce dialogue est maintenant couvert par l'audit d'accessibilité.
+### 🛠️ Fixes
+- **Accessibility, category cards**: the announced name now includes the visible text (icon, name, tab count), as WCAG 2.5.3 requires; the automated interface audit checks it.
+- **Long category names**: a name without spaces overflowed its card and was clipped, in the options page and in the popup; it now wraps inside the card.
+- **Popup, category picker**: the announced name includes the visible text (WCAG 2.5.3) and the tab count of an empty category reaches the minimum contrast; this dialog is now covered by the accessibility audit.
 
 ### 📝 Documentation
-- README mis à jour avec le code actuel : détection des doublons (redirections, ordre des paramètres), fermeture d'une catégorie par domaine, format d'export et règles de l'import, migrations à la mise à jour, messages du script d'arrière-plan, module `punycode.js`, accessibilité.
+- README updated to match the current code: duplicate detection (redirects, parameter order), closing a category by domain, export format and import rules, migrations on update, background script messages, the `punycode.js` module, accessibility.
 
 ## [1.4.2] - 2026-10-08
 
