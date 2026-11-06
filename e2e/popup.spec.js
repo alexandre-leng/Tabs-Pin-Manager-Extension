@@ -17,6 +17,44 @@ test('lists categories with their tab counts', async ({ openPage, seed }) => {
   await expect(popup.locator('#categoriesList')).toContainText('2 tabs');
 });
 
+test('pins the current tab into a category created from the options page', async ({ context, extensionId, openPage, seed }) => {
+  await seed({ tabs: sampleTabs(1) });
+
+  // Create the category the way a user does
+  const options = await openPage('options/options.html');
+  await options.locator('#addCategoryBtn').click();
+  await options.locator('#categoryName').fill('Clients 2026');
+  await options.locator('#saveCategoryBtn').click();
+  await expect(options.locator('#categoryModalOverlay')).toBeHidden();
+  await options.close();
+
+  // Opened as a page, the popup would see itself as the active tab: give it a page
+  const popup = await context.newPage();
+  await popup.addInitScript(() => {
+    chrome.tabs.query = () => Promise.resolve([{ id: 99, url: 'https://probe.example/', title: 'Probe page', pinned: false }]);
+  });
+  await popup.goto(`chrome-extension://${extensionId}/popup/popup.html`);
+  await popup.locator('body[data-ready="true"]').waitFor();
+
+  await popup.locator('#pinCurrentMainBtn').click();
+  await expect(popup.locator('#categorySelectionOverlay')).toHaveClass(/show/);
+  await popup.locator('#categorySelectionList .category-item', { hasText: 'Clients 2026' }).click();
+
+  await expect(popup.locator('#toastMessage')).toContainText('Clients 2026');
+  const { tabs } = await savedData(popup);
+  expect(tabs.find(tab => tab.url === 'https://probe.example/')).toMatchObject({
+    category: 'clients-2026',
+    title: 'Probe page',
+    enabled: true
+  });
+
+  // The category now holds a tab in the popup list
+  await popup.reload();
+  await popup.locator('body[data-ready="true"]').waitFor();
+  await expect(popup.locator('#categoriesList .category-item', { hasText: 'Clients 2026' })).toContainText('1 tab');
+});
+
+
 test('opens every saved tab as a pinned tab, once', async ({ context, openPage, seed }) => {
   await seed({ tabs: sampleTabs(3) });
   const popup = await openPage('popup/popup.html');
