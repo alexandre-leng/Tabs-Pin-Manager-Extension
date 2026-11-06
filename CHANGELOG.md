@@ -7,6 +7,9 @@ All notable changes to this project will be documented in this file.
 ### ✨ Nouvelles Fonctionnalités
 - **Supprimer une catégorie** : le dialogue de modification propose « Supprimer la Catégorie », avec une confirmation qui indique le nombre d'onglets concernés et la catégorie qui les accueillera. Les onglets de la catégorie supprimée rejoignent la première catégorie restante, et la dernière catégorie ne peut pas être supprimée.
 
+### 📝 Documentation
+- **Règles de versionnement** : le README indique quand publier une version majeure, mineure ou corrective (rupture de données ou de permissions, fonctionnalité, correction), et comment le numéro se déduit des sections du CHANGELOG.
+
 ## [1.5.0] - 2026-11-06
 
 ### ✨ Nouvelles Fonctionnalités
