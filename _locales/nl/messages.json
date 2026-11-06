@@ -541,31 +541,31 @@
     "description": "Welcome page title"
   },
   "onboardingIntro": {
-    "message": "Bewaar de sites die je altijd open hebt en open ze met één klik weer als vastgezette tabbladen, zonder duplicaten.",
+    "message": "Bewaar de sites die je altijd open hebt. Open ze met één klik weer, zonder duplicaten.",
     "description": "One-sentence summary of what the extension does"
   },
   "onboardingStep1Title": {
-    "message": "Een site vastzetten",
+    "message": "Een pagina bewaren",
     "description": "Welcome page, first step"
   },
   "onboardingStep1Text": {
-    "message": "Klik op het Tabs Pin-pictogram en daarna op „Huidig tabblad vastzetten” om de pagina te bewaren. Voeg er meer toe op de instellingenpagina.",
+    "message": "Open de Tabs Pin-popup en klik op „Huidig tabblad vastzetten”.",
     "description": "Welcome page, first step, explanation"
   },
   "onboardingStep2Title": {
-    "message": "Later weer openen",
+    "message": "Altijd weer openen",
     "description": "Welcome page, second step"
   },
   "onboardingStep2Text": {
-    "message": "Open een categorie om de sites te herstellen, of „Alle tabbladen openen” voor alles, één keer, ook na het sluiten van de browser.",
+    "message": "Eén klik haalt ze terug als vastgezette tabbladen, ook na een herstart van de browser.",
     "description": "Welcome page, second step, explanation"
   },
   "onboardingStep3Title": {
-    "message": "Sorteer per project",
+    "message": "Gescheiden houden",
     "description": "Welcome page, third step"
   },
   "onboardingStep3Text": {
-    "message": "Elke categorie heeft een eigen pictogram en eigen tabbladen, zodat werk, privé en leeslijst gescheiden blijven.",
+    "message": "Een categorie per project, elk met een eigen pictogram en eigen tabbladen.",
     "description": "Welcome page, third step, explanation"
   },
   "onboardingPrivacy": {

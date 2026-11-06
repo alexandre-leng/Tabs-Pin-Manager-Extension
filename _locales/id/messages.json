@@ -475,31 +475,31 @@
     "description": "Welcome page title"
   },
   "onboardingIntro": {
-    "message": "Simpan situs yang selalu Anda buka, lalu buka lagi sebagai tab yang disematkan dengan satu klik, tanpa duplikat.",
+    "message": "Simpan situs yang selalu Anda buka. Buka lagi dengan satu klik, tanpa duplikat.",
     "description": "One-sentence summary of what the extension does"
   },
   "onboardingStep1Title": {
-    "message": "Sematkan sebuah situs",
+    "message": "Simpan halaman",
     "description": "Welcome page, first step"
   },
   "onboardingStep1Text": {
-    "message": "Klik ikon Tabs Pin, lalu «Sematkan Tab Saat Ini» untuk menyimpan halaman yang terbuka. Tambahkan yang lain dari halaman pengaturan.",
+    "message": "Buka panel Tabs Pin dan klik «Sematkan Tab Saat Ini».",
     "description": "Welcome page, first step, explanation"
   },
   "onboardingStep2Title": {
-    "message": "Buka lagi nanti",
+    "message": "Buka lagi kapan saja",
     "description": "Welcome page, second step"
   },
   "onboardingStep2Text": {
-    "message": "Buka sebuah kategori untuk memulihkan situsnya, atau «Buka Semua Tab» untuk semuanya, sekali saja, bahkan setelah peramban ditutup.",
+    "message": "Satu klik mengembalikannya sebagai tab yang disematkan, bahkan setelah peramban dimulai ulang.",
     "description": "Welcome page, second step, explanation"
   },
   "onboardingStep3Title": {
-    "message": "Kelompokkan per proyek",
+    "message": "Pisahkan",
     "description": "Welcome page, third step"
   },
   "onboardingStep3Text": {
-    "message": "Setiap kategori punya ikon dan tabnya sendiri, jadi pekerjaan, pribadi, dan bacaan tetap terpisah.",
+    "message": "Satu kategori per proyek, masing-masing dengan ikon dan tabnya sendiri.",
     "description": "Welcome page, third step, explanation"
   },
   "onboardingPrivacy": {

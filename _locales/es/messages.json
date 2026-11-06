@@ -556,31 +556,31 @@
     "description": "Welcome page title"
   },
   "onboardingIntro": {
-    "message": "Guarda los sitios que siempre tienes abiertos y vuelve a abrirlos como pestañas fijadas con un clic, sin duplicados.",
+    "message": "Guarda los sitios que siempre tienes abiertos. Vuelve a abrirlos con un clic, sin duplicados.",
     "description": "One-sentence summary of what the extension does"
   },
   "onboardingStep1Title": {
-    "message": "Fija un sitio",
+    "message": "Guardar una página",
     "description": "Welcome page, first step"
   },
   "onboardingStep1Text": {
-    "message": "Haz clic en el icono de Tabs Pin y luego en «Fijar pestaña actual» para guardar la página en la que estás. Añade los demás desde la página de opciones.",
+    "message": "Abre el panel de Tabs Pin y haz clic en «Fijar pestaña actual».",
     "description": "Welcome page, first step, explanation"
   },
   "onboardingStep2Title": {
-    "message": "Vuelve a abrirlos después",
+    "message": "Reabrirlos cuando quieras",
     "description": "Welcome page, second step"
   },
   "onboardingStep2Text": {
-    "message": "Abre una categoría para recuperar sus sitios, o «Abrir todas las pestañas» para todo, una sola vez, incluso después de cerrar el navegador.",
+    "message": "Un clic los devuelve como pestañas fijadas, incluso tras reiniciar el navegador.",
     "description": "Welcome page, second step, explanation"
   },
   "onboardingStep3Title": {
-    "message": "Ordénalos por proyecto",
+    "message": "Mantenerlos separados",
     "description": "Welcome page, third step"
   },
   "onboardingStep3Text": {
-    "message": "Cada categoría tiene su icono y sus pestañas, así el trabajo, lo personal y las lecturas no se mezclan.",
+    "message": "Una categoría por proyecto, cada una con su icono y sus pestañas.",
     "description": "Welcome page, third step, explanation"
   },
   "onboardingPrivacy": {

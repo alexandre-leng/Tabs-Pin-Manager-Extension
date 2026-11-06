@@ -55,41 +55,67 @@ body {
 }
 
 .welcome-steps {
-  margin: 28px 0 0;
+  margin: 24px 0 0;
   padding: 0;
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 10px;
 }
 
 .welcome-step {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--background-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
 }
 
-.step-number {
+.step-icon {
   flex-shrink: 0;
-  width: 28px;
-  height: 28px;
+  width: 34px;
+  height: 34px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  background: var(--primary-light);
-  color: var(--primary-color);
-  font-size: 13px;
-  font-weight: 700;
+  background: var(--background-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 16px;
+  line-height: 1;
 }
 
 .step-body {
   min-width: 0;
+  padding-top: 1px;
 }
 
 .step-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
   margin: 0 0 2px;
   font-size: var(--font-size-base);
   font-weight: 600;
+}
+
+.step-badge {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.step-title-text {
+  min-width: 0;
 }
 
 .step-text {
@@ -156,6 +182,12 @@ body {
 .welcome-primary:active,
 .welcome-secondary:active {
   transform: translateY(1px);
+}
+
+.welcome-title:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 .welcome-primary:focus-visible,

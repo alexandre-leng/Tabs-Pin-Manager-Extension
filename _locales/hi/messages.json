@@ -475,31 +475,31 @@
     "description": "Welcome page title"
   },
   "onboardingIntro": {
-    "message": "जिन साइटों को आप हमेशा खुला रखते हैं उन्हें सहेजें, फिर एक क्लिक में उन्हें पिन किए गए टैब के रूप में दोबारा खोलें, बिना दोहराव के।",
+    "message": "जिन साइटों को आप हमेशा खुला रखते हैं उन्हें सहेजें। एक क्लिक में दोबारा खोलें, बिना दोहराव के।",
     "description": "One-sentence summary of what the extension does"
   },
   "onboardingStep1Title": {
-    "message": "साइट पिन करें",
+    "message": "पेज सहेजें",
     "description": "Welcome page, first step"
   },
   "onboardingStep1Text": {
-    "message": "Tabs Pin आइकन पर क्लिक करें, फिर «मौजूदा टैब पिन करें» पर, ताकि आप जो पेज देख रहे हैं वह सहेजा जाए। बाकी सेटिंग्स पेज से जोड़ें।",
+    "message": "Tabs Pin का पैनल खोलें और «मौजूदा टैब पिन करें» पर क्लिक करें।",
     "description": "Welcome page, first step, explanation"
   },
   "onboardingStep2Title": {
-    "message": "बाद में दोबारा खोलें",
+    "message": "कभी भी दोबारा खोलें",
     "description": "Welcome page, second step"
   },
   "onboardingStep2Text": {
-    "message": "किसी श्रेणी को खोलें तो उसकी साइटें लौट आती हैं, या «सभी टैब खोलें» से सब एक बार में, ब्राउज़र बंद करने के बाद भी।",
+    "message": "एक क्लिक उन्हें पिन किए गए टैब के रूप में लौटा देता है, ब्राउज़र फिर से खोलने पर भी।",
     "description": "Welcome page, second step, explanation"
   },
   "onboardingStep3Title": {
-    "message": "प्रोजेक्ट के हिसाब से छाँटें",
+    "message": "अलग रखें",
     "description": "Welcome page, third step"
   },
   "onboardingStep3Text": {
-    "message": "हर श्रेणी का अपना आइकन और अपने टैब हैं, इसलिए काम, निजी और पढ़ने की सूची अलग रहती हैं।",
+    "message": "हर प्रोजेक्ट के लिए एक श्रेणी, हर एक का अपना आइकन और अपने टैब।",
     "description": "Welcome page, third step, explanation"
   },
   "onboardingPrivacy": {

@@ -475,31 +475,31 @@
     "description": "Welcome page title"
   },
   "onboardingIntro": {
-    "message": "いつも開いているサイトを保存しておけば、ワンクリックでピン留めタブとして開き直せます。重複はしません。",
+    "message": "いつも開いているサイトを保存しておけば、ワンクリックで開き直せます。重複はしません。",
     "description": "One-sentence summary of what the extension does"
   },
   "onboardingStep1Title": {
-    "message": "サイトをピン留めする",
+    "message": "ページを保存する",
     "description": "Welcome page, first step"
   },
   "onboardingStep1Text": {
-    "message": "Tabs Pin のアイコンをクリックし、「現在のタブをピン留め」で表示中のページを保存します。ほかのサイトは設定ページから追加できます。",
+    "message": "Tabs Pin のパネルを開き、「現在のタブをピン留め」をクリックします。",
     "description": "Welcome page, first step, explanation"
   },
   "onboardingStep2Title": {
-    "message": "あとで開き直す",
+    "message": "いつでも開き直す",
     "description": "Welcome page, second step"
   },
   "onboardingStep2Text": {
-    "message": "カテゴリをクリックするとそのサイトが戻ります。「すべてのタブを開く」なら一度に全部、ブラウザを閉じたあとでも開けます。",
+    "message": "ワンクリックでピン留めタブとして戻ります。ブラウザを再起動したあとでも同じです。",
     "description": "Welcome page, second step, explanation"
   },
   "onboardingStep3Title": {
-    "message": "プロジェクトごとに分ける",
+    "message": "分けておく",
     "description": "Welcome page, third step"
   },
   "onboardingStep3Text": {
-    "message": "カテゴリごとにアイコンとタブが分かれ、仕事・個人・あとで読むが混ざりません。",
+    "message": "プロジェクトごとにカテゴリを一つ。それぞれにアイコンとタブがあります。",
     "description": "Welcome page, third step, explanation"
   },
   "onboardingPrivacy": {

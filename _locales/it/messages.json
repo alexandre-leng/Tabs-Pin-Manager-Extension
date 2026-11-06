@@ -556,31 +556,31 @@
     "description": "Welcome page title"
   },
   "onboardingIntro": {
-    "message": "Salva i siti che tieni sempre aperti e riaprili come schede fissate con un clic, senza duplicati.",
+    "message": "Salva i siti che tieni sempre aperti. Riaprili con un clic, senza duplicati.",
     "description": "One-sentence summary of what the extension does"
   },
   "onboardingStep1Title": {
-    "message": "Fissa un sito",
+    "message": "Salvare una pagina",
     "description": "Welcome page, first step"
   },
   "onboardingStep1Text": {
-    "message": "Fai clic sull'icona di Tabs Pin, poi su «Fissa scheda corrente» per salvare la pagina aperta. Aggiungi gli altri dalla pagina delle opzioni.",
+    "message": "Apri il pannello di Tabs Pin e fai clic su «Fissa scheda corrente».",
     "description": "Welcome page, first step, explanation"
   },
   "onboardingStep2Title": {
-    "message": "Riaprili più tardi",
+    "message": "Riaprirli quando vuoi",
     "description": "Welcome page, second step"
   },
   "onboardingStep2Text": {
-    "message": "Apri una categoria per ritrovare i suoi siti, oppure «Apri tutte le schede» per tutto, una volta sola, anche dopo aver chiuso il browser.",
+    "message": "Un clic li riporta come schede fissate, anche dopo aver riavviato il browser.",
     "description": "Welcome page, second step, explanation"
   },
   "onboardingStep3Title": {
-    "message": "Ordinali per progetto",
+    "message": "Tenerli separati",
     "description": "Welcome page, third step"
   },
   "onboardingStep3Text": {
-    "message": "Ogni categoria ha la sua icona e le sue schede: lavoro, personale e letture restano separati.",
+    "message": "Una categoria per progetto, ognuna con la sua icona e le sue schede.",
     "description": "Welcome page, third step, explanation"
   },
   "onboardingPrivacy": {

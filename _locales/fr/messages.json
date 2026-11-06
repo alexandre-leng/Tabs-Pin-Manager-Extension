@@ -606,31 +606,31 @@
     "description": "Welcome page title"
   },
   "onboardingIntro": {
-    "message": "Enregistrez les sites que vous gardez toujours ouverts, puis retrouvez-les en onglets épinglés en un clic, sans doublons.",
+    "message": "Enregistrez les sites que vous gardez toujours ouverts. Rouvrez-les en un clic, sans doublons.",
     "description": "One-sentence summary of what the extension does"
   },
   "onboardingStep1Title": {
-    "message": "Épingler un site",
+    "message": "Enregistrer une page",
     "description": "Welcome page, first step"
   },
   "onboardingStep1Text": {
-    "message": "Cliquez sur l'icône Tabs Pin, puis sur « Épingler l'onglet actuel » pour enregistrer la page affichée. Ajoutez les autres depuis la page d'options.",
+    "message": "Ouvrez le popup de Tabs Pin et cliquez sur « Épingler l'onglet actuel ».",
     "description": "Welcome page, first step, explanation"
   },
   "onboardingStep2Title": {
-    "message": "Les rouvrir plus tard",
+    "message": "Les rouvrir quand vous voulez",
     "description": "Welcome page, second step"
   },
   "onboardingStep2Text": {
-    "message": "Ouvrez une catégorie pour retrouver ses sites, ou « Ouvrir tous les onglets » pour tout, en une fois, même après avoir fermé le navigateur.",
+    "message": "Un clic les ramène en onglets épinglés, même après un redémarrage du navigateur.",
     "description": "Welcome page, second step, explanation"
   },
   "onboardingStep3Title": {
-    "message": "Les trier par projet",
+    "message": "Les garder séparés",
     "description": "Welcome page, third step"
   },
   "onboardingStep3Text": {
-    "message": "Chaque catégorie a son icône et ses onglets : travail, personnel et lectures restent séparés.",
+    "message": "Une catégorie par projet, chacune avec son icône et ses onglets.",
     "description": "Welcome page, third step, explanation"
   },
   "onboardingPrivacy": {

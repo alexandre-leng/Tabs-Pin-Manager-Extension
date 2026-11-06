@@ -618,31 +618,31 @@
     "description": "Welcome page title"
   },
   "onboardingIntro": {
-    "message": "Save the sites you always keep open, then reopen them as pinned tabs in one click, without duplicates.",
+    "message": "Save the sites you always keep open. Reopen them in one click, without duplicates.",
     "description": "One-sentence summary of what the extension does"
   },
   "onboardingStep1Title": {
-    "message": "Pin a site",
+    "message": "Save a page",
     "description": "Welcome page, first step"
   },
   "onboardingStep1Text": {
-    "message": "Click the Tabs Pin icon, then \"Pin Current Tab\" to save the page you are on. Add the others from the options page.",
+    "message": "Open the Tabs Pin popup and click Pin Current Tab.",
     "description": "Welcome page, first step, explanation"
   },
   "onboardingStep2Title": {
-    "message": "Reopen them later",
+    "message": "Reopen them anytime",
     "description": "Welcome page, second step"
   },
   "onboardingStep2Text": {
-    "message": "Open a category to restore its sites, or \"Open all tabs\" for everything, once, even after closing your browser.",
+    "message": "One click brings them back as pinned tabs, even after a browser restart.",
     "description": "Welcome page, second step, explanation"
   },
   "onboardingStep3Title": {
-    "message": "Sort them by project",
+    "message": "Keep them apart",
     "description": "Welcome page, third step"
   },
   "onboardingStep3Text": {
-    "message": "Each category has its own icon and its own tabs, so work, personal and reading lists stay apart.",
+    "message": "A category per project, each with its own icon and its own tabs.",
     "description": "Welcome page, third step, explanation"
   },
   "onboardingPrivacy": {

@@ -541,31 +541,31 @@
     "description": "Welcome page title"
   },
   "onboardingIntro": {
-    "message": "Guarde os sites que mantém sempre abertos e reabra-os como abas fixadas com um clique, sem duplicados.",
+    "message": "Guarde os sites que mantém sempre abertos. Reabra-os com um clique, sem duplicados.",
     "description": "One-sentence summary of what the extension does"
   },
   "onboardingStep1Title": {
-    "message": "Fixe um site",
+    "message": "Guardar uma página",
     "description": "Welcome page, first step"
   },
   "onboardingStep1Text": {
-    "message": "Clique no ícone do Tabs Pin e depois em «Fixar aba atual» para guardar a página aberta. Adicione os outros na página de opções.",
+    "message": "Abra o painel do Tabs Pin e clique em «Fixar aba atual».",
     "description": "Welcome page, first step, explanation"
   },
   "onboardingStep2Title": {
-    "message": "Reabra-os mais tarde",
+    "message": "Reabri-los quando quiser",
     "description": "Welcome page, second step"
   },
   "onboardingStep2Text": {
-    "message": "Abra uma categoria para recuperar os seus sites, ou «Abrir todas as abas» para tudo, uma só vez, mesmo depois de fechar o navegador.",
+    "message": "Um clique devolve-os como abas fixadas, mesmo depois de reiniciar o navegador.",
     "description": "Welcome page, second step, explanation"
   },
   "onboardingStep3Title": {
-    "message": "Organize por projeto",
+    "message": "Mantê-los separados",
     "description": "Welcome page, third step"
   },
   "onboardingStep3Text": {
-    "message": "Cada categoria tem o seu ícone e as suas abas: trabalho, pessoal e leituras ficam separados.",
+    "message": "Uma categoria por projeto, cada uma com o seu ícone e as suas abas.",
     "description": "Welcome page, third step, explanation"
   },
   "onboardingPrivacy": {

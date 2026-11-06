@@ -475,31 +475,31 @@
     "description": "Welcome page title"
   },
   "onboardingIntro": {
-    "message": "保存你总是开着的网站，一次点击就能把它们重新打开为固定标签页，不会重复。",
+    "message": "保存你总是开着的网站。一次点击就能重新打开，不会重复。",
     "description": "One-sentence summary of what the extension does"
   },
   "onboardingStep1Title": {
-    "message": "固定一个网站",
+    "message": "保存一个页面",
     "description": "Welcome page, first step"
   },
   "onboardingStep1Text": {
-    "message": "点击 Tabs Pin 图标，再点“固定当前标签页”，保存你正在看的页面。更多网站可以在设置页添加。",
+    "message": "打开 Tabs Pin 面板，点“固定当前标签页”。",
     "description": "Welcome page, first step, explanation"
   },
   "onboardingStep2Title": {
-    "message": "以后重新打开",
+    "message": "随时重新打开",
     "description": "Welcome page, second step"
   },
   "onboardingStep2Text": {
-    "message": "点开一个类别就能恢复它的网站，或者点“打开全部标签页”一次打开所有，关掉浏览器之后再打开也一样。",
+    "message": "一次点击就能把它们恢复成固定标签页，重启浏览器后也一样。",
     "description": "Welcome page, second step, explanation"
   },
   "onboardingStep3Title": {
-    "message": "按项目分类",
+    "message": "分开存放",
     "description": "Welcome page, third step"
   },
   "onboardingStep3Text": {
-    "message": "每个类别有自己的图标和标签页，工作、个人和待读清单互不混杂。",
+    "message": "每个项目一个类别，各有自己的图标和标签页。",
     "description": "Welcome page, third step, explanation"
   },
   "onboardingPrivacy": {

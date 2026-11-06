@@ -9,11 +9,12 @@ import { I18nHelper } from '../lib/i18n-helper.js';
 document.addEventListener('DOMContentLoaded', () => {
   I18nHelper.localizePage(document);
 
-  const openOptions = document.getElementById('openOptionsBtn');
-  openOptions.addEventListener('click', () => browser.runtime.openOptionsPage());
+  // Screen readers read the page from its title, and Tab then reaches the buttons
+  const title = document.querySelector('.welcome-title');
+  title.setAttribute('tabindex', '-1');
+  title.focus();
 
-  const closeButton = document.getElementById('closeBtn');
-  closeButton.addEventListener('click', async () => {
+  const closePage = async () => {
     // The page is a tab the extension opened itself, so it can close it
     try {
       const tab = await browser.tabs.getCurrent();
@@ -25,6 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
       // fall through to window.close
     }
     window.close();
+  };
+
+  document.getElementById('openOptionsBtn').addEventListener('click', () => browser.runtime.openOptionsPage());
+  document.getElementById('closeBtn').addEventListener('click', closePage);
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closePage();
+    }
   });
 
   // Tells the interface tests the page is localized and wired

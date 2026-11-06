@@ -541,31 +541,31 @@
     "description": "Welcome page title"
   },
   "onboardingIntro": {
-    "message": "Speichern Sie die Seiten, die Sie immer offen haben, und öffnen Sie sie mit einem Klick wieder als angeheftete Tabs, ohne Duplikate.",
+    "message": "Speichern Sie die Seiten, die Sie immer offen haben. Öffnen Sie sie mit einem Klick wieder, ohne Duplikate.",
     "description": "One-sentence summary of what the extension does"
   },
   "onboardingStep1Title": {
-    "message": "Eine Seite anheften",
+    "message": "Eine Seite speichern",
     "description": "Welcome page, first step"
   },
   "onboardingStep1Text": {
-    "message": "Klicken Sie auf das Tabs-Pin-Symbol und dann auf „Aktuellen Tab anheften“, um die aktuelle Seite zu speichern. Weitere fügen Sie auf der Einstellungsseite hinzu.",
+    "message": "Öffnen Sie das Tabs-Pin-Popup und klicken Sie auf „Aktuellen Tab anheften“.",
     "description": "Welcome page, first step, explanation"
   },
   "onboardingStep2Title": {
-    "message": "Später wieder öffnen",
+    "message": "Jederzeit wieder öffnen",
     "description": "Welcome page, second step"
   },
   "onboardingStep2Text": {
-    "message": "Öffnen Sie eine Kategorie, um ihre Seiten wiederherzustellen, oder „Alle Tabs öffnen“ für alles, einmal, auch nach dem Schließen des Browsers.",
+    "message": "Ein Klick holt sie als angeheftete Tabs zurück, auch nach einem Neustart des Browsers.",
     "description": "Welcome page, second step, explanation"
   },
   "onboardingStep3Title": {
-    "message": "Nach Projekt sortieren",
+    "message": "Getrennt halten",
     "description": "Welcome page, third step"
   },
   "onboardingStep3Text": {
-    "message": "Jede Kategorie hat ihr eigenes Symbol und ihre eigenen Tabs, so bleiben Arbeit, Privates und Leseliste getrennt.",
+    "message": "Eine Kategorie pro Projekt, jede mit eigenem Symbol und eigenen Tabs.",
     "description": "Welcome page, third step, explanation"
   },
   "onboardingPrivacy": {

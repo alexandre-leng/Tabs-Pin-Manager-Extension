@@ -475,31 +475,31 @@
     "description": "Welcome page title"
   },
   "onboardingIntro": {
-    "message": "Сохраняйте сайты, которые всегда держите открытыми, и открывайте их снова закреплёнными вкладками в один клик, без дублей.",
+    "message": "Сохраняйте сайты, которые всегда держите открытыми. Открывайте их в один клик, без дублей.",
     "description": "One-sentence summary of what the extension does"
   },
   "onboardingStep1Title": {
-    "message": "Закрепите сайт",
+    "message": "Сохранить страницу",
     "description": "Welcome page, first step"
   },
   "onboardingStep1Text": {
-    "message": "Нажмите на значок Tabs Pin, затем на «Закрепить текущую вкладку», чтобы сохранить открытую страницу. Остальные добавьте на странице настроек.",
+    "message": "Откройте окно Tabs Pin и нажмите «Закрепить текущую вкладку».",
     "description": "Welcome page, first step, explanation"
   },
   "onboardingStep2Title": {
-    "message": "Открывайте их позже",
+    "message": "Открывать когда угодно",
     "description": "Welcome page, second step"
   },
   "onboardingStep2Text": {
-    "message": "Откройте категорию, чтобы вернуть её сайты, или «Открыть все вкладки», чтобы открыть всё сразу, даже после закрытия браузера.",
+    "message": "Один клик возвращает их закреплёнными вкладками, даже после перезапуска браузера.",
     "description": "Welcome page, second step, explanation"
   },
   "onboardingStep3Title": {
-    "message": "Разложите по проектам",
+    "message": "Держать раздельно",
     "description": "Welcome page, third step"
   },
   "onboardingStep3Text": {
-    "message": "У каждой категории свой значок и свои вкладки: работа, личное и чтение не смешиваются.",
+    "message": "Категория на проект, у каждой свой значок и свои вкладки.",
     "description": "Welcome page, third step, explanation"
   },
   "onboardingPrivacy": {

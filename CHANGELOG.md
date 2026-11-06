@@ -10,7 +10,7 @@ both stores, whatever their language. The rules are in [`docs/versioning.md`](do
 ## [Unreleased]
 
 ### ✨ New Features
-- **First-run walkthrough**: a short page, opened once when the extension is installed, says what Tabs Pin is for in three steps: pin a site, reopen your sites later, sort them by project. It ends on the privacy promise and a button to the options page, and opens again from the "?" in the popup header or the "How it works" link in the options footer. Translated in the 14 languages.
+- **First-run walkthrough**: a short page, opened once when the extension is installed, says what Tabs Pin is for in three illustrated steps, one sentence each: save a page, reopen it anytime, keep projects apart. It ends on the privacy promise and a button to the options page, closes with Escape, and opens again from the "?" in the popup header or the "How it works" link in the options footer. Translated in the 14 languages.
 - **Delete a category from its card**: a cross in the corner of each category card deletes it, with the same confirmation as the dialog. No need to open the category first. The cross is gone when only one category is left, and the confirmation of an empty category now says it holds no pinned tab instead of announcing "0 pinned tab(s)". Category cards also show a focus ring now that they are reached with the keyboard.
 
 ## [1.6.0] - 2026-11-06

@@ -19,13 +19,14 @@ test('the welcome page tells what the extension is for, in three steps', async (
   const page = await openPage('welcome/welcome.html');
 
   await expect(page.locator('h1')).toHaveText('How Tabs Pin works');
-  await expect(page.locator('.welcome-intro')).toContainText('pinned tabs in one click');
+  await expect(page.locator('.welcome-intro')).toContainText('Reopen them in one click');
   await expect(page.locator('.welcome-step')).toHaveCount(3);
-  await expect(page.locator('.step-title')).toHaveText([
-    'Pin a site',
-    'Reopen them later',
-    'Sort them by project'
+  await expect(page.locator('.step-title-text')).toHaveText([
+    'Save a page',
+    'Reopen them anytime',
+    'Keep them apart'
   ]);
+  await expect(page.locator('.step-icon')).toHaveCount(3);
   await expect(page.locator('.welcome-privacy')).toContainText('no account, no server, no tracking');
   await expect(page.locator('#openOptionsBtn')).toHaveText('Open the options page');
 });
@@ -43,6 +44,16 @@ test('"Got it" closes the welcome page', async ({ openPage }) => {
 
   const closed = page.waitForEvent('close');
   await page.locator('#closeBtn').click();
+  await closed;
+});
+
+test('Escape closes the welcome page, and the title takes the focus', async ({ openPage }) => {
+  const page = await openPage('welcome/welcome.html');
+  await expect(page.locator('.welcome-title')).toBeFocused();
+
+  const closed = page.waitForEvent('close');
+  // keydown closes the tab: there is no page left to receive the keyup
+  await page.keyboard.down('Escape');
   await closed;
 });
 
