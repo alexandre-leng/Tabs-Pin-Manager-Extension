@@ -7,11 +7,18 @@ All notable changes to this project will be documented in this file. The format 
 Every entry is written in English: the release notes published from this file are read by users of
 both stores, whatever their language. The rules are in [`docs/versioning.md`](docs/versioning.md).
 
-## [Unreleased]
+## [1.7.0] - 2026-11-06
 
 ### ✨ New Features
 - **First-run walkthrough**: a short page, opened once when the extension is installed, says what Tabs Pin is for in three illustrated steps, one sentence each: save a page, reopen it anytime, keep projects apart. It ends on the privacy promise and a button to the options page, closes with Escape, and opens again from the "?" in the popup header or the "How it works" link in the options footer. Translated in the 14 languages.
 - **Delete a category from its card**: a cross in the corner of each category card deletes it, with the same confirmation as the dialog. No need to open the category first. The cross is gone when only one category is left, and the confirmation of an empty category now says it holds no pinned tab instead of announcing "0 pinned tab(s)". Category cards also show a focus ring now that they are reached with the keyboard.
+
+### 🛠️ Fixes
+- **Right-to-left direction**: the pages now set their writing direction from the interface language itself, so Arabic stays right to left even when the browser reports no direction. Verified by an automated test that opens the walkthrough with a French and an Arabic interface.
+- **Translations**: eight languages (Hindi, Indonesian, Japanese, Korean, Dutch, Portuguese, Russian, Chinese) still displayed "Some tabs were pinned and others opened" in English. Error messages raised by the background script are translated too, instead of reaching the options page in English, and the favicon of the tab preview no longer carries an English "Favicon" label.
+
+### 🧹 Quality
+- **Responsive walkthrough**: one card per row on a narrow window, three columns from 640 px, and an interface test fails the build if the page ever overflows sideways at 320 px or 900 px.
 
 ## [1.6.0] - 2026-11-06
 
@@ -19,10 +26,6 @@ Category deletion, a lighter popup and an English documentation folder.
 
 ### ✨ New Features
 - **Delete a category**: the edit dialog offers "Delete Category", with a confirmation naming the tabs involved and the category that will take them. Tabs of the deleted category move to the first remaining category, and the last category cannot be deleted.
-
-### 🛠️ Fixes
-- **Right-to-left direction**: the pages now set their writing direction from the interface language itself, so Arabic stays right to left even when the browser reports no direction. Verified by an automated test that opens the walkthrough with a French and an Arabic interface.
-- **Translations**: eight languages (Hindi, Indonesian, Japanese, Korean, Dutch, Portuguese, Russian, Chinese) still displayed "Some tabs were pinned and others opened" in English. Error messages raised by the background script are translated too, instead of reaching the options page in English, and the favicon of the tab preview no longer carries an English "Favicon" label.
 
 ### 🧹 Quality
 - **Lighter popup**: the "Last opened" line and the "N pinned / N categories" statistics row are removed, with the time formatting module and the seven messages they used in the 14 locales. The `lastOpened` setting is still recorded in backups.
