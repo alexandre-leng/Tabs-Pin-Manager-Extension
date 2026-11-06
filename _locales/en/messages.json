@@ -181,10 +181,6 @@
     "message": "Failed to initialize popup",
     "description": "Error message when popup cannot initialize"
   },
-  "readyToOpenTabs": {
-    "message": "Ready to open tabs",
-    "description": "Status message when extension is ready"
-  },
   "currentTabCannotBePinned": {
     "message": "Current tab cannot be pinned",
     "description": "Error message for pin button state"
@@ -202,10 +198,6 @@
         "example": "5"
       }
     }
-  },
-  "justNow": {
-    "message": "Just now",
-    "description": "Time indication for recent event"
   },
   "deleteTab": {
     "message": "Delete Tab",
@@ -372,10 +364,6 @@
   "clickToOpenPinnedTabs": {
     "message": "Click to open your pinned tabs",
     "description": "Description of the main open tabs button"
-  },
-  "lastOpenedPrefix": {
-    "message": "Last opened:",
-    "description": "Prefix for last opening time display"
   },
   "tabSingular": {
     "message": "tab",

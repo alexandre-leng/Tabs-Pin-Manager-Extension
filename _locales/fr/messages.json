@@ -181,10 +181,6 @@
     "message": "Échec de l'initialisation de la popup",
     "description": "Message d'erreur quand la popup échoue à se charger"
   },
-  "readyToOpenTabs": {
-    "message": "Prêt à ouvrir les onglets",
-    "description": "Message de statut quand l'extension est prête"
-  },
   "currentTabCannotBePinned": {
     "message": "L'onglet actuel ne peut pas être épinglé",
     "description": "Message d'erreur pour l'état du bouton d'épinglage"
@@ -202,10 +198,6 @@
         "example": "5"
       }
     }
-  },
-  "justNow": {
-    "message": "À l'instant",
-    "description": "Indication de temps pour un événement récent"
   },
   "deleteTab": {
     "message": "Supprimer l'onglet",
@@ -366,10 +358,6 @@
   "clickToOpenPinnedTabs": {
     "message": "Cliquez pour ouvrir vos onglets épinglés",
     "description": "Description du bouton principal d'ouverture des onglets"
-  },
-  "lastOpenedPrefix": {
-    "message": "Dernière ouverture :",
-    "description": "Préfixe pour l'affichage du temps de dernière ouverture"
   },
   "tabSingular": {
     "message": "onglet",

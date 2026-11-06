@@ -149,12 +149,6 @@
   "currentTabCannotBePinned": {
     "message": "वर्तमान टैब को पिन नहीं किया जा सकता"
   },
-  "lastOpenedPrefix": {
-    "message": "अंतिम बार खोला गया:"
-  },
-  "readyToOpenTabs": {
-    "message": "टैब खोलने के लिए तैयार"
-  },
   "tabPlural": {
     "message": "टैब"
   },
@@ -210,9 +204,6 @@
   },
   "failedToPinTab": {
     "message": "टैब पिन करने में विफल"
-  },
-  "justNow": {
-    "message": "अभी"
   },
   "tabsOpenedCount": {
     "message": "$COUNT$ टैब खोले गए",

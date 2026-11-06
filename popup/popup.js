@@ -8,7 +8,6 @@ import { getDefaultCategories } from '../lib/default-categories.js';
 import { I18nHelper } from '../lib/i18n-helper.js';
 import { StorageManager } from '../lib/storage-manager.js';
 import { UiUtils } from '../lib/ui-utils.js';
-import { formatTimeAgo } from '../lib/time-format.js';
 import { savedAddressKey } from '../lib/url-utils.js';
 import { mixin } from '../lib/mixins.js';
 import { categoryList } from './category-list.js';
@@ -19,7 +18,6 @@ export class PopupManager {
   constructor() {
     this.tabs = [];
     this.categories = [];
-    this.settings = {};
     this.currentCategory = 'all';
     this.isLoading = false;
     this.storage = new StorageManager();
@@ -44,8 +42,6 @@ export class PopupManager {
       
       // Info displays
       tabCount: document.getElementById('tabCount'),
-      statusText: document.getElementById('statusText'),
-      statusInfo: document.getElementById('statusInfo'),
       pinnedTabsCount: document.getElementById('pinnedTabsCount'),
       categoriesCount: document.getElementById('categoriesCount'),
       categoriesList: document.getElementById('categoriesList'),
@@ -158,7 +154,6 @@ export class PopupManager {
         if (response && response.success && response.data) {
           this.tabs = response.data.tabs || [];
           this.categories = response.data.categories || this.getDefaultCategories();
-          this.settings = response.data.settings || {};
           return;
         }
       } catch (error) {
@@ -166,16 +161,14 @@ export class PopupManager {
       }
       
       // Fallback to direct storage access using StorageManager
-      const result = await this.storage.get(['pinnedTabs', 'categories', 'settings']);
+      const result = await this.storage.get(['pinnedTabs', 'categories']);
       this.tabs = result.pinnedTabs || [];
       this.categories = result.categories || this.getDefaultCategories();
-      this.settings = result.settings || {};
     } catch (error) {
       console.error('Error loading data:', error);
       // Initialize with defaults if all else fails
       this.tabs = [];
       this.categories = this.getDefaultCategories();
-      this.settings = {};
     }
   }
 
@@ -303,7 +296,6 @@ export class PopupManager {
     // Update counts and info
     this.updateTabCount();
     this.updateActivityStats();
-    this.updateStatusInfo();
     this.updatePinButtonState();
     
     // Show categories if there are any
@@ -380,20 +372,6 @@ export class PopupManager {
     }
   }
 
-  updateStatusInfo() {
-    if (this.elements.statusText) {
-      const lastOpened = this.settings.lastOpened;
-      if (lastOpened) {
-        const date = new Date(lastOpened);
-        const timeAgo = this.getTimeAgo(date);
-        const prefix = browser.i18n.getMessage('lastOpenedPrefix');
-        this.elements.statusText.textContent = `${prefix} ${timeAgo}`;
-      } else {
-        this.elements.statusText.textContent = browser.i18n.getMessage('readyToOpenTabs');
-      }
-    }
-  }
-
   updatePinButtonState() {
     const pinButtons = [
       this.elements.pinCurrentMainBtn,
@@ -456,13 +434,6 @@ export class PopupManager {
     return UiUtils.displayDomain(url);
   }
 
-  getTimeAgo(date) {
-    return formatTimeAgo(date, {
-      locale: browser.i18n.getUILanguage(),
-      justNow: browser.i18n.getMessage('justNow')
-    });
-  }
-
   showToast(type, icon, message) {
     UiUtils.showToast(this, type, icon, message, 3000);
   }
@@ -478,7 +449,6 @@ export class PopupManager {
         // Update local data and re-render
         this.tabs = message.data.tabs || [];
         this.categories = message.data.categories || [];
-        this.settings = message.data.settings || {};
         this.render();
       }
     });

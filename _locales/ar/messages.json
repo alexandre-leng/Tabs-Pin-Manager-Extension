@@ -149,12 +149,6 @@
   "currentTabCannotBePinned": {
     "message": "لا يمكن تثبيت التبويب الحالي"
   },
-  "lastOpenedPrefix": {
-    "message": "آخر فتح:"
-  },
-  "readyToOpenTabs": {
-    "message": "جاهز لفتح التبويبات"
-  },
   "tabPlural": {
     "message": "تبويبات"
   },
@@ -210,9 +204,6 @@
   },
   "failedToPinTab": {
     "message": "فشل في تثبيت التبويب"
-  },
-  "justNow": {
-    "message": "الآن"
   },
   "tabsOpenedCount": {
     "message": "تم فتح $COUNT$ تبويب",

@@ -149,12 +149,6 @@
   "currentTabCannotBePinned": {
     "message": "현재 탭을 고정할 수 없습니다"
   },
-  "lastOpenedPrefix": {
-    "message": "마지막 열린 시간:"
-  },
-  "readyToOpenTabs": {
-    "message": "탭을 열 준비가 되었습니다"
-  },
   "tabPlural": {
     "message": "개 탭"
   },
@@ -210,9 +204,6 @@
   },
   "failedToPinTab": {
     "message": "탭 고정에 실패했습니다"
-  },
-  "justNow": {
-    "message": "방금 전"
   },
   "tabsOpenedCount": {
     "message": "$COUNT$개 탭이 열렸습니다",

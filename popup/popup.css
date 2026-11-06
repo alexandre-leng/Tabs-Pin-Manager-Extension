@@ -652,21 +652,6 @@ body {
   background: var(--warning-color);
 }
 
-/* Status section */
-.status-section {
-  margin-top: var(--spacing-sm);
-}
-
-/* Status info */
-.status-info {
-  padding: var(--spacing-sm) var(--spacing-md);
-  background: var(--background-secondary);
-  border-radius: var(--border-radius);
-  font-size: var(--font-size-small);
-  color: var(--text-secondary);
-  text-align: center;
-}
-
 /* Categories section */
 .categories-section {
   padding: 0 var(--spacing-md) var(--spacing-md);

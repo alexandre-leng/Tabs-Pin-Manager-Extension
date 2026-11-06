@@ -149,12 +149,6 @@
   "currentTabCannotBePinned": {
     "message": "現在のタブはピンできません"
   },
-  "lastOpenedPrefix": {
-    "message": "最後に開いた時刻："
-  },
-  "readyToOpenTabs": {
-    "message": "タブを開く準備完了"
-  },
   "tabPlural": {
     "message": "個のタブ"
   },
@@ -210,9 +204,6 @@
   },
   "failedToPinTab": {
     "message": "タブのピンに失敗しました"
-  },
-  "justNow": {
-    "message": "たった今"
   },
   "tabsOpenedCount": {
     "message": "$COUNT$個のタブを開きました",

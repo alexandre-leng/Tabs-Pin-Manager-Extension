@@ -177,10 +177,6 @@
     "message": "Fehler beim Initialisieren des Popups",
     "description": "Fehlermeldung wenn Popup nicht initialisiert werden kann"
   },
-  "readyToOpenTabs": {
-    "message": "Bereit zum Öffnen der Tabs",
-    "description": "Statusnachricht wenn Erweiterung bereit ist"
-  },
   "currentTabCannotBePinned": {
     "message": "Aktueller Tab kann nicht angeheftet werden",
     "description": "Fehlermeldung für Anheft-Button Status"
@@ -198,10 +194,6 @@
         "example": "5"
       }
     }
-  },
-  "justNow": {
-    "message": "Gerade eben",
-    "description": "Zeitangabe für kürzliche Ereignisse"
   },
   "deleteTab": {
     "message": "Tab löschen",
@@ -378,9 +370,6 @@
   },
   "clickToOpenPinnedTabs": {
     "message": "Klicken Sie hier, um Ihre angehefteten Tabs zu öffnen"
-  },
-  "lastOpenedPrefix": {
-    "message": "Zuletzt geöffnet:"
   },
   "tabSingular": {
     "message": "Tab"

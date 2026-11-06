@@ -149,12 +149,6 @@
   "currentTabCannotBePinned": {
     "message": "Текущую вкладку нельзя закрепить"
   },
-  "lastOpenedPrefix": {
-    "message": "Последний раз открыто:"
-  },
-  "readyToOpenTabs": {
-    "message": "Готово к открытию вкладок"
-  },
   "tabPlural": {
     "message": "вкладок"
   },
@@ -210,9 +204,6 @@
   },
   "failedToPinTab": {
     "message": "Не удалось закрепить вкладку"
-  },
-  "justNow": {
-    "message": "Только что"
   },
   "tabsOpenedCount": {
     "message": "Открыто $COUNT$ вкладок",

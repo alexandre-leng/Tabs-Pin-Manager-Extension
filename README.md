@@ -138,7 +138,7 @@ dependency is an explicit `import`.
 | Background (Firefox event page / Chrome service worker) | `background/background.js` | `controller.js` (events, messages), `data-store.js` (saved data, one change at a time), `tab-actions.js` (open / pin / close tabs), `import-sanitizer.js`, `log.js` |
 | Popup | `popup/main.js` | `popup.js` (`PopupManager`), `category-list.js`, `category-order.js`, `category-selection.js`, `tab-actions.js` |
 | Options page | `options/main.js` | `options.js` (`OptionsManager`), `tab-cards.js`, `tab-editor.js`, `tab-ordering.js`, `category-editor.js`, `icon-picker.js`, `import-export.js` |
-| Shared | `lib/` | `browser-api.js`, `storage-manager.js`, `url-utils.js`, `tab-utils.js`, `domain-utils.js`, `punycode.js` (display of international domains), `time-format.js`, `ui-utils.js`, `i18n-helper.js`, `default-categories.js`, `mixins.js` |
+| Shared | `lib/` | `browser-api.js`, `storage-manager.js`, `url-utils.js`, `tab-utils.js`, `domain-utils.js`, `punycode.js` (display of international domains), `category-utils.js` (category IDs and the limit), `ui-utils.js`, `i18n-helper.js`, `default-categories.js`, `mixins.js` |
 
 - The **background script owns the data**: pages change it only through messages
   (`openAllTabs`, `openCategoryTabs`, `countCategoryPinnedTabs`, `closeCategoryTabs`,

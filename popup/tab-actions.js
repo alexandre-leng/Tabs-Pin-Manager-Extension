@@ -25,11 +25,6 @@ export const tabActions = {
       });
       
       if (response.success) {
-        // The background script already persisted lastOpened; writing this possibly
-        // stale settings copy to storage would overwrite newer settings
-        this.settings.lastOpened = new Date().toISOString();
-        this.updateStatusInfo();
-        
         if (this.reportOpenResult(response)) {
           this.showButtonSuccess();
         }

@@ -181,10 +181,6 @@
     "message": "Error al inicializar el popup",
     "description": "Mensaje de error cuando el popup no puede inicializarse"
   },
-  "readyToOpenTabs": {
-    "message": "Listo para abrir pestañas",
-    "description": "Mensaje de estado cuando la extensión está lista"
-  },
   "currentTabCannotBePinned": {
     "message": "La pestaña actual no se puede fijar",
     "description": "Mensaje de error para el estado del botón de fijado"
@@ -202,10 +198,6 @@
         "example": "5"
       }
     }
-  },
-  "justNow": {
-    "message": "Ahora mismo",
-    "description": "Indicación de tiempo para evento reciente"
   },
   "deleteTab": {
     "message": "Eliminar Pestaña",
@@ -366,10 +358,6 @@
   "clickToOpenPinnedTabs": {
     "message": "Haga clic para abrir sus pestañas fijadas",
     "description": "Descripción del botón principal de apertura de pestañas"
-  },
-  "lastOpenedPrefix": {
-    "message": "Última apertura:",
-    "description": "Prefijo para la visualización del tiempo de última apertura"
   },
   "tabSingular": {
     "message": "pestaña",

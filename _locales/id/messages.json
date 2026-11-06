@@ -149,12 +149,6 @@
   "currentTabCannotBePinned": {
     "message": "Tab saat ini tidak dapat disematkan"
   },
-  "lastOpenedPrefix": {
-    "message": "Terakhir dibuka:"
-  },
-  "readyToOpenTabs": {
-    "message": "Siap membuka tab"
-  },
   "tabPlural": {
     "message": "tab"
   },
@@ -210,9 +204,6 @@
   },
   "failedToPinTab": {
     "message": "Gagal menyematkan tab"
-  },
-  "justNow": {
-    "message": "Baru saja"
   },
   "tabsOpenedCount": {
     "message": "$COUNT$ tab dibuka",

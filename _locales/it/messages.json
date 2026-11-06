@@ -181,10 +181,6 @@
     "message": "Errore nell'inizializzazione del popup",
     "description": "Messaggio di errore quando il popup non può inizializzarsi"
   },
-  "readyToOpenTabs": {
-    "message": "Pronto per aprire le schede",
-    "description": "Messaggio di stato quando l'estensione è pronta"
-  },
   "currentTabCannotBePinned": {
     "message": "La scheda corrente non può essere fissata",
     "description": "Messaggio di errore per lo stato del pulsante di fissaggio"
@@ -202,10 +198,6 @@
         "example": "5"
       }
     }
-  },
-  "justNow": {
-    "message": "Proprio ora",
-    "description": "Indicazione temporale per evento recente"
   },
   "deleteTab": {
     "message": "Elimina Scheda",
@@ -366,10 +358,6 @@
   "clickToOpenPinnedTabs": {
     "message": "Clicca per aprire le tue schede fissate",
     "description": "Descrizione del pulsante principale di apertura schede"
-  },
-  "lastOpenedPrefix": {
-    "message": "Ultima apertura:",
-    "description": "Prefisso per la visualizzazione del tempo dell'ultima apertura"
   },
   "tabSingular": {
     "message": "scheda",

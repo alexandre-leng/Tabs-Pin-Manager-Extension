@@ -149,12 +149,6 @@
   "currentTabCannotBePinned": {
     "message": "当前标签页无法固定"
   },
-  "lastOpenedPrefix": {
-    "message": "上次打开："
-  },
-  "readyToOpenTabs": {
-    "message": "准备打开标签页"
-  },
   "tabPlural": {
     "message": "个标签页"
   },
@@ -210,9 +204,6 @@
   },
   "failedToPinTab": {
     "message": "固定标签页失败"
-  },
-  "justNow": {
-    "message": "刚刚"
   },
   "tabsOpenedCount": {
     "message": "已打开 $COUNT$ 个标签页",

@@ -177,10 +177,6 @@
     "message": "Falha ao inicializar o popup",
     "description": "Mensagem de erro quando o popup não pode inicializar"
   },
-  "readyToOpenTabs": {
-    "message": "Pronto para abrir abas",
-    "description": "Mensagem de status quando a extensão está pronta"
-  },
   "currentTabCannotBePinned": {
     "message": "A aba atual não pode ser fixada",
     "description": "Mensagem de erro para o estado do botão de fixação"
@@ -198,10 +194,6 @@
         "example": "5"
       }
     }
-  },
-  "justNow": {
-    "message": "Agora mesmo",
-    "description": "Indicação de tempo para evento recente"
   },
   "deleteTab": {
     "message": "Excluir Aba",
@@ -396,9 +388,6 @@
   },
   "clickToOpenPinnedTabs": {
     "message": "Clique para abrir suas abas fixadas"
-  },
-  "lastOpenedPrefix": {
-    "message": "Última abertura:"
   },
   "tabSingular": {
     "message": "aba"

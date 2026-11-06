@@ -177,10 +177,6 @@
     "message": "Fout bij het initialiseren van popup",
     "description": "Foutbericht wanneer popup niet kan initialiseren"
   },
-  "readyToOpenTabs": {
-    "message": "Klaar om tabbladen te openen",
-    "description": "Status bericht wanneer extensie klaar is"
-  },
   "currentTabCannotBePinned": {
     "message": "Huidige tabblad kan niet worden vastgemaakt",
     "description": "Foutbericht voor vastmaak knop status"
@@ -198,10 +194,6 @@
         "example": "5"
       }
     }
-  },
-  "justNow": {
-    "message": "Zojuist",
-    "description": "Tijdsindicatie voor recente gebeurtenis"
   },
   "deleteTab": {
     "message": "Tabblad Verwijderen",
@@ -378,9 +370,6 @@
   },
   "clickToOpenPinnedTabs": {
     "message": "Klik om uw vastgemaakte tabbladen te openen"
-  },
-  "lastOpenedPrefix": {
-    "message": "Laatst geopend:"
   },
   "tabSingular": {
     "message": "tabblad"
