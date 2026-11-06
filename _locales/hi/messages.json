@@ -300,12 +300,6 @@
   "categoryIconRequired": {
     "message": "श्रेणी आइकन आवश्यक है"
   },
-  "pinnedTabsShort": {
-    "message": "पिन किए गए"
-  },
-  "categoriesShort": {
-    "message": "श्रेणियां"
-  },
   "refreshTooltip": {
     "message": "टैब और श्रेणी डेटा रीफ्रेश करें"
   },
@@ -313,12 +307,6 @@
     "message": "अपने पिन किए गए टैब खोलने के लिए क्लिक करें"
   },
   "manageCategoriesButtonTooltip": {
-    "message": "श्रेणियां प्रबंधित करें"
-  },
-  "viewAllPinnedTabsTooltip": {
-    "message": "सभी पिन किए गए टैब देखें"
-  },
-  "manageCategoriesStatTooltip": {
     "message": "श्रेणियां प्रबंधित करें"
   },
   "extensionVersionTooltip": {

@@ -300,12 +300,6 @@
   "categoryIconRequired": {
     "message": "类别图标为必填项"
   },
-  "pinnedTabsShort": {
-    "message": "已固定"
-  },
-  "categoriesShort": {
-    "message": "类别"
-  },
   "refreshTooltip": {
     "message": "刷新标签页和类别数据"
   },
@@ -313,12 +307,6 @@
     "message": "点击打开您的固定标签页"
   },
   "manageCategoriesButtonTooltip": {
-    "message": "管理类别"
-  },
-  "viewAllPinnedTabsTooltip": {
-    "message": "查看所有固定标签页"
-  },
-  "manageCategoriesStatTooltip": {
     "message": "管理类别"
   },
   "extensionVersionTooltip": {

@@ -319,12 +319,6 @@
   "openOneTab": {
     "message": "1 Tabblad openen"
   },
-  "pinnedTabsShort": {
-    "message": "Vastgemaakt"
-  },
-  "categoriesShort": {
-    "message": "Categorieën"
-  },
   "allTabsAlreadyOpen": {
     "message": "Alle tabbladen zijn al geopend en vastgemaakt"
   },
@@ -378,12 +372,6 @@
     "message": "tabbladen"
   },
   "manageCategoriesButtonTooltip": {
-    "message": "Categorieën beheren"
-  },
-  "viewAllPinnedTabsTooltip": {
-    "message": "Alle vastgemaakte tabbladen bekijken"
-  },
-  "manageCategoriesStatTooltip": {
     "message": "Categorieën beheren"
   },
   "extensionVersionTooltip": {

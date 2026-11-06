@@ -30,7 +30,6 @@ export class PopupManager {
       emptyState: document.getElementById('emptyState'),
       quickActions: document.getElementById('quickActions'),
       categoriesSection: document.getElementById('categoriesSection'),
-      activitySection: document.getElementById('activitySection'),
       
       // Actions
       openAllBtn: document.getElementById('openAllBtn'),
@@ -42,8 +41,6 @@ export class PopupManager {
       
       // Info displays
       tabCount: document.getElementById('tabCount'),
-      pinnedTabsCount: document.getElementById('pinnedTabsCount'),
-      categoriesCount: document.getElementById('categoriesCount'),
       categoriesList: document.getElementById('categoriesList'),
       versionInfo: document.getElementById('versionInfo'),
       
@@ -198,10 +195,6 @@ export class PopupManager {
     // Category management
     document.getElementById('manageCategoriesBtn')?.addEventListener('click', () => this.openOptions());
     
-    // Stats interactions
-    document.getElementById('pinnedTabsStatBtn')?.addEventListener('click', () => this.openOptions());
-    document.getElementById('categoriesStatBtn')?.addEventListener('click', () => this.openOptions());
-    
     // Refresh button
     this.elements.refreshBtn?.addEventListener('click', () => this.refresh());
     
@@ -289,13 +282,8 @@ export class PopupManager {
       this.elements.quickActions.style.display = 'flex';
     }
     
-    if (this.elements.activitySection) {
-      this.elements.activitySection.style.display = 'block';
-    }
-    
     // Update counts and info
     this.updateTabCount();
-    this.updateActivityStats();
     this.updatePinButtonState();
     
     // Show categories if there are any
@@ -312,8 +300,7 @@ export class PopupManager {
       this.elements.loadingState,
       this.elements.emptyState,
       this.elements.quickActions,
-      this.elements.categoriesSection,
-      this.elements.activitySection
+      this.elements.categoriesSection
     ];
     
     states.forEach(element => {
@@ -358,17 +345,6 @@ export class PopupManager {
         
         btnText.textContent = buttonMessage;
       }
-    }
-  }
-
-  updateActivityStats() {
-    if (this.elements.pinnedTabsCount) {
-      this.elements.pinnedTabsCount.textContent = this.tabs.length;
-    }
-    
-    if (this.elements.categoriesCount) {
-      const usedCategories = new Set(this.tabs.map(tab => tab.category).filter(Boolean));
-      this.elements.categoriesCount.textContent = usedCategories.size;
     }
   }
 

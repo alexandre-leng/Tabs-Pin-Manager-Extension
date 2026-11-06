@@ -303,14 +303,6 @@
     "message": "Category icon is required",
     "description": "Error message for required category icon"
   },
-  "pinnedTabsShort": {
-    "message": "Pinned",
-    "description": "Short label for pinned tabs in statistics"
-  },
-  "categoriesShort": {
-    "message": "Categories",
-    "description": "Short label for categories in statistics"
-  },
   "allTabsAlreadyOpen": {
     "message": "All tabs are already open and pinned",
     "description": "Informative message when all configured tabs are already open"
@@ -376,14 +368,6 @@
   "manageCategoriesButtonTooltip": {
     "message": "Manage categories",
     "description": "Tooltip for manage categories button"
-  },
-  "viewAllPinnedTabsTooltip": {
-    "message": "View all pinned tabs",
-    "description": "Tooltip for pinned tabs statistics button"
-  },
-  "manageCategoriesStatTooltip": {
-    "message": "Manage categories",
-    "description": "Tooltip for categories statistics button"
   },
   "extensionVersionTooltip": {
     "message": "Extension version",

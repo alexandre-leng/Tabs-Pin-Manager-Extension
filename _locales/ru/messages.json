@@ -300,12 +300,6 @@
   "categoryIconRequired": {
     "message": "Значок категории обязателен"
   },
-  "pinnedTabsShort": {
-    "message": "Закреплённые"
-  },
-  "categoriesShort": {
-    "message": "Категории"
-  },
   "refreshTooltip": {
     "message": "Обновить данные вкладок и категорий"
   },
@@ -313,12 +307,6 @@
     "message": "Нажмите, чтобы открыть закреплённые вкладки"
   },
   "manageCategoriesButtonTooltip": {
-    "message": "Управление категориями"
-  },
-  "viewAllPinnedTabsTooltip": {
-    "message": "Просмотреть все закреплённые вкладки"
-  },
-  "manageCategoriesStatTooltip": {
     "message": "Управление категориями"
   },
   "extensionVersionTooltip": {

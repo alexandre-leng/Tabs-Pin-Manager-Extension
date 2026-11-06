@@ -300,12 +300,6 @@
   "categoryIconRequired": {
     "message": "Ikon kategori diperlukan"
   },
-  "pinnedTabsShort": {
-    "message": "Disematkan"
-  },
-  "categoriesShort": {
-    "message": "Kategori"
-  },
   "refreshTooltip": {
     "message": "Segarkan data tab dan kategori"
   },
@@ -313,12 +307,6 @@
     "message": "Klik untuk membuka tab yang disematkan"
   },
   "manageCategoriesButtonTooltip": {
-    "message": "Kelola kategori"
-  },
-  "viewAllPinnedTabsTooltip": {
-    "message": "Lihat semua tab yang disematkan"
-  },
-  "manageCategoriesStatTooltip": {
     "message": "Kelola kategori"
   },
   "extensionVersionTooltip": {

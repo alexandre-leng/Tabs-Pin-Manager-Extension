@@ -300,12 +300,6 @@
   "categoryIconRequired": {
     "message": "カテゴリアイコンは必須です"
   },
-  "pinnedTabsShort": {
-    "message": "ピン済み"
-  },
-  "categoriesShort": {
-    "message": "カテゴリ"
-  },
   "refreshTooltip": {
     "message": "タブとカテゴリのデータを更新"
   },
@@ -313,12 +307,6 @@
     "message": "クリックしてピンしたタブを開く"
   },
   "manageCategoriesButtonTooltip": {
-    "message": "カテゴリを管理"
-  },
-  "viewAllPinnedTabsTooltip": {
-    "message": "すべてのピンしたタブを表示"
-  },
-  "manageCategoriesStatTooltip": {
     "message": "カテゴリを管理"
   },
   "extensionVersionTooltip": {

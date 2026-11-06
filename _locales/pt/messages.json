@@ -337,12 +337,6 @@
   "openOneTab": {
     "message": "Abrir 1 Aba"
   },
-  "pinnedTabsShort": {
-    "message": "Fixadas"
-  },
-  "categoriesShort": {
-    "message": "Categorias"
-  },
   "allTabsAlreadyOpen": {
     "message": "Todas as abas já estão abertas e fixadas"
   },
@@ -396,12 +390,6 @@
     "message": "abas"
   },
   "manageCategoriesButtonTooltip": {
-    "message": "Gerenciar categorias"
-  },
-  "viewAllPinnedTabsTooltip": {
-    "message": "Ver todas as abas fixadas"
-  },
-  "manageCategoriesStatTooltip": {
     "message": "Gerenciar categorias"
   },
   "extensionVersionTooltip": {

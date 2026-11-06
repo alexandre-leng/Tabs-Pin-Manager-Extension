@@ -297,14 +297,6 @@
     "message": "L'icône de la catégorie est requise",
     "description": "Message d'erreur pour icône de catégorie requise"
   },
-  "pinnedTabsShort": {
-    "message": "Épinglés",
-    "description": "Libellé court pour les onglets épinglés dans les statistiques"
-  },
-  "categoriesShort": {
-    "message": "Catégories",
-    "description": "Libellé court pour les catégories dans les statistiques"
-  },
   "allTabsAlreadyOpen": {
     "message": "Tous les onglets sont déjà ouverts et épinglés",
     "description": "Message informatif quand tous les onglets configurés sont déjà ouverts"
@@ -370,14 +362,6 @@
   "manageCategoriesButtonTooltip": {
     "message": "Gérer les catégories",
     "description": "Info-bulle du bouton gérer les catégories"
-  },
-  "viewAllPinnedTabsTooltip": {
-    "message": "Voir tous les onglets épinglés",
-    "description": "Info-bulle du bouton statistiques onglets épinglés"
-  },
-  "manageCategoriesStatTooltip": {
-    "message": "Gérer les catégories",
-    "description": "Info-bulle du bouton statistiques catégories"
   },
   "extensionVersionTooltip": {
     "message": "Version de l'extension",

@@ -300,12 +300,6 @@
   "categoryIconRequired": {
     "message": "أيقونة الفئة مطلوبة"
   },
-  "pinnedTabsShort": {
-    "message": "مثبتة"
-  },
-  "categoriesShort": {
-    "message": "فئات"
-  },
   "refreshTooltip": {
     "message": "تحديث بيانات التبويبات والفئات"
   },
@@ -313,12 +307,6 @@
     "message": "انقر لفتح التبويبات المثبتة"
   },
   "manageCategoriesButtonTooltip": {
-    "message": "إدارة الفئات"
-  },
-  "viewAllPinnedTabsTooltip": {
-    "message": "عرض جميع التبويبات المثبتة"
-  },
-  "manageCategoriesStatTooltip": {
     "message": "إدارة الفئات"
   },
   "extensionVersionTooltip": {

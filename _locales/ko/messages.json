@@ -300,12 +300,6 @@
   "categoryIconRequired": {
     "message": "카테고리 아이콘이 필요합니다"
   },
-  "pinnedTabsShort": {
-    "message": "고정됨"
-  },
-  "categoriesShort": {
-    "message": "카테고리"
-  },
   "refreshTooltip": {
     "message": "탭과 카테고리 데이터 새로고침"
   },
@@ -313,12 +307,6 @@
     "message": "고정된 탭을 열려면 클릭하세요"
   },
   "manageCategoriesButtonTooltip": {
-    "message": "카테고리 관리"
-  },
-  "viewAllPinnedTabsTooltip": {
-    "message": "모든 고정된 탭 보기"
-  },
-  "manageCategoriesStatTooltip": {
     "message": "카테고리 관리"
   },
   "extensionVersionTooltip": {

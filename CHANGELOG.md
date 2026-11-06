@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 - **Supprimer une catégorie** : le dialogue de modification propose « Supprimer la Catégorie », avec une confirmation qui indique le nombre d'onglets concernés et la catégorie qui les accueillera. Les onglets de la catégorie supprimée rejoignent la première catégorie restante, et la dernière catégorie ne peut pas être supprimée.
 
 ### 🧹 Qualité
-- **Popup allégé** : la ligne « Dernière ouverture » est retirée, avec le module de formatage du temps et les trois textes qu'elle utilisait dans les 14 langues. Le réglage `lastOpened` reste enregistré dans les sauvegardes.
+- **Popup allégé** : la ligne « Dernière ouverture » et la rangée de statistiques « N épinglés / N catégories » sont retirées, avec le module de formatage du temps et les sept textes qu'elles utilisaient dans les 14 langues. Le réglage `lastOpened` reste enregistré dans les sauvegardes.
 
 ### 📝 Documentation
 - **Règles de versionnement** : le README indique quand publier une version majeure, mineure ou corrective (rupture de données ou de permissions, fonctionnalité, correction), et comment le numéro se déduit des sections du CHANGELOG.

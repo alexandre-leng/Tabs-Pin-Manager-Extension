@@ -297,14 +297,6 @@
     "message": "L'icona della categoria è richiesta",
     "description": "Messaggio di errore per icona categoria richiesta"
   },
-  "pinnedTabsShort": {
-    "message": "Fissate",
-    "description": "Etichetta breve per schede fissate nelle statistiche"
-  },
-  "categoriesShort": {
-    "message": "Categorie",
-    "description": "Etichetta breve per categorie nelle statistiche"
-  },
   "allTabsAlreadyOpen": {
     "message": "Tutte le schede sono già aperte e bloccate",
     "description": "Messaggio informativo quando tutte le schede configurate sono già aperte"
@@ -370,14 +362,6 @@
   "manageCategoriesButtonTooltip": {
     "message": "Gestisci categorie",
     "description": "Tooltip per il pulsante gestisci categorie"
-  },
-  "viewAllPinnedTabsTooltip": {
-    "message": "Visualizza tutte le schede fissate",
-    "description": "Tooltip per il pulsante statistiche schede fissate"
-  },
-  "manageCategoriesStatTooltip": {
-    "message": "Gestisci categorie",
-    "description": "Tooltip per il pulsante statistiche categorie"
   },
   "extensionVersionTooltip": {
     "message": "Versione dell'estensione",

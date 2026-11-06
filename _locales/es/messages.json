@@ -297,14 +297,6 @@
     "message": "El icono de la categoría es requerido",
     "description": "Mensaje de error para icono de categoría requerido"
   },
-  "pinnedTabsShort": {
-    "message": "Fijadas",
-    "description": "Etiqueta corta para pestañas fijadas en estadísticas"
-  },
-  "categoriesShort": {
-    "message": "Categorías",
-    "description": "Etiqueta corta para categorías en estadísticas"
-  },
   "allTabsAlreadyOpen": {
     "message": "Todas las pestañas ya están abiertas y fijadas",
     "description": "Mensaje informativo cuando todas las pestañas configuradas ya están abiertas"
@@ -370,14 +362,6 @@
   "manageCategoriesButtonTooltip": {
     "message": "Gestionar categorías",
     "description": "Tooltip para el botón gestionar categorías"
-  },
-  "viewAllPinnedTabsTooltip": {
-    "message": "Ver todas las pestañas fijadas",
-    "description": "Tooltip para el botón estadísticas pestañas fijadas"
-  },
-  "manageCategoriesStatTooltip": {
-    "message": "Gestionar categorías",
-    "description": "Tooltip para el botón estadísticas categorías"
   },
   "extensionVersionTooltip": {
     "message": "Versión de la extensión",

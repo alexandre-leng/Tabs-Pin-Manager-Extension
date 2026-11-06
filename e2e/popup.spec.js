@@ -12,7 +12,6 @@ test('lists categories with their tab counts', async ({ openPage, seed }) => {
   const popup = await openPage('popup/popup.html');
 
   await expect(popup.locator('#openAllBtn')).toContainText('Open 3 tabs');
-  await expect(popup.locator('#pinnedTabsCount')).toHaveText('3');
   await expect(popup.locator('#categoriesList')).toContainText('Work');
   await expect(popup.locator('#categoriesList')).toContainText('2 tabs');
 });

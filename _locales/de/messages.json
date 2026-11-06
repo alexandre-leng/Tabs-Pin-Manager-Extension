@@ -319,12 +319,6 @@
   "openOneTab": {
     "message": "1 Tab öffnen"
   },
-  "pinnedTabsShort": {
-    "message": "Angeheftet"
-  },
-  "categoriesShort": {
-    "message": "Kategorien"
-  },
   "allTabsAlreadyOpen": {
     "message": "Alle Tabs sind bereits geöffnet und angeheftet"
   },
@@ -378,12 +372,6 @@
     "message": "Tabs"
   },
   "manageCategoriesButtonTooltip": {
-    "message": "Kategorien verwalten"
-  },
-  "viewAllPinnedTabsTooltip": {
-    "message": "Alle angehefteten Tabs anzeigen"
-  },
-  "manageCategoriesStatTooltip": {
     "message": "Kategorien verwalten"
   },
   "extensionVersionTooltip": {
