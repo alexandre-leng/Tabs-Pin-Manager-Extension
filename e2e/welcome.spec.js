@@ -15,6 +15,17 @@ async function waitForPage(context, part) {
   return found;
 }
 
+/** Waits for a page opened by the action under test, not the welcome tab opened on install. */
+async function waitForNewPage(context, before, part) {
+  let found;
+  await expect.poll(async () => {
+    found = context.pages().find(page => !before.has(page) && page.url().includes(part));
+    return Boolean(found);
+  }, { timeout: 5000 }).toBe(true);
+  await found.waitForLoadState();
+  return found;
+}
+
 test('the welcome page tells what the extension is for, in three steps', async ({ openPage }) => {
   const page = await openPage('welcome/welcome.html');
 
@@ -65,10 +76,9 @@ test('the popup help link reopens the welcome page', async ({ openPage, seed }) 
   await expect(link).toHaveAttribute('aria-label', 'How it works');
   await expect(link).toHaveAttribute('href', '../welcome/welcome.html');
 
-  const before = popup.context().pages().length;
+  const before = new Set(popup.context().pages());
   await link.click();
-  const welcome = await waitForPage(popup.context(), '/welcome/welcome.html');
-  expect(popup.context().pages().length).toBeGreaterThan(before);
+  const welcome = await waitForNewPage(popup.context(), before, '/welcome/welcome.html');
   await expect(welcome.locator('h1')).toHaveText('How Tabs Pin works');
 });
 
@@ -76,7 +86,8 @@ test('the options page footer links back to the welcome page', async ({ openPage
   await seed({ tabs: [] });
   const options = await openPage('options/options.html');
 
+  const before = new Set(options.context().pages());
   await options.locator('.footer-links a', { hasText: 'How it works' }).click();
-  const welcome = await waitForPage(options.context(), '/welcome/welcome.html');
+  const welcome = await waitForNewPage(options.context(), before, '/welcome/welcome.html');
   await expect(welcome.locator('h1')).toHaveText('How Tabs Pin works');
 });
