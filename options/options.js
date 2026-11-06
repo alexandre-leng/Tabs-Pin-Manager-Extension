@@ -40,6 +40,8 @@ export class OptionsManager {
       // Action buttons
       addTabBtn: document.getElementById('addTabBtn'),
       addFirstTabBtn: document.getElementById('addFirstTabBtn'),
+      addCategoryBtn: document.getElementById('addCategoryBtn'),
+      categoryLimitHint: document.getElementById('categoryLimitHint'),
       resetCategoriesBtn: document.getElementById('resetCategoriesBtn'),
       exportBtn: document.getElementById('exportBtn'),
       importBtn: document.getElementById('importBtn'),
@@ -131,6 +133,7 @@ export class OptionsManager {
     this.elements.addFirstTabBtn?.addEventListener('click', () => this.openTabModal());
     
     // Category management
+    this.elements.addCategoryBtn?.addEventListener('click', () => this.createCategory());
     this.elements.resetCategoriesBtn?.addEventListener('click', () => this.resetCategories());
     
     // Import/Export
@@ -272,6 +275,8 @@ export class OptionsManager {
       const categoryCard = this.createCategoryCard(category);
       this.elements.categoriesGrid.appendChild(categoryCard);
     });
+
+    this.updateAddCategoryButton();
   }
 
   createCategoryCard(category) {

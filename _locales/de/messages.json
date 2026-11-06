@@ -219,6 +219,18 @@
     "message": "Auf Standard Zurücksetzen",
     "description": "Schaltfläche zum Wiederherstellen der Standard-Kategorien"
   },
+  "addCategory": {
+    "message": "Kategorie Hinzufügen"
+  },
+  "categoryLimitReached": {
+    "message": "Maximal $MAX$ Kategorien erreicht",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
   "editCategory": {
     "message": "Kategorie Bearbeiten",
     "description": "Titel des Kategorie-Bearbeitungsmodals"
@@ -252,7 +264,7 @@
     "description": "Erfolgsmeldung für Kategorien-Zurücksetzung"
   },
   "resetCategoriesConfirm": {
-    "message": "Sind Sie sicher, dass Sie alle Kategorien zurücksetzen möchten? Dies wird die Standard-Namen und -Symbole wiederherstellen.",
+    "message": "Möchten Sie wirklich alle Kategorien zurücksetzen? Die Standardnamen und -symbole werden wiederhergestellt und Ihre eigenen Kategorien entfernt.",
     "description": "Bestätigungsmeldung für Kategorien-Zurücksetzung"
   },
   "categoryNameRequired": {
@@ -386,9 +398,6 @@
   },
   "categoryPrefix": {
     "message": "Kategorie"
-  },
-  "containsPrefix": {
-    "message": "enthält"
   },
   "noCategoryTabs": {
     "message": "Keine Tabs in dieser Kategorie"

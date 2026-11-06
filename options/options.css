@@ -218,6 +218,23 @@ body {
   justify-content: space-between;
   margin-bottom: var(--spacing-xl);
   gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+/* Buttons of a section header: they keep their size and wrap on a narrow window */
+.section-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+/* Reason shown under a section header when its list cannot grow any further */
+.section-hint {
+  margin: calc(-1 * var(--spacing-sm)) 0 var(--spacing-lg);
+  color: var(--text-secondary);
+  font-size: var(--font-size-small);
+  font-weight: 500;
 }
 
 .section-title {
@@ -515,6 +532,10 @@ body {
   box-shadow: var(--shadow-medium);
 }
 
+.category-info {
+  min-width: 0;
+}
+
 .category-icon {
   font-size: 24px;
   width: 48px;
@@ -540,6 +561,7 @@ body {
   font-size: var(--font-size-base);
   margin: 0;
   letter-spacing: -0.2px;
+  overflow-wrap: anywhere;
 }
 
 .category-count {
@@ -593,6 +615,23 @@ body {
 .primary-btn:active {
   transform: translateY(0);
   box-shadow: var(--shadow-small);
+}
+
+/* A disabled primary button keeps its shape but no longer invites a click */
+.primary-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.primary-btn:disabled:hover {
+  background: var(--gradient-primary);
+  transform: none;
+  box-shadow: none;
+}
+
+.primary-btn:disabled::before {
+  display: none;
 }
 
 .secondary-btn {

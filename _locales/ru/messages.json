@@ -192,9 +192,6 @@
   "categoryPrefix": {
     "message": "Категория"
   },
-  "containsPrefix": {
-    "message": "содержит"
-  },
   "noCategoryTabs": {
     "message": "В этой категории нет вкладок"
   },
@@ -241,6 +238,18 @@
   "resetCategories": {
     "message": "Сбросить до умолчаний"
   },
+  "addCategory": {
+    "message": "Добавить категорию"
+  },
+  "categoryLimitReached": {
+    "message": "Достигнут максимум из $MAX$ категорий",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
   "editCategory": {
     "message": "Редактировать категорию"
   },
@@ -266,7 +275,7 @@
     "message": "Категории сброшены до умолчаний!"
   },
   "resetCategoriesConfirm": {
-    "message": "Вы уверены, что хотите сбросить все категории? Это восстановит названия и значки по умолчанию."
+    "message": "Сбросить все категории? Имена и значки по умолчанию будут восстановлены, а добавленные вами категории удалены."
   },
   "categoryNameRequired": {
     "message": "Название категории обязательно"

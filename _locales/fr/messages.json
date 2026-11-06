@@ -223,6 +223,18 @@
     "message": "Réinitialiser par Défaut",
     "description": "Bouton pour restaurer les catégories par défaut"
   },
+  "addCategory": {
+    "message": "Ajouter une Catégorie"
+  },
+  "categoryLimitReached": {
+    "message": "Maximum de $MAX$ catégories atteint",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
   "editCategory": {
     "message": "Modifier la Catégorie",
     "description": "Titre du modal d'édition de catégorie"
@@ -256,7 +268,7 @@
     "description": "Message de succès pour la réinitialisation des catégories"
   },
   "resetCategoriesConfirm": {
-    "message": "Êtes-vous sûr de vouloir réinitialiser toutes les catégories ? Cela restaurera les noms et icônes par défaut.",
+    "message": "Êtes-vous sûr de vouloir réinitialiser toutes les catégories ? Cela restaurera les noms et icônes par défaut et supprimera les catégories que vous avez ajoutées.",
     "description": "Message de confirmation pour la réinitialisation des catégories"
   },
   "categoryNameRequired": {
@@ -383,9 +395,6 @@
   },
   "categoryPrefix": {
     "message": "Catégorie"
-  },
-  "containsPrefix": {
-    "message": "contient"
   },
   "noCategoryTabs": {
     "message": "Aucun onglet dans cette catégorie"

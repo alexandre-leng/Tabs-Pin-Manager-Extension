@@ -42,6 +42,33 @@ for (const scheme of ['light', 'dark']) {
       await expectNoViolations(await open(openPage, 'options/options.html'));
     });
 
+    test('options page at the category limit', async ({ openPage, seed }) => {
+      const categories = Array.from({ length: 20 }, (_, i) => ({ id: `cat${i}`, name: `Category ${i}`, icon: '📁' }));
+      await seed({ tabs: sampleTabs(2), categories });
+      const page = await open(openPage, 'options/options.html');
+      await expect(page.locator('#categoryLimitHint')).toBeVisible();
+      await expectNoViolations(page);
+    });
+
+    test('popup category selection dialog', async ({ context, extensionId, seed }) => {
+      await seed({ tabs: sampleTabs(2) });
+      const page = await context.newPage();
+      await page.emulateMedia({ colorScheme: scheme, reducedMotion: 'reduce' });
+      // The dialog needs a pinnable active tab: the popup is opened as a page here
+      await page.addInitScript(() => {
+        chrome.tabs.query = () => Promise.resolve([{ id: 99, url: 'https://probe.example/', title: 'Probe', pinned: false }]);
+      });
+      const errors = [];
+      page.on('pageerror', error => errors.push(error.message));
+      await page.goto(`chrome-extension://${extensionId}/popup/popup.html`);
+      await page.locator('body[data-ready="true"]').waitFor();
+      await page.locator('#pinCurrentMainBtn').click();
+      await expect(page.locator('#categorySelectionOverlay')).toHaveClass(/show/);
+
+      await expectNoViolations(page, '#categorySelectionOverlay');
+      expect(errors).toEqual([]);
+    });
+
     test('tab form', async ({ openPage, seed }) => {
       await seed({ tabs: sampleTabs(1) });
       const page = await open(openPage, 'options/options.html');
@@ -93,6 +120,18 @@ test.describe('keyboard', () => {
     await page.keyboard.press('Escape');
     await expect(page.locator('#categoryModalOverlay')).toBeHidden();
     await expect(page.locator('.category-item').first()).toBeFocused();
+  });
+
+  test('the add category button opens the dialog and gives the focus back', async ({ openPage, seed }) => {
+    await seed({ tabs: [] });
+    const page = await openPage('options/options.html');
+
+    await page.locator('#addCategoryBtn').focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#categoryName')).toBeFocused();
+
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#addCategoryBtn')).toBeFocused();
   });
 
   test('the category of a tab can be changed without a mouse', async ({ openPage, seed }) => {

@@ -874,6 +874,7 @@ body {
   margin: 0;
   transition: color 0.15s ease-in-out;
   line-height: 1.3;
+  overflow-wrap: anywhere;
 }
 
 .category-item:hover .category-name {
@@ -1697,6 +1698,7 @@ button:focus-visible,
   margin: 0;
   transition: color 0.15s ease-in-out;
   line-height: 1.3;
+  overflow-wrap: anywhere;
 }
 
 .categories-list .category-item:hover .category-name {
@@ -1714,9 +1716,9 @@ button:focus-visible,
 
 /* Empty category styling */
 .categories-list .category-item.empty-category .category-count {
-  color: #6e6e7e;
+  color: var(--text-secondary);
   font-style: italic;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 .categories-list .category-item.empty-category .category-icon {

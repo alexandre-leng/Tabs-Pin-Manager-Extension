@@ -40,5 +40,8 @@ test('every import resolves and every module is reachable from an entry point', 
     .map(name => path.join(dir, name)));
 
   expect(missing).toEqual([]);
-  expect(allModules.filter(file => !reached.has(file))).toEqual([]);
+  // Paths are compared normalized: the entry points are written with "/" while
+  // the imports are joined with the platform separator.
+  const reachedNormalized = new Set([...reached].map(file => path.normalize(file)));
+  expect(allModules.filter(file => !reachedNormalized.has(path.normalize(file)))).toEqual([]);
 });

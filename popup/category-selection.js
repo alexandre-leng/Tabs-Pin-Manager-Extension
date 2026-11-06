@@ -81,8 +81,8 @@ export const categorySelection = {
       (browser.i18n.getMessage('tabPlural')) :
       (browser.i18n.getMessage('tabSingular'));
     
-    // Create aria-label for accessibility
-    const ariaLabel = `${browser.i18n.getMessage('categoryPrefix')} ${category.name}, ${browser.i18n.getMessage('containsPrefix')} ${tabCount} ${tabWord}`;
+    // The accessible name must contain the visible text (WCAG 2.5.3)
+    const ariaLabel = `${browser.i18n.getMessage('categoryPrefix')} ${category.name} ${tabCount} ${tabWord}`;
     element.setAttribute('aria-label', ariaLabel);
     
     // Add empty category classes and tooltip
@@ -110,7 +110,8 @@ export const categorySelection = {
     
     const countDiv = document.createElement('div');
     countDiv.className = 'category-count';
-    countDiv.textContent = `${tabCount} ${tabWord}`;
+    // Leading space: the two blocks would otherwise be read as "Work2 tabs"
+    countDiv.textContent = ` ${tabCount} ${tabWord}`;
     
     // Assemble the structure
     infoDiv.appendChild(nameDiv);

@@ -36,8 +36,9 @@ in one click, pinned and without duplicates. Manifest V3, 100% local storage, no
   identifies a page (`?v=` on YouTube, `?q=`, `?id=`, single-page-app routes like `#/inbox`…).
   The same address cannot be saved twice.
 - **Pin the current tab** from the popup, into the category of your choice.
-- **Categories**: rename them and pick an emoji icon; close all pinned tabs of a
-  category at once (with confirmation). Tabs of a removed category move to the first one.
+- **Categories**: add your own (up to 20), rename them and pick an emoji icon; close all
+  pinned tabs of a category at once (with confirmation). Tabs of a removed category move
+  to the first one.
 - **Reorder** tabs by drag and drop, or with the ↑ / ↓ buttons (keyboard friendly).
 - **Import / export** your configuration as JSON.
 - **14 languages**: Arabic, Chinese, Dutch, English, French, German, Hindi, Indonesian,
@@ -60,7 +61,7 @@ also provides the Firefox and Chrome packages as `.zip` files.
 
 1. Click the **Tabs Pin** icon in the toolbar.
 2. **Pin current tab** saves the page you are on (you choose its category), or open
-   **Options** to add, edit and reorder sites.
+   **Options** to add, edit and reorder sites and categories.
 3. **Open N tabs** opens everything; click a category to open only its sites.
 4. The **Close** button of a category closes, after confirmation, the pinned tabs of the
    current window whose site (domain) matches one of the category's saved sites.
@@ -92,7 +93,7 @@ also provides the Firefox and Chrome packages as `.zip` files.
   "categories": [{ "id": "work", "name": "Work", "icon": "💼" }],
   "settings": { "lastOpened": "2026-01-01T00:00:00.000Z", "categoriesLocalized": true },
   "exportDate": "…",
-  "version": "1.4.2"
+  "version": "1.5.0"
 }
 ```
 

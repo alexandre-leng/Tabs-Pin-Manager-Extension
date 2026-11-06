@@ -192,9 +192,6 @@
   "categoryPrefix": {
     "message": "فئة"
   },
-  "containsPrefix": {
-    "message": "يحتوي على"
-  },
   "noCategoryTabs": {
     "message": "لا توجد تبويبات في هذه الفئة"
   },
@@ -241,6 +238,18 @@
   "resetCategories": {
     "message": "إعادة تعيين للافتراضي"
   },
+  "addCategory": {
+    "message": "إضافة فئة"
+  },
+  "categoryLimitReached": {
+    "message": "تم الوصول إلى الحد الأقصى وهو $MAX$ فئات",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
   "editCategory": {
     "message": "تحرير الفئة"
   },
@@ -266,7 +275,7 @@
     "message": "تم إعادة تعيين الفئات للافتراضي!"
   },
   "resetCategoriesConfirm": {
-    "message": "هل أنت متأكد من إعادة تعيين جميع الفئات؟ سيؤدي هذا إلى استعادة الأسماء والأيقونات الافتراضية."
+    "message": "هل تريد إعادة تعيين جميع الفئات؟ ستتم استعادة الأسماء والأيقونات الافتراضية وستُحذف الفئات التي أضفتها."
   },
   "categoryNameRequired": {
     "message": "اسم الفئة مطلوب"

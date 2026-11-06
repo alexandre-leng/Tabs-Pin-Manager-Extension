@@ -101,6 +101,122 @@ test('renames a category and picks its icon', async ({ openPage, seed }) => {
   expect(work).toMatchObject({ name: 'Job', icon: '📊' });
 });
 
+test('adds a category from the category modal', async ({ openPage, seed }) => {
+  await seed({ tabs: sampleTabs(1) });
+  const options = await openPage('options/options.html');
+
+  await options.locator('#addCategoryBtn').click();
+  await expect(options.locator('#categoryModalTitle')).toHaveText('Add Category');
+  await options.locator('#categoryName').fill('Clients 2026');
+  await options.locator('#saveCategoryBtn').click();
+
+  await expect(options.locator('#categoryModalOverlay')).toBeHidden();
+  await expect(options.locator('.category-item', { hasText: 'Clients 2026' })).toContainText('📁');
+  const { categories } = await savedData(options);
+  expect(categories.at(-1)).toEqual({ id: 'clients-2026', name: 'Clients 2026', icon: '📁' });
+  // Below the limit the add button keeps the focus, ready for another category
+  await expect(options.locator('#addCategoryBtn')).toBeFocused();
+
+  // The new category is offered straight away when adding or moving a tab
+  await options.locator('#addTabBtn').click();
+  await expect(options.locator('#tabCategory option', { hasText: 'Clients 2026' })).toHaveCount(1);
+});
+
+test('stops at 20 categories, and keeps the focus on the last one created', async ({ openPage, seed }) => {
+  const categories = Array.from({ length: 19 }, (_, i) => ({ id: `cat${i}`, name: `Category ${i}`, icon: '📁' }));
+  await seed({ categories });
+  const options = await openPage('options/options.html');
+
+  await options.locator('#addCategoryBtn').click();
+  await options.locator('#categoryName').fill('Last One');
+  await options.locator('#saveCategoryBtn').click();
+
+  await expect(options.locator('.category-item')).toHaveCount(20);
+  await expect(options.locator('#addCategoryBtn')).toBeDisabled();
+  await expect(options.locator('#categoryLimitHint')).toHaveText('Maximum of 20 categories reached');
+  // The add button is disabled now: the keyboard lands on the new card instead
+  await expect(options.locator('[data-category-id="last-one"]')).toBeFocused();
+});
+
+test('refuses a name already used, and keeps the IDs distinct', async ({ openPage, seed }) => {
+  await seed({ tabs: [] });
+  const options = await openPage('options/options.html');
+  for (const name of ['Work', 'Work']) {
+    await options.locator('#addCategoryBtn').click();
+    await options.locator('#categoryName').fill(name);
+    await options.locator('#saveCategoryBtn').click();
+    await expect(options.locator('#categoryModalOverlay')).toBeHidden();
+  }
+  const { categories } = await savedData(options);
+  expect(categories.map(c => c.id)).toEqual(['work', 'personal', 'work-2', 'work-3']);
+  expect(new Set(categories.map(c => c.id)).size).toBe(categories.length);
+});
+
+test('shows markup typed in a category name as text', async ({ openPage, seed }) => {
+  await seed({ tabs: [] });
+  const options = await openPage('options/options.html');
+  const name = '<img src=x onerror="window.__xss=1">';
+
+  await options.locator('#addCategoryBtn').click();
+  await options.locator('#categoryName').fill(name);
+  await options.locator('#saveCategoryBtn').click();
+
+  await expect(options.locator('.category-item', { hasText: 'onerror' })).toHaveCount(1);
+  expect(await options.evaluate(() => window.__xss)).toBeUndefined();
+});
+
+test('wraps a very long category name inside its card', async ({ openPage, seed }) => {
+  await seed({ tabs: [] });
+  const options = await openPage('options/options.html');
+  await options.setViewportSize({ width: 1024, height: 800 });
+
+  await options.locator('#addCategoryBtn').click();
+  await options.locator('#categoryName').fill('A'.repeat(120));
+  await options.locator('#saveCategoryBtn').click();
+
+  await expect(options.locator('.category-item')).toHaveCount(3);
+  const overflow = await options.evaluate(() => ({
+    body: document.documentElement.scrollWidth - window.innerWidth,
+    cards: [...document.querySelectorAll('.category-item')]
+      .map(card => card.scrollWidth - card.clientWidth)
+  }));
+  expect(overflow.cards.every(delta => delta <= 1)).toBe(true);
+  expect(overflow.body).toBeLessThanOrEqual(1);
+});
+
+test('resets at the limit, and the tabs of removed categories move to the first one', async ({ openPage, seed }) => {
+  const categories = Array.from({ length: 20 }, (_, i) => ({ id: `cat${i}`, name: `Category ${i}`, icon: '📁' }));
+  await seed({ tabs: sampleTabs(3, 'cat3'), categories });
+  const options = await openPage('options/options.html');
+  await expect(options.locator('#addCategoryBtn')).toBeDisabled();
+
+  options.once('dialog', dialog => dialog.accept());
+  await options.locator('#resetCategoriesBtn').click();
+
+  await expect(options.locator('.category-item')).toHaveCount(6);
+  await expect(options.locator('#addCategoryBtn')).toBeEnabled();
+  await expect(options.locator('#categoryLimitHint')).toBeHidden();
+  await expect(options.locator('[data-category-id="work"] .category-count')).toHaveText('3 tabs');
+  const { categories: saved, tabs } = await savedData(options);
+  expect(saved.map(c => c.id)).toEqual(['work', 'personal', 'development', 'social', 'tools', 'entertainment']);
+  expect(tabs.every(t => t.category === 'work')).toBe(true);
+});
+
+test('keeps a backup with more than 20 categories readable and editable', async ({ openPage, seed }) => {
+  const categories = Array.from({ length: 25 }, (_, i) => ({ id: `cat${i}`, name: `Category ${i}`, icon: '📁' }));
+  await seed({ tabs: [], categories });
+  const options = await openPage('options/options.html');
+
+  await expect(options.locator('.category-item')).toHaveCount(25);
+  await expect(options.locator('#addCategoryBtn')).toBeDisabled();
+  await options.locator('.category-item').first().click();
+  await options.locator('#categoryName').fill('Renamed');
+  await options.locator('#saveCategoryBtn').click();
+
+  await expect(options.locator('.category-item', { hasText: 'Renamed' })).toHaveCount(1);
+  expect((await savedData(options)).categories).toHaveLength(25);
+});
+
 test('exports then imports the settings, skipping invalid tabs', async ({ openPage, seed }, testInfo) => {
   await seed({ tabs: sampleTabs(2) });
   const options = await openPage('options/options.html');

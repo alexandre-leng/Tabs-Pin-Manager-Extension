@@ -192,9 +192,6 @@
   "categoryPrefix": {
     "message": "类别"
   },
-  "containsPrefix": {
-    "message": "包含"
-  },
   "noCategoryTabs": {
     "message": "此类别中没有标签页"
   },
@@ -241,6 +238,18 @@
   "resetCategories": {
     "message": "重置为默认"
   },
+  "addCategory": {
+    "message": "添加类别"
+  },
+  "categoryLimitReached": {
+    "message": "已达到 $MAX$ 个类别的上限",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
   "editCategory": {
     "message": "编辑类别"
   },
@@ -266,7 +275,7 @@
     "message": "类别已重置为默认！"
   },
   "resetCategoriesConfirm": {
-    "message": "您确定要重置所有类别吗？这将恢复默认的名称和图标。"
+    "message": "确定要重置所有类别吗？将恢复默认名称和图标，并删除你添加的类别。"
   },
   "categoryNameRequired": {
     "message": "类别名称为必填项"

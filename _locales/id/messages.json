@@ -192,9 +192,6 @@
   "categoryPrefix": {
     "message": "Kategori"
   },
-  "containsPrefix": {
-    "message": "berisi"
-  },
   "noCategoryTabs": {
     "message": "Tidak ada tab dalam kategori ini"
   },
@@ -241,6 +238,18 @@
   "resetCategories": {
     "message": "Reset ke Default"
   },
+  "addCategory": {
+    "message": "Tambah Kategori"
+  },
+  "categoryLimitReached": {
+    "message": "Batas maksimum $MAX$ kategori telah tercapai",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
   "editCategory": {
     "message": "Edit Kategori"
   },
@@ -266,7 +275,7 @@
     "message": "Kategori direset ke default!"
   },
   "resetCategoriesConfirm": {
-    "message": "Apakah Anda yakin ingin mereset semua kategori? Ini akan mengembalikan nama dan ikon default."
+    "message": "Yakin ingin mengatur ulang semua kategori? Nama dan ikon bawaan akan dipulihkan dan kategori yang Anda tambahkan akan dihapus."
   },
   "categoryNameRequired": {
     "message": "Nama kategori diperlukan"

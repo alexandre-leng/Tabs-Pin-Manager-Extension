@@ -192,9 +192,6 @@
   "categoryPrefix": {
     "message": "カテゴリ"
   },
-  "containsPrefix": {
-    "message": "に含まれています"
-  },
   "noCategoryTabs": {
     "message": "このカテゴリにはタブがありません"
   },
@@ -241,6 +238,18 @@
   "resetCategories": {
     "message": "デフォルトに戻す"
   },
+  "addCategory": {
+    "message": "カテゴリを追加"
+  },
+  "categoryLimitReached": {
+    "message": "カテゴリの上限（$MAX$ 件）に達しました",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
   "editCategory": {
     "message": "カテゴリを編集"
   },
@@ -266,7 +275,7 @@
     "message": "カテゴリがデフォルトにリセットされました！"
   },
   "resetCategoriesConfirm": {
-    "message": "すべてのカテゴリをリセットしてもよろしいですか？デフォルトの名前とアイコンに戻ります。"
+    "message": "すべてのカテゴリをリセットしますか？既定の名前とアイコンに戻り、追加したカテゴリは削除されます。"
   },
   "categoryNameRequired": {
     "message": "カテゴリ名は必須です"

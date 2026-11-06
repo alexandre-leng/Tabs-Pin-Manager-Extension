@@ -12,11 +12,14 @@ const { version } = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, '.
 
 const target = process.argv[2] || 'chrome';
 const filename = `tabs-pin-${target}-v${version}.zip`;
+// The installed CLI, run by Node itself: `npx` is a .cmd shim on Windows, which
+// execFileSync cannot launch
+const webExt = path.join(import.meta.dirname, '..', 'node_modules', 'web-ext', 'bin', 'web-ext.js');
 
 try {
   const sourceDir = stage(target);
-  execFileSync('npx', [
-    'web-ext', 'build',
+  execFileSync(process.execPath, [
+    webExt, 'build',
     '--source-dir', sourceDir,
     '--artifacts-dir', path.join(import.meta.dirname, '..', 'web-ext-artifacts'),
     '--filename', filename,

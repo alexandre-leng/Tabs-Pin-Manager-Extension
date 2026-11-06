@@ -219,6 +219,18 @@
     "message": "Herstel naar Standaard",
     "description": "Knop om standaard categorieën te herstellen"
   },
+  "addCategory": {
+    "message": "Categorie Toevoegen"
+  },
+  "categoryLimitReached": {
+    "message": "Maximaal $MAX$ categorieën bereikt",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
   "editCategory": {
     "message": "Categorie Bewerken",
     "description": "Titel van categorie bewerk modal"
@@ -252,7 +264,7 @@
     "description": "Succesbericht voor categorieën herstel"
   },
   "resetCategoriesConfirm": {
-    "message": "Weet u zeker dat u alle categorieën wilt herstellen? Dit zal de standaard namen en pictogrammen herstellen.",
+    "message": "Weet je zeker dat je alle categorieën wilt herstellen? De standaardnamen en -pictogrammen worden teruggezet en je eigen categorieën worden verwijderd.",
     "description": "Bevestigingsbericht voor categorieën herstel"
   },
   "categoryNameRequired": {
@@ -386,9 +398,6 @@
   },
   "categoryPrefix": {
     "message": "Categorie"
-  },
-  "containsPrefix": {
-    "message": "bevat"
   },
   "noCategoryTabs": {
     "message": "Geen tabbladen in deze categorie"

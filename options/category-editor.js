@@ -1,31 +1,48 @@
 /**
- * Category editing: edit modal, reset, and the quick category switcher on tab cards.
- * Methods mixed into OptionsManager (see options.js).
+ * Category creation and editing: add/edit modal, reset, and the quick category
+ * switcher on tab cards. Methods mixed into OptionsManager (see options.js).
  */
 
 import { browser } from '../lib/browser-api.js';
 import { UiUtils } from '../lib/ui-utils.js';
 import { getDefaultCategories } from '../lib/default-categories.js';
+import { MAX_CATEGORIES, createCategoryId } from '../lib/category-utils.js';
+
+const DEFAULT_ICON = '📁';
 
 export const categoryEditor = {
   // Category management methods
+  /** Opens the editor on an empty category (name and icon). */
+  createCategory() {
+    if (this.categories.length >= MAX_CATEGORIES) {
+      this.showToast('warning', '⚠️', browser.i18n.getMessage('categoryLimitReached', [String(MAX_CATEGORIES)]));
+      return;
+    }
+    this.openCategoryModal(null);
+  },
+
   editCategory(category) {
+    this.openCategoryModal(category);
+  },
+
+  /** Opens the category dialog: `category` to edit, or null to create one. */
+  openCategoryModal(category) {
     this.closeCategoryQuickEdit();
     this.currentEditingCategory = category;
-    
+
     if (this.elements.categoryModalTitle) {
-      this.elements.categoryModalTitle.textContent = browser.i18n.getMessage('editCategory');
+      this.elements.categoryModalTitle.textContent = browser.i18n.getMessage(category ? 'editCategory' : 'addCategory');
     }
-    
+
     if (this.elements.categoryName) {
-      this.elements.categoryName.value = category.name || '';
+      this.elements.categoryName.value = category?.name || '';
     }
-    
+
     // Set the selected icon in the icon selector
     if (this.elements.selectedIcon) {
-      this.elements.selectedIcon.textContent = category.icon || '📁';
+      this.elements.selectedIcon.textContent = category?.icon || DEFAULT_ICON;
     }
-    
+
     if (this.elements.categoryModalOverlay) {
       UiUtils.showDialog(this.elements.categoryModalOverlay, this.elements.categoryName);
     }
@@ -57,12 +74,21 @@ export const categoryEditor = {
       return;
     }
     
-    // Update the category in the categories array
-    if (!this.currentEditingCategory) return;
-    
-    const updatedCategories = this.categories.map(c =>
-      c.id === this.currentEditingCategory.id ? { ...c, name: name, icon: icon } : c
-    );
+    const editing = this.currentEditingCategory;
+    // The limit may have been reached in another window since the dialog opened
+    if (!editing && this.categories.length >= MAX_CATEGORIES) {
+      this.showToast('warning', '⚠️', browser.i18n.getMessage('categoryLimitReached', [String(MAX_CATEGORIES)]));
+      return;
+    }
+
+    const created = editing ? null : {
+      id: createCategoryId(name, this.categories.map(c => c.id)),
+      name: name,
+      icon: icon
+    };
+    const updatedCategories = editing
+      ? this.categories.map(c => (c.id === editing.id ? { ...c, name: name, icon: icon } : c))
+      : [...this.categories, created];
     
     try {
       const response = await this.sendMessageWithRetry({
@@ -75,6 +101,10 @@ export const categoryEditor = {
         this.renderTabs();
         this.renderCategories();
         this.closeCategoryModal();
+        // With the last allowed category the add button is now disabled: keep the focus usable
+        if (created && this.elements.addCategoryBtn?.disabled) {
+          this.elements.categoriesGrid?.querySelector(`[data-category-id="${CSS.escape(created.id)}"]`)?.focus();
+        }
         this.showToast('success', '✅', browser.i18n.getMessage('categorySaved'));
       } else {
         throw new Error(response?.error || browser.i18n.getMessage('failedToSaveCategory'));
@@ -82,6 +112,24 @@ export const categoryEditor = {
     } catch (error) {
       console.error('Error saving category:', error);
       this.showToast('error', '❌', error.message);
+    }
+  },
+
+  /** Disables the add button, with the reason on screen, once the limit is reached. */
+  updateAddCategoryButton() {
+    const button = this.elements.addCategoryBtn;
+    if (!button) return;
+
+    const atLimit = this.categories.length >= MAX_CATEGORIES;
+    const reason = atLimit
+      ? browser.i18n.getMessage('categoryLimitReached', [String(MAX_CATEGORIES)])
+      : '';
+
+    button.disabled = atLimit;
+    button.title = reason;
+    if (this.elements.categoryLimitHint) {
+      this.elements.categoryLimitHint.textContent = reason;
+      this.elements.categoryLimitHint.hidden = !atLimit;
     }
   },
 

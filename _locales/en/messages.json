@@ -223,6 +223,20 @@
     "message": "Reset to Default",
     "description": "Button to restore default categories"
   },
+  "addCategory": {
+    "message": "Add Category",
+    "description": "Button to create a new category"
+  },
+  "categoryLimitReached": {
+    "message": "Maximum of $MAX$ categories reached",
+    "description": "Message shown when no more category can be created",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
   "editCategory": {
     "message": "Edit Category",
     "description": "Title of category edit modal"
@@ -256,7 +270,7 @@
     "description": "Success message for categories reset"
   },
   "resetCategoriesConfirm": {
-    "message": "Are you sure you want to reset all categories? This will restore default names and icons.",
+    "message": "Are you sure you want to reset all categories? This will restore the default names and icons, and remove the categories you added.",
     "description": "Confirmation message for categories reset"
   },
   "categoryNameRequired": {
@@ -383,9 +397,6 @@
   },
   "categoryPrefix": {
     "message": "Category"
-  },
-  "containsPrefix": {
-    "message": "contains"
   },
   "noCategoryTabs": {
     "message": "No tabs in this category"

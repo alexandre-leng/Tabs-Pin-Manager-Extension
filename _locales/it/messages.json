@@ -223,6 +223,18 @@
     "message": "Ripristina Predefinite",
     "description": "Pulsante per ripristinare le categorie predefinite"
   },
+  "addCategory": {
+    "message": "Aggiungi Categoria"
+  },
+  "categoryLimitReached": {
+    "message": "Raggiunto il massimo di $MAX$ categorie",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
   "editCategory": {
     "message": "Modifica Categoria",
     "description": "Titolo del modal di modifica categoria"
@@ -256,7 +268,7 @@
     "description": "Messaggio di successo per il ripristino categorie"
   },
   "resetCategoriesConfirm": {
-    "message": "Sei sicuro di voler ripristinare tutte le categorie? Questo ripristinerà i nomi e le icone predefinite.",
+    "message": "Vuoi davvero ripristinare tutte le categorie? Verranno ripristinati nomi e icone predefiniti e le categorie che hai aggiunto verranno rimosse.",
     "description": "Messaggio di conferma per il ripristino categorie"
   },
   "categoryNameRequired": {
@@ -383,9 +395,6 @@
   },
   "categoryPrefix": {
     "message": "Categoria"
-  },
-  "containsPrefix": {
-    "message": "contiene"
   },
   "noCategoryTabs": {
     "message": "Nessuna scheda in questa categoria"

@@ -192,9 +192,6 @@
   "categoryPrefix": {
     "message": "श्रेणी"
   },
-  "containsPrefix": {
-    "message": "शामिल है"
-  },
   "noCategoryTabs": {
     "message": "इस श्रेणी में कोई टैब नहीं"
   },
@@ -241,6 +238,18 @@
   "resetCategories": {
     "message": "डिफ़ॉल्ट पर रीसेट करें"
   },
+  "addCategory": {
+    "message": "श्रेणी जोड़ें"
+  },
+  "categoryLimitReached": {
+    "message": "अधिकतम $MAX$ श्रेणियों की सीमा पूरी हो गई",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
   "editCategory": {
     "message": "श्रेणी संपादित करें"
   },
@@ -266,7 +275,7 @@
     "message": "श्रेणियां डिफ़ॉल्ट पर रीसेट की गईं!"
   },
   "resetCategoriesConfirm": {
-    "message": "क्या आप वाकई सभी श्रेणियों को रीसेट करना चाहते हैं? इससे डिफ़ॉल्ट नाम और आइकन बहाल हो जाएंगे।"
+    "message": "क्या आप वाकई सभी श्रेणियाँ रीसेट करना चाहते हैं? डिफ़ॉल्ट नाम और आइकन बहाल होंगे और आपकी जोड़ी गई श्रेणियाँ हटा दी जाएँगी।"
   },
   "categoryNameRequired": {
     "message": "श्रेणी का नाम आवश्यक है"

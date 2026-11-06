@@ -219,6 +219,18 @@
     "message": "Restaurar Padrão",
     "description": "Botão para restaurar categorias padrão"
   },
+  "addCategory": {
+    "message": "Adicionar Categoria"
+  },
+  "categoryLimitReached": {
+    "message": "Máximo de $MAX$ categorias atingido",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
   "editCategory": {
     "message": "Editar Categoria",
     "description": "Título do modal de edição de categoria"
@@ -252,7 +264,7 @@
     "description": "Mensagem de sucesso para restaurar categorias"
   },
   "resetCategoriesConfirm": {
-    "message": "Tem certeza de que deseja restaurar todas as categorias? Isso restaurará os nomes e ícones padrão.",
+    "message": "Tem certeza de que deseja restaurar todas as categorias? Os nomes e ícones padrão serão restaurados e as categorias que você adicionou serão removidas.",
     "description": "Mensagem de confirmação para restaurar categorias"
   },
   "categoryNameRequired": {
@@ -404,9 +416,6 @@
   },
   "categoryPrefix": {
     "message": "Categoria"
-  },
-  "containsPrefix": {
-    "message": "contém"
   },
   "noCategoryTabs": {
     "message": "Nenhuma aba nesta categoria"
