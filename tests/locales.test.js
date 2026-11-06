@@ -5,6 +5,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { CATEGORY_DEFINITIONS } from '../lib/default-categories.js';
+import { BACKEND_ERROR_KEYS } from '../lib/ui-utils.js';
 
 const LOCALES_DIR = path.join(import.meta.dirname, '../_locales');
 const load = (lang) => JSON.parse(fs.readFileSync(path.join(LOCALES_DIR, lang, 'messages.json'), 'utf8'));
@@ -32,6 +33,11 @@ describe('locales', () => {
       ...[...source.matchAll(/__MSG_(\w+)__/g)].map(m => m[1])
     ]);
     expect([...requested].filter(key => !(key in en))).toEqual([]);
+  });
+
+  test('every background error message maps to a translated key', () => {
+    const missing = Object.values(BACKEND_ERROR_KEYS).filter(key => !(key in en));
+    expect(missing).toEqual([]);
   });
 
   test('every English key is used by the extension', () => {

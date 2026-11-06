@@ -518,6 +518,30 @@
     "message": "كيف يعمل",
     "description": "Link that reopens the welcome page"
   },
+  "errorAlreadySaved": {
+    "message": "هذا العنوان محفوظ بالفعل",
+    "description": "Error shown when saving an address that is already in the list"
+  },
+  "errorInvalidTab": {
+    "message": "بيانات التبويب أو العنوان غير صالحة",
+    "description": "Error shown when tab data is malformed"
+  },
+  "errorTabNotFound": {
+    "message": "لم يتم العثور على التبويب",
+    "description": "Error shown when a tab no longer exists"
+  },
+  "errorInvalidCategory": {
+    "message": "بيانات الفئة غير صالحة",
+    "description": "Error shown when category data is malformed"
+  },
+  "errorInvalidImport": {
+    "message": "تنسيق بيانات الاستيراد غير صالح",
+    "description": "Error shown when an imported file is not usable"
+  },
+  "errorNoResponse": {
+    "message": "لا يستجيب البرنامج النصي في الخلفية",
+    "description": "Error shown when the background script does not answer"
+  },
   "reportBug": {
     "message": "الإبلاغ عن خطأ",
     "description": "Link to report a bug on GitHub"

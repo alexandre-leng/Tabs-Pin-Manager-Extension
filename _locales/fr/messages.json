@@ -649,6 +649,30 @@
     "message": "Comment ça marche",
     "description": "Link that reopens the welcome page"
   },
+  "errorAlreadySaved": {
+    "message": "Cette adresse est déjà enregistrée",
+    "description": "Error shown when saving an address that is already in the list"
+  },
+  "errorInvalidTab": {
+    "message": "Données d'onglet ou adresse invalides",
+    "description": "Error shown when tab data is malformed"
+  },
+  "errorTabNotFound": {
+    "message": "Onglet introuvable",
+    "description": "Error shown when a tab no longer exists"
+  },
+  "errorInvalidCategory": {
+    "message": "Données de catégorie invalides",
+    "description": "Error shown when category data is malformed"
+  },
+  "errorInvalidImport": {
+    "message": "Format de sauvegarde invalide",
+    "description": "Error shown when an imported file is not usable"
+  },
+  "errorNoResponse": {
+    "message": "Le module d'arrière-plan ne répond pas",
+    "description": "Error shown when the background script does not answer"
+  },
   "reportBug": {
     "message": "Signaler un bug",
     "description": "Link to report a bug on GitHub"

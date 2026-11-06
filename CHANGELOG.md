@@ -20,6 +20,9 @@ Category deletion, a lighter popup and an English documentation folder.
 ### ✨ New Features
 - **Delete a category**: the edit dialog offers "Delete Category", with a confirmation naming the tabs involved and the category that will take them. Tabs of the deleted category move to the first remaining category, and the last category cannot be deleted.
 
+### 🛠️ Fixes
+- **Translations**: eight languages (Hindi, Indonesian, Japanese, Korean, Dutch, Portuguese, Russian, Chinese) still displayed "Some tabs were pinned and others opened" in English. Error messages raised by the background script are translated too, instead of reaching the options page in English, and the favicon of the tab preview no longer carries an English "Favicon" label.
+
 ### 🧹 Quality
 - **Lighter popup**: the "Last opened" line and the "N pinned / N categories" statistics row are removed, with the time formatting module and the seven messages they used in the 14 locales. The `lastOpened` setting is still recorded in backups.
 

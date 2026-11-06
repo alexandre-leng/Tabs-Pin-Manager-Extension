@@ -405,7 +405,7 @@
     "message": "手動で設定"
   },
   "someTabsPinnedAndOpened": {
-    "message": "Some tabs were pinned and others opened",
+    "message": "一部のタブはピン留めされ、ほかは開かれました",
     "description": "Message when some tabs were pinned and others opened"
   },
   "tabsPinned": {
@@ -517,6 +517,30 @@
   "onboardingReplay": {
     "message": "使い方",
     "description": "Link that reopens the welcome page"
+  },
+  "errorAlreadySaved": {
+    "message": "このアドレスはすでに保存されています",
+    "description": "Error shown when saving an address that is already in the list"
+  },
+  "errorInvalidTab": {
+    "message": "タブのデータまたはアドレスが無効です",
+    "description": "Error shown when tab data is malformed"
+  },
+  "errorTabNotFound": {
+    "message": "タブが見つかりません",
+    "description": "Error shown when a tab no longer exists"
+  },
+  "errorInvalidCategory": {
+    "message": "カテゴリのデータが無効です",
+    "description": "Error shown when category data is malformed"
+  },
+  "errorInvalidImport": {
+    "message": "インポートデータの形式が無効です",
+    "description": "Error shown when an imported file is not usable"
+  },
+  "errorNoResponse": {
+    "message": "バックグラウンドスクリプトが応答しません",
+    "description": "Error shown when the background script does not answer"
   },
   "reportBug": {
     "message": "バグを報告",

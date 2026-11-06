@@ -471,7 +471,7 @@
     "message": "Nenhum ícone recente"
   },
   "someTabsPinnedAndOpened": {
-    "message": "Some tabs were pinned and others opened",
+    "message": "Algumas abas foram fixadas e outras abertas",
     "description": "Message when some tabs were pinned and others opened"
   },
   "tabsPinned": {
@@ -583,6 +583,30 @@
   "onboardingReplay": {
     "message": "Como funciona",
     "description": "Link that reopens the welcome page"
+  },
+  "errorAlreadySaved": {
+    "message": "Este endereço já está guardado",
+    "description": "Error shown when saving an address that is already in the list"
+  },
+  "errorInvalidTab": {
+    "message": "Dados da aba ou endereço inválidos",
+    "description": "Error shown when tab data is malformed"
+  },
+  "errorTabNotFound": {
+    "message": "Aba não encontrada",
+    "description": "Error shown when a tab no longer exists"
+  },
+  "errorInvalidCategory": {
+    "message": "Dados da categoria inválidos",
+    "description": "Error shown when category data is malformed"
+  },
+  "errorInvalidImport": {
+    "message": "Formato de importação inválido",
+    "description": "Error shown when an imported file is not usable"
+  },
+  "errorNoResponse": {
+    "message": "O script em segundo plano não responde",
+    "description": "Error shown when the background script does not answer"
   },
   "reportBug": {
     "message": "Reportar um bug",

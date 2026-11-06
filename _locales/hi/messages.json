@@ -405,7 +405,7 @@
     "message": "मैन्युअल रूप से कॉन्फ़िगर करें"
   },
   "someTabsPinnedAndOpened": {
-    "message": "Some tabs were pinned and others opened",
+    "message": "कुछ टैब पिन किए गए और बाकी खोले गए",
     "description": "Message when some tabs were pinned and others opened"
   },
   "tabsPinned": {
@@ -517,6 +517,30 @@
   "onboardingReplay": {
     "message": "कैसे काम करता है",
     "description": "Link that reopens the welcome page"
+  },
+  "errorAlreadySaved": {
+    "message": "यह पता पहले से सहेजा गया है",
+    "description": "Error shown when saving an address that is already in the list"
+  },
+  "errorInvalidTab": {
+    "message": "टैब डेटा या पता अमान्य है",
+    "description": "Error shown when tab data is malformed"
+  },
+  "errorTabNotFound": {
+    "message": "टैब नहीं मिला",
+    "description": "Error shown when a tab no longer exists"
+  },
+  "errorInvalidCategory": {
+    "message": "श्रेणी डेटा अमान्य है",
+    "description": "Error shown when category data is malformed"
+  },
+  "errorInvalidImport": {
+    "message": "आयात डेटा का प्रारूप अमान्य है",
+    "description": "Error shown when an imported file is not usable"
+  },
+  "errorNoResponse": {
+    "message": "बैकग्राउंड स्क्रिप्ट जवाब नहीं दे रही",
+    "description": "Error shown when the background script does not answer"
   },
   "reportBug": {
     "message": "बग की रिपोर्ट करें",

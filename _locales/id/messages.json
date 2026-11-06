@@ -405,7 +405,7 @@
     "message": "Konfigurasikan secara manual"
   },
   "someTabsPinnedAndOpened": {
-    "message": "Some tabs were pinned and others opened",
+    "message": "Beberapa tab disematkan dan lainnya dibuka",
     "description": "Message when some tabs were pinned and others opened"
   },
   "tabsPinned": {
@@ -517,6 +517,30 @@
   "onboardingReplay": {
     "message": "Cara kerjanya",
     "description": "Link that reopens the welcome page"
+  },
+  "errorAlreadySaved": {
+    "message": "Alamat ini sudah disimpan",
+    "description": "Error shown when saving an address that is already in the list"
+  },
+  "errorInvalidTab": {
+    "message": "Data tab atau alamat tidak valid",
+    "description": "Error shown when tab data is malformed"
+  },
+  "errorTabNotFound": {
+    "message": "Tab tidak ditemukan",
+    "description": "Error shown when a tab no longer exists"
+  },
+  "errorInvalidCategory": {
+    "message": "Data kategori tidak valid",
+    "description": "Error shown when category data is malformed"
+  },
+  "errorInvalidImport": {
+    "message": "Format data impor tidak valid",
+    "description": "Error shown when an imported file is not usable"
+  },
+  "errorNoResponse": {
+    "message": "Skrip latar belakang tidak merespons",
+    "description": "Error shown when the background script does not answer"
   },
   "reportBug": {
     "message": "Laporkan bug",

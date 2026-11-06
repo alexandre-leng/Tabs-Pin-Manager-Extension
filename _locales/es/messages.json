@@ -599,6 +599,30 @@
     "message": "Cómo funciona",
     "description": "Link that reopens the welcome page"
   },
+  "errorAlreadySaved": {
+    "message": "Esta dirección ya está guardada",
+    "description": "Error shown when saving an address that is already in the list"
+  },
+  "errorInvalidTab": {
+    "message": "Datos de pestaña o dirección no válidos",
+    "description": "Error shown when tab data is malformed"
+  },
+  "errorTabNotFound": {
+    "message": "Pestaña no encontrada",
+    "description": "Error shown when a tab no longer exists"
+  },
+  "errorInvalidCategory": {
+    "message": "Datos de categoría no válidos",
+    "description": "Error shown when category data is malformed"
+  },
+  "errorInvalidImport": {
+    "message": "Formato de importación no válido",
+    "description": "Error shown when an imported file is not usable"
+  },
+  "errorNoResponse": {
+    "message": "El script en segundo plano no responde",
+    "description": "Error shown when the background script does not answer"
+  },
   "reportBug": {
     "message": "Informar de un error",
     "description": "Link to report a bug on GitHub"

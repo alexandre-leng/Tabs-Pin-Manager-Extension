@@ -405,7 +405,7 @@
     "message": "Настроить вручную"
   },
   "someTabsPinnedAndOpened": {
-    "message": "Some tabs were pinned and others opened",
+    "message": "Часть вкладок закреплена, остальные открыты",
     "description": "Message when some tabs were pinned and others opened"
   },
   "tabsPinned": {
@@ -517,6 +517,30 @@
   "onboardingReplay": {
     "message": "Как это работает",
     "description": "Link that reopens the welcome page"
+  },
+  "errorAlreadySaved": {
+    "message": "Этот адрес уже сохранён",
+    "description": "Error shown when saving an address that is already in the list"
+  },
+  "errorInvalidTab": {
+    "message": "Неверные данные вкладки или адрес",
+    "description": "Error shown when tab data is malformed"
+  },
+  "errorTabNotFound": {
+    "message": "Вкладка не найдена",
+    "description": "Error shown when a tab no longer exists"
+  },
+  "errorInvalidCategory": {
+    "message": "Неверные данные категории",
+    "description": "Error shown when category data is malformed"
+  },
+  "errorInvalidImport": {
+    "message": "Неверный формат импорта",
+    "description": "Error shown when an imported file is not usable"
+  },
+  "errorNoResponse": {
+    "message": "Фоновый скрипт не отвечает",
+    "description": "Error shown when the background script does not answer"
   },
   "reportBug": {
     "message": "Сообщить об ошибке",

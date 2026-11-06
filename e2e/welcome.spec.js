@@ -4,6 +4,17 @@
 
 import { expect, test } from './fixtures.js';
 
+/** Waits for the page whose address contains `part`, ignoring the tab opened on install. */
+async function waitForPage(context, part) {
+  let found;
+  await expect.poll(async () => {
+    found = context.pages().find(page => page.url().includes(part));
+    return Boolean(found);
+  }, { timeout: 5000 }).toBe(true);
+  await found.waitForLoadState();
+  return found;
+}
+
 test('the welcome page tells what the extension is for, in three steps', async ({ openPage }) => {
   const page = await openPage('welcome/welcome.html');
 
@@ -22,12 +33,8 @@ test('the welcome page tells what the extension is for, in three steps', async (
 test('the welcome page opens the options page', async ({ openPage }) => {
   const page = await openPage('welcome/welcome.html');
 
-  const [optionsPage] = await Promise.all([
-    page.context().waitForEvent('page'),
-    page.locator('#openOptionsBtn').click()
-  ]);
-  await optionsPage.waitForLoadState();
-  expect(optionsPage.url()).toContain('/options/options.html');
+  await page.locator('#openOptionsBtn').click();
+  const optionsPage = await waitForPage(page.context(), '/options/options.html');
   await expect(optionsPage.locator('#categoriesGrid')).toBeVisible();
 });
 
@@ -47,22 +54,18 @@ test('the popup help link reopens the welcome page', async ({ openPage, seed }) 
   await expect(link).toHaveAttribute('aria-label', 'How it works');
   await expect(link).toHaveAttribute('href', '../welcome/welcome.html');
 
-  const [welcome] = await Promise.all([
-    popup.context().waitForEvent('page'),
-    link.click()
-  ]);
-  await welcome.waitForLoadState();
-  expect(welcome.url()).toContain('/welcome/welcome.html');
+  const before = popup.context().pages().length;
+  await link.click();
+  const welcome = await waitForPage(popup.context(), '/welcome/welcome.html');
+  expect(popup.context().pages().length).toBeGreaterThan(before);
+  await expect(welcome.locator('h1')).toHaveText('How Tabs Pin works');
 });
 
 test('the options page footer links back to the welcome page', async ({ openPage, seed }) => {
   await seed({ tabs: [] });
   const options = await openPage('options/options.html');
 
-  const [welcome] = await Promise.all([
-    options.context().waitForEvent('page'),
-    options.locator('.footer-links a', { hasText: 'How it works' }).click()
-  ]);
-  await welcome.waitForLoadState();
-  expect(welcome.url()).toContain('/welcome/welcome.html');
+  await options.locator('.footer-links a', { hasText: 'How it works' }).click();
+  const welcome = await waitForPage(options.context(), '/welcome/welcome.html');
+  await expect(welcome.locator('h1')).toHaveText('How Tabs Pin works');
 });

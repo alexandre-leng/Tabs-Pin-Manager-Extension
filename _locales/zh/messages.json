@@ -405,7 +405,7 @@
     "message": "手动配置"
   },
   "someTabsPinnedAndOpened": {
-    "message": "Some tabs were pinned and others opened",
+    "message": "部分标签页已固定，其余已打开",
     "description": "Message when some tabs were pinned and others opened"
   },
   "tabsPinned": {
@@ -517,6 +517,30 @@
   "onboardingReplay": {
     "message": "怎么用",
     "description": "Link that reopens the welcome page"
+  },
+  "errorAlreadySaved": {
+    "message": "该地址已保存",
+    "description": "Error shown when saving an address that is already in the list"
+  },
+  "errorInvalidTab": {
+    "message": "标签页数据或地址无效",
+    "description": "Error shown when tab data is malformed"
+  },
+  "errorTabNotFound": {
+    "message": "找不到标签页",
+    "description": "Error shown when a tab no longer exists"
+  },
+  "errorInvalidCategory": {
+    "message": "类别数据无效",
+    "description": "Error shown when category data is malformed"
+  },
+  "errorInvalidImport": {
+    "message": "导入数据格式无效",
+    "description": "Error shown when an imported file is not usable"
+  },
+  "errorNoResponse": {
+    "message": "后台脚本没有响应",
+    "description": "Error shown when the background script does not answer"
   },
   "reportBug": {
     "message": "报告错误",

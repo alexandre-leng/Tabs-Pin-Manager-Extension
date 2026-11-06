@@ -471,7 +471,7 @@
     "message": "of"
   },
   "someTabsPinnedAndOpened": {
-    "message": "Some tabs were pinned and others opened",
+    "message": "Sommige tabbladen zijn vastgezet en andere geopend",
     "description": "Message when some tabs were pinned and others opened"
   },
   "tabsPinned": {
@@ -583,6 +583,30 @@
   "onboardingReplay": {
     "message": "Hoe het werkt",
     "description": "Link that reopens the welcome page"
+  },
+  "errorAlreadySaved": {
+    "message": "Dit adres is al opgeslagen",
+    "description": "Error shown when saving an address that is already in the list"
+  },
+  "errorInvalidTab": {
+    "message": "Ongeldige tabbladgegevens of adres",
+    "description": "Error shown when tab data is malformed"
+  },
+  "errorTabNotFound": {
+    "message": "Tabblad niet gevonden",
+    "description": "Error shown when a tab no longer exists"
+  },
+  "errorInvalidCategory": {
+    "message": "Ongeldige categoriegegevens",
+    "description": "Error shown when category data is malformed"
+  },
+  "errorInvalidImport": {
+    "message": "Ongeldig importformaat",
+    "description": "Error shown when an imported file is not usable"
+  },
+  "errorNoResponse": {
+    "message": "Het achtergrondscript reageert niet",
+    "description": "Error shown when the background script does not answer"
   },
   "reportBug": {
     "message": "Bug melden",

@@ -584,6 +584,30 @@
     "message": "So funktioniert es",
     "description": "Link that reopens the welcome page"
   },
+  "errorAlreadySaved": {
+    "message": "Diese Adresse ist bereits gespeichert",
+    "description": "Error shown when saving an address that is already in the list"
+  },
+  "errorInvalidTab": {
+    "message": "Ungültige Tab-Daten oder Adresse",
+    "description": "Error shown when tab data is malformed"
+  },
+  "errorTabNotFound": {
+    "message": "Tab nicht gefunden",
+    "description": "Error shown when a tab no longer exists"
+  },
+  "errorInvalidCategory": {
+    "message": "Ungültige Kategoriedaten",
+    "description": "Error shown when category data is malformed"
+  },
+  "errorInvalidImport": {
+    "message": "Ungültiges Importformat",
+    "description": "Error shown when an imported file is not usable"
+  },
+  "errorNoResponse": {
+    "message": "Das Hintergrundskript antwortet nicht",
+    "description": "Error shown when the background script does not answer"
+  },
   "reportBug": {
     "message": "Fehler melden",
     "description": "Link to report a bug on GitHub"

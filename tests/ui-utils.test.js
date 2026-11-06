@@ -11,6 +11,13 @@ describe('UiUtils', () => {
     expect(UiUtils.isValidUrl(undefined)).toBe(false);
   });
 
+  test('errorKey finds the translation key of a background error', () => {
+    expect(UiUtils.errorKey(new Error('This address is already saved'))).toBe('errorAlreadySaved');
+    expect(UiUtils.errorKey(new Error('No response from background script'))).toBe('errorNoResponse');
+    expect(UiUtils.errorKey(new Error('something else'))).toBeNull();
+    expect(UiUtils.errorKey(undefined)).toBeNull();
+  });
+
   test('extractDomain returns the hostname, or the input when unparsable', () => {
     expect(UiUtils.extractDomain('https://docs.github.com/en')).toBe('docs.github.com');
     expect(UiUtils.extractDomain('not a url')).toBe('not a url');

@@ -405,7 +405,7 @@
     "message": "수동으로 구성"
   },
   "someTabsPinnedAndOpened": {
-    "message": "Some tabs were pinned and others opened",
+    "message": "일부 탭은 고정되었고 나머지는 열렸습니다",
     "description": "Message when some tabs were pinned and others opened"
   },
   "tabsPinned": {
@@ -517,6 +517,30 @@
   "onboardingReplay": {
     "message": "사용법",
     "description": "Link that reopens the welcome page"
+  },
+  "errorAlreadySaved": {
+    "message": "이 주소는 이미 저장되어 있습니다",
+    "description": "Error shown when saving an address that is already in the list"
+  },
+  "errorInvalidTab": {
+    "message": "탭 데이터 또는 주소가 올바르지 않습니다",
+    "description": "Error shown when tab data is malformed"
+  },
+  "errorTabNotFound": {
+    "message": "탭을 찾을 수 없습니다",
+    "description": "Error shown when a tab no longer exists"
+  },
+  "errorInvalidCategory": {
+    "message": "카테고리 데이터가 올바르지 않습니다",
+    "description": "Error shown when category data is malformed"
+  },
+  "errorInvalidImport": {
+    "message": "가져오기 데이터 형식이 올바르지 않습니다",
+    "description": "Error shown when an imported file is not usable"
+  },
+  "errorNoResponse": {
+    "message": "백그라운드 스크립트가 응답하지 않습니다",
+    "description": "Error shown when the background script does not answer"
   },
   "reportBug": {
     "message": "버그 신고",

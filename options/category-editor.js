@@ -120,7 +120,7 @@ export const categoryEditor = {
       }
     } catch (error) {
       console.error('Error saving category:', error);
-      this.showToast('error', '❌', error.message);
+      this.showToast('error', '❌', UiUtils.errorText(error));
     }
   },
 
@@ -172,7 +172,7 @@ export const categoryEditor = {
       }
     } catch (error) {
       console.error('Error deleting category:', error);
-      this.showToast('error', '❌', error.message);
+      this.showToast('error', '❌', UiUtils.errorText(error));
     }
   },
 
@@ -362,7 +362,7 @@ export const categoryEditor = {
           }
         }
         
-        this.showToast('error', '❌', error.message);
+        this.showToast('error', '❌', UiUtils.errorText(error));
       }
     }
     this.closeCategoryQuickEdit();

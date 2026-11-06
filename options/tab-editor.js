@@ -112,7 +112,7 @@ export const tabEditor = {
       }
     } catch (error) {
       console.error('Error saving tab:', error);
-      this.showToast('error', '❌', error.message);
+      this.showToast('error', '❌', UiUtils.errorText(error));
     }
   },
 
@@ -145,7 +145,7 @@ export const tabEditor = {
       }
     } catch (error) {
       console.error('Error deleting tab:', error);
-      this.showToast('error', '❌', error.message);
+      this.showToast('error', '❌', UiUtils.errorText(error));
     }
   },
 
