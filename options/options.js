@@ -301,7 +301,9 @@ export class OptionsManager {
     
     const countPara = document.createElement('p');
     countPara.className = 'category-count';
-    countPara.textContent = `${tabCount} ${tabWord}`;
+    // Leading space: keeps name and count apart for text extraction (the two blocks
+    // would otherwise be read as "Personal0 tabs", which breaks the label-in-name rule)
+    countPara.textContent = ` ${tabCount} ${tabWord}`;
     
     // Assemble the structure
     infoDiv.appendChild(nameTitle);
@@ -311,8 +313,9 @@ export class OptionsManager {
     
     // Add click event to edit category
     card.addEventListener('click', () => this.editCategory(category));
+    // The accessible name starts with the visible text (voice control, label in name)
     UiUtils.makeActivatable(card, () => this.editCategory(category), {
-      label: `${browser.i18n.getMessage('editCategory')}: ${category.name}`
+      label: `${category.icon} ${category.name} ${tabCount} ${tabWord}. ${browser.i18n.getMessage('editCategory')}`
     });
     
     return card;
