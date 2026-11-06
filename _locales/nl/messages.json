@@ -259,6 +259,32 @@
     "message": "Categorie succesvol opgeslagen!",
     "description": "Succesbericht voor categorie opslaan"
   },
+  "deleteCategory": {
+    "message": "Categorie Verwijderen"
+  },
+  "deleteCategoryConfirm": {
+    "message": "„$CATEGORY_NAME$” verwijderen? De $COUNT$ vastgezette tab(s) worden naar „$TARGET_NAME$” verplaatst.",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "3"
+      },
+      "target_name": {
+        "content": "$3",
+        "example": "Personal"
+      }
+    }
+  },
+  "categoryDeleted": {
+    "message": "Categorie succesvol verwijderd!"
+  },
+  "lastCategoryRequired": {
+    "message": "Ten minste één categorie is vereist"
+  },
   "categoriesReset": {
     "message": "Categorieën hersteld naar standaard!",
     "description": "Succesbericht voor categorieën herstel"

@@ -30,6 +30,15 @@ export const categoryEditor = {
     this.closeCategoryQuickEdit();
     this.currentEditingCategory = category;
 
+    // The destructive action only appears for an existing category
+    const deleteButton = this.elements.deleteCategoryBtn;
+    if (deleteButton) {
+      const onlyOne = this.categories.length <= 1;
+      deleteButton.hidden = !category;
+      deleteButton.disabled = onlyOne;
+      deleteButton.title = onlyOne ? browser.i18n.getMessage('lastCategoryRequired') : '';
+    }
+
     if (this.elements.categoryModalTitle) {
       this.elements.categoryModalTitle.textContent = browser.i18n.getMessage(category ? 'editCategory' : 'addCategory');
     }
@@ -113,6 +122,59 @@ export const categoryEditor = {
       console.error('Error saving category:', error);
       this.showToast('error', '❌', error.message);
     }
+  },
+
+  /**
+   * Deletes the category being edited. Its tabs move to the first remaining category,
+   * like every other removed category.
+   */
+  async deleteCategory() {
+    const category = this.currentEditingCategory;
+    if (!category) return;
+
+    if (this.categories.length <= 1) {
+      this.showToast('warning', '⚠️', browser.i18n.getMessage('lastCategoryRequired'));
+      return;
+    }
+
+    const index = this.categories.findIndex(c => c.id === category.id);
+    const remaining = this.categories.filter(c => c.id !== category.id);
+    const target = remaining[0];
+    const tabCount = this.tabs.filter(tab => tab.category === category.id).length;
+    const confirmed = confirm(browser.i18n.getMessage('deleteCategoryConfirm', [
+      category.name,
+      String(tabCount),
+      target.name
+    ]));
+    if (!confirmed) return;
+
+    try {
+      const response = await this.sendMessageWithRetry({
+        action: 'saveCategories',
+        categories: remaining
+      });
+
+      if (response && response.success) {
+        await this.loadData();
+        this.renderTabs();
+        this.renderCategories();
+        this.closeCategoryModal();
+        this.focusAfterCategoryDelete(index);
+        this.showToast('success', '✅', browser.i18n.getMessage('categoryDeleted'));
+      } else {
+        throw new Error(response?.error || browser.i18n.getMessage('failedToSaveCategory'));
+      }
+    } catch (error) {
+      console.error('Error deleting category:', error);
+      this.showToast('error', '❌', error.message);
+    }
+  },
+
+  /** After a deletion, focuses the card now at the same place, or the add button. */
+  focusAfterCategoryDelete(index) {
+    const cards = this.elements.categoriesGrid?.querySelectorAll('.category-item') ?? [];
+    const card = cards[Math.min(index, cards.length - 1)];
+    (card || this.elements.addCategoryBtn)?.focus();
   },
 
   /** Disables the add button, with the reason on screen, once the limit is reached. */

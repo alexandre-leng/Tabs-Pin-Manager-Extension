@@ -263,6 +263,32 @@
     "message": "Categoria salvata con successo!",
     "description": "Messaggio di successo per il salvataggio categoria"
   },
+  "deleteCategory": {
+    "message": "Elimina Categoria"
+  },
+  "deleteCategoryConfirm": {
+    "message": "Eliminare «$CATEGORY_NAME$»? Le sue $COUNT$ scheda/e fissata/e verranno spostate in «$TARGET_NAME$».",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "3"
+      },
+      "target_name": {
+        "content": "$3",
+        "example": "Personal"
+      }
+    }
+  },
+  "categoryDeleted": {
+    "message": "Categoria eliminata con successo!"
+  },
+  "lastCategoryRequired": {
+    "message": "È richiesta almeno una categoria"
+  },
   "categoriesReset": {
     "message": "Categorie ripristinate alle predefinite!",
     "description": "Messaggio di successo per il ripristino categorie"

@@ -265,6 +265,36 @@
     "message": "Category saved successfully!",
     "description": "Success message for category save"
   },
+  "deleteCategory": {
+    "message": "Delete Category",
+    "description": "Button that deletes the category being edited"
+  },
+  "deleteCategoryConfirm": {
+    "message": "Delete \"$CATEGORY_NAME$\"? Its $COUNT$ pinned tab(s) will move to \"$TARGET_NAME$\".",
+    "description": "Confirmation before deleting a category",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "3"
+      },
+      "target_name": {
+        "content": "$3",
+        "example": "Personal"
+      }
+    }
+  },
+  "categoryDeleted": {
+    "message": "Category deleted successfully!",
+    "description": "Success message when a category is deleted"
+  },
+  "lastCategoryRequired": {
+    "message": "At least one category is required",
+    "description": "Message shown when the only category cannot be deleted"
+  },
   "categoriesReset": {
     "message": "Categories reset to default!",
     "description": "Success message for categories reset"

@@ -24,6 +24,7 @@
   --gradient-primary: linear-gradient(135deg, #0060df 0%, #4c68d7 100%);
   --gradient-secondary: linear-gradient(135deg, #ff9400 0%, #ff6b6b 100%);
   --gradient-surface: linear-gradient(145deg, rgb(255 255 255 / 10%) 0%, rgb(255 255 255 / 5%) 100%);
+  --danger-text: #b3001b; /* readable red on light surfaces */
 }
 
 /* Dark theme support */
@@ -32,6 +33,7 @@
     --background-primary: #2b2a33;
     --background-secondary: #1c1b22;
     --gradient-surface: linear-gradient(145deg, rgb(255 255 255 / 3%) 0%, rgb(255 255 255 / 1%) 100%);
+    --danger-text: #ffa3a3; /* readable red on dark surfaces */
   }
 }
 
@@ -989,6 +991,42 @@ body {
   border-top: 1px solid var(--border-color);
 }
 
+/* Destructive action of a dialog: pushed to the left of the action bar */
+.danger-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-right: auto;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--danger-text);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.danger-btn[hidden] {
+  display: none;
+}
+
+.danger-btn:hover {
+  background: var(--error-bg);
+  border-color: var(--danger-text);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-small);
+}
+
+.danger-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 /* Enhanced Icon Selector */
 .icon-selector {
   position: relative;
@@ -1414,6 +1452,12 @@ select:focus-visible,
   .form-actions {
     flex-direction: column-reverse;
     gap: var(--spacing-sm);
+  }
+
+  /* Stacked full width like the other actions, destructive one at the bottom */
+  .danger-btn {
+    margin-right: 0;
+    justify-content: center;
   }
 }
 

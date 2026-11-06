@@ -271,6 +271,32 @@
   "categorySaved": {
     "message": "Kategori berhasil disimpan!"
   },
+  "deleteCategory": {
+    "message": "Hapus Kategori"
+  },
+  "deleteCategoryConfirm": {
+    "message": "Hapus «$CATEGORY_NAME$»? $COUNT$ tab yang disematkan akan dipindahkan ke «$TARGET_NAME$».",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "3"
+      },
+      "target_name": {
+        "content": "$3",
+        "example": "Personal"
+      }
+    }
+  },
+  "categoryDeleted": {
+    "message": "Kategori berhasil dihapus!"
+  },
+  "lastCategoryRequired": {
+    "message": "Setidaknya satu kategori diperlukan"
+  },
   "categoriesReset": {
     "message": "Kategori direset ke default!"
   },

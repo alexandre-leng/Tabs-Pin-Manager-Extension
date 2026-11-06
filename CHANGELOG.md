@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### ✨ Nouvelles Fonctionnalités
+- **Supprimer une catégorie** : le dialogue de modification propose « Supprimer la Catégorie », avec une confirmation qui indique le nombre d'onglets concernés et la catégorie qui les accueillera. Les onglets de la catégorie supprimée rejoignent la première catégorie restante, et la dernière catégorie ne peut pas être supprimée.
+
 ## [1.5.0] - 2026-11-06
 
 ### ✨ Nouvelles Fonctionnalités

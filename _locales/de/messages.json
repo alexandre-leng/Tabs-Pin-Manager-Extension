@@ -259,6 +259,32 @@
     "message": "Kategorie erfolgreich gespeichert!",
     "description": "Erfolgsmeldung für Kategorie-Speicherung"
   },
+  "deleteCategory": {
+    "message": "Kategorie Löschen"
+  },
+  "deleteCategoryConfirm": {
+    "message": "„$CATEGORY_NAME$“ löschen? Die $COUNT$ angehefteten Tab(s) werden nach „$TARGET_NAME$“ verschoben.",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "3"
+      },
+      "target_name": {
+        "content": "$3",
+        "example": "Personal"
+      }
+    }
+  },
+  "categoryDeleted": {
+    "message": "Kategorie erfolgreich gelöscht!"
+  },
+  "lastCategoryRequired": {
+    "message": "Mindestens eine Kategorie ist erforderlich"
+  },
   "categoriesReset": {
     "message": "Kategorien auf Standard zurückgesetzt!",
     "description": "Erfolgsmeldung für Kategorien-Zurücksetzung"

@@ -42,6 +42,7 @@ export class OptionsManager {
       addFirstTabBtn: document.getElementById('addFirstTabBtn'),
       addCategoryBtn: document.getElementById('addCategoryBtn'),
       categoryLimitHint: document.getElementById('categoryLimitHint'),
+      deleteCategoryBtn: document.getElementById('deleteCategoryBtn'),
       resetCategoriesBtn: document.getElementById('resetCategoriesBtn'),
       exportBtn: document.getElementById('exportBtn'),
       importBtn: document.getElementById('importBtn'),
@@ -134,6 +135,7 @@ export class OptionsManager {
     
     // Category management
     this.elements.addCategoryBtn?.addEventListener('click', () => this.createCategory());
+    this.elements.deleteCategoryBtn?.addEventListener('click', () => this.deleteCategory());
     this.elements.resetCategoriesBtn?.addEventListener('click', () => this.resetCategories());
     
     // Import/Export

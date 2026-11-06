@@ -271,6 +271,32 @@
   "categorySaved": {
     "message": "Категория успешно сохранена!"
   },
+  "deleteCategory": {
+    "message": "Удалить категорию"
+  },
+  "deleteCategoryConfirm": {
+    "message": "Удалить «$CATEGORY_NAME$»? Её $COUNT$ закреплённых вкладок будут перемещены в «$TARGET_NAME$».",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "3"
+      },
+      "target_name": {
+        "content": "$3",
+        "example": "Personal"
+      }
+    }
+  },
+  "categoryDeleted": {
+    "message": "Категория успешно удалена!"
+  },
+  "lastCategoryRequired": {
+    "message": "Требуется хотя бы одна категория"
+  },
   "categoriesReset": {
     "message": "Категории сброшены до умолчаний!"
   },

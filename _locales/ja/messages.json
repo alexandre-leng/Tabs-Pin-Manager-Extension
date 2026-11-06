@@ -271,6 +271,32 @@
   "categorySaved": {
     "message": "カテゴリが正常に保存されました！"
   },
+  "deleteCategory": {
+    "message": "カテゴリを削除"
+  },
+  "deleteCategoryConfirm": {
+    "message": "「$CATEGORY_NAME$」を削除しますか？ピン留めした $COUNT$ 個のタブは「$TARGET_NAME$」に移動します。",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "3"
+      },
+      "target_name": {
+        "content": "$3",
+        "example": "Personal"
+      }
+    }
+  },
+  "categoryDeleted": {
+    "message": "カテゴリを削除しました！"
+  },
+  "lastCategoryRequired": {
+    "message": "少なくとも 1 つのカテゴリが必要です"
+  },
   "categoriesReset": {
     "message": "カテゴリがデフォルトにリセットされました！"
   },

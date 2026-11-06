@@ -271,6 +271,32 @@
   "categorySaved": {
     "message": "श्रेणी सफलतापूर्वक सहेजी गई!"
   },
+  "deleteCategory": {
+    "message": "श्रेणी हटाएँ"
+  },
+  "deleteCategoryConfirm": {
+    "message": "क्या «$CATEGORY_NAME$» हटाएँ? इसके $COUNT$ पिन किए गए टैब «$TARGET_NAME$» में चले जाएँगे।",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "3"
+      },
+      "target_name": {
+        "content": "$3",
+        "example": "Personal"
+      }
+    }
+  },
+  "categoryDeleted": {
+    "message": "श्रेणी सफलतापूर्वक हटाई गई!"
+  },
+  "lastCategoryRequired": {
+    "message": "कम से कम एक श्रेणी आवश्यक है"
+  },
   "categoriesReset": {
     "message": "श्रेणियां डिफ़ॉल्ट पर रीसेट की गईं!"
   },

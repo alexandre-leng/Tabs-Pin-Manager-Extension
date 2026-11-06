@@ -271,6 +271,32 @@
   "categorySaved": {
     "message": "카테고리가 성공적으로 저장되었습니다!"
   },
+  "deleteCategory": {
+    "message": "카테고리 삭제"
+  },
+  "deleteCategoryConfirm": {
+    "message": "“$CATEGORY_NAME$”을(를) 삭제할까요? 고정된 탭 $COUNT$개가 “$TARGET_NAME$”(으)로 이동합니다.",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "3"
+      },
+      "target_name": {
+        "content": "$3",
+        "example": "Personal"
+      }
+    }
+  },
+  "categoryDeleted": {
+    "message": "카테고리가 삭제되었습니다!"
+  },
+  "lastCategoryRequired": {
+    "message": "카테고리가 하나 이상 필요합니다"
+  },
   "categoriesReset": {
     "message": "카테고리가 기본값으로 재설정되었습니다!"
   },

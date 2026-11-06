@@ -107,6 +107,7 @@ test('adds a category from the category modal', async ({ openPage, seed }) => {
 
   await options.locator('#addCategoryBtn').click();
   await expect(options.locator('#categoryModalTitle')).toHaveText('Add Category');
+  await expect(options.locator('#deleteCategoryBtn')).toBeHidden();
   await options.locator('#categoryName').fill('Clients 2026');
   await options.locator('#saveCategoryBtn').click();
 
@@ -200,6 +201,45 @@ test('resets at the limit, and the tabs of removed categories move to the first 
   const { categories: saved, tabs } = await savedData(options);
   expect(saved.map(c => c.id)).toEqual(['work', 'personal', 'development', 'social', 'tools', 'entertainment']);
   expect(tabs.every(t => t.category === 'work')).toBe(true);
+});
+
+test('deletes a category and moves its tabs to the first remaining one', async ({ openPage, seed }) => {
+  const categories = [
+    { id: 'work', name: 'Work', icon: '💼' },
+    { id: 'personal', name: 'Personal', icon: '👤' },
+    { id: 'clients', name: 'Clients', icon: '🤝' }
+  ];
+  await seed({ tabs: sampleTabs(2, 'clients'), categories });
+  const options = await openPage('options/options.html');
+
+  await options.locator('[data-category-id="clients"]').click();
+  await expect(options.locator('#deleteCategoryBtn')).toBeVisible();
+
+  let confirmText = '';
+  options.once('dialog', dialog => {
+    confirmText = dialog.message();
+    dialog.accept();
+  });
+  await options.locator('#deleteCategoryBtn').click();
+
+  expect(confirmText).toContain('Delete "Clients"?');
+  expect(confirmText).toContain('2 pinned tab(s) will move to "Work"');
+
+  await expect(options.locator('.category-item')).toHaveCount(2);
+  await expect(options.locator('#toastMessage')).toHaveText('Category deleted successfully!');
+  await expect(options.locator('[data-category-id="work"] .category-count')).toHaveText('2 tabs');
+  const { categories: saved, tabs } = await savedData(options);
+  expect(saved.map(c => c.id)).toEqual(['work', 'personal']);
+  expect(tabs.every(tab => tab.category === 'work')).toBe(true);
+});
+
+test('keeps at least one category', async ({ openPage, seed }) => {
+  await seed({ tabs: [], categories: [{ id: 'work', name: 'Work', icon: '💼' }] });
+  const options = await openPage('options/options.html');
+
+  await options.locator('[data-category-id="work"]').click();
+  await expect(options.locator('#deleteCategoryBtn')).toBeDisabled();
+  await expect(options.locator('#deleteCategoryBtn')).toHaveAttribute('title', 'At least one category is required');
 });
 
 test('keeps a backup with more than 20 categories readable and editable', async ({ openPage, seed }) => {

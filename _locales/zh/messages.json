@@ -271,6 +271,32 @@
   "categorySaved": {
     "message": "类别保存成功！"
   },
+  "deleteCategory": {
+    "message": "删除类别"
+  },
+  "deleteCategoryConfirm": {
+    "message": "删除“$CATEGORY_NAME$”？其 $COUNT$ 个固定标签页将移至“$TARGET_NAME$”。",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "3"
+      },
+      "target_name": {
+        "content": "$3",
+        "example": "Personal"
+      }
+    }
+  },
+  "categoryDeleted": {
+    "message": "类别删除成功！"
+  },
+  "lastCategoryRequired": {
+    "message": "至少需要一个类别"
+  },
   "categoriesReset": {
     "message": "类别已重置为默认！"
   },

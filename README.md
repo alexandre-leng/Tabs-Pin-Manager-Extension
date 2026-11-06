@@ -36,9 +36,9 @@ in one click, pinned and without duplicates. Manifest V3, 100% local storage, no
   identifies a page (`?v=` on YouTube, `?q=`, `?id=`, single-page-app routes like `#/inbox`…).
   The same address cannot be saved twice.
 - **Pin the current tab** from the popup, into the category of your choice.
-- **Categories**: add your own (up to 20), rename them and pick an emoji icon; close all
-  pinned tabs of a category at once (with confirmation). Tabs of a removed category move
-  to the first one.
+- **Categories**: add your own (up to 20), rename or delete them and pick an emoji icon;
+  close all pinned tabs of a category at once (with confirmation). Tabs of a removed
+  category move to the first one, and the last category cannot be deleted.
 - **Reorder** tabs by drag and drop, or with the ↑ / ↓ buttons (keyboard friendly).
 - **Import / export** your configuration as JSON.
 - **14 languages**: Arabic, Chinese, Dutch, English, French, German, Hindi, Indonesian,

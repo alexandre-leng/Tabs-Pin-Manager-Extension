@@ -271,6 +271,32 @@
   "categorySaved": {
     "message": "تم حفظ الفئة بنجاح!"
   },
+  "deleteCategory": {
+    "message": "حذف الفئة"
+  },
+  "deleteCategoryConfirm": {
+    "message": "هل تريد حذف «$CATEGORY_NAME$»؟ ستُنقل $COUNT$ من التبويبات المثبتة إلى «$TARGET_NAME$».",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
+      },
+      "count": {
+        "content": "$2",
+        "example": "3"
+      },
+      "target_name": {
+        "content": "$3",
+        "example": "Personal"
+      }
+    }
+  },
+  "categoryDeleted": {
+    "message": "تم حذف الفئة بنجاح!"
+  },
+  "lastCategoryRequired": {
+    "message": "مطلوب فئة واحدة على الأقل"
+  },
   "categoriesReset": {
     "message": "تم إعادة تعيين الفئات للافتراضي!"
   },
