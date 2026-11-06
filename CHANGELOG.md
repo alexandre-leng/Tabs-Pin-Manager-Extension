@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [1.5.0] - 2026-11-06
+
+### ✨ Nouvelles Fonctionnalités
+- **Ajouter une catégorie** : un bouton « Ajouter une catégorie » dans la page d'options ouvre l'éditeur sur une catégorie vide (nom et icône), comme pour un onglet. Limite fixée à 20 catégories : à ce nombre, le bouton se désactive et la raison s'affiche sous le titre. Les catégories d'une sauvegarde importée au-delà de cette limite restent lisibles et modifiables. La confirmation de « Réinitialiser par défaut » indique désormais que les catégories ajoutées seront supprimées.
+
+### 🛠️ Corrections
+- **Accessibilité, cartes de catégorie** : le nom annoncé inclut maintenant le texte visible (icône, nom, nombre d'onglets), conformément à WCAG 2.5.3 ; l'audit automatique des tests d'interface le vérifie.
+- **Noms de catégorie longs** : un nom sans espace débordait de sa carte et se retrouvait tronqué, dans les options comme dans le popup ; il passe désormais à la ligne dans la carte.
+- **Popup, choix de la catégorie** : le nom annoncé reprend le texte visible (WCAG 2.5.3) et le nombre d'onglets d'une catégorie vide atteint le contraste minimal ; ce dialogue est maintenant couvert par l'audit d'accessibilité.
 
 ### 📝 Documentation
 - README mis à jour avec le code actuel : détection des doublons (redirections, ordre des paramètres), fermeture d'une catégorie par domaine, format d'export et règles de l'import, migrations à la mise à jour, messages du script d'arrière-plan, module `punycode.js`, accessibilité.
