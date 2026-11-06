@@ -30,8 +30,8 @@ The sections of the unreleased part of `CHANGELOG.md` decide the number:
 - A release ships what its notes describe: tests, CI or internal refactoring that changes nothing
   for the user do not, by themselves, justify a release.
 - Release notes are written in English, in `CHANGELOG.md` and on the GitHub release page: they are
-  read by users of both stores, whatever their language. Entries published before `1.5.0` keep the
-  language they were released in.
+  read by users of both stores, whatever their language. The whole changelog is in English, older
+  entries included, so a reader never meets a gap in language.
 
 ## Release procedure
 

@@ -1,12 +1,15 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented in this file. The format follows
+[Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and the project follows
+[Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-Entries from 1.5.0 on are written in English: the release notes published from this file are
-read by users of both stores, whatever their language. Earlier entries keep the language they
-were published in.
+Every entry is written in English: the release notes published from this file are read by users of
+both stores, whatever their language. The rules are in [`docs/versioning.md`](docs/versioning.md).
 
 ## [1.6.0] - 2026-11-06
+
+Category deletion, a lighter popup and an English documentation folder.
 
 ### ✨ New Features
 - **Delete a category**: the edit dialog offers "Delete Category", with a confirmation naming the tabs involved and the category that will take them. Tabs of the deleted category move to the first remaining category, and the last category cannot be deleted.
@@ -34,306 +37,283 @@ were published in.
 ## [1.4.2] - 2026-10-08
 
 ### 📝 Documentation
-- README : tirets cadratins remplacés par une ponctuation simple.
+- README: em dashes replaced with simple punctuation.
 
 ## [1.4.1] - 2026-10-08
 
-### 🛠️ Corrections
-- **Onglets ouverts en double après une redirection** : un site qui redirige (`a.com` → `www.a.com`, `http` → `https`) n'était jamais reconnu, et chaque « Ouvrir tout » ajoutait un nouvel onglet épinglé.
-- **Firefox, onglets en chargement** : un onglet encore vide (`about:blank`) n'était pas reconnu : « Fermer » l'ignorait et « Ouvrir tout » le dupliquait.
-- **Renommage annulé à chaque mise à jour** : une catégorie renommée avec son nom anglais par défaut (ex. « Development » dans un navigateur en français) reprenait son nom traduit à chaque mise à jour ; les noms par défaut ne sont plus traduits qu'une fois.
-- **Onglets cachés après la mise à jour** : les onglets laissés sans catégorie valide par les anciennes versions sont rattachés à la première catégorie lors de la mise à jour, et une liste de catégories vide est remplacée par les catégories par défaut.
-- **Adresse refusée à tort** : deux pages différenciées par un paramètre (`?sku=1` / `?sku=2`) étaient considérées comme la même adresse et la seconde ne pouvait pas être enregistrée.
-- **Comparaison d'adresses** : la route racine `#/` et l'ordre des paramètres ne changent plus la page reconnue.
-- **Catégorie importée sans icône** : elle bloquait toute modification de catégorie ; une icône par défaut lui est donnée.
-- **Popup** : « 1 onglet ouvert / épinglé » au singulier ; « Ouverture… » et le bouton de fermeture du dialogue traduits ; la confirmation de fermeture annonce bien le nombre d'onglets épinglés fermés ; un double-clic dans « Épingler dans une catégorie » n'affiche plus d'erreur ; le séparateur entre catégories utilisées et vides s'affiche.
-- **Options** : sélectionner du texte dans un champ et relâcher la souris hors du dialogue ne le ferme plus (et n'efface plus la saisie) ; le sélecteur rapide de catégorie se ferme quand une autre action s'ouvre et ne sort plus de l'écran ; le focus clavier reste sur la carte après « Monter / Descendre », « Supprimer » et l'enregistrement d'un dialogue.
-- **Accessibilité et langues** : les messages (toasts) sont annoncés par les lecteurs d'écran ; la langue et le sens d'écriture de la page suivent celle du navigateur (l'arabe s'affiche de droite à gauche) ; les noms de domaine internationaux s'affichent en clair (`bücher.ch` au lieu de `xn--bcher-kva.ch`).
-- **Stockage** : un changement de l'horloge système ne peut plus bloquer les opérations de stockage.
-- **Doublons existants non modifiables** (régression de 1.4.0) : un onglet enregistré en double par une ancienne version ne pouvait plus être renommé ni changé de catégorie (« adresse déjà enregistrée ») ; seul l'ajout d'une adresse déjà enregistrée est maintenant refusé.
+### 🛠️ Fixes
+- **Tabs opened twice after a redirect**: a site that redirects (`a.com` → `www.a.com`, `http` → `https`) was never recognised, and every "Open all" added another pinned tab.
+- **Firefox, loading tabs**: a tab still empty (`about:blank`) was not recognised: "Close" ignored it and "Open all" duplicated it.
+- **Renames undone on every update**: a category renamed with its default English name (e.g. "Development" in a French browser) took its translated name back on every update; default names are now translated only once.
+- **Tabs hidden after an update**: tabs left without a valid category by older versions are moved to the first category on update, and an empty category list is replaced with the default categories.
+- **Address refused for no reason**: two pages differing by a parameter (`?sku=1` / `?sku=2`) were taken for the same address and the second could not be saved.
+- **Address comparison**: the root route `#/` and the order of parameters no longer change the page recognised.
+- **Imported category without an icon**: it blocked every category change; it now gets a default icon.
+- **Popup**: "1 tab open / pinned" in the singular; "Opening…" and the dialog close button translated; the close confirmation states the number of pinned tabs actually closed; a double click in "Pin into a category" no longer shows an error; the separator between used and empty categories is displayed.
+- **Options**: selecting text in a field and releasing the mouse outside the dialog no longer closes it (and no longer clears the input); the quick category picker closes when another action opens and no longer runs off screen; the keyboard focus stays on the card after "Move up / Move down", "Delete" and saving a dialog.
+- **Accessibility and languages**: messages (toasts) are announced by screen readers; the page language and writing direction follow the browser (Arabic displays right to left); international domain names display in clear (`bücher.ch` instead of `xn--bcher-kva.ch`).
+- **Storage**: a system clock change can no longer block storage operations.
+- **Existing duplicates not editable** (1.4.0 regression): a tab saved twice by an older version could no longer be renamed or moved to another category ("address already saved"); only adding an address already saved is now refused.
 
 ### 📝 Documentation
-- README réécrit : stockage 100 % local, permissions expliquées, appel aux services de favicons indiqué, format de sauvegarde, versions minimales, architecture à jour, procédure de release.
+- README rewritten: 100% local storage, permissions explained, favicon services mentioned, backup format, minimum versions, up-to-date architecture, release procedure.
 
 ## [1.4.0] - 2026-10-07
 
-### 🛠️ Corrections
-- **Onglets invisibles après « Réinitialiser les catégories »** : les onglets d'une catégorie supprimée (par exemple importée) n'apparaissaient plus dans le popup ; ils sont maintenant rattachés à la première catégorie. Un onglet enregistré avec une catégorie inconnue l'est aussi.
-- **Catégories bloquées après un import** : un fichier importé pouvait contenir une catégorie sans nom ; ensuite, renommer n'importe quelle catégorie échouait (« données invalides ») jusqu'à une réinitialisation. Ces catégories sont maintenant écartées à l'import.
-- **Onglet enregistré en double** : un double-clic dans la fenêtre « Épingler dans une catégorie » enregistrait deux fois l'onglet ; le popup ignore le second clic et l'arrière-plan refuse une adresse déjà enregistrée.
-- **Date d'ouverture importée** : une valeur invalide (« il y a 20 733 jours ») n'est plus importée.
-- **Pages confondues** : deux vidéos YouTube (`?v=`), deux listes (`list`) ou deux routes d'une application web (`#/a`, `#/b`) étaient considérées comme le même onglet, et le second n'était jamais ouvert ; ces paramètres et routes sont maintenant pris en compte.
-- **Modification perdue** : une lecture lancée pendant une sauvegarde pouvait remettre en mémoire d'anciennes données, que la sauvegarde suivante réécrivait ; la lecture est maintenant ignorée dans ce cas.
-- **Arrière-plan bloqué** : une erreur de stockage au démarrage faisait échouer tous les messages jusqu'au rechargement de l'extension ; l'initialisation est maintenant retentée au message suivant.
-- **Mémoire incohérente** : si une écriture échouait (quota…), la mémoire gardait des données absentes du stockage ; elle n'est plus modifiée qu'après une écriture réussie.
-- **Popup** : le bouton « Ouvrir N onglets » et l'ouverture d'une catégorie ignorent maintenant les onglets désactivés, et la confirmation de fermeture annonce le nombre d'onglets réellement fermés (rien n'est demandé s'il n'y en a aucun).
-- **Options** : enregistrer deux fois la même adresse est refusé.
-- **Stockage** : la limitation de débit espace maintenant aussi les appels simultanés, et la clé de cache n'est plus ambiguë pour une lecture avec valeurs par défaut.
-- **« Dernière ouverture » mal traduite** : le temps écoulé était assemblé à la main (« ago 3 days », « vor 3 Stundes », « 前 3 日s »…) ; il est maintenant formaté par le navigateur dans la langue de l'utilisateur (« il y a 3 heures », « vor 3 Stunden », « 3 時間前 »).
-- **« Onglet déjà épinglé »** : le popup comparait les adresses autrement que le script d'arrière-plan, et pouvait donc annoncer un onglet comme épinglé (ou non) à tort ; une seule fonction de comparaison est partagée.
-- **Ordre des catégories** : la catégorie « Développement » était reconnue par son nom (toute catégorie contenant « dev », comme « Devis », passait en dernier, et la règle échouait dans les autres langues) ; elle l'est maintenant par son identifiant.
-- **Données importées effacées** : un import fait juste après l'installation pouvait être écrasé par l'initialisation des données par défaut, et une lecture lente pouvait remettre en mémoire d'anciennes données. Les opérations sur les données sont désormais exécutées une par une, et une lecture qui chevauche une écriture n'est plus utilisée ni mise en cache.
-- **Onglets en cours de chargement** : un onglet pas encore chargé n'était pas reconnu (adresse vide) : « Fermer » une catégorie l'ignorait et « Ouvrir » pouvait le dupliquer.
-- **Accessibilité** : contraste insuffisant corrigé (bouton « Fermer » du popup, textes secondaires) ; les fenêtres de dialogue sont annoncées comme telles, prennent le focus à l'ouverture et le rendent à la fermeture ; Échap ferme seulement la fenêtre du dessus ; cartes et badges de catégorie utilisables au clavier ; préférence « réduire les animations » respectée ; styles de contraste élevé réactivés (`prefers-contrast: high` n'existe pas, remplacé par `more`).
-- **Traductions manquantes** : Les textes de fermeture d'une catégorie (« Fermer », confirmation, messages de résultat) manquaient dans 12 langues et s'affichaient en anglais.
-- **Message français** : « Certains onglets étaient déjà ouverts » n'affichait plus les nombres d'onglets ouverts et créés.
-- **Vérification du stockage** : Le contrôle de santé vérifie maintenant que la valeur relue correspond à celle écrite.
-- **Import sécurisé** : Un fichier importé ne peut plus enregistrer d'onglets sans URL http(s) (`javascript:`, `file:`…) ni de données mal formées ; les identifiants en double sont corrigés et les onglets ignorés sont comptés.
-- **Traduction du popup** : Les textes du popup sont traduits dès l'ouverture, même si le script d'arrière-plan tarde à répondre ou échoue.
-- **Échec d'ouverture signalé** : Quand aucun onglet n'a pu être ouvert, le popup affichait « Tous les onglets sont déjà ouverts » ; il affiche maintenant une erreur.
-- **Page d'options** : Le modèle du sélecteur rapide de catégorie était placé après `</html>` (HTML invalide) ; ses boutons et celui du choix d'icône ont désormais un libellé traduit, aussi lu par les lecteurs d'écran.
-- **Titres non traduits** : Le titre « Modifier l'onglet » et le message d'échec d'export utilisaient des clés inexistantes et restaient en anglais dans toutes les langues ; un test vérifie désormais que chaque texte demandé existe.
-- **Icônes exposées aux sites** : Le manifeste rendait les icônes de l'extension accessibles à toutes les pages web, ce qui permettait de détecter l'extension ; cette exposition inutile est retirée.
-- **Liens du dépôt** : Les liens du manifeste, du README et du changelog pointent vers le bon dépôt.
+### 🛠️ Fixes
+- **Tabs invisible after "Reset categories"**: tabs of a deleted category (imported, for instance) no longer appeared in the popup; they are now moved to the first category. A tab saved with an unknown category is too.
+- **Categories blocked after an import**: an imported file could hold a category without a name; after that, renaming any category failed ("invalid data") until a reset. Those categories are now dropped on import.
+- **Tab saved twice**: a double click in the "Pin into a category" window saved the tab twice; the popup ignores the second click and the background refuses an address already saved.
+- **Imported opening date**: an invalid value ("20,733 days ago") is no longer imported.
+- **Pages confused**: two YouTube videos (`?v=`), two playlists (`list`) or two routes of a web app (`#/a`, `#/b`) were taken for the same tab, and the second was never opened; those parameters and routes are now taken into account.
+- **Lost edit**: a read started during a save could put old data back in memory, which the next save wrote again; the read is now ignored in that case.
+- **Background stuck**: a storage error at start-up made every message fail until the extension was reloaded; initialisation is now retried on the next message.
+- **Inconsistent memory**: if a write failed (quota…), the memory kept data absent from storage; it is now changed only after a successful write.
+- **Popup**: the "Open N tabs" button and opening a category now skip disabled tabs, and the close confirmation states the number of tabs actually closed (nothing is asked when there are none).
+- **Options**: saving the same address twice is refused.
+- **Storage**: throttling now also spaces concurrent calls, and the cache key is no longer ambiguous for a read with default values.
+- **"Last opened" badly translated**: the elapsed time was assembled by hand ("ago 3 days", "vor 3 Stundes", "前 3 日s"…); it is now formatted by the browser in the user's language ("il y a 3 heures", "vor 3 Stunden", "3 時間前").
+- **"Tab already pinned"**: the popup compared addresses differently from the background script, and could therefore announce a tab as pinned (or not) wrongly; a single comparison function is shared.
+- **Category order**: the "Development" category was recognised by its name (any category containing "dev", such as "Devis", went last, and the rule failed in other languages); it is now recognised by its identifier.
+- **Imported data wiped**: an import made right after installation could be overwritten by the default data initialisation, and a slow read could put old data back in memory. Data operations now run one at a time, and a read that overlaps a write is no longer used nor cached.
+- **Loading tabs**: a tab not yet loaded was not recognised (empty address): "Close" on a category ignored it and "Open" could duplicate it.
+- **Accessibility**: insufficient contrast fixed (popup "Close" button, secondary texts); dialogs are announced as such, take the focus when they open and give it back when they close; Escape closes only the top window; cards and category badges usable from the keyboard; "reduce animations" preference respected; high contrast styles re-enabled (`prefers-contrast: high` does not exist, replaced by `more`).
+- **Missing translations**: the closing texts of a category ("Close", confirmation, result messages) were missing in 12 languages and displayed in English.
+- **French message**: "Some tabs were already open" no longer displayed the numbers of tabs opened and created.
+- **Storage check**: the health check now verifies that the value read back matches the one written.
+- **Secure import**: an imported file can no longer save tabs without an http(s) URL (`javascript:`, `file:`…) nor malformed data; duplicate identifiers are fixed and skipped tabs are counted.
+- **Popup translation**: the popup texts are translated as soon as it opens, even when the background script answers late or fails.
+- **Failure reported**: when no tab could be opened, the popup displayed "All tabs are already open"; it now shows an error.
+- **Options page**: the template of the quick category picker was placed after `</html>` (invalid HTML); its buttons and the icon picker one now have a translated label, also read by screen readers.
+- **Untranslated titles**: the "Edit tab" title and the export failure message used missing keys and stayed in English in every language; a test now checks that every requested text exists.
+- **Icons exposed to sites**: the manifest made the extension icons reachable by every web page, which allowed detecting the extension; that needless exposure is removed.
+- **Repository links**: the links of the manifest, the README and the changelog point to the right repository.
 
-### 🧹 Qualité
-- Versions minimales déclarées : Firefox 115 (ESR) et Chrome 104, d'après les fonctions utilisées ; Node 20.11 pour les outils (`engines`, `.nvmrc`) ; mises à jour des dépendances proposées par Dependabot.
-- `popup.js` (≈ 480 lignes) et `options.js` (≈ 380) allégés : liste des catégories, ordre des catégories et cartes d'onglet passent dans leurs propres modules.
-- **Tests d'interface** : Playwright charge la vraie extension dans Chromium et teste le popup et la page d'options (ouverture, fermeture, ajout, modification, suppression, flèches, glisser-déposer, changement de catégorie, icônes, export / import), avec un audit d'accessibilité axe-core (clair et sombre) et des tests au clavier ; exécutés dans la CI.
-- **Textes de secours retirés** : les 63 textes anglais en dur après `getMessage(...)` sont supprimés ; le test des traductions garantit que chaque texte demandé existe.
-- **Stylelint** : configuration standard, corrections (doublons, propriétés inexistantes, animations en double, notations), exécuté dans la CI.
-- **Modules ES** : tout le code (arrière-plan, popup, options, `lib/`) est passé en modules ES natifs avec des imports explicites. Il n'y a plus de variables globales partagées ni de dépendance à l'ordre des balises `<script>` : chaque page charge un seul module d'entrée, et l'arrière-plan est déclaré `type: module` (Firefox et Chrome).
-- **Arrière-plan découpé** : la classe unique d'environ 1000 lignes devient 7 modules (contrôleur des messages, stockage des données, actions sur les onglets, validation de l'import, utilitaires), le plus gros faisant 177 lignes ; un état jamais lu (`tabUrlsById`) est supprimé. Chaque module a ses propres tests.
-- Envoi de messages au script d'arrière-plan centralisé dans `UiUtils.sendMessage` (deux variantes divergentes auparavant) ; le popup ne relance plus une action que le script d'arrière-plan a refusée.
-- CSS : 29 règles jamais utilisées et 55 variables recopiées à l'identique de `shared.css` supprimées (≈ 280 lignes), sans aucun changement visuel (16 captures clair/sombre comparées pixel par pixel) ; un test empêche de réintroduire des styles morts.
-- Messages d'ouverture d'onglets du popup regroupés dans `reportOpenResult` ; carte d'onglet des options et validation de l'import découpées en petites fonctions ; ESLint limite la complexité et la longueur des fonctions, sans avertissement toléré en CI.
-- `StorageManager` simplifié : une seule boucle de reprise pour lecture et écriture, suppression d'une fausse déduplication (identifiants horodatés jamais identiques) et de méthodes inutilisées ; le cache renvoie des copies pour qu'une modification par l'appelant ne le corrompe pas.
-- Code mort retiré : actions `updateSettings` / `updateTab` jamais envoyées, fonctions inutilisées d'`I18nHelper`, 8 textes de traduction inutilisés (un test empêche d'en réintroduire).
-- Prise en charge des conteneurs Firefox retirée (`lib/container-utils.js`) : sans la permission `contextualIdentities`, elle n'était jamais active. Les identifiants de conteneur des anciennes sauvegardes sont ignorés à l'import.
-- Logique d'ouverture des onglets factorisée (`openTabConfigs`), journaux de débogage désactivés par défaut, helpers partagés popup/options (`lib/ui-utils.js`).
-- `popup.js` et `options.js` découpés par fonctionnalité (édition et réorganisation des onglets, catégories, sélecteur d'icônes, import/export, actions du popup, sélection de catégorie) ; une méthode `getSelectedIcon` définie en double supprimée.
-- Traduction des pages centralisée dans `I18nHelper.localizePage` (le module n'était utilisé que par les tests) ; textes de secours du HTML et commentaires en anglais.
-- Tests ajoutés : validation de l'import, `localizePage`, cohérence des versions `package.json` / `manifest.json`.
-- Build, lint et dev travaillent sur une copie dans `build/<navigateur>/` : `manifest.json` n'est plus réécrit à chaque commande, et seuls les fichiers de l'extension sont empaquetés (`eslint.config.js` ne part plus dans les zips). La liste des scripts d'arrière-plan Firefox est lue depuis `background.js`.
-- README corrigé (dossier du dépôt, commandes, permissions) ; nom du paquet npm valide.
-- ESLint, `.editorconfig` et tests (ouverture des onglets, helpers, cohérence des traductions) exécutés dans la CI.
+### 🧹 Quality
+- Minimum versions declared: Firefox 115 (ESR) and Chrome 104, from the features used; Node 20.11 for the tools (`engines`, `.nvmrc`); dependency updates offered by Dependabot.
+- `popup.js` (≈ 480 lines) and `options.js` (≈ 380) lightened: the category list, the category order and the tab cards move to their own modules.
+- **Interface tests**: Playwright loads the real extension in Chromium and tests the popup and the options page (open, close, add, edit, delete, arrows, drag and drop, category change, icons, export / import), with an axe-core accessibility audit (light and dark) and keyboard tests; run in CI.
+- **Fallback texts removed**: the 63 hard-coded English texts after `getMessage(...)` are removed; the translation test guarantees that every requested text exists.
+- **Stylelint**: standard configuration, fixes (duplicates, unknown properties, doubled animations, notations), run in CI.
+- **ES modules**: all the code (background, popup, options, `lib/`) moved to native ES modules with explicit imports. No shared global variables nor dependence on the order of `<script>` tags: every page loads a single entry module, and the background is declared `type: module` (Firefox and Chrome).
+- **Background split**: the single class of about 1000 lines becomes 7 modules (message controller, data storage, tab actions, import validation, utilities), the largest being 177 lines; a state never read (`tabUrlsById`) is removed. Every module has its own tests.
+- Sending messages to the background script centralised in `UiUtils.sendMessage` (two divergent variants before); the popup no longer replays an action the background refused.
+- CSS: 29 unused rules and 55 variables copied identically from `shared.css` removed (≈ 280 lines), with no visual change (16 light/dark captures compared pixel by pixel); a test prevents dead styles from coming back.
+- Popup tab-opening messages grouped in `reportOpenResult`; options tab card and import validation split into small functions; ESLint caps complexity and function length, with no warning tolerated in CI.
+- `StorageManager` simplified: one retry loop for reads and writes, removal of a false de-duplication (timestamped identifiers never identical) and of unused methods; the cache returns copies so a change by the caller cannot corrupt it.
+- Dead code removed: `updateSettings` / `updateTab` actions never sent, unused `I18nHelper` functions, 8 unused translation texts (a test prevents them from coming back).
+- Firefox container support removed (`lib/container-utils.js`): without the `contextualIdentities` permission it was never active. Container identifiers from old backups are ignored on import.
+- Tab opening logic factored out (`openTabConfigs`), debug logs off by default, popup/options helpers shared (`lib/ui-utils.js`).
+- `popup.js` and `options.js` split by feature (tab editing and reordering, categories, icon picker, import/export, popup actions, category selection); a `getSelectedIcon` method defined twice removed.
+- Page translation centralised in `I18nHelper.localizePage` (the module was used only by the tests); HTML fallback texts and comments in English.
+- Tests added: import validation, `localizePage`, version consistency between `package.json` / `manifest.json`.
+- Build, lint and dev work on a copy in `build/<browser>/`: `manifest.json` is no longer rewritten on every command, and only the extension files are packaged (`eslint.config.js` no longer ships in the zips). The list of Firefox background scripts is read from `background.js`.
+- README fixed (repository folder, commands, permissions); valid npm package name.
+- ESLint, `.editorconfig` and tests (tab opening, helpers, translation consistency) run in CI.
 
 ## [1.3.5] - 2026-10-06
 
-### 🛠️ Corrections
-- **Glisser-déposer dans la grille** : Déplacer un onglet du haut tout en bas le plaçait en deuxième position. La position de dépôt tient désormais compte des colonnes (ligne puis colonne), et la carte se déplace directement pendant le glissement au lieu d'un emplacement « Drop here » qui décalait toute la grille.
-- **Annulation du déplacement** : Annuler un glisser-déposer (Échap ou lâcher hors de la grille) rétablit l'ordre d'origine.
+### 🛠️ Fixes
+- **Drag and drop in the grid**: moving a tab from the top to the very bottom placed it second. The drop position now takes columns into account (row then column), and the card moves directly during the drag instead of a "Drop here" slot that shifted the whole grid.
+- **Undoing a move**: cancelling a drag and drop (Escape or dropping outside the grid) restores the original order.
 
-### ✨ Nouvelles Fonctionnalités
-- **Boutons Monter / Descendre** : Chaque onglet épinglé a des flèches ↑ / ↓ pour le réorganiser sans glisser-déposer.
-- **Liens GitHub** : Liens « Signaler un bug » et « Demande de fonctionnalité » dans le popup et la page d'options, traduits dans toutes les langues.
+### ✨ New Features
+- **Move up / Move down buttons**: every pinned tab has ↑ / ↓ arrows to reorder it without dragging.
+- **GitHub links**: "Report a bug" and "Feature request" links in the popup and the options page, translated in every language.
 
 ## [1.3.4] - 2026-10-06
 
-### 🛠️ Corrections
-- **Réorganisation des onglets** : Le glisser-déposer place désormais l'onglet à la bonne position. Le message « Tab order updated! » s'affichait mais l'ordre enregistré était faux (mauvais calcul de position, onglet déplacé renvoyé en tête de liste).
-- **Ordre complet enregistré** : Tous les onglets reçoivent un ordre explicite lors d'un déplacement, via une nouvelle action `reorderTabs`.
-- **Modales qui disparaissaient** : Les fenêtres de la page d'options ne se ferment plus toutes seules juste après leur ouverture (par exemple après un appui sur Échap).
-- **Service Worker Chrome** : Les écouteurs d'événements sont enregistrés immédiatement, pour ne plus perdre de messages ni l'événement d'installation au réveil du service worker.
-- **Catégories renommées** : Les noms de catégories personnalisés ne sont plus réinitialisés à chaque mise à jour de l'extension.
-- **Installation** : Les données existantes ne sont plus écrasées à l'installation.
-- **Popup** : Le popup reste utilisable si le script d'arrière-plan ne répond pas, et n'écrase plus les réglages avec une copie périmée.
-- **Sélecteur de catégorie** : Ouvrir le sélecteur rapide de catégorie pendant la fermeture d'un autre ne supprime plus le mauvais.
-- **Édition d'un onglet** : Modifier un onglet ne le réactive plus s'il était désactivé.
-- **Export** : Le téléchargement de l'export n'est plus annulé sous Firefox.
-- **Notifications** : Un nouveau message n'est plus masqué trop tôt par le précédent.
-- **Cache de stockage** : Le cache est invalidé dès qu'une autre partie de l'extension modifie les données.
-- **Import** : Les fichiers d'import mal formés sont rejetés.
+### 🛠️ Fixes
+- **Tab reordering**: drag and drop now places the tab at the right position. The message "Tab order updated!" appeared but the saved order was wrong (bad position calculation, moved tab sent back to the top).
+- **Full order saved**: every tab gets an explicit order on a move, through a new `reorderTabs` action.
+- **Disappearing dialogs**: the options page windows no longer close by themselves right after opening (after pressing Escape, for instance).
+- **Chrome service worker**: event listeners are registered immediately, so messages and the install event are no longer lost when the service worker wakes up.
+- **Renamed categories**: custom category names are no longer reset on every extension update.
+- **Installation**: existing data is no longer overwritten on install.
+- **Popup**: the popup stays usable when the background script does not answer, and no longer overwrites settings with a stale copy.
+- **Category picker**: opening the quick category picker while another one closes no longer deletes the wrong one.
+- **Tab editing**: editing a tab no longer re-enables it when it was disabled.
+- **Export**: the export download is no longer cancelled under Firefox.
+- **Notifications**: a new message is no longer hidden too early by the previous one.
+- **Storage cache**: the cache is invalidated as soon as another part of the extension changes the data.
+- **Import**: malformed import files are rejected.
 
 ## [1.3.1] - 2026-05-19
 
-### 🛠️ Corrections
-- **Pipeline de release** : Automatisation du build, tag et publication GitHub pour Firefox et Chrome.
+### 🛠️ Fixes
+- **Release pipeline**: automation of the build, tag and GitHub publication for Firefox and Chrome.
 
 ## [1.3.0] - 2026-04-08
 
-### 🛠️ Corrections
-- **Fix deletion bug** : Résolution du bug de suppression des favoris. L'interface se met désormais à jour instantanément après une suppression (`fixed issue: allow deleting pinned tabs from dashboard`).
-- **Correction Manifest** : Suppression d'un champ invalide dans le `manifest.json` qui bloquait le chargement sous Firefox.
+### 🛠️ Fixes
+- **Deletion bug**: fixed the bookmark deletion bug. The interface now updates instantly after a deletion (`fixed issue: allow deleting pinned tabs from dashboard`).
+- **Manifest fix**: removed an invalid field in `manifest.json` that blocked loading under Firefox.
 
-### ✨ Nouvelles Fonctionnalités
-- **Support Cross-Browser complet** : Architecture unifiée permettant à l'extension de fonctionner nativement sur Chrome et Firefox avec le même code source.
-- **Support des containers Firefox** : Ajout de la permission `contextualIdentities` pour un support complet des conteneurs Multi-Account.
-- **Service Worker Chrome** : Mise en place d'un wrapper pour supporter le cycle de vie des extensions Chrome MV3.
+### ✨ New Features
+- **Full cross-browser support**: unified architecture letting the extension run natively on Chrome and Firefox with the same source.
+- **Firefox container support**: addition of the `contextualIdentities` permission for full Multi-Account container support.
+- **Chrome service worker**: a wrapper to support the Chrome MV3 extension lifecycle.
 
 ## [1.2.9] - 2026-04-08
 
-### 🔧 Améliorations
-- Préparation de l'architecture pour le support multi-navigateur.
-
-# Changelog - TabsFlow Firefox Extension
-
-Toutes les modifications notables de cette extension seront documentées dans ce fichier.
-
-Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/),
-et ce projet respecte le [Versioning Sémantique](https://semver.org/lang/fr/).
+### 🔧 Improvements
+- Preparation of the architecture for multi-browser support.
 
 ## [1.2.4] - 2025-01-XX
 
-### 🛠️ Corrections Critiques IndexedDB
-- **🗂️ Nouveau StorageManager** : Gestionnaire de stockage robuste pour éliminer les erreurs `IndexedDB UnknownErr: ActorsParent.cpp`
-- **🔄 Mécanisme de retry intelligent** : Jusqu'à 3 tentatives avec backoff exponentiel pour les opérations échouées
-- **⏱️ Throttling des opérations** : Délai minimum de 50ms entre les accès au stockage pour éviter la surcharge
-- **💾 Cache intelligent** : Cache de 5 secondes pour réduire les accès répétés au stockage
-- **🔒 Protection timeout** : Timeout de 10 secondes pour éviter les blocages d'opérations
+### 🛠️ Critical IndexedDB fixes
+- **🗂️ New StorageManager**: robust storage manager to eliminate the `IndexedDB UnknownErr: ActorsParent.cpp` errors
+- **🔄 Smart retry**: up to 3 attempts with exponential backoff for failed operations
+- **⏱️ Operation throttling**: minimum 50 ms between storage accesses to avoid overload
+- **💾 Smart cache**: 5 second cache to reduce repeated storage accesses
+- **🔒 Timeout protection**: 10 second timeout to avoid blocked operations
 
-### ✨ Nouvelles Fonctionnalités Stockage
-- **📊 Health Check automatique** : Diagnostic de santé du système de stockage au démarrage
-- **🧹 Déduplication d'opérations** : Évite les opérations concurrentes identiques
-- **📈 Monitoring de performance** : Métriques de temps de réponse et taux de succès
-- **⚡ Fallback intelligent** : Basculement automatique entre background script et stockage direct
+### ✨ Storage features
+- **📊 Automatic health check**: storage system health diagnosis at start-up
+- **🧹 Operation de-duplication**: avoids identical concurrent operations
+- **📈 Performance monitoring**: response time and success rate metrics
+- **⚡ Smart fallback**: automatic switching between background script and direct storage
 
-### 🔧 Améliorations Techniques
-- **🏗️ Architecture modulaire** : Séparation claire entre gestion du stockage et logique métier
-- **🛡️ Gestion d'erreurs avancée** : Distinction entre erreurs critiques et temporaires
-- **📝 Logs détaillés** : Messages informatifs pour le debugging et le support technique
-- **🎯 Optimisation Firefox** : Paramètres spécifiquement optimisés pour Firefox IndexedDB
+### 🔧 Technical improvements
+- **🏗️ Modular architecture**: clear separation between storage management and business logic
+- **🛡️ Advanced error handling**: distinction between critical and temporary errors
+- **📝 Detailed logs**: informative messages for debugging and support
+- **🎯 Firefox optimisation**: parameters specifically tuned for Firefox IndexedDB
 
-### 📊 Impact Performance
-- **✅ Élimination des erreurs IndexedDB** : Plus d'erreurs `ActorsParent.cpp` dans la console
-- **⚡ Amélioration des temps de réponse** : Chargement plus rapide grâce au cache intelligent
-- **🔄 Fiabilité accrue** : Recovery automatique en cas d'échec temporaire
-- **📉 Réduction de la charge système** : Throttling pour éviter la surcharge du moteur IndexedDB
+### 📊 Performance impact
+- **✅ IndexedDB errors eliminated**: no more `ActorsParent.cpp` errors in the console
+- **⚡ Faster response times**: faster loading thanks to the smart cache
+- **🔄 Increased reliability**: automatic recovery from temporary failures
+- **📉 Lower system load**: throttling to avoid overloading the IndexedDB engine
 
----
+## [1.2.3] - 2025-01-XX (previous version)
 
-## [1.2.3] - 2025-01-XX (Version précédente)
+### 🛠️ Important fixes
+- **Invalid tab ID errors fixed**: no more `"Invalid tab ID: X"` errors in the console
+- **Popup-background communication improved**: out-of-scope promise errors resolved
+- **Systematic tab validation**: existence checked before any operation
+- **Automatic clean-up**: removal of invalid tab references
 
-### 🛠️ Corrections Importantes
-- **Correction des erreurs d'IDs d'onglets invalides** : Plus d'erreurs `"Invalid tab ID: X"` dans la console
-- **Amélioration de la communication popup-background** : Résolution des erreurs de promesses hors de portée
-- **Validation systématique des onglets** : Vérification de l'existence avant manipulation
-- **Nettoyage automatique** : Suppression des références d'onglets invalides
-
-### ✨ Nouvelles Fonctionnalités
-- **Gestion intelligente des redirections** : Détection automatique des URLs de redirection Google Auth
-- **Normalisation avancée d'URLs** : Reconnaissance des patterns complexes d'authentification
-- **Support containers amélioré** : Validation et délais de sécurité pour Firefox Multi-Account Containers
-- **Mécanisme de retry robuste** : Communication fiable avec tentatives automatiques
+### ✨ New Features
+- **Smart redirect handling**: automatic detection of Google Auth redirect URLs
+- **Advanced URL normalisation**: recognition of complex authentication patterns
+- **Improved container support**: validation and safety delays for Firefox Multi-Account Containers
+- **Robust retry mechanism**: reliable communication with automatic attempts
 
 ### 🌐 Internationalisation
-- **Traductions complètes** : Ajout des nouvelles clés pour l'italien et l'espagnol
-- **Messages containers** : Support multilingue pour les fonctionnalités containers
-- **Messages d'erreur** : Localisation complète des erreurs et confirmations
+- **Complete translations**: new keys added for Italian and Spanish
+- **Container messages**: multilingual support for container features
+- **Error messages**: complete localisation of errors and confirmations
 
-### 🔧 Améliorations Techniques
-- **ContainerUtils renforcé** : Délais adaptatifs et validation containers
-- **Communication asynchrone** : Gestion correcte des promesses avec `sendResponse`
-- **Logs détaillés** : Messages informatifs pour le débogage et le support
-- **Performance optimisée** : Réduction des erreurs de ~95%
-
----
+### 🔧 Technical improvements
+- **Stronger ContainerUtils**: adaptive delays and container validation
+- **Asynchronous communication**: correct promise handling with `sendResponse`
+- **Detailed logs**: informative messages for debugging and support
+- **Optimised performance**: roughly 95% fewer errors
 
 ## [1.2.2] - 2025-01-XX
 
-### 🛠️ Corrections Importantes
-- **Correction des erreurs d'IDs d'onglets invalides** : Plus d'erreurs `"Invalid tab ID: X"` dans la console
-- **Amélioration de la communication popup-background** : Résolution des erreurs de promesses hors de portée
-- **Validation systématique des onglets** : Vérification de l'existence avant manipulation
-- **Nettoyage automatique** : Suppression des références d'onglets invalides
+### 🛠️ Important fixes
+- **Invalid tab ID errors fixed**: no more `"Invalid tab ID: X"` errors in the console
+- **Popup-background communication improved**: out-of-scope promise errors resolved
+- **Systematic tab validation**: existence checked before any operation
+- **Automatic clean-up**: removal of invalid tab references
 
-### ✨ Nouvelles Fonctionnalités
-- **Gestion intelligente des redirections** : Détection automatique des URLs de redirection Google Auth
-- **Normalisation avancée d'URLs** : Reconnaissance des patterns complexes d'authentification
-- **Support containers amélioré** : Validation et délais de sécurité pour Firefox Multi-Account Containers
-- **Mécanisme de retry robuste** : Communication fiable avec tentatives automatiques
+### ✨ New Features
+- **Smart redirect handling**: automatic detection of Google Auth redirect URLs
+- **Advanced URL normalisation**: recognition of complex authentication patterns
+- **Improved container support**: validation and safety delays for Firefox Multi-Account Containers
+- **Robust retry mechanism**: reliable communication with automatic attempts
 
 ### 🌐 Internationalisation
-- **Traductions complètes** : Ajout des nouvelles clés pour l'italien et l'espagnol
-- **Messages containers** : Support multilingue pour les fonctionnalités containers
-- **Messages d'erreur** : Localisation complète des erreurs et confirmations
+- **Complete translations**: new keys added for Italian and Spanish
+- **Container messages**: multilingual support for container features
+- **Error messages**: complete localisation of errors and confirmations
 
-### 🔧 Améliorations Techniques
-- **ContainerUtils renforcé** : Délais adaptatifs et validation containers
-- **Communication asynchrone** : Gestion correcte des promesses avec `sendResponse`
-- **Logs détaillés** : Messages informatifs pour le débogage et le support
-- **Performance optimisée** : Réduction des erreurs de ~95%
-
----
+### 🔧 Technical improvements
+- **Stronger ContainerUtils**: adaptive delays and container validation
+- **Asynchronous communication**: correct promise handling with `sendResponse`
+- **Detailed logs**: informative messages for debugging and support
+- **Optimised performance**: roughly 95% fewer errors
 
 ## [1.2.1] - 2024-12-XX
 
-### 🔧 Corrections de Bugs
-- **Support Firefox Multi-Account Containers** : Ajout des permissions `contextualIdentities` et `cookies`
-- **Gestion des containers** : Intégration complète avec Firefox Multi-Account Containers
-- **Scripts background** : Restructuration pour supporter les containers
+### 🔧 Bug fixes
+- **Firefox Multi-Account Containers support**: addition of the `contextualIdentities` and `cookies` permissions
+- **Container handling**: complete integration with Firefox Multi-Account Containers
+- **Background scripts**: restructuring to support containers
 
-### ✨ Améliorations
-- **Détection automatique** : Vérification du support containers au démarrage
-- **Container par défaut** : Fallback gracieux si containers indisponibles
-- **Logs enrichis** : Messages informatifs pour les opérations containers
-
----
+### ✨ Improvements
+- **Automatic detection**: container support checked at start-up
+- **Default container**: graceful fallback when containers are unavailable
+- **Richer logs**: informative messages for container operations
 
 ## [1.2.0] - 2024-11-XX
 
-### ✨ Fonctionnalités Majeures
-- **Interface utilisateur repensée** : Design moderne inspiré de Firefox Proton
-- **Système de catégories** : Organisation des onglets par catégories personnalisables
-- **Drag & Drop** : Réorganisation intuitive des onglets par glisser-déposer
-- **Gestion des doublons** : Détection intelligente des onglets déjà ouverts
+### ✨ Major features
+- **Redesigned interface**: modern design inspired by Firefox Proton
+- **Category system**: tabs organised into customisable categories
+- **Drag and drop**: intuitive reordering of tabs by dragging
+- **Duplicate handling**: smart detection of tabs already open
 
-### 🎨 Interface Utilisateur
-- **Popup moderne** : Interface claire avec aperçu des onglets
-- **Options améliorées** : Page de configuration complètement repensée
-- **Thème adaptatif** : Support automatique du mode sombre/clair
-- **Animations fluides** : Transitions et feedback visuel améliorés
+### 🎨 Interface
+- **Modern popup**: clear interface with a tab preview
+- **Improved options**: completely redesigned settings page
+- **Adaptive theme**: automatic dark / light mode support
+- **Smooth animations**: improved transitions and visual feedback
 
-### 🌐 Internationalisation Complète
-- **14 langues supportées** : Français, Anglais, Espagnol, Italien, Allemand, Néerlandais, Portugais, Russe, Chinois, Japonais, Coréen, Hindi, Indonésien, Arabe
-- **Localisation native** : Messages contextuels et descriptions complètes
-- **RTL Support** : Support des langues de droite à gauche (Arabe)
+### 🌐 Full internationalisation
+- **14 languages supported**: French, English, Spanish, Italian, German, Dutch, Portuguese, Russian, Chinese, Japanese, Korean, Hindi, Indonesian, Arabic
+- **Native localisation**: contextual messages and complete descriptions
+- **RTL support**: right-to-left languages supported (Arabic)
 
-### 🔧 Améliorations Techniques
-- **Architecture modulaire** : Code organisé en modules distincts
-- **Gestion d'erreurs robuste** : Handling complet des cas d'échec
-- **Performance optimisée** : Chargement plus rapide et moins de ressources
-- **API Firefox moderne** : Utilisation des dernières APIs WebExtensions
-
----
+### 🔧 Technical improvements
+- **Modular architecture**: code organised in distinct modules
+- **Robust error handling**: full coverage of failure cases
+- **Optimised performance**: faster loading and fewer resources
+- **Modern Firefox API**: use of the latest WebExtensions APIs
 
 ## [1.1.0] - 2024-10-XX
 
-### ✨ Nouvelles Fonctionnalités
-- **Ouverture automatique** : Option pour ouvrir les onglets lors de nouvelles fenêtres
-- **Import/Export** : Sauvegarde et restauration des configurations
-- **Épinglage de l'onglet actuel** : Ajout rapide depuis le popup
-- **Statistiques d'utilisation** : Informations sur la dernière ouverture
+### ✨ New Features
+- **Automatic opening**: option to open the tabs in new windows
+- **Import / Export**: saving and restoring configurations
+- **Pin the current tab**: quick addition from the popup
+- **Usage statistics**: information about the last opening
 
-### 🔧 Améliorations
-- **Validation d'URLs** : Vérification automatique des URLs saisies
-- **Messages de feedback** : Notifications de succès et d'erreur
-- **Interface responsive** : Adaptation aux différentes tailles d'écran
-
----
+### 🔧 Improvements
+- **URL validation**: automatic check of the addresses typed in
+- **Feedback messages**: success and error notifications
+- **Responsive interface**: adaptation to different screen sizes
 
 ## [1.0.0] - 2024-09-XX
 
-### 🎉 Version Initiale
-- **Gestion d'onglets épinglés** : Création et gestion d'une liste d'URLs favorites
-- **Ouverture en un clic** : Ouverture simultanée de tous les onglets configurés
-- **Épinglage automatique** : Les onglets s'ouvrent directement épinglés
-- **Configuration simple** : Interface basique pour ajouter/supprimer des onglets
+### 🎉 Initial release
+- **Pinned tab management**: creating and managing a list of favourite URLs
+- **One-click opening**: all configured tabs opened at once
+- **Automatic pinning**: tabs open directly pinned
+- **Simple setup**: basic interface to add and remove tabs
 
-### 🛠️ Fonctionnalités de Base
-- **Storage local** : Sauvegarde sécurisée des configurations
-- **Permissions minimales** : Seulement les permissions nécessaires
-- **Compatible Firefox** : Support des versions Firefox 78.0+
-- **Manifest v2** : Conformité aux standards Firefox
+### 🛠️ Base features
+- **Local storage**: secure saving of the configuration
+- **Minimal permissions**: only the permissions needed
+- **Firefox compatible**: support for Firefox 78.0 and later
+- **Manifest v2**: Firefox standards compliance
 
----
+## Change types
 
-## 📋 Types de Changements
+- **✨ New Features**: additions.
+- **🛠️ Fixes**: bug fixes.
+- **🔧 Improvements**: improvements to existing features.
+- **🎨 Interface**: user interface changes.
+- **🌐 Internationalisation**: translation additions and changes.
+- **⚡ Performance**: performance improvements.
+- **🔒 Security**: security fixes.
+- **📝 Documentation**: documentation updates.
 
-- **✨ Nouvelles Fonctionnalités** : Ajouts de fonctionnalités
-- **🛠️ Corrections** : Corrections de bugs
-- **🔧 Améliorations** : Améliorations de fonctionnalités existantes
-- **🎨 Interface** : Changements d'interface utilisateur
-- **🌐 Internationalisation** : Ajouts/modifications de traductions
-- **⚡ Performance** : Améliorations de performance
-- **🔒 Sécurité** : Corrections liées à la sécurité
-- **📚 Documentation** : Mises à jour de documentation
+## Links
 
----
-
-## 🔗 Liens Utiles
-
-- **GitHub Repository** : [Tabs-Pin-Manager-Extension](https://github.com/alexandre-leng/Tabs-Pin-Manager-Extension)
-- **Firefox Add-ons** : [Page officielle AMO](https://addons.mozilla.org/firefox/addon/tabs-pin/)
-- **Documentation** : [Wiki du projet](https://github.com/alexandre-leng/Tabs-Pin-Manager-Extension/wiki)
-- **Support** : [Issues GitHub](https://github.com/alexandre-leng/Tabs-Pin-Manager-Extension/issues) 
+- **GitHub repository**: [Tabs-Pin-Manager-Extension](https://github.com/alexandre-leng/Tabs-Pin-Manager-Extension)
+- **Firefox Add-ons**: [AMO page](https://addons.mozilla.org/firefox/addon/tabs-pin/)
+- **Documentation**: [docs/](docs/README.md)
+- **Support**: [GitHub issues](https://github.com/alexandre-leng/Tabs-Pin-Manager-Extension/issues)
