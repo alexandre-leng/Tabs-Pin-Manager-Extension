@@ -6,7 +6,7 @@ Entries from 1.5.0 on are written in English: the release notes published from t
 read by users of both stores, whatever their language. Earlier entries keep the language they
 were published in.
 
-## [Unreleased]
+## [1.6.0] - 2026-11-06
 
 ### ✨ New Features
 - **Delete a category**: the edit dialog offers "Delete Category", with a confirmation naming the tabs involved and the category that will take them. Tabs of the deleted category move to the first remaining category, and the last category cannot be deleted.
