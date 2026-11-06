@@ -15,7 +15,8 @@ were published in.
 - **Lighter popup**: the "Last opened" line and the "N pinned / N categories" statistics row are removed, with the time formatting module and the seven messages they used in the 14 locales. The `lastOpened` setting is still recorded in backups.
 
 ### 📝 Documentation
-- **Versioning rules**: the README says when to publish a major, minor or patch version (data or permission break, feature, fix), and how the number follows from the changelog sections.
+- **Documentation folder**: architecture, backup format, accessibility and versioning pages now live in `docs/`, in English, while the README keeps the overview, installation and usage and links to them.
+- **Versioning rules**: `docs/versioning.md` says when to publish a major, minor or patch version (data or permission break, feature, fix), and how the number follows from the changelog sections.
 
 ## [1.5.0] - 2026-11-06
 

@@ -21,11 +21,8 @@ in one click, pinned and without duplicates. Manifest V3, 100% local storage, no
 - [Installation](#installation)
 - [Usage](#usage)
 - [Privacy & permissions](#privacy--permissions)
-- [Backup format](#backup-format)
 - [Development](#development)
-- [Architecture](#architecture)
-- [Versioning](#versioning)
-- [Releasing](#releasing)
+- [Documentation](#documentation)
 - [Support](#support) · [License](#license)
 
 ## Features
@@ -81,29 +78,6 @@ also provides the Firefox and Chrome packages as `.zip` files.
   it from Google's and DuckDuckGo's favicon services, then from the site itself. These
   requests contain the site's **domain name** (not the full address).
 
-## Backup format
-
-**Options → Export** downloads a JSON file:
-
-```json
-{
-  "tabs": [
-    { "id": "tab_…", "url": "https://example.com/", "title": "Example",
-      "category": "work", "enabled": true, "order": 0, "dateAdded": "2026-01-01T00:00:00.000Z" }
-  ],
-  "categories": [{ "id": "work", "name": "Work", "icon": "💼" }],
-  "settings": { "lastOpened": "2026-01-01T00:00:00.000Z", "categoriesLocalized": true },
-  "exportDate": "…",
-  "version": "1.5.0"
-}
-```
-
-On import, the file **replaces** the current tabs and categories. It is validated first:
-entries without an `http(s)` address and unnamed categories are dropped, a missing icon
-becomes 📁, tabs of an unknown category go to the first one, duplicate IDs are fixed,
-only a valid past `lastOpened` date is kept from the settings, and the number of skipped
-tabs is reported.
-
 ## Development
 
 Requirements: **Node.js ≥ 20.11** (see `.nvmrc`), Firefox and/or Chromium.
@@ -128,73 +102,16 @@ npm ci
 `build/<browser>/` with the browser-specific manifest (`scripts/prepare-manifest.js`).
 CI runs all the checks above on every push and pull request.
 
-## Architecture
+## Documentation
 
-Native **ES modules**, no bundler: each context has one entry module and every
-dependency is an explicit `import`.
+The deeper documentation lives in [`docs/`](docs/README.md), in English:
 
-| Context | Entry | Modules |
-|---|---|---|
-| Background (Firefox event page / Chrome service worker) | `background/background.js` | `controller.js` (events, messages), `data-store.js` (saved data, one change at a time), `tab-actions.js` (open / pin / close tabs), `import-sanitizer.js`, `log.js` |
-| Popup | `popup/main.js` | `popup.js` (`PopupManager`), `category-list.js`, `category-order.js`, `category-selection.js`, `tab-actions.js` |
-| Options page | `options/main.js` | `options.js` (`OptionsManager`), `tab-cards.js`, `tab-editor.js`, `tab-ordering.js`, `category-editor.js`, `icon-picker.js`, `import-export.js` |
-| Shared | `lib/` | `browser-api.js`, `storage-manager.js`, `url-utils.js`, `tab-utils.js`, `domain-utils.js`, `punycode.js` (display of international domains), `category-utils.js` (category IDs and the limit), `ui-utils.js`, `i18n-helper.js`, `default-categories.js`, `mixins.js` |
-
-- The **background script owns the data**: pages change it only through messages
-  (`openAllTabs`, `openCategoryTabs`, `countCategoryPinnedTabs`, `closeCategoryTabs`,
-  `saveTab`, `deleteTab`, `reorderTabs`, `saveCategories`, `importAllData`) and read it
-  with `getTabsData` (the popup reads storage directly only if the background does not
-  answer). The background broadcasts a `dataChanged` message after each change.
-- On install, default categories are created in the browser language; on update,
-  `migrate()` translates them once (`settings.categoriesLocalized`), fills missing tab
-  fields and moves tabs of unknown categories to the first one.
-- Page features are plain objects of methods composed into the page class with `mixin()`,
-  which throws if two features define the same method.
-- `tests/module-graph.test.js` checks that every import resolves and no module is unused;
-  `tests/locales.test.js` checks that every translation key used exists in every language.
-
-## Versioning
-
-Tabs Pin follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html): `MAJOR.MINOR.PATCH`,
-digits only, because Firefox and Chrome both require a numeric version in the manifest. `1.0.0`
-was the first public release, there is no `0.x`.
-
-| Bump | When | Examples |
-|---|---|---|
-| `MAJOR` | A change an existing user cannot absorb silently | stored data or a backup that older and newer versions cannot read, saved tabs losing their category, a supported browser being dropped, a new permission the user must approve |
-| `MINOR` | New behaviour, compatible with everything already saved | adding or deleting a category, a new language, a new option |
-| `PATCH` | No new behaviour | fixes, accessibility, translations of existing text, performance, documentation, build and CI |
-
-The sections of the unreleased part of `CHANGELOG.md` decide the number:
-
-- `⚠️ Breaking Changes` present: **MAJOR**
-- otherwise `✨ New Features` present: **MINOR**
-- only `🛠️ Fixes`, `📝 Documentation` and `🧹 Quality`: **PATCH**
-
-Rules that keep the repository and the two stores consistent:
-
-- One version per release, taken from `Unreleased` once, never reused or rewritten. A version
-  published by mistake is fixed by publishing the next patch.
-- `package.json`, `package-lock.json` and `manifest.json` carry the same version; a unit test
-  fails when they differ.
-- The manifest version is `X.Y.Z`, with no suffix: the Chrome Web Store only accepts
-  dot-separated numbers, so one numeric format is used for both stores.
-- The Git tag is `X.Y.Z` and the release title `vX.Y.Z`, both written by the Release workflow.
-- A release ships what its notes describe: tests, CI or internal refactoring that changes nothing
-  for the user do not, by themselves, justify a release.
-- Release notes are written in English, in `CHANGELOG.md` and on the GitHub release page: they are
-  read by users of both stores, whatever their language. Entries published before `1.5.0` keep the
-  language they were released in.
-
-## Releasing
-
-1. Choose the number with the rules above.
-2. Bump it in `package.json`, `package-lock.json` and `manifest.json`
-   (`npm version x.y.z --no-git-tag-version`, then edit the manifest).
-3. Move the `Unreleased` notes of `CHANGELOG.md` under `## [x.y.z] - date`, in English.
-4. Push to `main`, then run the **Release** workflow (Actions → Release → Run workflow):
-   it tests, builds both packages and publishes the GitHub release with the changelog
-   section as notes.
+| Page | What it covers |
+|---|---|
+| [Architecture](docs/architecture.md) | contexts, modules, data flow, tests and packaging |
+| [Backup format](docs/backup-format.md) | the exported JSON, and how an import is validated |
+| [Accessibility](docs/accessibility.md) | keyboard, screen readers, themes and the automated audit |
+| [Versioning](docs/versioning.md) | version numbers, changelog sections and the release procedure |
 
 ## Support
 
