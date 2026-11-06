@@ -59,8 +59,15 @@ body {
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 10px;
+}
+
+/* Three cards side by side, as soon as the width makes them readable */
+@media (width >= 640px) {
+  .welcome-steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .welcome-step {
@@ -207,10 +214,6 @@ body {
 
   .welcome-intro {
     font-size: var(--font-size-base);
-  }
-
-  .welcome-steps {
-    grid-template-columns: 1fr;
   }
 
 

@@ -42,6 +42,20 @@ test('the welcome page tells what the extension is for, in three steps', async (
   await expect(page.locator('#openOptionsBtn')).toHaveText('Open the options page');
 });
 
+test('stays inside the window, from 320 to 900 px', async ({ openPage }) => {
+  const page = await openPage('welcome/welcome.html');
+
+  for (const width of [320, 420, 640, 900]) {
+    await page.setViewportSize({ width, height: 900 });
+    const layout = await page.evaluate(() => ({
+      overflow: document.documentElement.scrollWidth - window.innerWidth,
+      columns: getComputedStyle(document.querySelector('.welcome-steps')).gridTemplateColumns.split(' ').length
+    }));
+    expect(layout.overflow, `horizontal overflow at ${width}px`).toBeLessThanOrEqual(1);
+    expect(layout.columns, `columns at ${width}px`).toBe(width >= 640 ? 3 : 1);
+  }
+});
+
 test('the welcome page opens the options page', async ({ openPage }) => {
   const page = await openPage('welcome/welcome.html');
 
