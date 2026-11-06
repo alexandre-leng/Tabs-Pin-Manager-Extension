@@ -7,6 +7,11 @@ All notable changes to this project will be documented in this file. The format 
 Every entry is written in English: the release notes published from this file are read by users of
 both stores, whatever their language. The rules are in [`docs/versioning.md`](docs/versioning.md).
 
+## [Unreleased]
+
+### ✨ New Features
+- **Delete a category from its card**: a cross in the corner of each category card deletes it, with the same confirmation as the dialog. No need to open the category first. The cross is gone when only one category is left, and the confirmation of an empty category now says it holds no pinned tab instead of announcing "0 pinned tab(s)". Category cards also show a focus ring now that they are reached with the keyboard.
+
 ## [1.6.0] - 2026-11-06
 
 Category deletion, a lighter popup and an English documentation folder.

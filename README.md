@@ -59,7 +59,9 @@ also provides the Firefox and Chrome packages as `.zip` files.
 
 1. Click the **Tabs Pin** icon in the toolbar.
 2. **Pin current tab** saves the page you are on (you choose its category), or open
-   **Options** to add, edit and reorder sites and categories.
+   **Options** to add, edit and reorder sites and categories. The cross in the corner of a
+   category card deletes it, after confirmation, and moves its sites to the first remaining
+   category.
 3. **Open N tabs** opens everything; click a category to open only its sites.
 4. The **Close** button of a category closes, after confirmation, the pinned tabs of the
    current window whose site (domain) matches one of the category's saved sites.

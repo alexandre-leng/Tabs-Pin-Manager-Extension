@@ -265,6 +265,16 @@
   "deleteCategory": {
     "message": "카테고리 삭제"
   },
+  "deleteCategoryNamed": {
+    "message": "“$NAME$” 삭제",
+    "description": "Delete button on a category card, read by screen readers",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
   "deleteCategoryConfirm": {
     "message": "“$CATEGORY_NAME$”을(를) 삭제할까요? 고정된 탭 $COUNT$개가 “$TARGET_NAME$”(으)로 이동합니다.",
     "placeholders": {
@@ -279,6 +289,16 @@
       "target_name": {
         "content": "$3",
         "example": "Personal"
+      }
+    }
+  },
+  "deleteCategoryConfirmEmpty": {
+    "message": "“$CATEGORY_NAME$”을(를) 삭제할까요? 고정된 탭이 없습니다.",
+    "description": "Confirmation before deleting a category that holds no tab",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
       }
     }
   },

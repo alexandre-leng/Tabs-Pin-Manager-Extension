@@ -258,6 +258,16 @@
   "deleteCategory": {
     "message": "Supprimer la Catégorie"
   },
+  "deleteCategoryNamed": {
+    "message": "Supprimer « $NAME$ »",
+    "description": "Delete button on a category card, read by screen readers",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
   "deleteCategoryConfirm": {
     "message": "Supprimer « $CATEGORY_NAME$ » ? Ses $COUNT$ onglet(s) épinglé(s) seront déplacés vers « $TARGET_NAME$ ».",
     "placeholders": {
@@ -272,6 +282,16 @@
       "target_name": {
         "content": "$3",
         "example": "Personal"
+      }
+    }
+  },
+  "deleteCategoryConfirmEmpty": {
+    "message": "Supprimer « $CATEGORY_NAME$ » ? Elle ne contient aucun onglet épinglé.",
+    "description": "Confirmation before deleting a category that holds no tab",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
       }
     }
   },

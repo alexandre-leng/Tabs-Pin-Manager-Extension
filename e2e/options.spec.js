@@ -233,6 +233,95 @@ test('deletes a category and moves its tabs to the first remaining one', async (
   expect(tabs.every(tab => tab.category === 'work')).toBe(true);
 });
 
+test('deletes a category from the cross on its card', async ({ openPage, seed }) => {
+  const categories = [
+    { id: 'work', name: 'Work', icon: '💼' },
+    { id: 'personal', name: 'Personal', icon: '👤' },
+    { id: 'clients', name: 'Clients', icon: '🤝' }
+  ];
+  await seed({ tabs: sampleTabs(2, 'clients'), categories });
+  const options = await openPage('options/options.html');
+
+  const card = options.locator('[data-category-id="clients"]');
+  const cross = card.locator('.category-delete-btn');
+  await expect(cross).toHaveAttribute('aria-label', 'Delete "Clients"');
+
+  let confirmText = '';
+  options.once('dialog', dialog => {
+    confirmText = dialog.message();
+    dialog.accept();
+  });
+  await cross.click();
+
+  expect(confirmText).toContain('Delete "Clients"?');
+  expect(confirmText).toContain('2 pinned tab(s) will move to "Work"');
+  // The cross deletes without opening the editor first
+  await expect(options.locator('#categoryModalOverlay')).toBeHidden();
+  await expect(options.locator('.category-item')).toHaveCount(2);
+  await expect(options.locator('#toastMessage')).toHaveText('Category deleted successfully!');
+  await expect(options.locator('[data-category-id="work"] .category-count')).toHaveText('2 tabs');
+  const { categories: saved, tabs } = await savedData(options);
+  expect(saved.map(c => c.id)).toEqual(['work', 'personal']);
+  expect(tabs.every(tab => tab.category === 'work')).toBe(true);
+});
+
+test('the cross does nothing when the confirmation is dismissed', async ({ openPage, seed }) => {
+  const categories = [
+    { id: 'work', name: 'Work', icon: '💼' },
+    { id: 'personal', name: 'Personal', icon: '👤' }
+  ];
+  await seed({ tabs: [], categories });
+  const options = await openPage('options/options.html');
+
+  options.once('dialog', dialog => dialog.dismiss());
+  await options.locator('[data-category-id="personal"] .category-delete-btn').click();
+
+  await expect(options.locator('.category-item')).toHaveCount(2);
+  expect((await savedData(options)).categories).toHaveLength(2);
+});
+
+test('the card cross is gone for the last category', async ({ openPage, seed }) => {
+  await seed({ tabs: [], categories: [{ id: 'work', name: 'Work', icon: '💼' }] });
+  const options = await openPage('options/options.html');
+
+  await expect(options.locator('[data-category-id="work"] .category-delete-btn')).toBeHidden();
+});
+
+test('an empty category says it holds no tab instead of "0 pinned tab(s)"', async ({ openPage, seed }) => {
+  const categories = [
+    { id: 'work', name: 'Work', icon: '💼' },
+    { id: 'personal', name: 'Personal', icon: '👤' }
+  ];
+  await seed({ tabs: [], categories });
+  const options = await openPage('options/options.html');
+
+  let confirmText = '';
+  options.once('dialog', dialog => {
+    confirmText = dialog.message();
+    dialog.accept();
+  });
+  await options.locator('[data-category-id="personal"] .category-delete-btn').click();
+
+  expect(confirmText).toBe('Delete "Personal"? It has no pinned tabs.');
+  await expect(options.locator('.category-item')).toHaveCount(1);
+});
+
+test('the card cross works from the keyboard, and the focus lands on a card', async ({ openPage, seed }) => {
+  const categories = [
+    { id: 'work', name: 'Work', icon: '💼' },
+    { id: 'personal', name: 'Personal', icon: '👤' }
+  ];
+  await seed({ tabs: [], categories });
+  const options = await openPage('options/options.html');
+
+  await options.locator('[data-category-id="personal"] .category-delete-btn').focus();
+  options.once('dialog', dialog => dialog.accept());
+  await options.keyboard.press('Enter');
+
+  await expect(options.locator('.category-item')).toHaveCount(1);
+  await expect(options.locator('[data-category-id="work"]')).toBeFocused();
+});
+
 test('keeps at least one category', async ({ openPage, seed }) => {
   await seed({ tabs: [], categories: [{ id: 'work', name: 'Work', icon: '💼' }] });
   const options = await openPage('options/options.html');

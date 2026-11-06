@@ -265,6 +265,16 @@
   "deleteCategory": {
     "message": "श्रेणी हटाएँ"
   },
+  "deleteCategoryNamed": {
+    "message": "«$NAME$» हटाएँ",
+    "description": "Delete button on a category card, read by screen readers",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
   "deleteCategoryConfirm": {
     "message": "क्या «$CATEGORY_NAME$» हटाएँ? इसके $COUNT$ पिन किए गए टैब «$TARGET_NAME$» में चले जाएँगे।",
     "placeholders": {
@@ -279,6 +289,16 @@
       "target_name": {
         "content": "$3",
         "example": "Personal"
+      }
+    }
+  },
+  "deleteCategoryConfirmEmpty": {
+    "message": "क्या «$CATEGORY_NAME$» हटाएँ? इसमें कोई पिन किया गया टैब नहीं है।",
+    "description": "Confirmation before deleting a category that holds no tab",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
       }
     }
   },

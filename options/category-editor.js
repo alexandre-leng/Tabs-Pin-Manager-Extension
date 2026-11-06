@@ -128,8 +128,8 @@ export const categoryEditor = {
    * Deletes the category being edited. Its tabs move to the first remaining category,
    * like every other removed category.
    */
-  async deleteCategory() {
-    const category = this.currentEditingCategory;
+  async deleteCategory(selectedCategory) {
+    const category = selectedCategory || this.currentEditingCategory;
     if (!category) return;
 
     if (this.categories.length <= 1) {
@@ -141,11 +141,14 @@ export const categoryEditor = {
     const remaining = this.categories.filter(c => c.id !== category.id);
     const target = remaining[0];
     const tabCount = this.tabs.filter(tab => tab.category === category.id).length;
-    const confirmed = confirm(browser.i18n.getMessage('deleteCategoryConfirm', [
-      category.name,
-      String(tabCount),
-      target.name
-    ]));
+    // An empty category gets its own sentence: "its 0 pinned tab(s)" reads badly
+    const confirmed = confirm(tabCount === 0
+      ? browser.i18n.getMessage('deleteCategoryConfirmEmpty', [category.name])
+      : browser.i18n.getMessage('deleteCategoryConfirm', [
+        category.name,
+        String(tabCount),
+        target.name
+      ]));
     if (!confirmed) return;
 
     try {
@@ -158,7 +161,10 @@ export const categoryEditor = {
         await this.loadData();
         this.renderTabs();
         this.renderCategories();
-        this.closeCategoryModal();
+        // Deleting from a card leaves no dialog open behind it
+        if (this.currentEditingCategory?.id === category.id) {
+          this.closeCategoryModal();
+        }
         this.focusAfterCategoryDelete(index);
         this.showToast('success', '✅', browser.i18n.getMessage('categoryDeleted'));
       } else {

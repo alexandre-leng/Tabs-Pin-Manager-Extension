@@ -265,6 +265,16 @@
   "deleteCategory": {
     "message": "删除类别"
   },
+  "deleteCategoryNamed": {
+    "message": "删除“$NAME$”",
+    "description": "Delete button on a category card, read by screen readers",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
   "deleteCategoryConfirm": {
     "message": "删除“$CATEGORY_NAME$”？其 $COUNT$ 个固定标签页将移至“$TARGET_NAME$”。",
     "placeholders": {
@@ -279,6 +289,16 @@
       "target_name": {
         "content": "$3",
         "example": "Personal"
+      }
+    }
+  },
+  "deleteCategoryConfirmEmpty": {
+    "message": "删除“$CATEGORY_NAME$”？该类别没有固定标签页。",
+    "description": "Confirmation before deleting a category that holds no tab",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
       }
     }
   },

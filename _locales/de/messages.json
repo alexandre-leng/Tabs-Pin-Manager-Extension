@@ -254,6 +254,16 @@
   "deleteCategory": {
     "message": "Kategorie Löschen"
   },
+  "deleteCategoryNamed": {
+    "message": "„$NAME$“ löschen",
+    "description": "Delete button on a category card, read by screen readers",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
   "deleteCategoryConfirm": {
     "message": "„$CATEGORY_NAME$“ löschen? Die $COUNT$ angehefteten Tab(s) werden nach „$TARGET_NAME$“ verschoben.",
     "placeholders": {
@@ -268,6 +278,16 @@
       "target_name": {
         "content": "$3",
         "example": "Personal"
+      }
+    }
+  },
+  "deleteCategoryConfirmEmpty": {
+    "message": "„$CATEGORY_NAME$“ löschen? Sie enthält keine angehefteten Tabs.",
+    "description": "Confirmation before deleting a category that holds no tab",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
       }
     }
   },

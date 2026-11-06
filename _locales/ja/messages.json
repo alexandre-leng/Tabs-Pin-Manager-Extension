@@ -265,6 +265,16 @@
   "deleteCategory": {
     "message": "カテゴリを削除"
   },
+  "deleteCategoryNamed": {
+    "message": "「$NAME$」を削除",
+    "description": "Delete button on a category card, read by screen readers",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
   "deleteCategoryConfirm": {
     "message": "「$CATEGORY_NAME$」を削除しますか？ピン留めした $COUNT$ 個のタブは「$TARGET_NAME$」に移動します。",
     "placeholders": {
@@ -279,6 +289,16 @@
       "target_name": {
         "content": "$3",
         "example": "Personal"
+      }
+    }
+  },
+  "deleteCategoryConfirmEmpty": {
+    "message": "「$CATEGORY_NAME$」を削除しますか？ピン留めしたタブはありません。",
+    "description": "Confirmation before deleting a category that holds no tab",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
       }
     }
   },

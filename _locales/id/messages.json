@@ -265,6 +265,16 @@
   "deleteCategory": {
     "message": "Hapus Kategori"
   },
+  "deleteCategoryNamed": {
+    "message": "Hapus «$NAME$»",
+    "description": "Delete button on a category card, read by screen readers",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
   "deleteCategoryConfirm": {
     "message": "Hapus «$CATEGORY_NAME$»? $COUNT$ tab yang disematkan akan dipindahkan ke «$TARGET_NAME$».",
     "placeholders": {
@@ -279,6 +289,16 @@
       "target_name": {
         "content": "$3",
         "example": "Personal"
+      }
+    }
+  },
+  "deleteCategoryConfirmEmpty": {
+    "message": "Hapus «$CATEGORY_NAME$»? Tidak ada tab yang disematkan.",
+    "description": "Confirmation before deleting a category that holds no tab",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
       }
     }
   },

@@ -258,6 +258,16 @@
   "deleteCategory": {
     "message": "Eliminar Categoría"
   },
+  "deleteCategoryNamed": {
+    "message": "Eliminar «$NAME$»",
+    "description": "Delete button on a category card, read by screen readers",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
   "deleteCategoryConfirm": {
     "message": "¿Eliminar «$CATEGORY_NAME$»? Sus $COUNT$ pestaña(s) fijada(s) se moverán a «$TARGET_NAME$».",
     "placeholders": {
@@ -272,6 +282,16 @@
       "target_name": {
         "content": "$3",
         "example": "Personal"
+      }
+    }
+  },
+  "deleteCategoryConfirmEmpty": {
+    "message": "¿Eliminar «$CATEGORY_NAME$»? No tiene pestañas fijadas.",
+    "description": "Confirmation before deleting a category that holds no tab",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
       }
     }
   },

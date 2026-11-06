@@ -254,6 +254,16 @@
   "deleteCategory": {
     "message": "Categorie Verwijderen"
   },
+  "deleteCategoryNamed": {
+    "message": "„$NAME$” verwijderen",
+    "description": "Delete button on a category card, read by screen readers",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
   "deleteCategoryConfirm": {
     "message": "„$CATEGORY_NAME$” verwijderen? De $COUNT$ vastgezette tab(s) worden naar „$TARGET_NAME$” verplaatst.",
     "placeholders": {
@@ -268,6 +278,16 @@
       "target_name": {
         "content": "$3",
         "example": "Personal"
+      }
+    }
+  },
+  "deleteCategoryConfirmEmpty": {
+    "message": "„$CATEGORY_NAME$” verwijderen? Er zijn geen vastgezette tabbladen.",
+    "description": "Confirmation before deleting a category that holds no tab",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
       }
     }
   },

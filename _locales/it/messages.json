@@ -258,6 +258,16 @@
   "deleteCategory": {
     "message": "Elimina Categoria"
   },
+  "deleteCategoryNamed": {
+    "message": "Eliminare «$NAME$»",
+    "description": "Delete button on a category card, read by screen readers",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
   "deleteCategoryConfirm": {
     "message": "Eliminare «$CATEGORY_NAME$»? Le sue $COUNT$ scheda/e fissata/e verranno spostate in «$TARGET_NAME$».",
     "placeholders": {
@@ -272,6 +282,16 @@
       "target_name": {
         "content": "$3",
         "example": "Personal"
+      }
+    }
+  },
+  "deleteCategoryConfirmEmpty": {
+    "message": "Eliminare «$CATEGORY_NAME$»? Non contiene schede fissate.",
+    "description": "Confirmation before deleting a category that holds no tab",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
       }
     }
   },

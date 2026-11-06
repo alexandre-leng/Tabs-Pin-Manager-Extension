@@ -312,17 +312,42 @@ export class OptionsManager {
     // would otherwise be read as "Personal0 tabs", which breaks the label-in-name rule)
     countPara.textContent = ` ${tabCount} ${tabWord}`;
     
+    // Deleting from the card itself: one click on the cross, the same confirmation as the dialog
+    const deleteButton = document.createElement('button');
+    deleteButton.type = 'button';
+    deleteButton.className = 'category-delete-btn';
+    const deleteLabel = browser.i18n.getMessage('deleteCategoryNamed', [category.name]);
+    deleteButton.setAttribute('aria-label', deleteLabel);
+    // The last category cannot be deleted: no cross at all, rather than a control that leads nowhere
+    deleteButton.hidden = this.categories.length <= 1;
+    deleteButton.title = deleteLabel;
+
+    const deleteGlyph = document.createElement('span');
+    deleteGlyph.className = 'category-delete-glyph';
+    deleteGlyph.setAttribute('aria-hidden', 'true');
+    deleteGlyph.textContent = '×';
+    deleteButton.appendChild(deleteGlyph);
+
+    deleteButton.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      this.deleteCategory(category);
+    });
+
     // Assemble the structure
     infoDiv.appendChild(nameTitle);
     infoDiv.appendChild(countPara);
     card.appendChild(iconDiv);
     card.appendChild(infoDiv);
+    card.appendChild(deleteButton);
     
     // Add click event to edit category
     card.addEventListener('click', () => this.editCategory(category));
-    // The accessible name starts with the visible text (voice control, label in name)
+    // The accessible name starts with the visible text (voice control, label in name).
+    // No button role: the card holds the delete button, and a control cannot be nested in one.
     UiUtils.makeActivatable(card, () => this.editCategory(category), {
-      label: `${category.icon} ${category.name} ${tabCount} ${tabWord}. ${browser.i18n.getMessage('editCategory')}`
+      label: `${category.icon} ${category.name} ${tabCount} ${tabWord}. ${browser.i18n.getMessage('editCategory')}`,
+      role: null
     });
     
     return card;

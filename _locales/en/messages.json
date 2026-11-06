@@ -261,6 +261,16 @@
     "message": "Delete Category",
     "description": "Button that deletes the category being edited"
   },
+  "deleteCategoryNamed": {
+    "message": "Delete \"$NAME$\"",
+    "description": "Delete button on a category card, read by screen readers",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Work"
+      }
+    }
+  },
   "deleteCategoryConfirm": {
     "message": "Delete \"$CATEGORY_NAME$\"? Its $COUNT$ pinned tab(s) will move to \"$TARGET_NAME$\".",
     "description": "Confirmation before deleting a category",
@@ -276,6 +286,16 @@
       "target_name": {
         "content": "$3",
         "example": "Personal"
+      }
+    }
+  },
+  "deleteCategoryConfirmEmpty": {
+    "message": "Delete \"$CATEGORY_NAME$\"? It has no pinned tabs.",
+    "description": "Confirmation before deleting a category that holds no tab",
+    "placeholders": {
+      "category_name": {
+        "content": "$1",
+        "example": "Work"
       }
     }
   },
