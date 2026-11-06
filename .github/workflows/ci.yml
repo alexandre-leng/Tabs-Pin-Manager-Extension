@@ -6,9 +6,11 @@ on:
   pull_request:
     branches: [main]
 
+# Ubuntu 24.04 is pinned: the ubuntu-latest image moved to 26.04 on 2026-10-19, and
+# Playwright 1.56 (pinned in package.json) has no Chromium build for it.
 jobs:
   lint-and-build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -35,7 +37,7 @@ jobs:
 
   e2e:
     # Interface and accessibility tests on the real extension, loaded in Chromium
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
