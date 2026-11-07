@@ -23,6 +23,9 @@ No more category limit, and the addresses you save are compared exactly.
 - **Pin confirmation**: a category deleted in another window made the message say "Unknown" in every language; it falls back to the category ID.
 - **Robustness**: a message action named like an Object property ("constructor", "toString") is rejected as unknown, and the storage health check no longer leaves its test key in the read cache.
 
+### 📝 Documentation
+- **Versioning rule**: a bug or user-interface fix now ships as a **PATCH**, even when it touches many files; only a new capability the user can see makes a **MINOR**. 1.8.0 is kept as published.
+
 ## [1.7.0] - 2026-11-06
 
 ### ✨ New Features

@@ -7,8 +7,12 @@ the first public release, there is no `0.x`.
 | Bump | When | Examples |
 |---|---|---|
 | `MAJOR` | A change an existing user cannot absorb silently | stored data or a backup that older and newer versions cannot read, saved tabs losing their category, a supported browser being dropped, a new permission the user must approve |
-| `MINOR` | New behaviour, compatible with everything already saved | adding or deleting a category, a new language, a new option |
-| `PATCH` | No new behaviour | fixes, accessibility, translations of existing text, performance, documentation, build and CI |
+| `MINOR` | A feature the user can see and use, compatible with everything already saved | adding or deleting a category, the first-run walkthrough, a new language, a new option |
+| `PATCH` | Everything else | a bug fix, a user-interface or user-experience fix (layout, wording, a button, a message), accessibility, translations, performance, documentation, build and CI |
+
+A user-interface fix is a fix, not a feature: making the layout right, rewording a
+message or repairing a button ships as a **PATCH**, even when it took real work and
+touches many files.
 
 ## How the changelog decides the number
 
@@ -18,10 +22,14 @@ The sections of the unreleased part of `CHANGELOG.md` decide the number:
 - otherwise `✨ New Features` present: **MINOR**
 - only `🛠️ Fixes`, `📝 Documentation` and `🧹 Quality`: **PATCH**
 
+When unsure, ask what the user gains: a capability they did not have before is a feature
+(**MINOR**); something that already existed and now works as it should is a fix (**PATCH**).
+
 ## Rules that keep the repository and the two stores consistent
 
 - One version per release, taken from `Unreleased` once, never reused or rewritten. A version
-  published by mistake is fixed by publishing the next patch.
+  published with too high a number stays published: the mistake is not fixed by going back, the
+  following releases simply continue from the rule.
 - `package.json`, `package-lock.json` and `manifest.json` carry the same version; a unit test fails
   when they differ.
 - The manifest version is `X.Y.Z`, with no suffix: the Chrome Web Store only accepts dot-separated
@@ -35,7 +43,8 @@ The sections of the unreleased part of `CHANGELOG.md` decide the number:
 
 ## Release procedure
 
-1. Choose the number with the rules above.
+1. Choose the number with the rules above. In doubt between two numbers, take the lower one: a fix
+   shipped as a patch is never wrong, a minor bump for a fix promises a feature that does not exist.
 2. Bump it in `package.json`, `package-lock.json` and `manifest.json`
    (`npm version x.y.z --no-git-tag-version`, then edit the manifest).
 3. Move the `Unreleased` notes of `CHANGELOG.md` under `## [x.y.z] - date`, in English.
