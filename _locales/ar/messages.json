@@ -186,6 +186,10 @@
   "categoryPrefix": {
     "message": "فئة"
   },
+  "noTabsEnabled": {
+    "message": "لا يوجد تبويب مفعّل",
+    "description": "Message shown when every saved tab is disabled"
+  },
   "noCategoryTabs": {
     "message": "لا توجد تبويبات في هذه الفئة"
   },

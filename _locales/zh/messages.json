@@ -186,6 +186,10 @@
   "categoryPrefix": {
     "message": "类别"
   },
+  "noTabsEnabled": {
+    "message": "没有启用的标签页",
+    "description": "Message shown when every saved tab is disabled"
+  },
   "noCategoryTabs": {
     "message": "此类别中没有标签页"
   },

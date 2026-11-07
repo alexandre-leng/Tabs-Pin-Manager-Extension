@@ -414,6 +414,10 @@
   "categoryPrefix": {
     "message": "Categoria"
   },
+  "noTabsEnabled": {
+    "message": "Nessuna scheda è attiva",
+    "description": "Message shown when every saved tab is disabled"
+  },
   "noCategoryTabs": {
     "message": "Nessuna scheda in questa categoria"
   },

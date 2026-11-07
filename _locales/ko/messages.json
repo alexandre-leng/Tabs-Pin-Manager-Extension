@@ -186,6 +186,10 @@
   "categoryPrefix": {
     "message": "카테고리"
   },
+  "noTabsEnabled": {
+    "message": "활성화된 탭이 없습니다",
+    "description": "Message shown when every saved tab is disabled"
+  },
   "noCategoryTabs": {
     "message": "이 카테고리에는 탭이 없습니다"
   },

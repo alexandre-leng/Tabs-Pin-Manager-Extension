@@ -16,6 +16,29 @@ test('lists categories with their tab counts', async ({ openPage, seed }) => {
   await expect(popup.locator('#categoriesList')).toContainText('2 tabs');
 });
 
+test('counts only the tabs it will open, disabled ones excluded', async ({ openPage, seed }) => {
+  await seed({
+    tabs: [
+      ...sampleTabs(2, 'work'),
+      { id: 'off', url: 'https://off.example/', title: 'Off', category: 'work', enabled: false }
+    ]
+  });
+  const popup = await openPage('popup/popup.html');
+
+  await expect(popup.locator('#openAllBtn')).toContainText('Open 2 tabs');
+  await expect(popup.locator('#tabCount')).toHaveText('2');
+  await expect(popup.locator('#categoriesList')).toContainText('2 tabs');
+});
+
+test('says why nothing would open when every tab is disabled', async ({ openPage, seed }) => {
+  await seed({ tabs: [{ id: 'x', url: 'https://x.example/', title: 'X', category: 'work', enabled: false }] });
+  const popup = await openPage('popup/popup.html');
+
+  const button = popup.locator('#openAllBtn');
+  await expect(button).toBeDisabled();
+  await expect(button.locator('.btn-text')).toHaveText('No tab is enabled');
+});
+
 test('pins the current tab into a category created from the options page', async ({ context, extensionId, openPage, seed }) => {
   await seed({ tabs: sampleTabs(1) });
 

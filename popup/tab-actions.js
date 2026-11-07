@@ -8,7 +8,12 @@ import { browser } from '../lib/browser-api.js';
 export const tabActions = {
   async openAllTabs() {
     if (this.isOpeningTabs) return;
-    
+    // Nothing would open: saying "already open" would be wrong
+    if (this.tabs.length > 0 && this.enabledTabs.length === 0) {
+      this.showToast('info', 'ℹ️', browser.i18n.getMessage('noTabsEnabled'));
+      return;
+    }
+
     this.isOpeningTabs = true;
     this.showButtonLoading(true);
     
@@ -243,7 +248,7 @@ export const tabActions = {
         
         // Show success message with category name
         const category = this.categories.find(c => c.id === categoryId);
-        const categoryName = category ? category.name : 'Unknown';
+        const categoryName = category ? category.name : categoryId;
         const successMessage = browser.i18n.getMessage('tabPinnedInCategory', [newTab.title, categoryName]);
         
         this.showToast('success', '📌', successMessage);

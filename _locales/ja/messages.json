@@ -186,6 +186,10 @@
   "categoryPrefix": {
     "message": "カテゴリ"
   },
+  "noTabsEnabled": {
+    "message": "有効なタブがありません",
+    "description": "Message shown when every saved tab is disabled"
+  },
   "noCategoryTabs": {
     "message": "このカテゴリにはタブがありません"
   },

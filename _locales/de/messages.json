@@ -422,6 +422,10 @@
   "categoryPrefix": {
     "message": "Kategorie"
   },
+  "noTabsEnabled": {
+    "message": "Kein Tab ist aktiviert",
+    "description": "Message shown when every saved tab is disabled"
+  },
   "noCategoryTabs": {
     "message": "Keine Tabs in dieser Kategorie"
   },

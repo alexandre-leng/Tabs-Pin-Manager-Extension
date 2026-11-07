@@ -440,6 +440,10 @@
   "categoryPrefix": {
     "message": "Categoria"
   },
+  "noTabsEnabled": {
+    "message": "Nenhuma aba está ativa",
+    "description": "Message shown when every saved tab is disabled"
+  },
   "noCategoryTabs": {
     "message": "Nenhuma aba nesta categoria"
   },

@@ -414,6 +414,10 @@
   "categoryPrefix": {
     "message": "Categoría"
   },
+  "noTabsEnabled": {
+    "message": "Ninguna pestaña está activada",
+    "description": "Message shown when every saved tab is disabled"
+  },
   "noCategoryTabs": {
     "message": "No hay pestañas en esta categoría"
   },

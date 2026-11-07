@@ -186,6 +186,10 @@
   "categoryPrefix": {
     "message": "Kategori"
   },
+  "noTabsEnabled": {
+    "message": "Tidak ada tab yang aktif",
+    "description": "Message shown when every saved tab is disabled"
+  },
   "noCategoryTabs": {
     "message": "Tidak ada tab dalam kategori ini"
   },

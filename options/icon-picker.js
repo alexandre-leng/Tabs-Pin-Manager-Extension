@@ -193,13 +193,31 @@ const ICON_DATA = {
   ]
 };
 
-// Initialize icon picker functionality
+/**
+ * Recently used icons, kept in localStorage. A corrupted value (older version, manual
+ * edit) must not break the picker: it is dropped instead of throwing.
+ */
+function readRecentIcons() {
+  try {
+    const stored = JSON.parse(localStorage.getItem('recentIcons') || '[]');
+    return Array.isArray(stored) ? stored.filter(icon => typeof icon === 'string') : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeRecentIcons(icons) {
+  try {
+    localStorage.setItem('recentIcons', JSON.stringify(icons));
+  } catch {
+    // Storage disabled or full: the recent list is a convenience, not saved data
+  }
+}
 
 export const iconPicker = {
   initIconData() {
     // Load recent icons from storage
-    const recentIcons = JSON.parse(localStorage.getItem('recentIcons') || '[]');
-    ICON_DATA.recent = recentIcons.slice(0, 16).map(icon => ({ icon, keywords: [] }));
+    ICON_DATA.recent = readRecentIcons().slice(0, 16).map(icon => ({ icon, keywords: [] }));
   },
 
   openIconPicker() {
@@ -330,7 +348,7 @@ export const iconPicker = {
   },
 
   addToRecentIcons(icon) {
-    let recentIcons = JSON.parse(localStorage.getItem('recentIcons') || '[]');
+    let recentIcons = readRecentIcons();
     
     // Remove if already exists
     recentIcons = recentIcons.filter(i => i !== icon);
@@ -341,8 +359,7 @@ export const iconPicker = {
     // Limit to 16 icons
     recentIcons = recentIcons.slice(0, 16);
     
-    // Save to localStorage
-    localStorage.setItem('recentIcons', JSON.stringify(recentIcons));
+    writeRecentIcons(recentIcons);
     
     // Update in memory
     ICON_DATA.recent = recentIcons.map(recent => ({ icon: recent, keywords: [] }));

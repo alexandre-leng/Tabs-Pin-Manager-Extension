@@ -287,7 +287,7 @@ export class PopupManager {
     this.updatePinButtonState();
     
     // Show categories if there are any
-    if (this.tabs.length > 0) {
+    if (this.enabledTabs.length > 0) {
       this.renderCategories();
       if (this.elements.categoriesSection) {
         this.elements.categoriesSection.style.display = 'block';
@@ -318,12 +318,19 @@ export class PopupManager {
   updateTabCount() {
     const openCount = this.enabledTabs.length;
     if (this.elements.tabCount) {
-      this.elements.tabCount.textContent = this.tabs.length;
+      // The badge belongs to "Open N tabs": it must count the same tabs
+      this.elements.tabCount.textContent = openCount;
     }
     
     // Update button text with proper internationalization and grammar
     if (this.elements.openAllBtn) {
       const btnText = this.elements.openAllBtn.querySelector('.btn-text');
+      // "Open 0 tabs" would be meaningless: the button says why it does nothing
+      this.elements.openAllBtn.disabled = openCount === 0;
+      if (btnText && openCount === 0) {
+        btnText.textContent = browser.i18n.getMessage('noTabsEnabled');
+        return;
+      }
       if (btnText) {
         let buttonMessage;
         if (openCount === 1) {

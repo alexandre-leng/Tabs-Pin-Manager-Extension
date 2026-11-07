@@ -44,6 +44,8 @@ export const categoryList = {
     });
     
     sortedTabs.forEach(tab => {
+      // Disabled tabs are not opened by a click on the category: do not count them
+      if (tab.enabled === false) return;
       const categoryId = tab.category || 'uncategorized';
       if (!groups[categoryId]) {
         groups[categoryId] = [];

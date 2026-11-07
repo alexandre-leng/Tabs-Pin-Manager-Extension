@@ -186,6 +186,10 @@
   "categoryPrefix": {
     "message": "Категория"
   },
+  "noTabsEnabled": {
+    "message": "Ни одна вкладка не включена",
+    "description": "Message shown when every saved tab is disabled"
+  },
   "noCategoryTabs": {
     "message": "В этой категории нет вкладок"
   },

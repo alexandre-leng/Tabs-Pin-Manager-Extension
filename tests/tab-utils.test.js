@@ -67,6 +67,19 @@ describe('URL keys', () => {
     expect(savedAddressKey('https://shop.com/item?sku=1&utm_source=x')).toBe(savedAddressKey('https://shop.com/item/?sku=1'));
   });
 
+  test('savedAddressKey keeps the case of the path and of the query values', () => {
+    // /Docs and /docs, ?q=Foo and ?q=foo are different pages: saving one must not block the other
+    expect(savedAddressKey('https://example.com/Docs')).not.toBe(savedAddressKey('https://example.com/docs'));
+    expect(savedAddressKey('https://example.com/s?q=Foo')).not.toBe(savedAddressKey('https://example.com/s?q=foo'));
+    // the host stays case-insensitive
+    expect(savedAddressKey('https://Example.COM/a')).toBe(savedAddressKey('https://example.com/a'));
+  });
+
+  test('normalizeUrl keeps repeated parameters apart', () => {
+    expect(normalizeUrl('https://example.com/x?id=a&id=b'))
+      .not.toBe(normalizeUrl('https://example.com/x?id=b'));
+  });
+
   test('matchKey ignores the scheme and www', () => {
     expect(matchKey('http://a.com/x')).toBe(matchKey('https://www.a.com/x'));
   });

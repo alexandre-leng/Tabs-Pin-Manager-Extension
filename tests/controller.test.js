@@ -48,6 +48,20 @@ test('reports errors instead of throwing', async () => {
     .toEqual({ success: false, error: 'Unknown action' });
 });
 
+test('ignores the actions inherited from Object', async () => {
+  const background = await startedBackground();
+  for (const action of ['constructor', 'toString', '__proto__']) {
+    expect(await background.handleMessage({ action })).toEqual({ success: false, error: 'Unknown action' });
+  }
+});
+
+test('says no tabs configured when every tab is disabled', async () => {
+  fake.store.pinnedTabs = [{ id: 'a', url: 'https://a.com/', category: 'work', enabled: false }];
+  const background = await startedBackground();
+  expect(await background.handleMessage({ action: 'openAllTabs' }))
+    .toEqual({ success: false, error: 'No tabs configured' });
+});
+
 test('rejects a second open while the first one runs', async () => {
   const background = await startedBackground();
   let release;

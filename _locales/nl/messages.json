@@ -422,6 +422,10 @@
   "categoryPrefix": {
     "message": "Categorie"
   },
+  "noTabsEnabled": {
+    "message": "Geen enkel tabblad is ingeschakeld",
+    "description": "Message shown when every saved tab is disabled"
+  },
   "noCategoryTabs": {
     "message": "Geen tabbladen in deze categorie"
   },

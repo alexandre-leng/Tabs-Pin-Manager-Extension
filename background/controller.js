@@ -85,7 +85,11 @@ export class TabsPinBackground {
 
   /** Runs the handler of `request.action`; never rejects. */
   async handleMessage(request) {
-    const handler = this.handlers[request && request.action];
+    const action = request && request.action;
+    // Own properties only: "constructor" or "toString" must not reach a handler
+    const handler = typeof action === 'string' && Object.hasOwn(this.handlers, action)
+      ? this.handlers[action]
+      : null;
     if (!handler) {
       console.warn('Unknown action:', request && request.action);
       return { success: false, error: 'Unknown action' };
@@ -114,10 +118,12 @@ export class TabsPinBackground {
   }
 
   async openAllTabs(windowId) {
-    if (this.store.tabs.length === 0) {
+    const configs = this.store.enabledTabs();
+    // Every tab disabled is not "already open": the popup says so separately
+    if (configs.length === 0) {
       throw new Error('No tabs configured');
     }
-    const result = await this.tabActions.openTabs(this.store.enabledTabs(), windowId);
+    const result = await this.tabActions.openTabs(configs, windowId);
     await this.store.recordLastOpened();
     return result;
   }

@@ -166,6 +166,21 @@ test('shows markup typed in a category name as text', async ({ openPage, seed })
   expect(await options.evaluate(() => window.__xss)).toBeUndefined();
 });
 
+test('opens the icon picker even when the recent icons are corrupted', async ({ openPage, seed }) => {
+  await seed({ tabs: [] });
+  const options = await openPage('options/options.html');
+  // A value left by an older version, or edited by hand
+  await options.evaluate(() => localStorage.setItem('recentIcons', '{broken'));
+
+  await options.locator('.category-item').first().click();
+  await options.locator('#iconSelectorBtn').click();
+  await expect(options.locator('#iconPickerOverlay')).toHaveClass(/show/);
+
+  const firstIcon = await options.locator('#iconGrid .icon-item').first().textContent();
+  await options.locator('#iconGrid .icon-item').first().click();
+  await expect(options.locator('#selectedIcon')).toHaveText(firstIcon);
+});
+
 test('wraps a very long category name inside its card', async ({ openPage, seed }) => {
   await seed({ tabs: [] });
   const options = await openPage('options/options.html');

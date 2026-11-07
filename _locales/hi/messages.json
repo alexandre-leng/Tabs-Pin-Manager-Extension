@@ -186,6 +186,10 @@
   "categoryPrefix": {
     "message": "श्रेणी"
   },
+  "noTabsEnabled": {
+    "message": "कोई टैब सक्षम नहीं है",
+    "description": "Message shown when every saved tab is disabled"
+  },
   "noCategoryTabs": {
     "message": "इस श्रेणी में कोई टैब नहीं"
   },

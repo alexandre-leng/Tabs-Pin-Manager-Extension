@@ -420,6 +420,10 @@
   "categoryPrefix": {
     "message": "Category"
   },
+  "noTabsEnabled": {
+    "message": "No tab is enabled",
+    "description": "Message shown when every saved tab is disabled"
+  },
   "noCategoryTabs": {
     "message": "No tabs in this category"
   },

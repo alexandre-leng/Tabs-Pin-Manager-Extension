@@ -414,6 +414,10 @@
   "categoryPrefix": {
     "message": "Catégorie"
   },
+  "noTabsEnabled": {
+    "message": "Aucun onglet n'est activé",
+    "description": "Message shown when every saved tab is disabled"
+  },
   "noCategoryTabs": {
     "message": "Aucun onglet dans cette catégorie"
   },

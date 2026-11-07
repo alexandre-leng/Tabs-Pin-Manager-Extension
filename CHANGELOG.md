@@ -7,6 +7,17 @@ All notable changes to this project will be documented in this file. The format 
 Every entry is written in English: the release notes published from this file are read by users of
 both stores, whatever their language. The rules are in [`docs/versioning.md`](docs/versioning.md).
 
+## [Unreleased]
+
+### 🛠️ Fixes
+- **Different pages refused as duplicates**: `example.com/Docs` blocked `example.com/docs`, and `?q=Foo` blocked `?q=foo`, although they are different pages on most servers. The host is still compared case-insensitively; the path and the query values no longer are.
+- **Repeated parameters ignored**: a page such as `?id=a&id=b` was taken for `?id=b`, so a saved tab could be reported as already open and never opened. Every value is kept now.
+- **Popup counts**: the badge on "Open all" counted every saved tab while the label counted only the enabled ones ("3" next to "Open 2 tabs"), and a category card counted tabs its click would not open. Every count now matches what the action does.
+- **Every tab disabled**: the popup said "All tabs are already open". The button is now disabled and says "No tab is enabled".
+- **Icon picker**: an unreadable `recentIcons` value in local storage made the picker throw and never open; the value is dropped and rebuilt.
+- **Pin confirmation**: a category deleted in another window made the message say "Unknown" in every language; it falls back to the category ID.
+- **Robustness**: a message action named like an Object property ("constructor", "toString") is rejected as unknown, and the storage health check no longer leaves its test key in the read cache.
+
 ## [1.7.0] - 2026-11-06
 
 ### ✨ New Features
