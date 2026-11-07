@@ -219,16 +219,6 @@
     "message": "Add Category",
     "description": "Button to create a new category"
   },
-  "categoryLimitReached": {
-    "message": "Maximum of $MAX$ categories reached",
-    "description": "Message shown when no more category can be created",
-    "placeholders": {
-      "max": {
-        "content": "$1",
-        "example": "20"
-      }
-    }
-  },
   "editCategory": {
     "message": "Edit Category",
     "description": "Title of category edit modal"

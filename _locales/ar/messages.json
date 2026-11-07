@@ -236,15 +236,6 @@
   "addCategory": {
     "message": "إضافة فئة"
   },
-  "categoryLimitReached": {
-    "message": "تم الوصول إلى الحد الأقصى وهو $MAX$ فئات",
-    "placeholders": {
-      "max": {
-        "content": "$1",
-        "example": "20"
-      }
-    }
-  },
   "editCategory": {
     "message": "تحرير الفئة"
   },

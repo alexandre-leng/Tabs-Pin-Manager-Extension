@@ -218,15 +218,6 @@
   "addCategory": {
     "message": "Ajouter une Catégorie"
   },
-  "categoryLimitReached": {
-    "message": "Maximum de $MAX$ catégories atteint",
-    "placeholders": {
-      "max": {
-        "content": "$1",
-        "example": "20"
-      }
-    }
-  },
   "editCategory": {
     "message": "Modifier la Catégorie",
     "description": "Titre du modal d'édition de catégorie"

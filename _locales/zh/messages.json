@@ -236,15 +236,6 @@
   "addCategory": {
     "message": "添加类别"
   },
-  "categoryLimitReached": {
-    "message": "已达到 $MAX$ 个类别的上限",
-    "placeholders": {
-      "max": {
-        "content": "$1",
-        "example": "20"
-      }
-    }
-  },
   "editCategory": {
     "message": "编辑类别"
   },

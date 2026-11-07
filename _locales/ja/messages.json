@@ -236,15 +236,6 @@
   "addCategory": {
     "message": "カテゴリを追加"
   },
-  "categoryLimitReached": {
-    "message": "カテゴリの上限（$MAX$ 件）に達しました",
-    "placeholders": {
-      "max": {
-        "content": "$1",
-        "example": "20"
-      }
-    }
-  },
   "editCategory": {
     "message": "カテゴリを編集"
   },

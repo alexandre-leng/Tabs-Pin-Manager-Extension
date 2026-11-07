@@ -41,7 +41,6 @@ export class OptionsManager {
       addTabBtn: document.getElementById('addTabBtn'),
       addFirstTabBtn: document.getElementById('addFirstTabBtn'),
       addCategoryBtn: document.getElementById('addCategoryBtn'),
-      categoryLimitHint: document.getElementById('categoryLimitHint'),
       deleteCategoryBtn: document.getElementById('deleteCategoryBtn'),
       resetCategoriesBtn: document.getElementById('resetCategoriesBtn'),
       exportBtn: document.getElementById('exportBtn'),
@@ -278,7 +277,6 @@ export class OptionsManager {
       this.elements.categoriesGrid.appendChild(categoryCard);
     });
 
-    this.updateAddCategoryButton();
   }
 
   createCategoryCard(category) {

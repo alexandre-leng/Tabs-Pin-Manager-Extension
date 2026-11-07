@@ -46,11 +46,11 @@ for (const scheme of ['light', 'dark']) {
       await expectNoViolations(await open(openPage, 'welcome/welcome.html'));
     });
 
-    test('options page at the category limit', async ({ openPage, seed }) => {
-      const categories = Array.from({ length: 20 }, (_, i) => ({ id: `cat${i}`, name: `Category ${i}`, icon: '📁' }));
+    test('options page with many categories', async ({ openPage, seed }) => {
+      const categories = Array.from({ length: 40 }, (_, i) => ({ id: `cat${i}`, name: `Category ${i}`, icon: '📁' }));
       await seed({ tabs: sampleTabs(2), categories });
       const page = await open(openPage, 'options/options.html');
-      await expect(page.locator('#categoryLimitHint')).toBeVisible();
+      await expect(page.locator('.category-item')).toHaveCount(40);
       await expectNoViolations(page);
     });
 

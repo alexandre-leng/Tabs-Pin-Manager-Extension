@@ -123,20 +123,23 @@ test('adds a category from the category modal', async ({ openPage, seed }) => {
   await expect(options.locator('#tabCategory option', { hasText: 'Clients 2026' })).toHaveCount(1);
 });
 
-test('stops at 20 categories, and keeps the focus on the last one created', async ({ openPage, seed }) => {
+test('keeps adding categories past 20', async ({ openPage, seed }) => {
   const categories = Array.from({ length: 19 }, (_, i) => ({ id: `cat${i}`, name: `Category ${i}`, icon: '📁' }));
   await seed({ categories });
   const options = await openPage('options/options.html');
 
-  await options.locator('#addCategoryBtn').click();
-  await options.locator('#categoryName').fill('Last One');
-  await options.locator('#saveCategoryBtn').click();
+  for (const name of ['Twenty', 'Twenty One']) {
+    await options.locator('#addCategoryBtn').click();
+    await options.locator('#categoryName').fill(name);
+    await options.locator('#saveCategoryBtn').click();
+    await expect(options.locator('#categoryModalOverlay')).toBeHidden();
+  }
 
-  await expect(options.locator('.category-item')).toHaveCount(20);
-  await expect(options.locator('#addCategoryBtn')).toBeDisabled();
-  await expect(options.locator('#categoryLimitHint')).toHaveText('Maximum of 20 categories reached');
-  // The add button is disabled now: the keyboard lands on the new card instead
-  await expect(options.locator('[data-category-id="last-one"]')).toBeFocused();
+  await expect(options.locator('.category-item')).toHaveCount(21);
+  await expect(options.locator('#addCategoryBtn')).toBeEnabled();
+  // The dialog gives the focus back to the button that opened it
+  await expect(options.locator('#addCategoryBtn')).toBeFocused();
+  expect((await savedData(options)).categories).toHaveLength(21);
 });
 
 test('refuses a name already used, and keeps the IDs distinct', async ({ openPage, seed }) => {
@@ -200,18 +203,16 @@ test('wraps a very long category name inside its card', async ({ openPage, seed 
   expect(overflow.body).toBeLessThanOrEqual(1);
 });
 
-test('resets at the limit, and the tabs of removed categories move to the first one', async ({ openPage, seed }) => {
+test('resets many categories, and the tabs of removed categories move to the first one', async ({ openPage, seed }) => {
   const categories = Array.from({ length: 20 }, (_, i) => ({ id: `cat${i}`, name: `Category ${i}`, icon: '📁' }));
   await seed({ tabs: sampleTabs(3, 'cat3'), categories });
   const options = await openPage('options/options.html');
-  await expect(options.locator('#addCategoryBtn')).toBeDisabled();
 
   options.once('dialog', dialog => dialog.accept());
   await options.locator('#resetCategoriesBtn').click();
 
   await expect(options.locator('.category-item')).toHaveCount(6);
   await expect(options.locator('#addCategoryBtn')).toBeEnabled();
-  await expect(options.locator('#categoryLimitHint')).toBeHidden();
   await expect(options.locator('[data-category-id="work"] .category-count')).toHaveText('3 tabs');
   const { categories: saved, tabs } = await savedData(options);
   expect(saved.map(c => c.id)).toEqual(['work', 'personal', 'development', 'social', 'tools', 'entertainment']);
@@ -352,7 +353,7 @@ test('keeps a backup with more than 20 categories readable and editable', async 
   const options = await openPage('options/options.html');
 
   await expect(options.locator('.category-item')).toHaveCount(25);
-  await expect(options.locator('#addCategoryBtn')).toBeDisabled();
+  await expect(options.locator('#addCategoryBtn')).toBeEnabled();
   await options.locator('.category-item').first().click();
   await options.locator('#categoryName').fill('Renamed');
   await options.locator('#saveCategoryBtn').click();

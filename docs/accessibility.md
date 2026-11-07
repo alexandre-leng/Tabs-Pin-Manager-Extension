@@ -25,7 +25,7 @@ and 2.1 A and AA tags on:
 - the options page;
 - the tab form and the category editor with the icon picker;
 - the popup category picker;
-- the options page at the 20 category limit, where the add button is disabled and the reason shows;
+- the options page with 40 categories, to check a long grid;
 
 each in light and dark themes. A violation fails `npm run test:e2e` and therefore CI.
 

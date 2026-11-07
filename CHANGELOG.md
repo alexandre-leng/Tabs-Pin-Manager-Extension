@@ -9,6 +9,9 @@ both stores, whatever their language. The rules are in [`docs/versioning.md`](do
 
 ## [Unreleased]
 
+### ✨ New Features
+- **No category limit**: the "Add Category" button stays available, so a user is no longer stopped at 20. The grid grows and scrolls, and the limit message, its hint and its translations are gone.
+
 ### 🛠️ Fixes
 - **Different pages refused as duplicates**: `example.com/Docs` blocked `example.com/docs`, and `?q=Foo` blocked `?q=foo`, although they are different pages on most servers. The host is still compared case-insensitively; the path and the query values no longer are.
 - **Repeated parameters ignored**: a page such as `?id=a&id=b` was taken for `?id=b`, so a saved tab could be reported as already open and never opened. Every value is kept now.

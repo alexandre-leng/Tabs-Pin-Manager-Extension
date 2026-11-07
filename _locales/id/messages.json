@@ -236,15 +236,6 @@
   "addCategory": {
     "message": "Tambah Kategori"
   },
-  "categoryLimitReached": {
-    "message": "Batas maksimum $MAX$ kategori telah tercapai",
-    "placeholders": {
-      "max": {
-        "content": "$1",
-        "example": "20"
-      }
-    }
-  },
   "editCategory": {
     "message": "Edit Kategori"
   },

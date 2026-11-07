@@ -236,15 +236,6 @@
   "addCategory": {
     "message": "카테고리 추가"
   },
-  "categoryLimitReached": {
-    "message": "카테고리 최대 $MAX$ 개에 도달했습니다",
-    "placeholders": {
-      "max": {
-        "content": "$1",
-        "example": "20"
-      }
-    }
-  },
   "editCategory": {
     "message": "카테고리 편집"
   },

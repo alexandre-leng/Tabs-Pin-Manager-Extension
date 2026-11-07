@@ -6,7 +6,7 @@
 import { browser } from '../lib/browser-api.js';
 import { UiUtils } from '../lib/ui-utils.js';
 import { getDefaultCategories } from '../lib/default-categories.js';
-import { MAX_CATEGORIES, createCategoryId } from '../lib/category-utils.js';
+import { createCategoryId } from '../lib/category-utils.js';
 
 const DEFAULT_ICON = '📁';
 
@@ -14,10 +14,6 @@ export const categoryEditor = {
   // Category management methods
   /** Opens the editor on an empty category (name and icon). */
   createCategory() {
-    if (this.categories.length >= MAX_CATEGORIES) {
-      this.showToast('warning', '⚠️', browser.i18n.getMessage('categoryLimitReached', [String(MAX_CATEGORIES)]));
-      return;
-    }
     this.openCategoryModal(null);
   },
 
@@ -84,11 +80,6 @@ export const categoryEditor = {
     }
     
     const editing = this.currentEditingCategory;
-    // The limit may have been reached in another window since the dialog opened
-    if (!editing && this.categories.length >= MAX_CATEGORIES) {
-      this.showToast('warning', '⚠️', browser.i18n.getMessage('categoryLimitReached', [String(MAX_CATEGORIES)]));
-      return;
-    }
 
     const created = editing ? null : {
       id: createCategoryId(name, this.categories.map(c => c.id)),
@@ -110,10 +101,6 @@ export const categoryEditor = {
         this.renderTabs();
         this.renderCategories();
         this.closeCategoryModal();
-        // With the last allowed category the add button is now disabled: keep the focus usable
-        if (created && this.elements.addCategoryBtn?.disabled) {
-          this.elements.categoriesGrid?.querySelector(`[data-category-id="${CSS.escape(created.id)}"]`)?.focus();
-        }
         this.showToast('success', '✅', browser.i18n.getMessage('categorySaved'));
       } else {
         throw new Error(response?.error || browser.i18n.getMessage('failedToSaveCategory'));
@@ -181,24 +168,6 @@ export const categoryEditor = {
     const cards = this.elements.categoriesGrid?.querySelectorAll('.category-item') ?? [];
     const card = cards[Math.min(index, cards.length - 1)];
     (card || this.elements.addCategoryBtn)?.focus();
-  },
-
-  /** Disables the add button, with the reason on screen, once the limit is reached. */
-  updateAddCategoryButton() {
-    const button = this.elements.addCategoryBtn;
-    if (!button) return;
-
-    const atLimit = this.categories.length >= MAX_CATEGORIES;
-    const reason = atLimit
-      ? browser.i18n.getMessage('categoryLimitReached', [String(MAX_CATEGORIES)])
-      : '';
-
-    button.disabled = atLimit;
-    button.title = reason;
-    if (this.elements.categoryLimitHint) {
-      this.elements.categoryLimitHint.textContent = reason;
-      this.elements.categoryLimitHint.hidden = !atLimit;
-    }
   },
 
   async resetCategories() {

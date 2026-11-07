@@ -2,7 +2,7 @@
  * User-created categories: readable IDs and the interface limit.
  */
 
-import { MAX_CATEGORIES, createCategoryId } from '../lib/category-utils.js';
+import { createCategoryId } from '../lib/category-utils.js';
 
 describe('createCategoryId', () => {
   test('builds a readable slug from the name', () => {
@@ -25,6 +25,5 @@ describe('createCategoryId', () => {
   test('keeps the ID short and inside the 20 category limit', () => {
     expect(createCategoryId('a'.repeat(100), [])).toHaveLength(40);
     expect(createCategoryId('Clients '.repeat(10), [])).not.toMatch(/-$/);
-    expect(MAX_CATEGORIES).toBe(20);
-  });
+    });
 });

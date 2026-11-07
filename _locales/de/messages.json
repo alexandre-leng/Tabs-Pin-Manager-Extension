@@ -214,15 +214,6 @@
   "addCategory": {
     "message": "Kategorie Hinzufügen"
   },
-  "categoryLimitReached": {
-    "message": "Maximal $MAX$ Kategorien erreicht",
-    "placeholders": {
-      "max": {
-        "content": "$1",
-        "example": "20"
-      }
-    }
-  },
   "editCategory": {
     "message": "Kategorie Bearbeiten",
     "description": "Titel des Kategorie-Bearbeitungsmodals"

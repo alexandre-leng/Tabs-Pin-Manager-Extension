@@ -236,15 +236,6 @@
   "addCategory": {
     "message": "श्रेणी जोड़ें"
   },
-  "categoryLimitReached": {
-    "message": "अधिकतम $MAX$ श्रेणियों की सीमा पूरी हो गई",
-    "placeholders": {
-      "max": {
-        "content": "$1",
-        "example": "20"
-      }
-    }
-  },
   "editCategory": {
     "message": "श्रेणी संपादित करें"
   },

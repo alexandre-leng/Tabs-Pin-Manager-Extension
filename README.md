@@ -36,7 +36,7 @@ in one click, pinned and without duplicates. Manifest V3, 100% local storage, no
 - **Pin the current tab** from the popup, into the category of your choice.
 - **First run**: a short page explains in three steps what the extension does; open it again
   from the "?" in the popup header or the "How it works" link in the options footer.
-- **Categories**: add your own (up to 20), rename or delete them and pick an emoji icon;
+- **Categories**: add as many as you need, rename or delete them and pick an emoji icon;
   close all pinned tabs of a category at once (with confirmation). Tabs of a removed
   category move to the first one, and the last category cannot be deleted.
 - **Reorder** tabs by drag and drop, or with the ↑ / ↓ buttons (keyboard friendly).

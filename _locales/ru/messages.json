@@ -236,15 +236,6 @@
   "addCategory": {
     "message": "Добавить категорию"
   },
-  "categoryLimitReached": {
-    "message": "Достигнут максимум из $MAX$ категорий",
-    "placeholders": {
-      "max": {
-        "content": "$1",
-        "example": "20"
-      }
-    }
-  },
   "editCategory": {
     "message": "Редактировать категорию"
   },

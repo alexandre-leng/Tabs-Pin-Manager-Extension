@@ -35,7 +35,7 @@ written.
 
 ## Limits
 
-- The interface caps categories at 20. An imported backup may hold more: it stays readable, and its
-  categories stay editable, but the add button stays disabled.
+- There is no cap on categories: a backup holding any number imports, stays readable and stays
+  editable, and new categories can always be added.
 - The same address cannot be saved twice. Duplicates saved by older versions stay editable.
 - A tab keeps its `enabled` flag: a disabled tab is not opened by "Open all".

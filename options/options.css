@@ -232,13 +232,6 @@ body {
 }
 
 /* Reason shown under a section header when its list cannot grow any further */
-.section-hint {
-  margin: calc(-1 * var(--spacing-sm)) 0 var(--spacing-lg);
-  color: var(--text-secondary);
-  font-size: var(--font-size-small);
-  font-weight: 500;
-}
-
 .section-title {
   display: flex;
   align-items: center;

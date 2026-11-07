@@ -214,15 +214,6 @@
   "addCategory": {
     "message": "Categorie Toevoegen"
   },
-  "categoryLimitReached": {
-    "message": "Maximaal $MAX$ categorieën bereikt",
-    "placeholders": {
-      "max": {
-        "content": "$1",
-        "example": "20"
-      }
-    }
-  },
   "editCategory": {
     "message": "Categorie Bewerken",
     "description": "Titel van categorie bewerk modal"

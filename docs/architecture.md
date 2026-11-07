@@ -12,7 +12,7 @@ extension into `build/<browser>/` with the browser-specific manifest (`scripts/p
 | Popup | `popup/main.js` | `popup.js` (`PopupManager`), `category-list.js`, `category-order.js`, `category-selection.js`, `tab-actions.js` |
 | Options page | `options/main.js` | `options.js` (`OptionsManager`), `tab-cards.js`, `tab-editor.js`, `tab-ordering.js`, `category-editor.js`, `icon-picker.js`, `import-export.js` |
 | Welcome page | `welcome/welcome.js` | none: `I18nHelper` only. Opened once on install, and again from the popup and the options footer |
-| Shared | `lib/` | `browser-api.js`, `storage-manager.js`, `url-utils.js`, `tab-utils.js`, `domain-utils.js`, `punycode.js` (display of international domains), `category-utils.js` (category IDs and the limit), `ui-utils.js`, `i18n-helper.js`, `default-categories.js`, `mixins.js` |
+| Shared | `lib/` | `browser-api.js`, `storage-manager.js`, `url-utils.js`, `tab-utils.js`, `domain-utils.js`, `punycode.js` (display of international domains), `category-utils.js` (category IDs), `ui-utils.js`, `i18n-helper.js`, `default-categories.js`, `mixins.js` |
 
 ## The background script owns the data
 
@@ -33,8 +33,8 @@ leaves the in-memory state untouched.
   install; `migrate()` translates them once on update, tracked by `settings.categoriesLocalized`,
   fills missing tab fields and moves tabs of unknown categories to the first one.
 - Category IDs created by the user are readable slugs (`clients-2026`), made unique against the
-  existing ones (`lib/category-utils.js`). The 20 category cap is enforced by the interface only, so
-  a backup holding more stays readable and editable.
+  existing ones (`lib/category-utils.js`). There is no cap: the grid scrolls, and a backup holding
+  any number of categories imports and stays editable.
 - Deleting a category moves its tabs to the first remaining one, the same rule as a reset or an
   import. The last category cannot be deleted.
 
