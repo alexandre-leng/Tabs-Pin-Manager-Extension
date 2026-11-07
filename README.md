@@ -15,6 +15,10 @@
 Save the sites you always keep pinned, sort them into categories, and reopen them all
 in one click, pinned and without duplicates. Manifest V3, 100% local storage, no account, no tracking.
 
+<p align="center">
+  <img src="docs/images/options-page.png" alt="The Tabs Pin options page: saved tabs on top, categories below" width="800">
+</p>
+
 ## Contents
 
 - [Features](#features)
