@@ -7,7 +7,9 @@ All notable changes to this project will be documented in this file. The format 
 Every entry is written in English: the release notes published from this file are read by users of
 both stores, whatever their language. The rules are in [`docs/versioning.md`](docs/versioning.md).
 
-## [Unreleased]
+## [1.8.0] - 2026-11-07
+
+No more category limit, and the addresses you save are compared exactly.
 
 ### ✨ New Features
 - **No category limit**: the "Add Category" button stays available, so a user is no longer stopped at 20. The grid grows and scrolls, and the limit message, its hint and its translations are gone.

@@ -11,7 +11,7 @@
   "categories": [{ "id": "work", "name": "Work", "icon": "💼" }],
   "settings": { "lastOpened": "2026-01-01T00:00:00.000Z", "categoriesLocalized": true },
   "exportDate": "…",
-  "version": "1.7.0"
+  "version": "1.8.0"
 }
 ```
 
